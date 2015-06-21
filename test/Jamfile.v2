@@ -34,6 +34,7 @@ run mp_count_if.cpp : : : $(REQ) ;
 run mp_contains.cpp : : : $(REQ) ;
 run mp_repeat.cpp : : : $(REQ) ;
 run mp_product.cpp : : : $(REQ) ;
+run mp_drop.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

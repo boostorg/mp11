@@ -10,6 +10,7 @@
 
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
@@ -199,7 +200,6 @@ template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_
 template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, N>::type;
 
 // mp_product<F, L...>
-
 namespace detail
 {
 
@@ -227,6 +227,26 @@ template<template<class...> class F, class L1, class... L> struct mp_product_imp
 template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
 
 // mp_drop(_c)<L, N>
+namespace detail
+{
+
+template<class L, class L2> struct mp_drop_impl;
+
+template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>>
+{
+    template<class... W> static mp_identity<L<W...>> f( U*..., mp_identity<W>*... );
+
+    using R = decltype( f( (mp_identity<T>*)0 ... ) );
+
+    using type = typename R::type;
+};
+
+} // namespace detail
+
+template<class L, std::size_t N> using mp_drop_c = typename detail::mp_drop_impl<L, mp_repeat_c<mp_list<void>, N>>::type;
+
+template<class L, class N> using mp_drop = typename detail::mp_drop_impl<L, mp_repeat<mp_list<void>, N>>::type;
+
 // mp_take(_c)<L, N>
 // mp_at(_c)<L, I>
 // mp_find<L, V>
