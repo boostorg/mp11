@@ -29,8 +29,8 @@ run mp_assign.cpp : : : $(REQ) ;
 run mp_clear.cpp : : : $(REQ) ;
 run mp_transform.cpp : : : $(REQ) ;
 run mp_fill.cpp : : : $(REQ) ;
-#run mp_count.cpp : : : $(REQ) ;
-#run mp_count_if.cpp : : : $(REQ) ;
+run mp_count.cpp : : : $(REQ) ;
+run mp_count_if.cpp : : : $(REQ) ;
 #run mp_contains.cpp : : : $(REQ) ;
 run mp_repeat.cpp : : : $(REQ) ;
 
