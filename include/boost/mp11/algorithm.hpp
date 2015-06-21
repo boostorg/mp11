@@ -198,8 +198,37 @@ template<class L, class N> struct mp_repeat_impl
 template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_c_impl<L, N>::type;
 template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, N>::type;
 
-// mp_drop<L, N>
-// mp_take<L, N>
+// mp_product<F, L...>
+
+namespace detail
+{
+
+template<template<class...> class F, class P, class... L> struct mp_product_impl_2;
+
+template<template<class...> class F, class P> struct mp_product_impl_2<F, P>
+{
+    using type = mp_list<mp_rename<P, F>>;
+};
+
+template<template<class...> class F, class P, template<class...> class L1, class... T1, class... L> struct mp_product_impl_2<F, P, L1<T1...>, L...>
+{
+    using type = mp_append<typename mp_product_impl_2<F, mp_push_back<P, T1>, L...>::type...>;
+};
+
+template<template<class...> class F, class... L> struct mp_product_impl;
+
+template<template<class...> class F, class L1, class... L> struct mp_product_impl<F, L1, L...>
+{
+    using type = mp_assign<L1, typename mp_product_impl_2<F, mp_list<>, L1, L...>::type>;
+};
+
+} // namespace detail
+
+template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
+
+// mp_drop(_c)<L, N>
+// mp_take(_c)<L, N>
+// mp_at(_c)<L, I>
 // mp_find<L, V>
 // mp_find_if<L, P>
 // mp_find_index<L, V>
@@ -207,7 +236,6 @@ template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, 
 // mp_reverse<L>
 // mp_copy_if<L, P>
 // mp_remove_if<L, P>
-// mp_product<L...>?
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
 // mp_replace<L, V1, V2>?
