@@ -43,3 +43,6 @@ run mp_identity.cpp : : : $(REQ) ;
 run mp_inherit.cpp : : : $(REQ) ;
 run mp_if.cpp : : : $(REQ) ;
 run mp_eval_if.cpp : : : $(REQ) ;
+
+# integer_sequence
+run integer_sequence.cpp : : : $(REQ) ;
