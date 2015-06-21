@@ -11,6 +11,9 @@ import ../../config/checks/config : requires ;
 
 REQ = ; #[ requires cxx11_variadic_templates cxx11_template_aliases cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
 
+# include-only
+compile mp11.cpp : : : $(REQ) ;
+
 # list
 run mp_size.cpp : : : $(REQ) ;
 run mp_empty.cpp : : : $(REQ) ;
@@ -24,12 +27,13 @@ run mp_rename.cpp : : : $(REQ) ;
 run mp_append.cpp : : : $(REQ) ;
 run mp_assign.cpp : : : $(REQ) ;
 run mp_clear.cpp : : : $(REQ) ;
-#run mp_transform.cpp : : : $(REQ) ;
+run mp_transform.cpp : : : $(REQ) ;
 run mp_fill.cpp : : : $(REQ) ;
-#run mp_count.cpp : : : $(REQ) ;
-#run mp_count_if.cpp : : : $(REQ) ;
-#run mp_contains.cpp : : : $(REQ) ;
+run mp_count.cpp : : : $(REQ) ;
+run mp_count_if.cpp : : : $(REQ) ;
+run mp_contains.cpp : : : $(REQ) ;
 run mp_repeat.cpp : : : $(REQ) ;
+run mp_product.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

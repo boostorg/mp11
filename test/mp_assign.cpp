@@ -8,6 +8,7 @@
 
 
 #include <boost/core/lightweight_test_trait.hpp>
+#include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <type_traits>
 #include <tuple>
