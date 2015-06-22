@@ -12,6 +12,8 @@
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
+#include <boost/mp11/detail/mp_map_find.hpp>
+#include <boost/integer_sequence.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <type_traits>
@@ -247,8 +249,66 @@ template<class L, std::size_t N> using mp_drop_c = typename detail::mp_drop_impl
 
 template<class L, class N> using mp_drop = typename detail::mp_drop_impl<L, mp_repeat<mp_list<void>, N>>::type;
 
-// mp_take(_c)<L, N>
+// mp_iota(_c)<N>
+namespace detail
+{
+
+template<class S> struct mp_from_sequence_impl;
+
+template<template<class T, T... I> class S, class U, U... J> struct mp_from_sequence_impl<S<U, J...>>
+{
+    using type = mp_list<std::integral_constant<U, J>...>;
+};
+
+template<class S> using mp_from_sequence = typename mp_from_sequence_impl<S>::type;
+
+} // namespace detail
+
+template<std::size_t N> using mp_iota_c = detail::mp_from_sequence<make_index_sequence<N>>;
+template<class N> using mp_iota = detail::mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>>;
+
 // mp_at(_c)<L, I>
+namespace detail
+{
+
+template<class L, class I> struct mp_at_impl
+{
+    static_assert( I::value >= 0, "mp_at<L, I>: I must not be negative" );
+
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
+
+    using type = mp_second<mp_map_find<_map, mp_size_t<I::value>>>;
+};
+
+} // namespace detail
+
+template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_impl<L, mp_size_t<I>>::type;
+
+template<class L, class I> using mp_at = typename detail::mp_at_impl<L, I>::type;
+
+// mp_take(_c)<L, N>
+namespace detail
+{
+
+template<class L, class N> struct mp_take_impl
+{
+    static_assert( N::value >= 0, "mp_take<L, N>: N must not be negative" );
+
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
+
+    template<class I> using _f = mp_second<mp_map_find<_map, I>>;
+
+    using _ind = mp_iota_c<N::value>;
+
+    using type = mp_assign<L, mp_transform<_f, _ind>>;
+};
+
+} // namespace detail
+
+template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_impl<L, mp_size_t<N>>::type;
+
+template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
+
 // mp_find<L, V>
 // mp_find_if<L, P>
 // mp_find_index<L, V>
