@@ -38,6 +38,8 @@ run mp_drop.cpp : : : $(REQ) ;
 run mp_iota.cpp : : : $(REQ) ;
 run mp_at.cpp : : : $(REQ) ;
 run mp_take.cpp : : : $(REQ) ;
+run mp_replace.cpp : : : $(REQ) ;
+run mp_replace_if.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

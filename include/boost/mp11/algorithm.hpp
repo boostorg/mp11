@@ -309,6 +309,51 @@ template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_impl
 
 template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
 
+// mp_replace<L, V, W>
+namespace detail
+{
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<class L, class V, class W> struct mp_replace_impl;
+
+template<template<class...> class L, class... T, class V, class W> struct mp_replace_impl<L<T...>, V, W>
+{
+    template<class A> struct _f { using type = mp_if<std::is_same<A, V>, W, A>; };
+
+    using type = L<typename _f<T>::type...>;
+};
+
+#else
+
+template<class L, class V, class W> struct mp_replace_impl
+{
+    template<class A> using _f = mp_if<std::is_same<A, V>, W, A>;
+
+    using type = mp_transform<_f, L>;
+};
+
+#endif
+
+} // namespace detail
+
+template<class L, class V, class W> using mp_replace = typename detail::mp_replace_impl<L, V, W>::type;
+
+// mp_replace_if<L, P, W>
+namespace detail
+{
+
+template<class L, template<class...> class P, class W> struct mp_replace_if_impl
+{
+    template<class T> using _f = mp_if<P<T>, W, T>;
+
+    using type = mp_transform<_f, L>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
+
 // mp_find<L, V>
 // mp_find_if<L, P>
 // mp_find_index<L, V>
@@ -318,8 +363,6 @@ template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::
 // mp_remove_if<L, P>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
-// mp_replace<L, V1, V2>?
-// mp_replace_if<L, P, V2>?
 // mp_partition<L, P>
 // mp_sort<L>
 
