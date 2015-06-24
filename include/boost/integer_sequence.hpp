@@ -49,6 +49,8 @@ template<class T, T N> struct make_integer_sequence_impl_
 {
 private:
 
+    static_assert( N >= 0, "make_integer_sequence<T, N>: N must not be negative" );
+
     static T const M = N / 2;
     static T const R = N % 2;
 

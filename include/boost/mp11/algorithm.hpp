@@ -10,7 +10,10 @@
 
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
+#include <boost/mp11/detail/mp_map_find.hpp>
+#include <boost/integer_sequence.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <type_traits>
@@ -199,7 +202,6 @@ template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_
 template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, N>::type;
 
 // mp_product<F, L...>
-
 namespace detail
 {
 
@@ -227,8 +229,131 @@ template<template<class...> class F, class L1, class... L> struct mp_product_imp
 template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
 
 // mp_drop(_c)<L, N>
-// mp_take(_c)<L, N>
+namespace detail
+{
+
+template<class L, class L2> struct mp_drop_impl;
+
+template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>>
+{
+    template<class... W> static mp_identity<L<W...>> f( U*..., mp_identity<W>*... );
+
+    using R = decltype( f( (mp_identity<T>*)0 ... ) );
+
+    using type = typename R::type;
+};
+
+} // namespace detail
+
+template<class L, std::size_t N> using mp_drop_c = typename detail::mp_drop_impl<L, mp_repeat_c<mp_list<void>, N>>::type;
+
+template<class L, class N> using mp_drop = typename detail::mp_drop_impl<L, mp_repeat<mp_list<void>, N>>::type;
+
+// mp_iota(_c)<N>
+namespace detail
+{
+
+template<class S> struct mp_from_sequence_impl;
+
+template<template<class T, T... I> class S, class U, U... J> struct mp_from_sequence_impl<S<U, J...>>
+{
+    using type = mp_list<std::integral_constant<U, J>...>;
+};
+
+template<class S> using mp_from_sequence = typename mp_from_sequence_impl<S>::type;
+
+} // namespace detail
+
+template<std::size_t N> using mp_iota_c = detail::mp_from_sequence<make_index_sequence<N>>;
+template<class N> using mp_iota = detail::mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>>;
+
 // mp_at(_c)<L, I>
+namespace detail
+{
+
+template<class L, class I> struct mp_at_impl
+{
+    static_assert( I::value >= 0, "mp_at<L, I>: I must not be negative" );
+
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
+
+    using type = mp_second<mp_map_find<_map, mp_size_t<I::value>>>;
+};
+
+} // namespace detail
+
+template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_impl<L, mp_size_t<I>>::type;
+
+template<class L, class I> using mp_at = typename detail::mp_at_impl<L, I>::type;
+
+// mp_take(_c)<L, N>
+namespace detail
+{
+
+template<class L, class N> struct mp_take_impl
+{
+    static_assert( N::value >= 0, "mp_take<L, N>: N must not be negative" );
+
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
+
+    template<class I> using _f = mp_second<mp_map_find<_map, I>>;
+
+    using _ind = mp_iota_c<N::value>;
+
+    using type = mp_assign<L, mp_transform<_f, _ind>>;
+};
+
+} // namespace detail
+
+template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_impl<L, mp_size_t<N>>::type;
+
+template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
+
+// mp_replace<L, V, W>
+namespace detail
+{
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<class L, class V, class W> struct mp_replace_impl;
+
+template<template<class...> class L, class... T, class V, class W> struct mp_replace_impl<L<T...>, V, W>
+{
+    template<class A> struct _f { using type = mp_if<std::is_same<A, V>, W, A>; };
+
+    using type = L<typename _f<T>::type...>;
+};
+
+#else
+
+template<class L, class V, class W> struct mp_replace_impl
+{
+    template<class A> using _f = mp_if<std::is_same<A, V>, W, A>;
+
+    using type = mp_transform<_f, L>;
+};
+
+#endif
+
+} // namespace detail
+
+template<class L, class V, class W> using mp_replace = typename detail::mp_replace_impl<L, V, W>::type;
+
+// mp_replace_if<L, P, W>
+namespace detail
+{
+
+template<class L, template<class...> class P, class W> struct mp_replace_if_impl
+{
+    template<class T> using _f = mp_if<P<T>, W, T>;
+
+    using type = mp_transform<_f, L>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
+
 // mp_find<L, V>
 // mp_find_if<L, P>
 // mp_find_index<L, V>
@@ -238,8 +363,6 @@ template<template<class...> class F, class... L> using mp_product = typename det
 // mp_remove_if<L, P>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
-// mp_replace<L, V1, V2>?
-// mp_replace_if<L, P, V2>?
 // mp_partition<L, P>
 // mp_sort<L>
 

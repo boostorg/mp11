@@ -9,7 +9,7 @@
 import testing ;
 import ../../config/checks/config : requires ;
 
-REQ = ; #[ requires cxx11_variadic_templates cxx11_template_aliases cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
+REQ = ; #[ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
 
 # include-only
 compile mp11.cpp : : : $(REQ) ;
@@ -34,6 +34,12 @@ run mp_count_if.cpp : : : $(REQ) ;
 run mp_contains.cpp : : : $(REQ) ;
 run mp_repeat.cpp : : : $(REQ) ;
 run mp_product.cpp : : : $(REQ) ;
+run mp_drop.cpp : : : $(REQ) ;
+run mp_iota.cpp : : : $(REQ) ;
+run mp_at.cpp : : : $(REQ) ;
+run mp_take.cpp : : : $(REQ) ;
+run mp_replace.cpp : : : $(REQ) ;
+run mp_replace_if.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;
@@ -46,3 +52,7 @@ run mp_eval_if.cpp : : : $(REQ) ;
 
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;
+
+# tuple_for_each
+run tuple_for_each.cpp : : : $(REQ) ;
+run tuple_for_each_cx.cpp : : : $(REQ) ;
