@@ -354,17 +354,156 @@ template<class L, template<class...> class P, class W> struct mp_replace_if_impl
 
 template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
 
+// mp_copy_if<L, P>
+namespace detail
+{
+
+template<class L, template<class...> class P> struct mp_copy_if_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<>;
+};
+
+#else
+
+template<template<class...> class L, template<class...> class P> struct mp_copy_if_impl<L<>, P>
+{
+    using type = L<>;
+};
+
+#endif
+
+template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_copy_if_impl<L<T1, T...>, P>
+{
+    using rest = typename mp_copy_if_impl<L<T...>, P>::type;
+    using type = mp_if<P<T1>, mp_push_front<rest, T1>, rest>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_copy_if = typename detail::mp_copy_if_impl<L, P>::type;
+
+// mp_remove_if<L, P>
+namespace detail
+{
+
+template<class L, template<class...> class P> struct mp_remove_if_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_remove_if_impl<L<T...>, P>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<>;
+};
+
+#else
+
+template<template<class...> class L, template<class...> class P> struct mp_remove_if_impl<L<>, P>
+{
+    using type = L<>;
+};
+
+#endif
+
+template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_remove_if_impl<L<T1, T...>, P>
+{
+    using rest = typename mp_remove_if_impl<L<T...>, P>::type;
+    using type = mp_if<P<T1>, rest, mp_push_front<rest, T1>>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_remove_if = typename detail::mp_remove_if_impl<L, P>::type;
+
+// mp_partition<L, P>
+namespace detail
+{
+
+template<class L, template<class...> class P> struct mp_partition_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_partition_impl<L<T...>, P>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<L<>, L<>>;
+};
+
+#else
+
+template<template<class...> class L, template<class...> class P> struct mp_partition_impl<L<>, P>
+{
+    using type = L<L<>, L<>>;
+};
+
+#endif
+
+template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_partition_impl<L<T1, T...>, P>
+{
+    using rest = typename mp_partition_impl<L<T...>, P>::type;
+    using type = mp_if<P<T1>, L<mp_push_front<mp_first<rest>, T1>, mp_second<rest>>, L<mp_first<rest>, mp_push_front<mp_second<rest>, T1>>>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_partition = typename detail::mp_partition_impl<L, P>::type;
+
+// mp_sort<L, P>
+namespace detail
+{
+
+template<class L, template<class...> class P> struct mp_sort_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_sort_impl<L<T...>, P>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<>;
+};
+
+#else
+
+template<template<class...> class L, template<class...> class P> struct mp_sort_impl<L<>, P>
+{
+    using type = L<>;
+};
+
+#endif
+
+template<template<class...> class L, class T1, template<class...> class P> struct mp_sort_impl<L<T1>, P>
+{
+    using type = L<T1>;
+};
+
+template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_sort_impl<L<T1, T...>, P>
+{
+    template<class U> using F = P<U, T1>;
+
+    using part = mp_partition<L<T...>, F>;
+
+    using S1 = typename mp_sort_impl<mp_first<part>, P>::type;
+    using S2 = typename mp_sort_impl<mp_second<part>, P>::type;
+
+    using type = mp_append<mp_push_back<S1, T1>, S2>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
+
 // mp_find<L, V>
 // mp_find_if<L, P>
 // mp_find_index<L, V>
 // mp_find_index_if<L, P>
 // mp_reverse<L>
-// mp_copy_if<L, P>
-// mp_remove_if<L, P>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
-// mp_partition<L, P>
-// mp_sort<L>
 
 } // namespace boost
 
