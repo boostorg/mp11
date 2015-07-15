@@ -8,6 +8,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/mp11/integral.hpp>
+
 namespace boost
 {
 
@@ -63,8 +65,30 @@ template<bool C, class T, template<class...> class F, class... U> using mp_eval_
 template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
 
 // mp_valid
+// implementation by Bruno Dutra (by the name is_evaluable)
+namespace detail
+{
+
+template<template<class...> class F, class... T> struct mp_valid_impl
+{
+    template<template<class...> class G, class = G<T...>> static mp_true check(int);
+    template<template<class...> class> static mp_false check(...);
+
+    using type = decltype(check<F>(0));
+};
+
+} // namespace detail
+
+template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<F, T...>::type;
+
 // mp_defer
+template<template<class...> class F, class... T> struct mp_defer
+{
+    using type = F<T...>;
+};
+
 // mp_defer_if_valid
+template<template<class...> class F, class... T> using mp_defer_if_valid = mp_if<mp_valid<F, T...>, mp_defer<F, T...>, mp_inherit<>>;
 
 } // namespace boost
 
