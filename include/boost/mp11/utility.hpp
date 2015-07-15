@@ -20,7 +20,10 @@ template<class T> struct mp_identity
 // mp_inherit
 template<class... T> struct mp_inherit: T... {};
 
-// mp_if
+// mp_if, mp_if_c
+namespace detail
+{
+
 template<bool C, class T, class E> struct mp_if_c_impl;
 
 template<class T, class E> struct mp_if_c_impl<true, T, E>
@@ -33,11 +36,15 @@ template<class T, class E> struct mp_if_c_impl<false, T, E>
     using type = E;
 };
 
-template<bool C, class T, class E> using mp_if_c = typename mp_if_c_impl<C, T, E>::type;
+} // namespace detail
 
-template<class C, class T, class E> using mp_if = typename mp_if_c_impl<static_cast<bool>( C::value ), T, E>::type;
+template<bool C, class T, class E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E>::type;
+template<class C, class T, class E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E>::type;
 
-// mp_eval_if
+// mp_eval_if, mp_eval_if_c
+namespace detail
+{
+
 template<bool C, class T, template<class...> class F, class... U> struct mp_eval_if_c_impl;
 
 template<class T, template<class...> class F, class... U> struct mp_eval_if_c_impl<true, T, F, U...>
@@ -50,9 +57,14 @@ template<class T, template<class...> class F, class... U> struct mp_eval_if_c_im
     using type = F<U...>;
 };
 
-template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename mp_eval_if_c_impl<C, T, F, U...>::type;
+} // namespace detail
 
-template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename mp_eval_if_c_impl<static_cast<bool>( C::value ), T, F, U...>::type;
+template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
+template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
+
+// mp_valid
+// mp_defer
+// mp_defer_if_valid
 
 } // namespace boost
 
