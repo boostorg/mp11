@@ -497,10 +497,127 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 
 template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
 
-// mp_find<L, V>
-// mp_find_if<L, P>
 // mp_find_index<L, V>
+namespace detail
+{
+
+template<class L, class V> struct mp_find_index_impl;
+
+#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+
+template<template<class...> class L, class V> struct mp_find_index_impl<L<>, V>
+{
+    using type = mp_size_t<0>;
+};
+
+constexpr std::size_t cx_find_index( bool const * first, bool const * last )
+{
+    return first == last || *first? 0: 1 + cx_find_index( first + 1, last );
+}
+
+template<template<class...> class L, class... T, class V> struct mp_find_index_impl<L<T...>, V>
+{
+    static constexpr bool _v[] = { std::is_same<T, V>::value... };
+    using type = mp_size_t< cx_find_index( _v, _v + sizeof...(T) ) >;
+};
+
+#else
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, class V> struct mp_find_index_impl<L<T...>, V>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = mp_size_t<0>;
+};
+
+#else
+
+template<template<class...> class L, class V> struct mp_find_index_impl<L<>, V>
+{
+    using type = mp_size_t<0>;
+};
+
+#endif
+
+template<template<class...> class L, class... T, class V> struct mp_find_index_impl<L<V, T...>, V>
+{
+    using type = mp_size_t<0>;
+};
+
+template<template<class...> class L, class T1, class... T, class V> struct mp_find_index_impl<L<T1, T...>, V>
+{
+    using _r = typename mp_find_index_impl<mp_list<T...>, V>::type;
+    using type = mp_size_t<1 + _r::value>;
+};
+
+#endif
+
+} // namespace detail
+
+template<class L, class V> using mp_find_index = typename detail::mp_find_index_impl<L, V>::type;
+
 // mp_find_index_if<L, P>
+namespace detail
+{
+
+template<class L, template<class...> class P> struct mp_find_index_if_impl;
+
+#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+
+template<template<class...> class L, template<class...> class P> struct mp_find_index_if_impl<L<>, P>
+{
+    using type = mp_size_t<0>;
+};
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_find_index_if_impl<L<T...>, P>
+{
+    static constexpr bool _v[] = { P<T>::value... };
+    using type = mp_size_t< cx_find_index( _v, _v + sizeof...(T) ) >;
+};
+
+#else
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_find_index_if_impl<L<T...>, P>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = mp_size_t<0>;
+};
+
+#else
+
+template<template<class...> class L, template<class...> class P> struct mp_find_index_if_impl<L<>, P>
+{
+    using type = mp_size_t<0>;
+};
+
+#endif
+
+template<class L, template<class...> class P> struct mp_find_index_if_impl_2
+{
+    using _r = typename mp_find_index_if_impl<L, P>::type;
+    using type = mp_size_t<1 + _r::value>;
+};
+
+template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_find_index_if_impl<L<T1, T...>, P>
+{
+    using type = typename mp_if<P<T1>, mp_identity<mp_size_t<0>>, mp_find_index_if_impl_2<mp_list<T...>, P>>::type;
+};
+
+#endif
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_find_index_if = typename detail::mp_find_index_if_impl<L, P>::type;
+
+// mp_find<L, V>
+template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
+
+// mp_find_if<L, P>
+template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
+
 // mp_reverse<L>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
