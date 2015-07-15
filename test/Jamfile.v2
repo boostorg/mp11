@@ -46,6 +46,8 @@ run mp_partition.cpp : : : $(REQ) ;
 run mp_sort.cpp : : : $(REQ) ;
 run mp_find_index.cpp : : : $(REQ) ;
 run mp_find_index_if.cpp : : : $(REQ) ;
+run mp_find.cpp : : : $(REQ) ;
+run mp_find_if.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

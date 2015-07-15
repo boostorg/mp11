@@ -613,7 +613,10 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 template<class L, template<class...> class P> using mp_find_index_if = typename detail::mp_find_index_if_impl<L, P>::type;
 
 // mp_find<L, V>
+template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
+
 // mp_find_if<L, P>
+template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
 
 // mp_reverse<L>
 // mp_fold<L, V, F>
