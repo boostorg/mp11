@@ -621,6 +621,8 @@ template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_f
 // mp_reverse<L>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
+// mp_unique<L>
+// mp_remove<L, V>
 
 } // namespace boost
 
