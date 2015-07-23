@@ -12,5 +12,8 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/function.hpp>
+#include <boost/mp11/map.hpp>
+#include <boost/mp11/set.hpp>
 
 #endif // #ifndef BOOST_MP11_HPP_INCLUDED

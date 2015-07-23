@@ -76,7 +76,7 @@ template<class L, class V> struct mp_fill_impl;
 
 template<template<class...> class L, class... T, class V> struct mp_fill_impl<L<T...>, V>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1900 )
 
     template<class...> struct _f { using type = V; };
     using type = L<typename _f<T>::type...>;
@@ -146,7 +146,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1900 )
 
     template<class T> struct _f { using type = mp_to_bool<P<T>>; };
     using type = mp_size_t<mp_plus<typename _f<T>::type...>::value>;
@@ -621,6 +621,8 @@ template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_f
 // mp_reverse<L>
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
+// mp_unique<L>
+// mp_remove<L, V>
 
 } // namespace boost
 
