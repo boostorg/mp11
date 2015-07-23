@@ -41,6 +41,7 @@ run mp_take.cpp : : : $(REQ) ;
 run mp_replace.cpp : : : $(REQ) ;
 run mp_replace_if.cpp : : : $(REQ) ;
 run mp_copy_if.cpp : : : $(REQ) ;
+run mp_remove.cpp : : : $(REQ) ;
 run mp_remove_if.cpp : : : $(REQ) ;
 run mp_partition.cpp : : : $(REQ) ;
 run mp_sort.cpp : : : $(REQ) ;
@@ -48,6 +49,7 @@ run mp_find_index.cpp : : : $(REQ) ;
 run mp_find_index_if.cpp : : : $(REQ) ;
 run mp_find.cpp : : : $(REQ) ;
 run mp_find_if.cpp : : : $(REQ) ;
+run mp_reverse.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

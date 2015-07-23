@@ -387,6 +387,44 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 
 template<class L, template<class...> class P> using mp_copy_if = typename detail::mp_copy_if_impl<L, P>::type;
 
+// mp_remove<L, V>
+namespace detail
+{
+
+template<class L, class V> struct mp_remove_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T, class V> struct mp_remove_impl<L<T...>, V>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<>;
+};
+
+#else
+
+template<template<class...> class L, class V> struct mp_remove_impl<L<>, V>
+{
+    using type = L<>;
+};
+
+#endif
+
+template<template<class...> class L, class T1, class... T> struct mp_remove_impl<L<T1, T...>, T1>
+{
+    using type = typename mp_remove_impl<L<T...>, T1>::type;
+};
+
+template<template<class...> class L, class T1, class... T, class V> struct mp_remove_impl<L<T1, T...>, V>
+{
+    using rest = typename mp_remove_impl<L<T...>, V>::type;
+    using type = mp_push_front<rest, T1>;
+};
+
+} // namespace detail
+
+template<class L, class V> using mp_remove = typename detail::mp_remove_impl<L, V>::type;
+
 // mp_remove_if<L, P>
 namespace detail
 {
@@ -619,10 +657,65 @@ template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
 template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
 
 // mp_reverse<L>
+namespace detail
+{
+
+template<class L> struct mp_reverse_impl;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T> struct mp_reverse_impl<L<T...>>
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L<>;
+};
+
+#else
+
+template<template<class...> class L> struct mp_reverse_impl<L<>>
+{
+    using type = L<>;
+};
+
+#endif
+
+template<template<class...> class L, class T1> struct mp_reverse_impl<L<T1>>
+{
+    using type = L<T1>;
+};
+
+template<template<class...> class L, class T1, class T2> struct mp_reverse_impl<L<T1, T2>>
+{
+    using type = L<T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3> struct mp_reverse_impl<L<T1, T2, T3>>
+{
+    using type = L<T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4> struct mp_reverse_impl<L<T1, T2, T3, T4>>
+{
+    using type = L<T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5> struct mp_reverse_impl<L<T1, T2, T3, T4, T5>>
+{
+    using type = L<T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class... T> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T...>>
+{
+    using type = mp_push_back<typename mp_reverse_impl<L<T...>>::type, T6, T5, T4, T3, T2, T1>;
+};
+
+} // namespace detail
+
+template<class L> using mp_reverse = typename detail::mp_reverse_impl<L>::type;
+
 // mp_fold<L, V, F>
 // mp_reverse_fold<L, V, F>
 // mp_unique<L>
-// mp_remove<L, V>
 
 } // namespace boost
 
