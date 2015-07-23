@@ -50,6 +50,8 @@ run mp_find_index_if.cpp : : : $(REQ) ;
 run mp_find.cpp : : : $(REQ) ;
 run mp_find_if.cpp : : : $(REQ) ;
 run mp_reverse.cpp : : : $(REQ) ;
+run mp_fold.cpp : : : $(REQ) ;
+run mp_reverse_fold.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;
