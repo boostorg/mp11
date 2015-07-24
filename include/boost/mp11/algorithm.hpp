@@ -794,6 +794,10 @@ template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
 
 template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
+// mp_all_of<L, P>
+// mp_none_of<L, P>
+// mp_any_of<L, P>
+
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED
