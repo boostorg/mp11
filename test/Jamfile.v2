@@ -25,6 +25,8 @@ run mp_push_front.cpp : : : $(REQ) ;
 run mp_push_back.cpp : : : $(REQ) ;
 run mp_rename.cpp : : : $(REQ) ;
 run mp_append.cpp : : : $(REQ) ;
+
+# algorithm
 run mp_assign.cpp : : : $(REQ) ;
 run mp_clear.cpp : : : $(REQ) ;
 run mp_transform.cpp : : : $(REQ) ;
@@ -71,3 +73,8 @@ run integer_sequence.cpp : : : $(REQ) ;
 # tuple_for_each
 run tuple_for_each.cpp : : : $(REQ) ;
 run tuple_for_each_cx.cpp : : : $(REQ) ;
+
+# set
+run mp_set_contains.cpp : : : $(REQ) ;
+run mp_set_push_back.cpp : : : $(REQ) ;
+run mp_set_push_front.cpp : : : $(REQ) ;
