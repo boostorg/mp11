@@ -9,6 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/list.hpp>
+#include <boost/mp11/set.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
@@ -779,6 +780,19 @@ template<template<class...> class L, class T1, class... T, class V, template<cla
 template<class L, class V, template<class...> class F> using mp_reverse_fold = typename detail::mp_reverse_fold_impl<L, V, F>::type;
 
 // mp_unique<L>
+namespace detail
+{
+
+template<class L> struct mp_unique_impl;
+
+template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
+{
+    using type = mp_set_push_back<L<>, T...>;
+};
+
+} // namespace detail
+
+template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
 } // namespace boost
 
