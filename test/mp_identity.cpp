@@ -22,5 +22,12 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<int const[]>::type, int const[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<X>::type, X>));
 
+    using boost::mp_identity_t;
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<void const volatile>, void const volatile>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<void()>, void()>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<int const[]>, int const[]>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<X>, X>));
+
     return boost::report_errors();
 }
