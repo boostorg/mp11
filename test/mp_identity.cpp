@@ -7,8 +7,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
-#include <boost/core/lightweight_test_trait.hpp>
 #include <boost/mp11/utility.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
 struct X {};
