@@ -101,6 +101,30 @@ struct mp_no_type
 
 template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
 
+// mp_quote
+template<template<class...> class F> struct mp_quote
+{
+    template<class... T> using apply = F<T...>;
+};
+
+// mp_unquote
+namespace detail
+{
+
+template<class Q, class... T> struct mp_unquote_impl
+{
+    using type = typename Q::template apply<T...>;
+};
+
+template<template<class...> class F, class... T> struct mp_unquote_impl<mp_quote<F>, T...>
+{
+    using type = F<T...>;
+};
+
+} // namespace detail
+
+template<class Q, class... T> using mp_unquote = typename detail::mp_unquote_impl<Q, T...>::type;
+
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED
