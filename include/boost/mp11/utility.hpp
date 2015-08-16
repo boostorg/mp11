@@ -19,6 +19,9 @@ template<class T> struct mp_identity
     using type = T;
 };
 
+// mp_identity_t
+template<class T> using mp_identity_t = T;
+
 // mp_inherit
 template<class... T> struct mp_inherit: T... {};
 
@@ -82,13 +85,45 @@ template<template<class...> class F, class... T> struct mp_valid_impl
 template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<F, T...>::type;
 
 // mp_defer
-template<template<class...> class F, class... T> struct mp_defer
+namespace detail
+{
+
+template<template<class...> class F, class... T> struct mp_defer_impl
 {
     using type = F<T...>;
 };
 
-// mp_defer_if_valid
-template<template<class...> class F, class... T> using mp_defer_if_valid = mp_if<mp_valid<F, T...>, mp_defer<F, T...>, mp_inherit<>>;
+struct mp_no_type
+{
+};
+
+} // namespace detail
+
+template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
+
+// mp_quote
+template<template<class...> class F> struct mp_quote
+{
+    template<class... T> using apply = F<T...>;
+};
+
+// mp_unquote
+namespace detail
+{
+
+template<class Q, class... T> struct mp_unquote_impl
+{
+    using type = typename Q::template apply<T...>;
+};
+
+template<template<class...> class F, class... T> struct mp_unquote_impl<mp_quote<F>, T...>
+{
+    using type = F<T...>;
+};
+
+} // namespace detail
+
+template<class Q, class... T> using mp_unquote = typename detail::mp_unquote_impl<Q, T...>::type;
 
 } // namespace boost
 

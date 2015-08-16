@@ -66,7 +66,7 @@ run mp_if.cpp : : : $(REQ) ;
 run mp_eval_if.cpp : : : $(REQ) ;
 run mp_valid.cpp : : : $(REQ) ;
 run mp_defer.cpp : : : $(REQ) ;
-run mp_defer_if_valid.cpp : : : $(REQ) ;
+run mp_quote.cpp : : : $(REQ) ;
 
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;
