@@ -14,6 +14,7 @@
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/mp11/detail/mp_map_find.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/integer_sequence.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
@@ -100,7 +101,7 @@ namespace detail
 
 template<class L, class V> struct mp_count_impl;
 
-#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+#if !defined( BOOST_MP11_NO_CONSTEXPR )
 
 constexpr std::size_t cx_plus()
 {
@@ -136,7 +137,7 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_count_if_impl;
 
-#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+#if !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
@@ -542,7 +543,7 @@ namespace detail
 
 template<class L, class V> struct mp_find_index_impl;
 
-#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+#if !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, class V> struct mp_find_index_impl<L<>, V>
 {
@@ -602,7 +603,7 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_find_index_if_impl;
 
-#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+#if !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, template<class...> class P> struct mp_find_index_if_impl<L<>, P>
 {
