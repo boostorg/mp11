@@ -24,6 +24,7 @@ install:
   - git submodule update --init --depth 1 tools/build
   - git submodule update --init --depth 1 libs/config
   - git submodule update --init --depth 1 tools/boostdep
+  - mkdir libs/mp11
   - cp -r $TRAVIS_BUILD_DIR/* libs/mp11
   - python tools/boostdep/depinst/depinst.py mp11
   - ./bootstrap.sh
