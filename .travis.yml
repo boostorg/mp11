@@ -87,8 +87,7 @@ install:
   - ./b2 headers
 
 script:
-  - |
-    echo using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ; > ~/user-config.jam
+  - echo "using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ;" > ~/user-config.jam
   - ./b2 libs/mp11/test toolset=$TOOLSET
 
 notifications:
