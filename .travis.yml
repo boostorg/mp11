@@ -17,6 +17,63 @@ branches:
     - master
     - develop
 
+env:
+  matrix:
+    - BOGUS_JOB=true
+
+addons:
+  apt:
+    packages:
+      - g++-4.9
+      - g++-5
+      - g++-6
+      - clang-3.5
+      - clang-3.6
+      - clang-3.7
+      - clang-3.8
+      - clang-3.9
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise
+      - llvm-toolchain-precise-3.5
+      - llvm-toolchain-precise-3.6
+      - llvm-toolchain-precise-3.7
+      - llvm-toolchain-precise-3.8
+      - llvm-toolchain-precise-3.9
+
+matrix:
+
+  exclude:
+    - env: BOGUS_JOB=true
+
+  include:
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-5 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.6 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.7 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=c++11
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++11
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++11
+
 install:
   - cd ..
   - git clone -b $TRAVIS_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
@@ -31,8 +88,7 @@ install:
   - ./b2 headers
 
 script:
-  - TOOLSET=gcc,clang
-  - if [ $TRAVIS_OS_NAME == osx ]; then TOOLSET=clang; fi
+  - echo using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ; > ~/user-config.jam
   - ./b2 libs/mp11/test toolset=$TOOLSET
 
 notifications:
