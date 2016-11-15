@@ -9,7 +9,9 @@
 #include <boost/tuple_for_each.hpp>
 #include <boost/config.hpp>
 
-#if defined( BOOST_NO_CXX11_CONSTEXPR )
+// Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
+
+#if defined( BOOST_NO_CXX11_CONSTEXPR ) || ( defined( _LIBCPP_VERSION ) && __cplusplus < 201400L )
 
 int main() {}
 
