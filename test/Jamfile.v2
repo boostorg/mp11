@@ -55,6 +55,9 @@ run mp_reverse.cpp : : : $(REQ) ;
 run mp_fold.cpp : : : $(REQ) ;
 run mp_reverse_fold.cpp : : : $(REQ) ;
 run mp_unique.cpp : : : $(REQ) ;
+run mp_all_of.cpp : : : $(REQ) ;
+run mp_any_of.cpp : : : $(REQ) ;
+run mp_none_of.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;
