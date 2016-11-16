@@ -15,9 +15,9 @@ install:
   - cd ..
   - git clone -b %APPVEYOR_REPO_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
-  - git submodule update --init --depth 1 tools/build
-  - git submodule update --init --depth 1 libs/config
-  - git submodule update --init --depth 1 tools/boostdep
+  - git submodule update --init tools/build
+  - git submodule update --init libs/config
+  - git submodule update --init tools/boostdep
   - mkdir libs\mp11
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\mp11
   - python tools/boostdep/depinst/depinst.py mp11
