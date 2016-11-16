@@ -24,8 +24,6 @@ env:
 addons:
   apt:
     packages:
-      - g++-4.7
-      - g++-4.8
       - g++-4.9
       - g++-5
       - g++-6
@@ -45,12 +43,6 @@ matrix:
     - env: BOGUS_JOB=true
 
   include:
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-4.7 CXXSTD=c++11
-
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-4.8 CXXSTD=c++11
-
     - os: linux
       env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=c++11
 
