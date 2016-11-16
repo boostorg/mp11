@@ -23,6 +23,9 @@ using mp_false = mp_bool<false>;
 // mp_to_bool
 template<class T> using mp_to_bool = mp_bool<static_cast<bool>( T::value )>;
 
+// mp_not<T>
+template<class T> using mp_not = mp_bool< !T::value >;
+
 // mp_int
 template<int I> using mp_int = std::integral_constant<int, I>;
 
