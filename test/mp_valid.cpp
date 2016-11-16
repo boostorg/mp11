@@ -48,8 +48,8 @@ int main()
 #endif
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_pointer, void, void>));
 
-#if !defined( BOOST_GCC ) || !BOOST_WORKAROUND( BOOST_GCC, < 50500 )
-    // g++ up to at least 5.4 doesn't like add_reference for some reason or other
+#if !defined( BOOST_GCC ) || !BOOST_WORKAROUND( BOOST_GCC, < 70000 )
+    // g++ up to at least 6.2 doesn't like add_reference for some reason or other
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_reference>));
 #if !defined( BOOST_MSVC ) || !BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
     // msvc-12.0 gives an internal error here

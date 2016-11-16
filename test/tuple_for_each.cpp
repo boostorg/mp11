@@ -36,6 +36,9 @@ int main()
         }
     }
 
+#if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 8
+#else
+
     {
         std::tuple<std::unique_ptr<int>, std::unique_ptr<int>, std::unique_ptr<int>> tp{ std::unique_ptr<int>(new int(1)), std::unique_ptr<int>(new int(2)), std::unique_ptr<int>(new int(3)) };
 
@@ -45,6 +48,8 @@ int main()
 
         BOOST_TEST_EQ( s, 123 );
     }
+
+#endif
 
     {
         std::pair<int, short> tp{ 1, 2 };

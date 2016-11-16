@@ -12,7 +12,7 @@
 #include <boost/mp11/set.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
-#include <boost/mp11/detail/mp_plus.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/mp_map_find.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/integer_sequence.hpp>
@@ -796,8 +796,13 @@ template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
 template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
 // mp_all_of<L, P>
+template<class L, template<class...> class P> using mp_all_of = mp_equal_to< mp_count_if<L, P>, mp_size<L> >;
+
 // mp_none_of<L, P>
+template<class L, template<class...> class P> using mp_none_of = mp_not< mp_count_if<L, P> >;
+
 // mp_any_of<L, P>
+template<class L, template<class...> class P> using mp_any_of = mp_to_bool< mp_count_if<L, P> >;
 
 } // namespace boost
 
