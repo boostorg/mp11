@@ -91,3 +91,4 @@ run mp_or.cpp : : : $(REQ) ;
 
 # map
 run mp_map_find.cpp : : : $(REQ) ;
+run mp_map_contains.cpp : : : $(REQ) ;
