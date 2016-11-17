@@ -53,7 +53,7 @@ int main()
     }
 
     {
-        using M = mp_list<mp_list<int>, std::pair<long, long>, std::tuple<long long, long long, long long>>;
+        using M = std::tuple<mp_list<int>, std::pair<long, long>, std::tuple<long long, long long, long long>>;
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_insert<M, mp_list<char>>, mp_push_back<M, mp_list<char>>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_insert<M, std::pair<char, char const>>, mp_push_back<M, std::pair<char, char const>>>));

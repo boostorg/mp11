@@ -48,8 +48,6 @@ namespace detail
 
 template<template<class...> class F, class... L> struct mp_transform_impl;
 
-template<template<class...> class F, class... L> using mp_transform = typename mp_transform_impl<F, L...>::type;
-
 template<template<class...> class F, template<class...> class L, class... T> struct mp_transform_impl<F, L<T...>>
 {
     using type = L<F<T>...>;

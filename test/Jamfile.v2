@@ -93,3 +93,4 @@ run mp_or.cpp : : : $(REQ) ;
 run mp_map_find.cpp : : : $(REQ) ;
 run mp_map_contains.cpp : : : $(REQ) ;
 run mp_map_insert.cpp : : : $(REQ) ;
+run mp_map_replace.cpp : : : $(REQ) ;
