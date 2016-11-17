@@ -9,7 +9,9 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/mp_map_find.hpp>
+#include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/utility.hpp>
 #include <type_traits>
 
 namespace boost
@@ -19,6 +21,8 @@ namespace boost
 template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
 
 // mp_map_insert<M, T>
+template<class M, class T> using mp_map_insert = mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
+
 // mp_map_replace<M, T>
 // mp_map_update<M, T, F>
 // mp_map_erase<M, K>
