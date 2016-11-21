@@ -51,5 +51,20 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_size_t<1>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_size_t<442>>, mp_true>));
 
+    using boost::mp_not;
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_false>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_true>, mp_false>));
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_int<0>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_int<1>>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_int<107>>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_int<-1>>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_int<-91>>, mp_false>));
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_size_t<0>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_size_t<1>>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_size_t<442>>, mp_false>));
+
     return boost::report_errors();
 }

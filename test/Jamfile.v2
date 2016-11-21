@@ -82,3 +82,15 @@ run tuple_for_each_cx.cpp : : : $(REQ) ;
 run mp_set_contains.cpp : : : $(REQ) ;
 run mp_set_push_back.cpp : : : $(REQ) ;
 run mp_set_push_front.cpp : : : $(REQ) ;
+
+# function
+run mp_all.cpp : : : $(REQ) ;
+run mp_and.cpp : : : $(REQ) ;
+run mp_any.cpp : : : $(REQ) ;
+run mp_or.cpp : : : $(REQ) ;
+
+# map
+run mp_map_find.cpp : : : $(REQ) ;
+run mp_map_contains.cpp : : : $(REQ) ;
+run mp_map_insert.cpp : : : $(REQ) ;
+run mp_map_replace.cpp : : : $(REQ) ;

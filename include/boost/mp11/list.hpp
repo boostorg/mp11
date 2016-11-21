@@ -9,14 +9,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/mp_list.hpp>
 
 namespace boost
 {
-
-// mp_list<T...>
-template<class... T> struct mp_list
-{
-};
 
 // mp_size<L>
 namespace detail
