@@ -16,6 +16,7 @@ install:
   - git clone -b %APPVEYOR_REPO_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
   - git submodule update --init tools/build
+  - git submodule update --init tools/inspect
   - git submodule update --init libs/config
   - git submodule update --init tools/boostdep
   - mkdir libs\mp11
