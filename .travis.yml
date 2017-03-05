@@ -28,24 +28,6 @@ matrix:
 
   include:
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-4.7 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - g++-4.7
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-4.8 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - g++-4.8
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
       env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=c++11
       addons:
         apt:
@@ -98,9 +80,6 @@ matrix:
             - g++-6
           sources:
             - ubuntu-toolchain-r-test
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++11
 
     - os: linux
       env: TOOLSET=clang COMPILER=clang++-3.6 CXXSTD=c++11
