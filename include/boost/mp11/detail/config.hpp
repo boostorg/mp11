@@ -15,7 +15,7 @@
 
 #  define BOOST_MP11_NO_CONSTEXPR
 
-#elif defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1900 )
+#elif defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
 
 #  define BOOST_MP11_NO_CONSTEXPR
 
