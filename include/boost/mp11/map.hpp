@@ -46,7 +46,20 @@ template<template<class...> class M, class... U, class T> struct mp_map_replace_
 template<class M, class T> using mp_map_replace = typename detail::mp_map_replace_impl<M, T>::type;
 
 // mp_map_update<M, T, F>
+
 // mp_map_erase<M, K>
+namespace detail
+{
+
+template<class M, class K> struct mp_map_erase_impl
+{
+    template<class T> using _f = std::is_same<mp_first<T>, K>;
+    using type = mp_remove_if<M, _f>;
+};
+
+} // namespace detail
+
+template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
 
 } // namespace boost
 

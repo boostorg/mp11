@@ -1,6 +1,6 @@
 #  Boost.Mp11 Library Test Jamfile
 #
-#  Copyright 2015 Peter Dimov
+#  Copyright 2015-2017 Peter Dimov
 #
 #  Distributed under the Boost Software License, Version 1.0.
 #  See accompanying file LICENSE_1_0.txt or copy at
@@ -94,3 +94,4 @@ run mp_map_find.cpp : : : $(REQ) ;
 run mp_map_contains.cpp : : : $(REQ) ;
 run mp_map_insert.cpp : : : $(REQ) ;
 run mp_map_replace.cpp : : : $(REQ) ;
+run mp_map_erase.cpp : : : $(REQ) ;
