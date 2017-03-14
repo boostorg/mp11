@@ -17,7 +17,7 @@
 
 using boost::mp_int;
 
-template<class T> using inc = mp_int<T::value + 1>;
+template<class T, class U> using inc = mp_int<U::value + 1>;
 
 int main()
 {
