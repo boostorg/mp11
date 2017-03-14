@@ -1,0 +1,79 @@
+[/
+ /  Copyright 2017 Peter Dimov
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See
+ / accompanying file LICENSE_1_0.txt or copy at
+ / http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:utility Utility Components, `<boost/mp11/utility.hpp>`]
+
+[section `mp_identity<T>`]
+    template<class T> struct mp_identity
+    {
+        using type = T;
+    };
+[endsect]
+
+[section `mp_identity_t<T>`]
+    template<class T> using mp_identity_t = T;
+[endsect]
+
+[section `mp_inherit<T...>`]
+    template<class... T> struct mp_inherit: T... {};
+[endsect]
+
+[section `mp_if_c<B, T, E>`]
+    template<bool C, class T, class E> using mp_if_c = /*...*/;
+
+`mp_if_c<B, T, E>` is an alias for `T` when `B` is `true`, for `E` otherwise.
+[endsect]
+
+[section `mp_if<C, T, E>`]
+    template<class C, class T, class E> using mp_if = mp_if_c<static_cast<bool>(C::value), T, E>;
+
+`mp_if<C, T, E>` is an alias for `T` when `C::value` is `true`, for `E` otherwise.
+[endsect]
+
+[section `mp_eval_if_c<B, T, F, U...>`]
+    template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = /*...*/;
+
+`mp_eval_if_c<B, T, F, U...>` is an alias for `T` when `B` is `true`, for `F<U...>` otherwise. Its purpose
+is to avoid evaluating `F<U...>` when the condition is `true` as it may not be valid in this case.
+[endsect]
+
+[section `mp_eval_if<C, T, F, U...>`]
+    template<class C, class T, template<class...> class F, class... U> using mp_eval_if = mp_eval_if_c<static_cast<bool>(C::value), T, F, U...>;
+
+Like `mp_eval_if_c`, but the first argument is a type.
+[endsect]
+
+[section `mp_valid<F, T...>`]
+    template<template<class...> class F, class... T> using mp_valid = /*...*/;
+
+`mp_valid<F, T...>` is an alias for `mp_true` when `F<T...>` is a valid expression, for `mp_false` otherwise.
+[endsect]
+
+[section `mp_defer<F, T...>`]
+    template<template<class...> class F, class... T> using mp_defer = /*...*/;
+
+When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a nested type `type` which is an alias for `F<T...>`. Otherwise,
+`mp_defer<F, T...>` is an empty struct.
+[endsect]
+
+[section `mp_quote<F>`]
+    template<template<class...> class F> struct mp_quote
+    {
+        template<class... T> using apply = F<T...>;
+    };
+
+`mp_quote<F>` transforms the template `F` into a type. The nested template `apply` of the result is an alias for `F`.
+[endsect]
+
+[section `mp_unquote<Q, T...>`]
+    template<class Q, class... T> using mp_unquote = typename Q::template apply<T...>;
+
+`mp_unquote<Q, T...>`, where `Q` is `mp_quote<F>`, is an alias for `F<T...>`.
+[endsect]
+
+[endsect]

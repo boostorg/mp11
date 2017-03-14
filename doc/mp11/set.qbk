@@ -1,0 +1,31 @@
+[/
+ /  Copyright 2017 Peter Dimov
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See
+ / accompanying file LICENSE_1_0.txt or copy at
+ / http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:set Set Operations, `<boost/mp11/set.hpp>`]
+
+A set is a list whose elements are unique.
+
+[section `mp_set_contains<S, V>`]
+    template<class S, class V> using mp_set_contains = /*...*/;
+
+`mp_set_contains<S, V>` is `mp_true` if the type `V` is an element of the set `S`, `mp_false` otherwise.
+[endsect]
+
+[section `mp_set_push_back<S, T...>`]
+    template<class S, class... T> using mp_set_push_back = /*...*/;
+
+For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of `S` if it's not already an element of `S`.
+[endsect]
+
+[section `mp_set_push_front<S, T...>`]
+    template<class S, class... T> using mp_set_push_front = /*...*/;
+
+`mp_set_push_front<S, T...>` inserts at the front of `S` those elements of `T...` for which `S` does not already contain the same type.
+[endsect]
+
+[endsect]
