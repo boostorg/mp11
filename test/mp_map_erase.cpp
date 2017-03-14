@@ -18,7 +18,6 @@ int main()
 {
     using boost::mp_map_erase;
     using boost::mp_list;
-    using boost::mp_push_back;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_erase<mp_list<>, void>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_erase<std::tuple<>, int>, std::tuple<>>));
