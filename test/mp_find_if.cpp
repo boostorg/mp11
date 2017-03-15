@@ -21,29 +21,38 @@ int main()
 {
     using boost::mp_list;
     using boost::mp_find_if;
+    using boost::mp_size_t;
 
     {
         using L1 = mp_list<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L1, std::is_const>, L1>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L1, std::is_const>, mp_size_t<0>>));
 
         using L2 = mp_list<X1, X1 const, X1 const, X1*, X1*, X1*>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_volatile>, mp_list<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_const>, mp_list<X1 const, X1 const, X1*, X1*, X1*>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_pointer>, mp_list<X1*, X1*, X1*>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_volatile>, mp_size_t<6>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_const>, mp_size_t<1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_pointer>, mp_size_t<3>>));
     }
 
     {
         using L1 = std::tuple<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L1, std::is_const>, L1>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L1, std::is_const>, mp_size_t<0>>));
 
         using L2 = std::tuple<X1, X1 const, X1 const, X1*, X1*, X1*>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_volatile>, std::tuple<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_const>, std::tuple<X1 const, X1 const, X1*, X1*, X1*>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_pointer>, std::tuple<X1*, X1*, X1*>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_volatile>, mp_size_t<6>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_const>, mp_size_t<1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_pointer>, mp_size_t<3>>));
+    }
+
+    {
+        using L2 = std::pair<X1 const, X1*>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_volatile>, mp_size_t<2>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_const>, mp_size_t<0>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find_if<L2, std::is_pointer>, mp_size_t<1>>));
     }
 
     return boost::report_errors();

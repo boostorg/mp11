@@ -23,31 +23,40 @@ int main()
 {
     using boost::mp_list;
     using boost::mp_find;
+    using boost::mp_size_t;
 
     {
         using L1 = mp_list<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L1, void>, L1>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L1, void>, mp_size_t<0>>));
 
         using L2 = mp_list<X1, X2, X2, X3, X3, X3>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, void>, mp_list<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X1>, L2>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X2>, mp_list<X2, X2, X3, X3, X3>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X3>, mp_list<X3, X3, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, void>, mp_size_t<6>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X1>, mp_size_t<0>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X2>, mp_size_t<1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L2, X3>, mp_size_t<3>>));
     }
 
     {
         using L3 = std::tuple<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L3, void>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L3, void>, mp_size_t<0>>));
 
         using L4 = std::tuple<X1, X2, X2, X3, X3, X3>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, void>, std::tuple<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X1>, L4>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X2>, std::tuple<X2, X2, X3, X3, X3>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X3>, std::tuple<X3, X3, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, void>, mp_size_t<6>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X1>, mp_size_t<0>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X2>, mp_size_t<1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L4, X3>, mp_size_t<3>>));
+    }
+
+    {
+        using L5 = std::pair<X1, X2>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L5, void>, mp_size_t<2>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L5, X1>, mp_size_t<0>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_find<L5, X2>, mp_size_t<1>>));
     }
 
     return boost::report_errors();
