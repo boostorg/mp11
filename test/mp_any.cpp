@@ -14,11 +14,11 @@
 
 int main()
 {
-    using boost::mp_any;
-    using boost::mp_true;
-    using boost::mp_false;
-    using boost::mp_int;
-    using boost::mp_size_t;
+    using boost::mp11::mp_any;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
+    using boost::mp11::mp_int;
+    using boost::mp11::mp_size_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_any<>, mp_false>));
 

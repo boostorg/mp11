@@ -16,10 +16,10 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_empty;
-    using boost::mp_true;
-    using boost::mp_false;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_empty;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
 
     using L1 = mp_list<>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_empty<L1>, mp_true>));

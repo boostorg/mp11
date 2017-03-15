@@ -15,6 +15,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_equal_to<T1, T2>
 template<class T1, class T2> using mp_equal_to = mp_bool< T1::value == T2::value >;
@@ -75,6 +77,7 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 
 } // namespace detail
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_FUNCTION_HPP_INCLUDED

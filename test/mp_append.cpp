@@ -22,8 +22,8 @@ struct X6 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_append;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_append;
 
     using L1 = mp_list<char[1], char[1]>;
     using L2 = mp_list<char[2], char[2]>;

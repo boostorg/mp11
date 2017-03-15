@@ -14,11 +14,11 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_iota;
-    using boost::mp_iota_c;
-    using boost::mp_int;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_iota;
+    using boost::mp11::mp_iota_c;
+    using boost::mp11::mp_int;
+    using boost::mp11::mp_size_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_iota_c<0>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_iota_c<1>, mp_list<mp_size_t<0>>>));

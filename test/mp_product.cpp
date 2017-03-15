@@ -27,8 +27,8 @@ template<class T1, class T2, class T3> struct F {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_product;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_product;
 
     {
         using L1 = std::tuple<X1, X2, X3>;

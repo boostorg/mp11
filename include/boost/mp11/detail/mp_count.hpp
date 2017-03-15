@@ -15,6 +15,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_count<L, V>
 namespace detail
@@ -87,6 +89,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 template<class L, template<class...> class P> using mp_count_if = typename detail::mp_count_if_impl<L, P>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_DETAIL_MP_COUNT_HPP_INCLUDED

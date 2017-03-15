@@ -17,6 +17,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_map_contains<M, K>
 template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
@@ -77,6 +79,7 @@ template<class M, class K> struct mp_map_erase_impl
 
 template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_MAP_HPP_INCLUDED

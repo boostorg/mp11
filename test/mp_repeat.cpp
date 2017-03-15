@@ -20,13 +20,13 @@ struct X2 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_repeat;
-    using boost::mp_repeat_c;
-    using boost::mp_true;
-    using boost::mp_false;
-    using boost::mp_int;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_repeat;
+    using boost::mp11::mp_repeat_c;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
+    using boost::mp11::mp_int;
+    using boost::mp11::mp_size_t;
 
     using L1 = mp_list<>;
 

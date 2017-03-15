@@ -21,9 +21,9 @@ struct X3 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_count;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_count;
+    using boost::mp11::mp_size_t;
 
     {
         using L1 = mp_list<>;

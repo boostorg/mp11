@@ -19,9 +19,9 @@ struct X1 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_find_if;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_find_if;
+    using boost::mp11::mp_size_t;
 
     {
         using L1 = mp_list<>;

@@ -27,8 +27,8 @@ template<class T> using add_extents = T[];
 
 int main()
 {
-    using boost::mp_valid;
-    using boost::mp_identity;
+	using boost::mp11::mp_valid;
+    using boost::mp11::mp_identity;
 
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_identity>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<mp_identity, void>));

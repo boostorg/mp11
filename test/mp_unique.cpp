@@ -15,8 +15,8 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_unique;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_unique;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique<mp_list<>>, mp_list<>>));

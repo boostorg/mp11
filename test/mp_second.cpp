@@ -15,8 +15,8 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_second;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_second;
 
     using L1 = mp_list<void, char[]>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_second<L1>, char[]>));

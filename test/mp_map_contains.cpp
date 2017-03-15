@@ -17,10 +17,10 @@
 
 int main()
 {
-    using boost::mp_map_contains;
-    using boost::mp_list;
-    using boost::mp_true;
-    using boost::mp_false;
+    using boost::mp11::mp_map_contains;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_contains<mp_list<>, char>, mp_false>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_contains<std::tuple<>, int>, mp_false>));

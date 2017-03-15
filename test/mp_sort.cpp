@@ -14,14 +14,14 @@
 #include <type_traits>
 #include <tuple>
 
-using boost::mp_bool;
+using boost::mp11::mp_bool;
 
 template<class T, class U> using sizeof_less = mp_bool<(sizeof(T) < sizeof(U))>;
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_sort;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_sort;
 
     {
         using L1 = mp_list<>;

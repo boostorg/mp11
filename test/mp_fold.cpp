@@ -22,8 +22,8 @@ template<class T1, class T2> struct F {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_fold;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_fold;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_fold<mp_list<>, void, F>, void>));
@@ -41,13 +41,13 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_fold<std::tuple<X1, X2, X3, X4>, void, F>, F<F<F<F<void, X1>, X2>, X3>, X4>>));
     }
 
-    using boost::mp_push_back;
+    using boost::mp11::mp_push_back;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_fold<std::tuple<X1, X2, X3, X4>, mp_list<>, mp_push_back>, mp_list<X1, X2, X3, X4>>));
     }
 
-    using boost::mp_push_front;
+    using boost::mp11::mp_push_front;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_fold<std::tuple<X1, X2, X3, X4>, mp_list<>, mp_push_front>, mp_list<X4, X3, X2, X1>>));

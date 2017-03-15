@@ -25,8 +25,8 @@ struct X9 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_reverse;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_reverse;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_reverse<mp_list<>>, mp_list<>>));

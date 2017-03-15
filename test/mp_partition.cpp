@@ -19,8 +19,8 @@ struct X3 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_partition;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_partition;
 
     {
         using L1 = mp_list<>;

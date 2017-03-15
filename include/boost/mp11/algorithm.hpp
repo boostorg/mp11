@@ -23,6 +23,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_assign<L1, L2>
 namespace detail
@@ -751,6 +753,7 @@ template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_cou
 // mp_any_of<L, P>
 template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED

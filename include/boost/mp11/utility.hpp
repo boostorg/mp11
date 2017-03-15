@@ -12,6 +12,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_identity
 template<class T> struct mp_identity
@@ -125,6 +127,7 @@ template<template<class...> class F, class... T, class... U> struct mp_unquote_i
 
 template<class Q, class... T> using mp_unquote = typename detail::mp_unquote_impl<Q, T...>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED

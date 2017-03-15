@@ -16,8 +16,8 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_clear;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_clear;
 
     using L1 = mp_list<int, void(), float[]>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_clear<L1>, mp_list<>>));

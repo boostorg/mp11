@@ -15,14 +15,14 @@ struct X {};
 
 int main()
 {
-    using boost::mp_identity;
+    using boost::mp11::mp_identity;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<void const volatile>::type, void const volatile>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<void()>::type, void()>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<int const[]>::type, int const[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity<X>::type, X>));
 
-    using boost::mp_identity_t;
+    using boost::mp11::mp_identity_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<void const volatile>, void const volatile>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_identity_t<void()>, void()>));

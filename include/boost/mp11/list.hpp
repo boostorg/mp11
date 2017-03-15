@@ -13,6 +13,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_size<L>
 namespace detail
@@ -168,6 +170,7 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 
 template<class... L> using mp_append = typename detail::mp_append_impl<L...>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_LIST_HPP_INCLUDED

@@ -11,7 +11,7 @@
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
-using boost::mp_unquote;
+using boost::mp11::mp_unquote;
 
 template<class...> struct X {};
 
@@ -28,8 +28,8 @@ template<class... T> using is_base_of_t = typename std::is_base_of<T...>::type;
 
 int main()
 {
-    using boost::mp_identity_t;
-    using boost::mp_quote;
+    using boost::mp11::mp_identity_t;
+    using boost::mp11::mp_quote;
 
     {
         using Q = mp_quote<mp_identity_t>;

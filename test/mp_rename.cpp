@@ -18,8 +18,8 @@ template<class... T> using Y = X<T...>;
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_rename;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_rename;
 
     using L1 = mp_list<>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rename<L1, mp_list>, mp_list<>>));
