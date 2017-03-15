@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED
 #define BOOST_MP11_UTILITY_HPP_INCLUDED
 
-//  Copyright 2015 Peter Dimov.
+//  Copyright 2015, 2017 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -102,9 +102,9 @@ struct mp_no_type
 template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
 
 // mp_quote
-template<template<class...> class F> struct mp_quote
+template<template<class...> class F, class... T> struct mp_quote
 {
-    template<class... T> using apply = F<T...>;
+    template<class... U> using apply = F<T..., U...>;
 };
 
 // mp_unquote
@@ -116,9 +116,9 @@ template<class Q, class... T> struct mp_unquote_impl
     using type = typename Q::template apply<T...>;
 };
 
-template<template<class...> class F, class... T> struct mp_unquote_impl<mp_quote<F>, T...>
+template<template<class...> class F, class... T, class... U> struct mp_unquote_impl<mp_quote<F, T...>, U...>
 {
-    using type = F<T...>;
+    using type = F<T..., U...>;
 };
 
 } // namespace detail

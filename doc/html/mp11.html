@@ -76,7 +76,7 @@
         <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_valid_f_t"><code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_defer_f_t"><code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_quote_f"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_quote_f_t"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_unquote_q_t"><code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm">Algorithms, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
@@ -490,18 +490,20 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.utility.mp_quote_f"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_quote_f" title="mp_quote&lt;F&gt;"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.utility.mp_quote_f_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_quote_f_t" title="mp_quote&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_quote</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_quote</span>
 <span class="special">{</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">apply</span> <span class="special">=</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">apply</span> <span class="special">=</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;;</span>
 <span class="special">};</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>
-          transforms the template <code class="computeroutput"><span class="identifier">F</span></code>
-          into a type. The nested template <code class="computeroutput"><span class="identifier">apply</span></code>
-          of the result is an alias for <code class="computeroutput"><span class="identifier">F</span></code>.
+          <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> transforms the template <code class="computeroutput"><span class="identifier">F</span></code> into a type. In the common case <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>,
+          the nested template <code class="computeroutput"><span class="identifier">apply</span></code>
+          of the result is an alias for <code class="computeroutput"><span class="identifier">F</span></code>;
+          otherwise, <code class="computeroutput"><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>,
+          allowing partial application.
         </p>
 </div>
 <div class="section">
@@ -511,9 +513,9 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_unquote</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>, where <code class="computeroutput"><span class="identifier">Q</span></code>
-          is <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> evaluates the nested template <code class="computeroutput"><span class="identifier">apply</span></code> of a quoted metafunction. <code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+          <code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
         </p>
 </div>
 </div>
@@ -914,7 +916,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 14, 2017 at 20:19:38 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 15, 2017 at 16:06:15 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
