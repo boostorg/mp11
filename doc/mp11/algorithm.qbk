@@ -1,0 +1,159 @@
+[/
+ /  Copyright 2017 Peter Dimov
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See
+ / accompanying file LICENSE_1_0.txt or copy at
+ / http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:algorithm Algorithms, `<boost/mp11/algorithm.hpp>`]
+
+[section `mp_assign<L1, L2>`]
+    template<class L1, class L2> using mp_assign = /*...*/;
+[endsect]
+
+[section `mp_clear<L>`]
+    template<class L> using mp_clear = mp_assign<L, mp_list<>>;
+[endsect]
+
+[section `mp_transform<F, L...>`]
+    template<template<class...> class F, class... L> using mp_transform = /*...*/;
+[endsect]
+
+[section `mp_transform_if<P, F, L>`]
+    template<template<class...> class P, template<class...> class F, class L> using mp_transform_if = /*...*/;
+[endsect]
+
+[section `mp_fill<L, V>`]
+    template<class L, class V> using mp_fill = /*...*/;
+[endsect]
+
+[section `mp_count<L, V>`]
+    template<class L, class V> using mp_count = /*...*/;
+[endsect]
+
+[section `mp_count_if<L, P>`]
+    template<class L, template<class...> class P> using mp_count_if = /*...*/;
+[endsect]
+
+[section `mp_contains<L, V>`]
+    template<class L, class V> using mp_contains = mp_to_bool<mp_count<L, V>>;
+[endsect]
+
+[section `mp_repeat_c<L, N>`]
+    template<class L, std::size_t N> using mp_repeat_c = /*...*/;
+[endsect]
+
+[section `mp_repeat<L, N>`]
+    template<class L, class N> using mp_repeat = /*...*/;
+[endsect]
+
+[section `mp_product<F, L...>`]
+    template<template<class...> class F, class... L> using mp_product = /*...*/;
+[endsect]
+
+[section `mp_drop_c<L, N>`]
+    template<class L, std::size_t N> using mp_drop_c = /*...*/;
+[endsect]
+
+[section `mp_drop<L, N>`]
+    template<class L, class N> using mp_drop = /*...*/;
+[endsect]
+
+[section `mp_iota_c<L, N>`]
+    template<std::size_t N> using mp_iota_c = /*...*/;
+[endsect]
+
+[section `mp_iota<L, N>`]
+    template<class N> using mp_iota = /*...*/;
+[endsect]
+
+[section `mp_at_c<L, I>`]
+    template<class L, std::size_t I> using mp_at_c = /*...*/;
+[endsect]
+
+[section `mp_at<L, I>`]
+    template<class L, class I> using mp_at = /*...*/;
+[endsect]
+
+[section `mp_take_c<L, N>`]
+    template<class L, std::size_t N> using mp_take_c = /*...*/;
+[endsect]
+
+[section `mp_take<L, N>`]
+    template<class L, class N> using mp_take = /*...*/;
+[endsect]
+
+[section `mp_replace<L, V, W>`]
+    template<class L, class V, class W> using mp_replace = /*...*/;
+[endsect]
+
+[section `mp_replace_if<L, P, W>`]
+    template<class L, template<class...> class P, class W> using mp_replace_if = /*...*/;
+[endsect]
+
+[section `mp_copy_if<L, P>`]
+    template<class L, template<class...> class P> using mp_copy_if = /*...*/;
+[endsect]
+
+[section `mp_remove<L, V>`]
+    template<class L, class V> using mp_remove = /*...*/;
+[endsect]
+
+[section `mp_remove_if<L, P>`]
+    template<class L, template<class...> class P> using mp_remove_if = /*...*/;
+[endsect]
+
+[section `mp_partition<L, P>`]
+    template<class L, template<class...> class P> using mp_partition = /*...*/;
+[endsect]
+
+[section `mp_sort<L, P>`]
+    template<class L, template<class...> class P> using mp_sort = /*...*/;
+[endsect]
+
+[section `mp_find_index<L, V>`]
+    template<class L, class V> using mp_find_index = /*...*/;
+[endsect]
+
+[section `mp_find_index_if<L, P>`]
+    template<class L, template<class...> class P> using mp_find_index_if = /*...*/;
+[endsect]
+
+[section `mp_find<L, V>`]
+    template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
+[endsect]
+
+[section `mp_find_if<L, P>`]
+    template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
+[endsect]
+
+[section `mp_reverse<L>`]
+    template<class L> using mp_reverse = /*...*/;
+[endsect]
+
+[section `mp_fold<L, V, F>`]
+    template<class L, class V, template<class...> class F> using mp_fold = /*...*/;
+[endsect]
+
+[section `mp_reverse_fold<L, V, F>`]
+    template<class L, class V, template<class...> class F> using mp_reverse_fold = /*...*/;
+[endsect]
+
+[section `mp_unique<L>`]
+    template<class L> using mp_unique = /*...*/;
+[endsect]
+
+[section `mp_all_of<L, P>`]
+    template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+[endsect]
+
+[section `mp_none_of<L, P>`]
+    template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+[endsect]
+
+[section `mp_any_of<L, P>`]
+    template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+[endsect]
+
+[endsect]

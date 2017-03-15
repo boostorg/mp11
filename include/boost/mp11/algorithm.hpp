@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED
 #define BOOST_MP11_ALGORITHM_HPP_INCLUDED
 
-//  Copyright 2015, 2016 Peter Dimov.
+//  Copyright 2015-2017 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -68,6 +68,31 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 } // namespace detail
 
 template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_impl<F, L...>::type;
+
+// mp_transform_if<P, F, L>
+namespace detail
+{
+
+template<template<class...> class P, template<class...> class F, class L> struct mp_transform_if_impl;
+
+template<template<class...> class P, template<class...> class F, template<class...> class L, class... T> struct mp_transform_if_impl<P, F, L<T...>>
+{
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+    template<class U> struct _f { using type = mp_eval_if<mp_not<P<U>>, U, F, U>; };
+    using type = L<typename _f<T>::type...>;
+
+#else
+
+    template<class U> using _f = mp_eval_if<mp_not<P<U>>, U, F, U>;
+    using type = L<_f<T>...>;
+
+#endif
+};
+
+} // namespace detail
+
+template<template<class...> class P, template<class...> class F, class L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L>::type;
 
 // mp_fill<L, V>
 namespace detail

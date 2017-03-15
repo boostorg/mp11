@@ -1,0 +1,923 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter&#160;1.&#160;Boost.Mp11</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="mp11.html" title="Chapter&#160;1.&#160;Boost.Mp11">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="mp11"></a>Chapter&#160;1.&#160;Boost.Mp11</h2></div>
+<div><p class="copyright">Copyright &#169; 2015-2017 Peter Dimov</p></div>
+<div><div class="legalnotice">
+<a name="mp11.legal"></a><p>
+        Distributed under the <a href="http://boost.org/LICENSE_1_0.txt" target="_top">Boost
+        Software License, Version 1.0</a>.
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="section"><a href="mp11.html#mp11.overview">Overview</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference">Reference</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_bool_b"><code class="computeroutput"><span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_true"><code class="computeroutput"><span class="identifier">mp_true</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_false"><code class="computeroutput"><span class="identifier">mp_false</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_to_bool_t"><code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_not_t"><code class="computeroutput"><span class="identifier">mp_not</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_int_i"><code class="computeroutput"><span class="identifier">mp_int</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_size_t_n"><code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list">List Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">list</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_list_t"><code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_size_l"><code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_empty_l"><code class="computeroutput"><span class="identifier">mp_empty</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_front_l"><code class="computeroutput"><span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_pop_front_l"><code class="computeroutput"><span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_first_l"><code class="computeroutput"><span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_rest_l"><code class="computeroutput"><span class="identifier">mp_rest</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_second_l"><code class="computeroutput"><span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_third_l"><code class="computeroutput"><span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_push_front_l_t"><code class="computeroutput"><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_push_back_l_t"><code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_rename_l_y"><code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
+        <span class="identifier">Y</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_append_l"><code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility">Utility Components, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">utility</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t"><code class="computeroutput"><span class="identifier">mp_identity</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t_t"><code class="computeroutput"><span class="identifier">mp_identity_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_inherit_t"><code class="computeroutput"><span class="identifier">mp_inherit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_t_e"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_b_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_valid_f_t"><code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_defer_f_t"><code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_quote_f"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_unquote_q_t"><code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm">Algorithms, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_assign_l1_l2"><code class="computeroutput"><span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_clear_l"><code class="computeroutput"><span class="identifier">mp_clear</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_f_l"><code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_if_p_f_l"><code class="computeroutput"><span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_fill_l_v"><code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_count_l_v"><code class="computeroutput"><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_count_if_l_p"><code class="computeroutput"><span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_contains_l_v"><code class="computeroutput"><span class="identifier">mp_contains</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_repeat_c_l_n"><code class="computeroutput"><span class="identifier">mp_repeat_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_repeat_l_n"><code class="computeroutput"><span class="identifier">mp_repeat</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_product_f_l"><code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_c_l_n"><code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_l_n"><code class="computeroutput"><span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_c_l_n"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_l_n"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_at_c_l_i"><code class="computeroutput"><span class="identifier">mp_at_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_at_l_i"><code class="computeroutput"><span class="identifier">mp_at</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
+        <span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_take_c_l_n"><code class="computeroutput"><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_take_l_n"><code class="computeroutput"><span class="identifier">mp_take</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_replace_l_v_w"><code class="computeroutput"><span class="identifier">mp_replace</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_replace_if_l_p_w"><code class="computeroutput"><span class="identifier">mp_replace_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_copy_if_l_p"><code class="computeroutput"><span class="identifier">mp_copy_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_remove_l_v"><code class="computeroutput"><span class="identifier">mp_remove</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_remove_if_l_p"><code class="computeroutput"><span class="identifier">mp_remove_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_partition_l_p"><code class="computeroutput"><span class="identifier">mp_partition</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_sort_l_p"><code class="computeroutput"><span class="identifier">mp_sort</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_index_l_v"><code class="computeroutput"><span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_index_if_l_p"><code class="computeroutput"><span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_l_v"><code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_if_l_p"><code class="computeroutput"><span class="identifier">mp_find_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_reverse_l"><code class="computeroutput"><span class="identifier">mp_reverse</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_fold_l_v_f"><code class="computeroutput"><span class="identifier">mp_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_reverse_fold_l_v_f"><code class="computeroutput"><span class="identifier">mp_reverse_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_unique_l"><code class="computeroutput"><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_all_of_l_p"><code class="computeroutput"><span class="identifier">mp_all_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_none_of_l_p"><code class="computeroutput"><span class="identifier">mp_none_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_any_of_l_p"><code class="computeroutput"><span class="identifier">mp_any_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.set">Set Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">set</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.set.mp_set_contains_s_v"><code class="computeroutput"><span class="identifier">mp_set_contains</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.set.mp_set_push_back_s_t"><code class="computeroutput"><span class="identifier">mp_set_push_back</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.set.mp_set_push_front_s_t"><code class="computeroutput"><span class="identifier">mp_set_push_front</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map">Map Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">map</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_find_m_k"><code class="computeroutput"><span class="identifier">mp_map_find</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span>
+        <span class="identifier">K</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_contains_m_k"><code class="computeroutput"><span class="identifier">mp_map_contains</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_insert_m_t"><code class="computeroutput"><span class="identifier">mp_map_insert</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_replace_m_t"><code class="computeroutput"><span class="identifier">mp_map_replace</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_update_m_t_f"><code class="computeroutput"><span class="identifier">mp_map_update</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_erase_m_k"><code class="computeroutput"><span class="identifier">mp_map_erase</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code></a></span></dt>
+</dl></dd>
+</dl></dd>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mp11.overview"></a><a class="link" href="mp11.html#mp11.overview" title="Overview">Overview</a>
+</h2></div></div></div>
+<p>
+      ...
+    </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mp11.reference"></a><a class="link" href="mp11.html#mp11.reference" title="Reference">Reference</a>
+</h2></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.integral"></a><a class="link" href="mp11.html#mp11.reference.integral" title="Integral Constants, &lt;boost/mp11/integral.hpp&gt;">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_bool_b"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_bool_b" title="mp_bool&lt;B&gt;"><code class="computeroutput"><span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">B</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_bool</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">,</span> <span class="identifier">B</span><span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_true"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_true" title="mp_true"><code class="computeroutput"><span class="identifier">mp_true</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">mp_true</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_false"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_false" title="mp_false"><code class="computeroutput"><span class="identifier">mp_false</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">mp_false</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="keyword">false</span><span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_to_bool_t"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_to_bool_t" title="mp_to_bool&lt;T&gt;"><code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_to_bool</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">T</span><span class="special">::</span><span class="identifier">value</span><span class="special">)&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_not_t"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_not_t" title="mp_not&lt;T&gt;"><code class="computeroutput"><span class="identifier">mp_not</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_not</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="special">!</span><span class="identifier">T</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_int_i"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_int_i" title="mp_int&lt;I&gt;"><code class="computeroutput"><span class="identifier">mp_int</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">int</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_int</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integral.mp_size_t_n"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_size_t_n" title="mp_size_t&lt;N&gt;"><code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_size_t</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;;</span>
+</pre>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.list"></a><a class="link" href="mp11.html#mp11.reference.list" title="List Operations, &lt;boost/mp11/list.hpp&gt;">List Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">list</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_list_t"></a><a class="link" href="mp11.html#mp11.reference.list.mp_list_t" title="mp_list&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_list</span> <span class="special">{};</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_list</span></code> is the standard
+          list type of Mp11, although the library is not restricted to it and can
+          operate on arbitrary class templates such as <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>
+          or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>. Even <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>
+          can be used if the transformation does not alter the number of the elements
+          in the list.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_size_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_size_l" title="mp_size&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_size</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          returns the number of elements in the list <code class="computeroutput"><span class="identifier">L</span></code>,
+          as a <code class="computeroutput"><span class="identifier">mp_size_t</span></code>. In other
+          words, <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_empty_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_empty_l" title="mp_empty&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_empty</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_empty</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="number">0</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_empty</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          if the list <code class="computeroutput"><span class="identifier">L</span></code> is empty,
+          for <code class="computeroutput"><span class="identifier">mp_false</span></code> otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_front_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_front_l" title="mp_front&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_front</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          is the first element of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T1</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_pop_front_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_pop_front_l" title="mp_pop_front&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_pop_front</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          removes the first element of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_first_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_first_l" title="mp_first&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_first</span> <span class="special">=</span> <span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_first</span></code> is another name
+          for <code class="computeroutput"><span class="identifier">mp_front</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_rest_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_rest_l" title="mp_rest&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_rest</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_rest</span> <span class="special">=</span> <span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_rest</span></code> is another name
+          for <code class="computeroutput"><span class="identifier">mp_pop_front</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_second_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_second_l" title="mp_second&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_second</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          is the second element of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T2</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_third_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_third_l" title="mp_third&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_third</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          is the third element of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">T3</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T3</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_push_front_l_t"></a><a class="link" href="mp11.html#mp11.reference.list.mp_push_front_l_t" title="mp_push_front&lt;L, T...&gt;"><code class="computeroutput"><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_push_front</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> inserts the elements <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
+          at the front of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_push_back_l_t"></a><a class="link" href="mp11.html#mp11.reference.list.mp_push_back_l_t" title="mp_push_back&lt;L, T...&gt;"><code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_push_back</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> inserts the elements <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
+          at the back of the list <code class="computeroutput"><span class="identifier">L</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_rename_l_y"></a><a class="link" href="mp11.html#mp11.reference.list.mp_rename_l_y" title="mp_rename&lt;L, Y&gt;"><code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
+        <span class="identifier">Y</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">Y</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_rename</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">&gt;</span></code> changes the type of the list <code class="computeroutput"><span class="identifier">L</span></code> to <code class="computeroutput"><span class="identifier">Y</span></code>.
+          That is, <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">Y</span><span class="special">&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">Y</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_append_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_append_l" title="mp_append&lt;L...&gt;"><code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_append</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">...&gt;</span></code>
+          concatenates the lists in <code class="computeroutput"><span class="identifier">L</span><span class="special">...</span></code> into a single list that has the same
+          type as the first list. <code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;&gt;</span></code>. <code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">L2</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;,</span> <span class="special">...,</span>
+          <span class="identifier">Ln</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...,</span> <span class="identifier">T2</span><span class="special">...,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.utility"></a><a class="link" href="mp11.html#mp11.reference.utility" title="Utility Components, &lt;boost/mp11/utility.hpp&gt;">Utility Components, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">utility</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_identity_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_identity_t" title="mp_identity&lt;T&gt;"><code class="computeroutput"><span class="identifier">mp_identity</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_identity</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">type</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_identity_t_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_identity_t_t" title="mp_identity_t&lt;T&gt;"><code class="computeroutput"><span class="identifier">mp_identity_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_identity_t</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_inherit_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_inherit_t" title="mp_inherit&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_inherit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_inherit</span><span class="special">:</span> <span class="identifier">T</span><span class="special">...</span> <span class="special">{};</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_if_c_b_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e" title="mp_if_c&lt;B, T, E&gt;"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
+          <code class="computeroutput"><span class="identifier">B</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
+          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_if_c_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_t_e" title="mp_if&lt;C, T, E&gt;"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span><span class="special">),</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
+          <code class="computeroutput"><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
+          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_eval_if_c_b_t_f_u"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_eval_if_c_b_t_f_u" title="mp_eval_if_c&lt;B, T, F, U...&gt;"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_eval_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+          <span class="identifier">U</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
+          <code class="computeroutput"><span class="identifier">B</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
+          for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code>
+          otherwise. Its purpose is to avoid evaluating <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code> when the condition is <code class="computeroutput"><span class="keyword">true</span></code> as it may not be valid in this case.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_eval_if_c_t_f_u"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_eval_if_c_t_f_u" title="mp_eval_if&lt;C, T, F, U...&gt;"><code class="computeroutput"><span class="identifier">mp_eval_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_eval_if</span> <span class="special">=</span> <span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span><span class="special">),</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">U</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          Like <code class="computeroutput"><span class="identifier">mp_eval_if_c</span></code>, but
+          the first argument is a type.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_valid_f_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_valid_f_t" title="mp_valid&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_valid</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          when <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is a valid expression, for <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_defer_f_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_defer_f_t" title="mp_defer&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_defer</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          When <code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is a struct with a nested type
+          <code class="computeroutput"><span class="identifier">type</span></code> which is an alias
+          for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+          Otherwise, <code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is an empty struct.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_quote_f"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_quote_f" title="mp_quote&lt;F&gt;"><code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_quote</span>
+<span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">apply</span> <span class="special">=</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;;</span>
+<span class="special">};</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>
+          transforms the template <code class="computeroutput"><span class="identifier">F</span></code>
+          into a type. The nested template <code class="computeroutput"><span class="identifier">apply</span></code>
+          of the result is an alias for <code class="computeroutput"><span class="identifier">F</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_unquote_q_t"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_unquote_q_t" title="mp_unquote&lt;Q, T...&gt;"><code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_unquote</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_unquote</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>, where <code class="computeroutput"><span class="identifier">Q</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_quote</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>,
+          is an alias for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.algorithm"></a><a class="link" href="mp11.html#mp11.reference.algorithm" title="Algorithms, &lt;boost/mp11/algorithm.hpp&gt;">Algorithms, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_assign_l1_l2"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_assign_l1_l2" title="mp_assign&lt;L1, L2&gt;"><code class="computeroutput"><span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_assign</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_clear_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_clear_l" title="mp_clear&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_clear</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_clear</span> <span class="special">=</span> <span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;&gt;&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_transform_f_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_transform_f_l" title="mp_transform&lt;F, L...&gt;"><code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_transform_if_p_f_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_transform_if_p_f_l" title="mp_transform_if&lt;P, F, L&gt;"><code class="computeroutput"><span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_fill_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_fill_l_v" title="mp_fill&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_fill</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_count_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_count_l_v" title="mp_count&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_count</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_count_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_count_if_l_p" title="mp_count_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_count_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_contains_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_contains_l_v" title="mp_contains&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_contains</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_contains</span> <span class="special">=</span> <span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_repeat_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_repeat_c_l_n" title="mp_repeat_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_repeat_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_repeat_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_repeat_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_repeat_l_n" title="mp_repeat&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_repeat</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_repeat</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_product_f_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_product_f_l" title="mp_product&lt;F, L...&gt;"><code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_product</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_drop_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_drop_c_l_n" title="mp_drop_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_drop_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_drop_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_drop_l_n" title="mp_drop&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_drop</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_iota_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_c_l_n" title="mp_iota_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_iota_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_iota_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_l_n" title="mp_iota&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_iota</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_at_c_l_i"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_at_c_l_i" title="mp_at_c&lt;L, I&gt;"><code class="computeroutput"><span class="identifier">mp_at_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_at_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_at_l_i"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_at_l_i" title="mp_at&lt;L, I&gt;"><code class="computeroutput"><span class="identifier">mp_at</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
+        <span class="identifier">I</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_at</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_take_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_take_c_l_n" title="mp_take_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_take_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_take_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_take_l_n" title="mp_take&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_take</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_take</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_replace_l_v_w"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_replace_l_v_w" title="mp_replace&lt;L, V, W&gt;"><code class="computeroutput"><span class="identifier">mp_replace</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">W</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_replace</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_replace_if_l_p_w"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_replace_if_l_p_w" title="mp_replace_if&lt;L, P, W&gt;"><code class="computeroutput"><span class="identifier">mp_replace_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">W</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_replace_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_copy_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_copy_if_l_p" title="mp_copy_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_copy_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_copy_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_remove_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_remove_l_v" title="mp_remove&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_remove</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_remove</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_remove_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_remove_if_l_p" title="mp_remove_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_remove_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_remove_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_partition_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_partition_l_p" title="mp_partition&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_partition</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_partition</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_sort_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_sort_l_p" title="mp_sort&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_sort</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_sort</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_find_index_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_index_l_v" title="mp_find_index&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_index</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_find_index_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_index_if_l_p" title="mp_find_index_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_index_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_find_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_l_v" title="mp_find&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find</span> <span class="special">=</span> <span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_find_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_if_l_p" title="mp_find_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_find_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_if</span> <span class="special">=</span> <span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_reverse_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_reverse_l" title="mp_reverse&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_reverse</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_reverse</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_fold_l_v_f"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_fold_l_v_f" title="mp_fold&lt;L, V, F&gt;"><code class="computeroutput"><span class="identifier">mp_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_fold</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_reverse_fold_l_v_f"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_reverse_fold_l_v_f" title="mp_reverse_fold&lt;L, V, F&gt;"><code class="computeroutput"><span class="identifier">mp_reverse_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_reverse_fold</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_unique_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_unique_l" title="mp_unique&lt;L&gt;"><code class="computeroutput"><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_unique</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_all_of_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_all_of_l_p" title="mp_all_of&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_all_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_all_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_none_of_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_none_of_l_p" title="mp_none_of&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_none_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_none_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="number">0</span> <span class="special">&gt;;</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_any_of_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_any_of_l_p" title="mp_any_of&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_any_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_any_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">!=</span> <span class="number">0</span> <span class="special">&gt;;</span>
+</pre>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.set"></a><a class="link" href="mp11.html#mp11.reference.set" title="Set Operations, &lt;boost/mp11/set.hpp&gt;">Set Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">set</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<p>
+        A set is a list whose elements are unique.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.set.mp_set_contains_s_v"></a><a class="link" href="mp11.html#mp11.reference.set.mp_set_contains_s_v" title="mp_set_contains&lt;S, V&gt;"><code class="computeroutput"><span class="identifier">mp_set_contains</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">S</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_set_contains</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_set_contains</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          if the type <code class="computeroutput"><span class="identifier">V</span></code> is an element
+          of the set <code class="computeroutput"><span class="identifier">S</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code> otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.set.mp_set_push_back_s_t"></a><a class="link" href="mp11.html#mp11.reference.set.mp_set_push_back_s_t" title="mp_set_push_back&lt;S, T...&gt;"><code class="computeroutput"><span class="identifier">mp_set_push_back</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">S</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_set_push_back</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          For each <code class="computeroutput"><span class="identifier">T1</span></code> in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_set_push_back</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> appends <code class="computeroutput"><span class="identifier">T1</span></code>
+          to the end of <code class="computeroutput"><span class="identifier">S</span></code> if it's
+          not already an element of <code class="computeroutput"><span class="identifier">S</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.set.mp_set_push_front_s_t"></a><a class="link" href="mp11.html#mp11.reference.set.mp_set_push_front_s_t" title="mp_set_push_front&lt;S, T...&gt;"><code class="computeroutput"><span class="identifier">mp_set_push_front</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">S</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_set_push_front</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_set_push_front</span><span class="special">&lt;</span><span class="identifier">S</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> inserts at the front of <code class="computeroutput"><span class="identifier">S</span></code> those elements of <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code> for which <code class="computeroutput"><span class="identifier">S</span></code>
+          does not already contain the same type.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.map"></a><a class="link" href="mp11.html#mp11.reference.map" title="Map Operations, &lt;boost/mp11/map.hpp&gt;">Map Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">map</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<p>
+        A map is a list of lists, the inner lists having at least one element (the
+        key.) The keys of the map must be unique.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_find_m_k"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_find_m_k" title="mp_map_find&lt;M, K&gt;"><code class="computeroutput"><span class="identifier">mp_map_find</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span>
+        <span class="identifier">K</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">K</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_find</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_map_find</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code> is an alias for the element of the
+          map <code class="computeroutput"><span class="identifier">M</span></code> with a key <code class="computeroutput"><span class="identifier">K</span></code>, or for <code class="computeroutput"><span class="keyword">void</span></code>,
+          if there is no such element.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_contains_m_k"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_contains_m_k" title="mp_map_contains&lt;M, K&gt;"><code class="computeroutput"><span class="identifier">mp_map_contains</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">K</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_contains</span> <span class="special">=</span> <span class="identifier">mp_not</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="identifier">mp_map_find</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;,</span> <span class="keyword">void</span><span class="special">&gt;&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_map_contains</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>,
+          if the map <code class="computeroutput"><span class="identifier">M</span></code> contains an
+          element with a key <code class="computeroutput"><span class="identifier">K</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_false</span></code> otherwise.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_insert_m_t"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_insert_m_t" title="mp_map_insert&lt;M, T&gt;"><code class="computeroutput"><span class="identifier">mp_map_insert</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_insert</span> <span class="special">=</span> <span class="identifier">mp_if</span><span class="special">&lt;</span> <span class="identifier">mp_map_contains</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;,</span> <span class="identifier">M</span><span class="special">,</span> <span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;;</span>
+</pre>
+<p>
+          Inserts the element <code class="computeroutput"><span class="identifier">T</span></code> into
+          the map <code class="computeroutput"><span class="identifier">M</span></code>, if an element
+          with a key <code class="computeroutput"><span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+          is not already in <code class="computeroutput"><span class="identifier">M</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_replace_m_t"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_replace_m_t" title="mp_map_replace&lt;M, T&gt;"><code class="computeroutput"><span class="identifier">mp_map_replace</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_replace</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          If the map <code class="computeroutput"><span class="identifier">M</span></code> does not contain
+          an element with a key <code class="computeroutput"><span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>, inserts it (using <code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code>);
+          otherwise, replaces the existing element with <code class="computeroutput"><span class="identifier">T</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_update_m_t_f"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_update_m_t_f" title="mp_map_update&lt;M, T, F&gt;"><code class="computeroutput"><span class="identifier">mp_map_update</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_update</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          If the map <code class="computeroutput"><span class="identifier">M</span></code> does not contain
+          an element with a key <code class="computeroutput"><span class="identifier">mp_first</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>, inserts it (using <code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code>);
+          otherwise, replaces the existing element <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">...&gt;</span></code>
+          with <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">...&gt;&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.map.mp_map_erase_m_k"></a><a class="link" href="mp11.html#mp11.reference.map.mp_map_erase_m_k" title="mp_map_erase&lt;M, K&gt;"><code class="computeroutput"><span class="identifier">mp_map_erase</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">K</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_map_erase</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          If the map <code class="computeroutput"><span class="identifier">M</span></code> contains an
+          element with a key <code class="computeroutput"><span class="identifier">K</span></code>, removes
+          it.
+        </p>
+</div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: March 14, 2017 at 20:19:38 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+</body>
+</html>

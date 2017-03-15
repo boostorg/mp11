@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_MAP_HPP_INCLUDED
 #define BOOST_MP11_MAP_HPP_INCLUDED
 
-//  Copyright 2015, 2016 Peter Dimov.
+//  Copyright 2015-2017 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -46,7 +46,36 @@ template<template<class...> class M, class... U, class T> struct mp_map_replace_
 template<class M, class T> using mp_map_replace = typename detail::mp_map_replace_impl<M, T>::type;
 
 // mp_map_update<M, T, F>
+namespace detail
+{
+
+template<class M, class T, template<class...> class F> struct mp_map_update_impl
+{
+    template<class U> using _f = std::is_same<mp_first<T>, mp_first<U>>;
+
+    // _f3<L<X, Y...>> -> L<X, F<X, Y...>>
+    template<class L> using _f3 = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F>>>;
+
+    using type = mp_if< mp_map_contains<M, mp_first<T>>, mp_transform_if<_f, _f3, M>, mp_push_back<M, T> >;
+};
+
+} // namespace detail
+
+template<class M, class T, template<class...> class F> using mp_map_update = typename detail::mp_map_update_impl<M, T, F>::type;
+
 // mp_map_erase<M, K>
+namespace detail
+{
+
+template<class M, class K> struct mp_map_erase_impl
+{
+    template<class T> using _f = std::is_same<mp_first<T>, K>;
+    using type = mp_remove_if<M, _f>;
+};
+
+} // namespace detail
+
+template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
 
 } // namespace boost
 
