@@ -94,8 +94,8 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_product_f_l"><code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_c_l_n"><code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_l_n"><code class="computeroutput"><span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_c_l_n"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_l_n"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_c_n"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_n"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_at_c_l_i"><code class="computeroutput"><span class="identifier">mp_at_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_at_l_i"><code class="computeroutput"><span class="identifier">mp_at</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
         <span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
@@ -529,6 +529,13 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_assign</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span>
+          <span class="identifier">L2</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;</span></code>.
+          That is, it replaces the elements of <code class="computeroutput"><span class="identifier">L1</span></code>
+          with those of <code class="computeroutput"><span class="identifier">L2</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -536,6 +543,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_clear</span> <span class="special">=</span> <span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;&gt;&gt;;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_clear</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;&gt;</span></code>,
+          that is, it removes the elements of <code class="computeroutput"><span class="identifier">L</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -543,6 +555,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">L2</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;,</span> <span class="special">...,</span>
+          <span class="identifier">Ln</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">...&gt;&gt;</span></code>
+          applies <code class="computeroutput"><span class="identifier">F</span></code> to each successive
+          tuple of elements and returns <code class="computeroutput"><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">&gt;...&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -550,6 +568,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_transform_if</span></code> replaces
+          the elements <code class="computeroutput"><span class="identifier">T</span></code> of <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          with <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>,
+          and returns the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -557,6 +581,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_fill</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">V</span><span class="special">&gt;</span></code>
+          returns <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">V</span><span class="special">&gt;</span></code>,
+          with the result having the same size as the input.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -564,6 +593,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_count</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> returns <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">N</span></code>
+          is the number of elements of <code class="computeroutput"><span class="identifier">L</span></code>
+          same as <code class="computeroutput"><span class="identifier">V</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -571,6 +605,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_count_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_count_f</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> returns <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">N</span></code>
+          is the number of elements <code class="computeroutput"><span class="identifier">T</span></code>
+          of <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -578,6 +618,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_contains</span> <span class="special">=</span> <span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;&gt;;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_contains</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          when <code class="computeroutput"><span class="identifier">L</span></code> contains an element
+          <code class="computeroutput"><span class="identifier">V</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -585,6 +631,10 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_repeat_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_repeat_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> returns a list of the same type as
+          <code class="computeroutput"><span class="identifier">L</span></code> that consists of <code class="computeroutput"><span class="identifier">N</span></code> concatenated copies of <code class="computeroutput"><span class="identifier">L</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -592,6 +642,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_repeat</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_repeat_c</span></code> but
+          with a type argument <code class="computeroutput"><span class="identifier">N</span></code>.
+          The number of copies is <code class="computeroutput"><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span></code>
+          and must be nonnegative.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -599,6 +655,15 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_product</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">L2</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;,</span> <span class="special">...,</span>
+          <span class="identifier">Ln</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">...&gt;&gt;</span></code>
+          evaluates <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,</span> <span class="identifier">U2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Un</span><span class="special">&gt;</span></code> for values <code class="computeroutput"><span class="identifier">Ui</span></code>
+          taken from the Cartesian product of the lists, as if the elements <code class="computeroutput"><span class="identifier">Ui</span></code> are formed by <code class="computeroutput"><span class="identifier">n</span></code>
+          nested loops, each traversing <code class="computeroutput"><span class="identifier">Li</span></code>.
+          It returns a list of type <code class="computeroutput"><span class="identifier">L1</span></code>
+          containing the results of the application of <code class="computeroutput"><span class="identifier">F</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -606,6 +671,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_drop_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> removes the first <code class="computeroutput"><span class="identifier">N</span></code>
+          elements of <code class="computeroutput"><span class="identifier">L</span></code> and returns
+          the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -613,20 +683,40 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_drop</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_drop_c</span></code>, but
+          with a type argument <code class="computeroutput"><span class="identifier">N</span></code>.
+          <code class="computeroutput"><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span></code> must be a nonnegative number.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.algorithm.mp_iota_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_c_l_n" title="mp_iota_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.algorithm.mp_iota_c_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_c_n" title="mp_iota_c&lt;N&gt;"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_iota_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;,</span>
+          <span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;,</span> <span class="special">...,</span>
+          <span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.algorithm.mp_iota_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_l_n" title="mp_iota&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.algorithm.mp_iota_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_iota_n" title="mp_iota&lt;N&gt;"><code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_iota</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_iota_c</span></code>, but
+          with a type argument <code class="computeroutput"><span class="identifier">N</span></code>.
+          <code class="computeroutput"><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span></code> must be a nonnegative number. Returns
+          <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="number">0</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="number">1</span><span class="special">&gt;,</span>
+          <span class="special">...,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;&gt;</span></code>
+          where <code class="computeroutput"><span class="identifier">T</span></code> is the type of
+          <code class="computeroutput"><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -634,6 +724,10 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_at_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_at_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;</span></code> returns the <code class="computeroutput"><span class="identifier">I</span></code>th
+          element of <code class="computeroutput"><span class="identifier">L</span></code>, zero-based.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -642,6 +736,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_at</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_at_c</span></code>, but with
+          a type argument <code class="computeroutput"><span class="identifier">I</span></code>. <code class="computeroutput"><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span></code>
+          must be a nonnegative number.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -649,6 +748,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_take_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> returns a list of the same type as
+          <code class="computeroutput"><span class="identifier">L</span></code> containing the first
+          <code class="computeroutput"><span class="identifier">N</span></code> elements of <code class="computeroutput"><span class="identifier">L</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -656,6 +760,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_take</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_take_c</span></code>, but
+          with a type argument <code class="computeroutput"><span class="identifier">N</span></code>.
+          <code class="computeroutput"><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span></code> must be a nonnegative number.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -663,6 +772,10 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">W</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_replace</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Replaces all <code class="computeroutput"><span class="identifier">V</span></code> elements
+          of <code class="computeroutput"><span class="identifier">L</span></code> with <code class="computeroutput"><span class="identifier">W</span></code> and returns the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -670,6 +783,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">W</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_replace_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Replaces all <code class="computeroutput"><span class="identifier">T</span></code> elements
+          of <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> with <code class="computeroutput"><span class="identifier">W</span></code> and returns the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -677,6 +795,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_copy_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Copies the elements <code class="computeroutput"><span class="identifier">T</span></code> of
+          <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> to a new list
+          of the same type and returns it.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -684,6 +808,10 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_remove</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Removes all <code class="computeroutput"><span class="identifier">V</span></code> elements
+          of <code class="computeroutput"><span class="identifier">L</span></code> and returns the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -691,6 +819,12 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_remove_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          Removes all elements <code class="computeroutput"><span class="identifier">T</span></code>
+          of <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> and returns
+          the result.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -698,6 +832,19 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_partition</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_partition</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">P</span><span class="special">&gt;</span></code>
+          partitions <code class="computeroutput"><span class="identifier">L</span></code> into two lists
+          <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">...&gt;</span></code>
+          and <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U2</span><span class="special">...&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> for the elements
+          of <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">...&gt;</span></code>
+          and <code class="computeroutput"><span class="identifier">mp_false</span></code> for the elements
+          of <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U2</span><span class="special">...&gt;</span></code>.
+          Returns <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">...&gt;,</span>
+          <span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U2</span><span class="special">...&gt;&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -705,6 +852,10 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_sort</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_sort</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> sorts the list <code class="computeroutput"><span class="identifier">L</span></code>
+          according to the strict weak ordering <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">U</span><span class="special">&gt;&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -916,7 +1067,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 15, 2017 at 16:06:15 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 15, 2017 at 17:28:31 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
