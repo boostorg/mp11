@@ -108,8 +108,6 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_remove_if_l_p"><code class="computeroutput"><span class="identifier">mp_remove_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_partition_l_p"><code class="computeroutput"><span class="identifier">mp_partition</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_sort_l_p"><code class="computeroutput"><span class="identifier">mp_sort</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_index_l_v"><code class="computeroutput"><span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_index_if_l_p"><code class="computeroutput"><span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_l_v"><code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_find_if_l_p"><code class="computeroutput"><span class="identifier">mp_find_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_reverse_l"><code class="computeroutput"><span class="identifier">mp_reverse</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
@@ -859,31 +857,31 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.algorithm.mp_find_index_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_index_l_v" title="mp_find_index&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
-</h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_index</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
-</pre>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.algorithm.mp_find_index_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_index_if_l_p" title="mp_find_index_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
-</h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_index_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
-</pre>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_find_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_l_v" title="mp_find&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find</span> <span class="special">=</span> <span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_find_index</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;&gt;;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">I</span></code>
+          is the zero-based index of the first occurence of <code class="computeroutput"><span class="identifier">V</span></code>
+          in <code class="computeroutput"><span class="identifier">L</span></code>. If <code class="computeroutput"><span class="identifier">L</span></code> does not contain <code class="computeroutput"><span class="identifier">V</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_find_if_l_p"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_find_if_l_p" title="mp_find_if&lt;L, P&gt;"><code class="computeroutput"><span class="identifier">mp_find_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_if</span> <span class="special">=</span> <span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">mp_find_index_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;&gt;;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_find_f</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">I</span></code>
+          is the zero-based index of the first element <code class="computeroutput"><span class="identifier">T</span></code>
+          in <code class="computeroutput"><span class="identifier">L</span></code> for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>. If there is
+          no such element, <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -891,6 +889,9 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_reverse</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_reverse</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">&gt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">T1</span><span class="special">&gt;</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -898,6 +899,15 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_fold</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">&gt;,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span>
+          <span class="identifier">F</span><span class="special">&lt;</span>
+          <span class="identifier">F</span><span class="special">&lt;</span>
+          <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">T1</span><span class="special">&gt;,</span> <span class="identifier">T2</span><span class="special">&gt;,</span> <span class="special">...&gt;,</span>
+          <span class="identifier">Tn</span><span class="special">&gt;</span></code>,
+          or <code class="computeroutput"><span class="identifier">V</span></code>, if <code class="computeroutput"><span class="identifier">L</span></code> is empty.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -905,6 +915,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_reverse_fold</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_reverse_fold</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">&gt;,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&lt;...,</span> <span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;&gt;&gt;&gt;</span></code>,
+          or <code class="computeroutput"><span class="identifier">V</span></code>, if <code class="computeroutput"><span class="identifier">L</span></code> is empty.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -912,6 +927,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_unique</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>
+          returns a list of the same type as <code class="computeroutput"><span class="identifier">L</span></code>
+          with the duplicate elements removed.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -919,6 +939,13 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_all_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_all_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          when <code class="computeroutput"><span class="identifier">P</span></code> holds for all elements
+          of <code class="computeroutput"><span class="identifier">L</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise. When <code class="computeroutput"><span class="identifier">L</span></code> is empty,
+          the result is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -926,6 +953,13 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_none_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="number">0</span> <span class="special">&gt;;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_none_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          when <code class="computeroutput"><span class="identifier">P</span></code> holds for no element
+          of <code class="computeroutput"><span class="identifier">L</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise. When <code class="computeroutput"><span class="identifier">L</span></code> is empty,
+          the result is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+        </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -933,6 +967,11 @@
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_any_of</span> <span class="special">=</span> <span class="identifier">mp_bool</span><span class="special">&lt;</span> <span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">!=</span> <span class="number">0</span> <span class="special">&gt;;</span>
 </pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_any_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          when <code class="computeroutput"><span class="identifier">P</span></code> holds for at least
+          one element of <code class="computeroutput"><span class="identifier">L</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code> otherwise. When <code class="computeroutput"><span class="identifier">L</span></code> is empty, the result is <code class="computeroutput"><span class="identifier">mp_false</span></code>.
+        </p>
 </div>
 </div>
 <div class="section">
@@ -1067,7 +1106,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 15, 2017 at 17:28:31 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 15, 2017 at 18:15:15 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

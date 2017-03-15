@@ -169,48 +169,60 @@ for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Re
 `mp_sort<L, P>` sorts the list `L` according to the strict weak ordering `mp_to_bool<P<T, U>>`.
 [endsect]
 
-[section `mp_find_index<L, V>`]
-    template<class L, class V> using mp_find_index = /*...*/;
-[endsect]
-
-[section `mp_find_index_if<L, P>`]
-    template<class L, template<class...> class P> using mp_find_index_if = /*...*/;
-[endsect]
-
 [section `mp_find<L, V>`]
-    template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
+    template<class L, class V> using mp_find = /*...*/;
+
+`mp_find<L, V>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first occurence of `V` in `L`. If
+`L` does not contain `V`, `mp_find<L, V>` is `mp_size<L>`.
 [endsect]
 
 [section `mp_find_if<L, P>`]
-    template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
+    template<class L, template<class...> class P> using mp_find_if = /*...*/;
+
+`mp_find_f<L, P>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first element `T` in `L` for which
+`mp_to_bool<P<T>>` is `mp_true`. If there is no such element, `mp_find<L, V>` is `mp_size<L>`.
 [endsect]
 
 [section `mp_reverse<L>`]
     template<class L> using mp_reverse = /*...*/;
+
+`mp_reverse<L<T1, T2, ..., Tn>>` is `L<Tn, ..., T2, T1>`.
 [endsect]
 
 [section `mp_fold<L, V, F>`]
     template<class L, class V, template<class...> class F> using mp_fold = /*...*/;
+
+`mp_fold<L<T1, T2, ..., Tn>, V, F>` is `F< F< F< F<V, T1>, T2>, ...>, Tn>`, or `V`, if `L` is empty.
 [endsect]
 
 [section `mp_reverse_fold<L, V, F>`]
     template<class L, class V, template<class...> class F> using mp_reverse_fold = /*...*/;
+
+`mp_reverse_fold<L<T1, T2, ..., Tn>, V, F>` is `F<T1, F<T2, F<..., F<Tn, V>>>>`, or `V`, if `L` is empty.
 [endsect]
 
 [section `mp_unique<L>`]
     template<class L> using mp_unique = /*...*/;
+
+`mp_unique<L>` returns a list of the same type as `L` with the duplicate elements removed.
 [endsect]
 
 [section `mp_all_of<L, P>`]
     template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+
+`mp_all_of<L, P>` is `mp_true` when `P` holds for all elements of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 [endsect]
 
 [section `mp_none_of<L, P>`]
     template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+
+`mp_none_of<L, P>` is `mp_true` when `P` holds for no element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 [endsect]
 
 [section `mp_any_of<L, P>`]
     template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+
+`mp_any_of<L, P>` is `mp_true` when `P` holds for at least one element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_false`.
 [endsect]
 
 [endsect]
