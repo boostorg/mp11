@@ -18,9 +18,6 @@ namespace boost
 namespace mp11
 {
 
-// mp_equal_to<T1, T2>
-template<class T1, class T2> using mp_equal_to = mp_bool< T1::value == T2::value >;
-
 // mp_all<T...>
 template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value == sizeof...(T) >;
 
