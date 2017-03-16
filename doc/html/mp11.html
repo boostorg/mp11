@@ -134,6 +134,25 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_update_m_t_f"><code class="computeroutput"><span class="identifier">mp_map_update</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.map.mp_map_erase_m_k"><code class="computeroutput"><span class="identifier">mp_map_erase</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">,</span> <span class="identifier">K</span><span class="special">&gt;</span></code></a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function">Helper Metafunctions, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_and_t"><code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_all_t"><code class="computeroutput"><span class="identifier">mp_all</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_or_t"><code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_any_t"><code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence">Integer Sequences,
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.integer_sequence_t_i"><code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.make_integer_sequence_t_n"><code class="computeroutput"><span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.index_sequence_i"><code class="computeroutput"><span class="identifier">index_sequence</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.make_index_sequence_n"><code class="computeroutput"><span class="identifier">make_index_sequence</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.index_sequence_for_t"><code class="computeroutput"><span class="identifier">index_sequence_for</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each">A "for each"
+      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a></span></dt></dl></dd>
 </dl></dd>
 </dl>
 </div>
@@ -142,17 +161,54 @@
 <a name="mp11.overview"></a><a class="link" href="mp11.html#mp11.overview" title="Overview">Overview</a>
 </h2></div></div></div>
 <p>
-      ...
+      Mp11 is a C++11 metaprogramming library based on template aliases and variadic
+      templates. It implements the approach outlined in the article <a href="http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html" target="_top">Simple
+      C++11 metaprogramming</a> (<a href="http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html" target="_top">part
+      2</a>).
+    </p>
+<p>
+      The general principles upon which Mp11 is built are that algorithms and metafunctions
+      are template aliases of the form <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+      and data structures are lists of the form <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>,
+      with the library placing no requirements on <code class="computeroutput"><span class="identifier">L</span></code>.
+      <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+      is the built-in list type, but <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>,
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+      are also perfectly legitimate list types, although of course <code class="computeroutput"><span class="identifier">std</span><span class="special">:</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span>
+      <span class="identifier">T2</span><span class="special">&gt;</span></code>,
+      due to having exactly two elements, is not resizeable and will consequently
+      not work with algorithms that need to add or remove elements.
+    </p>
+<p>
+      Another distinguishing feature of this approach is that lists (<code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>) have the same form as metafunctions
+      (<code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>)
+      and can therefore be used as such. For example, applying <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span></code>
+      to the list <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code> by way of <code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span><span class="special">&gt;</span></code> gives us <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">*,</span> <span class="keyword">float</span><span class="special">*&gt;</span></code>, but we can also apply <code class="computeroutput"><span class="identifier">mp_list</span></code>
+      to the same tuple:
+    </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&gt;;</span>
+</pre>
+<p>
+      and get <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&gt;</span></code>.
     </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="mp11.reference"></a><a class="link" href="mp11.html#mp11.reference" title="Reference">Reference</a>
 </h2></div></div></div>
+<p>
+      The contents of the library are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span></code>, unless
+      specified otherwise.
+    </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="mp11.reference.integral"></a><a class="link" href="mp11.html#mp11.reference.integral" title="Integral Constants, &lt;boost/mp11/integral.hpp&gt;">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h3></div></div></div>
+<p>
+        For an Mp11 integral constant type <code class="computeroutput"><span class="identifier">T</span></code>,
+        <code class="computeroutput"><span class="identifier">T</span><span class="special">::</span><span class="identifier">value</span></code> is an integral constant in the C++
+        sense.
+      </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.integral.mp_bool_b"></a><a class="link" href="mp11.html#mp11.reference.integral.mp_bool_b" title="mp_bool&lt;B&gt;"><code class="computeroutput"><span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">&gt;</span></code></a>
@@ -1103,10 +1159,178 @@
         </p>
 </div>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.function"></a><a class="link" href="mp11.html#mp11.reference.function" title="Helper Metafunctions, &lt;boost/mp11/function.hpp&gt;">Helper Metafunctions, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_and_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_and_t" title="mp_and&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_and</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is an alias for the first type <code class="computeroutput"><span class="identifier">U</span></code>
+          in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
+          for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_false</span></code>. If no such
+          type exists, the last one is returned. <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+          Similar to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">conjunction</span></code> in C++17.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_all_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_all_t" title="mp_all&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_all</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_all</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_all</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> if <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> for all types
+          <code class="computeroutput"><span class="identifier">U</span></code> in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise. Same as <code class="computeroutput"><span class="identifier">mp_and</span></code>,
+          but does not perform short-circuit evaluation. <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">mp_false</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_false</span></code>, but <code class="computeroutput"><span class="identifier">mp_all</span><span class="special">&lt;</span><span class="identifier">mp_false</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span></code>
+          is an error because <code class="computeroutput"><span class="keyword">void</span></code> does
+          not have a nested <code class="computeroutput"><span class="identifier">value</span></code>.
+          The upside is that <code class="computeroutput"><span class="identifier">mp_all</span></code>
+          is faster.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_or_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_or_t" title="mp_or&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_or</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is an alias for the first type <code class="computeroutput"><span class="identifier">U</span></code>
+          in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
+          for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>. If no such
+          type exists, the last one is returned. <code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_false</span></code>.
+          Similar to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">disjunction</span></code> in C++17.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_any_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_any_t" title="mp_any&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_any</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> if <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> for any type
+          <code class="computeroutput"><span class="identifier">U</span></code> in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise. Same as <code class="computeroutput"><span class="identifier">mp_or</span></code>,
+          but does not perform short-circuit evaluation.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.integer_sequence"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence" title="Integer Sequences, &lt;boost/integer_sequence.hpp&gt;">Integer Sequences,
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<p>
+        The contents of this header are defined in namespace <code class="computeroutput"><span class="identifier">boost</span></code>.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integer_sequence.integer_sequence_t_i"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.integer_sequence_t_i" title="integer_sequence&lt;T, I...&gt;"><code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">integer_sequence</span>
+<span class="special">{</span>
+<span class="special">};</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code> holds a sequence of integers of
+          type <code class="computeroutput"><span class="identifier">T</span></code>. Same as C++14's
+          <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">integer_sequence</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integer_sequence.make_integer_sequence_t_n"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.make_integer_sequence_t_n" title="make_integer_sequence&lt;T, N&gt;"><code class="computeroutput"><span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">make_integer_sequence</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span>
+          <span class="number">1</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;</span></code>.
+          Same as C++14's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">make_integer_sequence</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integer_sequence.index_sequence_i"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.index_sequence_i" title="index_sequence&lt;I...&gt;"><code class="computeroutput"><span class="identifier">index_sequence</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">...</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">index_sequence</span> <span class="special">=</span> <span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">index_sequence</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code>.
+          Same as C++14's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">index_sequence</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integer_sequence.make_index_sequence_n"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.make_index_sequence_n" title="make_index_sequence&lt;N&gt;"><code class="computeroutput"><span class="identifier">make_index_sequence</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">make_index_sequence</span> <span class="special">=</span> <span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">make_index_sequence</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">index_sequence</span><span class="special">&lt;</span><span class="number">0</span><span class="special">,</span> <span class="number">1</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;</span></code>. Same as C++14's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">make_index_sequence</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.integer_sequence.index_sequence_for_t"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.index_sequence_for_t" title="index_sequence_for&lt;T...&gt;"><code class="computeroutput"><span class="identifier">index_sequence_for</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">index_sequence_for</span> <span class="special">=</span> <span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">index_sequence_for</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">make_index_sequence</span><span class="special">&lt;</span><span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;</span></code>. Same as C++14's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">index_sequence_for</span></code>.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each" title='A "for each" algorithm for tuple-like types, &lt;boost/tuple_for_each.hpp&gt;'>A "for each"
+      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<p>
+        The contents of this header are defined in namespace <code class="computeroutput"><span class="identifier">boost</span></code>.
+      </p>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.tuple_for_each.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each" title="tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="identifier">F</span> <span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">Tp</span><span class="special">&amp;&amp;</span> <span class="identifier">tp</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">);</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">tp</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code> applies
+          the function object <code class="computeroutput"><span class="identifier">f</span></code> to
+          each element of <code class="computeroutput"><span class="identifier">tp</span></code> by evaluating
+          the expression <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">J</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;(</span><span class="identifier">tp</span><span class="special">)))</span></code>
+          for <code class="computeroutput"><span class="identifier">J</span></code> in 0..<code class="computeroutput"><span class="identifier">N</span><span class="special">-</span><span class="number">1</span></code>,
+          where <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;&gt;::</span><span class="identifier">value</span></code>.
+        </p>
+<p>
+          Returns <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code>.
+        </p>
+</div>
+</div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 15, 2017 at 18:15:15 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 16, 2017 at 17:05:33 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
