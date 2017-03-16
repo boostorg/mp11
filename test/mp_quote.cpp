@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+//  Copyright 2015, 2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -11,13 +11,13 @@
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
-using boost::mp11::mp_unquote;
+using boost::mp11::mp_invoke;
 
 template<class...> struct X {};
 
 template<template<class...> class F, class... T> using Y = X<F<T>...>;
 
-template<class Q, class... T> using Z = X<mp_unquote<Q, T>...>;
+template<class Q, class... T> using Z = X<mp_invoke<Q, T>...>;
 
 struct B {};
 struct D1: B {};
@@ -34,27 +34,27 @@ int main()
     {
         using Q = mp_quote<mp_identity_t>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unquote<Q, void>, void>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unquote<Q, int[]>, int[]>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, void>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, int[]>));
     }
 
     {
         using Q = mp_quote<std::is_same, void>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unquote<Q, void>, std::is_same<void, void>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unquote<Q, int[]>, std::is_same<void, int[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, std::is_same<void, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, std::is_same<void, int[]>>));
     }
 
     {
         using Q = mp_quote<X, char[1], char[2], char[3]>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unquote<Q, int[1], int[2], int[3]>, X<char[1], char[2], char[3], int[1], int[2], int[3]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[1], int[2], int[3]>, X<char[1], char[2], char[3], int[1], int[2], int[3]>>));
     }
 
     {
         using Q = mp_quote<mp_identity_t>;
 
-        // using R1 = Y<Q::template apply, void, char, int>;
+        // using R1 = Y<Q::template invoke, void, char, int>;
         // BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<void, char, int>>));
         // 
         // error: pack expansion used as argument for non-pack parameter of alias template
@@ -71,7 +71,7 @@ int main()
 
 #if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
 #else
-        using R1 = Y<Q::template apply, D1, D2, ND, int>;
+        using R1 = Y<Q::template invoke, D1, D2, ND, int>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<std::true_type, std::true_type, std::false_type, std::false_type>>));
 #endif
 

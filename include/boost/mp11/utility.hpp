@@ -106,26 +106,26 @@ template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid
 // mp_quote
 template<template<class...> class F, class... T> struct mp_quote
 {
-    template<class... U> using apply = F<T..., U...>;
+    template<class... U> using invoke = F<T..., U...>;
 };
 
 // mp_unquote
 namespace detail
 {
 
-template<class Q, class... T> struct mp_unquote_impl
+template<class Q, class... T> struct mp_invoke_impl
 {
-    using type = typename Q::template apply<T...>;
+    using type = typename Q::template invoke<T...>;
 };
 
-template<template<class...> class F, class... T, class... U> struct mp_unquote_impl<mp_quote<F, T...>, U...>
+template<template<class...> class F, class... T, class... U> struct mp_invoke_impl<mp_quote<F, T...>, U...>
 {
     using type = F<T..., U...>;
 };
 
 } // namespace detail
 
-template<class Q, class... T> using mp_unquote = typename detail::mp_unquote_impl<Q, T...>::type;
+template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
 
 } // namespace mp11
 } // namespace boost

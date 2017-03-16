@@ -64,17 +64,17 @@ When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a ne
 [section `mp_quote<F, T...>`]
     template<template<class...> class F, class... T> struct mp_quote
     {
-        template<class... U> using apply = F<T..., U...>;
+        template<class... U> using invoke = F<T..., U...>;
     };
 
-`mp_quote<F, T...>` transforms the template `F` into a type. In the common case `mp_quote<F>`, the nested template `apply` of the result is an alias for `F`;
-otherwise, `apply<U...>` is an alias for `F<T..., U...>`, allowing partial application.
+`mp_quote<F, T...>` transforms the template `F` into a type. In the common case `mp_quote<F>`, the nested template `invoke` of the result is an alias for `F`;
+otherwise, `invoke<U...>` is an alias for `F<T..., U...>`, allowing partial application.
 [endsect]
 
 [section `mp_unquote<Q, T...>`]
-    template<class Q, class... T> using mp_unquote = typename Q::template apply<T...>;
+    template<class Q, class... T> using mp_unquote = typename Q::template invoke<T...>;
 
-`mp_unquote<Q, T...>` evaluates the nested template `apply` of a quoted metafunction. `mp_unquote<mp_quote<F>, T...>` is an alias for `F<T...>`. `mp_unquote<mp_quote<F, T...>, U...>` is an alias for `F<T..., U...>`.
+`mp_unquote<Q, T...>` evaluates the nested template `invoke` of a quoted metafunction. `mp_unquote<mp_quote<F>, T...>` is an alias for `F<T...>`. `mp_unquote<mp_quote<F, T...>, U...>` is an alias for `F<T..., U...>`.
 [endsect]
 
 [endsect]
