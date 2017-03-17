@@ -33,9 +33,16 @@
 <p><b>Table of Contents</b></p>
 <dl class="toc">
 <dt><span class="section"><a href="mp11.html#mp11.overview">Overview</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.definitions">Definitions</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.examples">Examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.examples.generating_test_cases">Generating Test
+      Cases</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.examples.computing_return_types">Computing Return
+      Types</a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference">Reference</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="mp11.html#mp11.reference.definitions">Definitions</a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integral">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_bool_b"><code class="computeroutput"><span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">&gt;</span></code></a></span></dt>
@@ -175,7 +182,7 @@
       <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
       is the built-in list type, but <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>,
       <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
-      are also perfectly legitimate list types, although of course <code class="computeroutput"><span class="identifier">std</span><span class="special">:</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span>
+      are also perfectly legitimate list types, although of course <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span>
       <span class="identifier">T2</span><span class="special">&gt;</span></code>,
       due to having exactly two elements, is not resizeable and will consequently
       not work with algorithms that need to add or remove elements.
@@ -184,14 +191,280 @@
       Another distinguishing feature of this approach is that lists (<code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>) have the same form as metafunctions
       (<code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>)
       and can therefore be used as such. For example, applying <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span></code>
-      to the list <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code> by way of <code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span><span class="special">&gt;</span></code> gives us <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">*,</span> <span class="keyword">float</span><span class="special">*&gt;</span></code>, but we can also apply <code class="computeroutput"><span class="identifier">mp_list</span></code>
+      to the list <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code> by way of <code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span><span class="special">,</span>
+      <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;&gt;</span></code> gives us <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">*,</span> <span class="keyword">float</span><span class="special">*&gt;</span></code>, but we can also apply <code class="computeroutput"><span class="identifier">mp_list</span></code>
       to the same tuple:
     </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&gt;;</span>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;&gt;;</span>
 </pre>
 <p>
       and get <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&gt;</span></code>.
     </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mp11.definitions"></a><a class="link" href="mp11.html#mp11.definitions" title="Definitions">Definitions</a>
+</h2></div></div></div>
+<p>
+      A <span class="emphasis"><em>list</em></span> is a &#8212; possibly but not necessarily variadic &#8212; template
+      class whose parameters are all types, for example <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[],</span>
+      <span class="keyword">void</span><span class="special">&gt;</span></code>,
+      <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;&gt;</span></code>,
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>,
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;</span></code>.
+    </p>
+<p>
+      A <span class="emphasis"><em>metafunction</em></span> is a class template or a template alias
+      whose parameters are all types, for example <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span></code>,
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_const</span></code>, <code class="computeroutput"><span class="identifier">mp_second</span></code>,
+      <code class="computeroutput"><span class="identifier">mp_push_front</span></code>, <code class="computeroutput"><span class="identifier">mp_list</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span></code>,
+      or
+    </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">F1</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F2</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F3</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span>
+</pre>
+<p>
+      A <span class="emphasis"><em>quoted metafunction</em></span> is a class with a public metafunction
+      called <code class="computeroutput"><span class="identifier">invoke</span></code>, for example
+    </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Q1</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Q2</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Q3</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span> <span class="special">};</span>
+</pre>
+<p>
+      An <span class="emphasis"><em>integral constant type</em></span> is a class with a public member
+      <code class="computeroutput"><span class="identifier">value</span></code> that is an integral constant
+      in the C++ sense. For example, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span>
+      <span class="number">7</span><span class="special">&gt;</span></code>,
+      or
+    </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">N</span> <span class="special">{</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">constexpr</span> <span class="identifier">value</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span> <span class="special">};</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="mp11.examples"></a><a class="link" href="mp11.html#mp11.examples" title="Examples">Examples</a>
+</h2></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.examples.generating_test_cases"></a><a class="link" href="mp11.html#mp11.examples.generating_test_cases" title="Generating Test Cases">Generating Test
+      Cases</a>
+</h3></div></div></div>
+<p>
+        Let's suppose that we have written a metafunction <code class="computeroutput"><span class="identifier">result</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">&gt;</span></code>:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">promote</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">promote</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">promote</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;&gt;;</span>
+</pre>
+<p>
+        that ought to represent the result of an arithmetic operation on the integer
+        types <code class="computeroutput"><span class="identifier">T</span></code> and <code class="computeroutput"><span class="identifier">U</span></code>, for example <code class="computeroutput"><span class="identifier">t</span>
+        <span class="special">+</span> <span class="identifier">u</span></code>.
+        We want to test whether <code class="computeroutput"><span class="identifier">result</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">&gt;</span></code>
+        gives correct results for various combinations of <code class="computeroutput"><span class="identifier">T</span></code>
+        and <code class="computeroutput"><span class="identifier">U</span></code>, so we write the function
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">test_result</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">T3</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span> <span class="identifier">T1</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">T2</span><span class="special">()</span> <span class="special">);</span>
+    <span class="keyword">using</span> <span class="identifier">T4</span> <span class="special">=</span> <span class="identifier">result</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;;</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="identifier">T3</span><span class="special">,</span> <span class="identifier">T4</span><span class="special">&gt;::</span><span class="identifier">value</span><span class="special">?</span> <span class="string">"[PASS]"</span><span class="special">:</span> <span class="string">"[FAIL]"</span> <span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        and then need to call it a substantial number of times:
+      </p>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">test_result</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;();</span>
+    <span class="identifier">test_result</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">short</span><span class="special">&gt;();</span>
+    <span class="identifier">test_result</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;();</span>
+    <span class="identifier">test_result</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">unsigned</span><span class="special">&gt;();</span>
+    <span class="comment">// ...</span>
+<span class="special">}</span>
+</pre>
+<p>
+        Writing all those type combinations by hand is unwieldy, error prone, and
+        worst of all, boring. This is how we can leverage Mp11 to automate the task:
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">demangle</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">type_traits</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">typeinfo</span><span class="special">&gt;</span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span><span class="special">;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">name</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">core</span><span class="special">::</span><span class="identifier">demangle</span><span class="special">(</span> <span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">).</span><span class="identifier">name</span><span class="special">()</span> <span class="special">);</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">promote</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">promote</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">promote</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">test_result</span><span class="special">(</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">T3</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span> <span class="identifier">T1</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">T2</span><span class="special">()</span> <span class="special">);</span>
+    <span class="keyword">using</span> <span class="identifier">T4</span> <span class="special">=</span> <span class="identifier">result</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;;</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="identifier">T3</span><span class="special">,</span> <span class="identifier">T4</span><span class="special">&gt;::</span><span class="identifier">value</span><span class="special">?</span> <span class="string">"[PASS] "</span><span class="special">:</span> <span class="string">"[FAIL] "</span> <span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">" + "</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">" -&gt; "</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="identifier">T3</span><span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">", result: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="identifier">T4</span><span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">L</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">short</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">unsigned</span><span class="special">,</span> <span class="keyword">long</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">&gt;;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple_for_each</span><span class="special">(</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;(),</span> <span class="special">[](</span><span class="keyword">auto</span><span class="special">&amp;&amp;</span> <span class="identifier">x</span><span class="special">){</span> <span class="identifier">test_result</span><span class="special">(</span><span class="identifier">x</span><span class="special">);</span> <span class="special">}</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.examples.computing_return_types"></a><a class="link" href="mp11.html#mp11.examples.computing_return_types" title="Computing Return Types">Computing Return
+      Types</a>
+</h3></div></div></div>
+<p>
+        C++17 has a standard variant type, called <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>.
+        It also defines a function template <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span></code>
+        that can be used to apply a function to the contained value of one or more
+        <code class="computeroutput"><span class="identifier">variant</span></code>s. So for instance,
+        if the <code class="computeroutput"><span class="identifier">variant</span></code> <code class="computeroutput"><span class="identifier">v1</span></code> contains <code class="computeroutput"><span class="number">1</span></code>,
+        and the <code class="computeroutput"><span class="identifier">variant</span></code> <code class="computeroutput"><span class="identifier">v2</span></code> contains <code class="computeroutput"><span class="number">2.0f</span></code>,
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span><span class="identifier">f</span><span class="special">,</span> <span class="identifier">v1</span><span class="special">,</span> <span class="identifier">v2</span><span class="special">)</span></code>
+        will call <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2.0f</span><span class="special">)</span></code>.
+      </p>
+<p>
+        However, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span></code> has one limitation: it cannot return
+        a result unless all possible applications of the function have the same return
+        type. If, for instance, <code class="computeroutput"><span class="identifier">v1</span></code>
+        and <code class="computeroutput"><span class="identifier">v2</span></code> are both of type
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code>,
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[](</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span> <span class="special">){</span> <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span> <span class="special">},</span> <span class="identifier">v1</span><span class="special">,</span> <span class="identifier">v2</span> <span class="special">);</span>
+</pre>
+<p>
+        will fail to compile because the result of <code class="computeroutput"><span class="identifier">x</span>
+        <span class="special">+</span> <span class="identifier">y</span></code>
+        can be either <code class="computeroutput"><span class="keyword">int</span></code> or <code class="computeroutput"><span class="keyword">float</span></code> depending on what <code class="computeroutput"><span class="identifier">v1</span></code>
+        and <code class="computeroutput"><span class="identifier">v2</span></code> hold.
+      </p>
+<p>
+        A type that can hold either <code class="computeroutput"><span class="keyword">int</span></code>
+        or <code class="computeroutput"><span class="keyword">float</span></code> already exists, called,
+        surprisingly enough, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span>
+        <span class="keyword">float</span><span class="special">&gt;</span></code>.
+        Let's write our own function template <code class="computeroutput"><span class="identifier">rvisit</span></code>
+        that is the same as <code class="computeroutput"><span class="identifier">visit</span></code>
+        but returns a <code class="computeroutput"><span class="identifier">variant</span></code>:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">auto</span> <span class="identifier">rvisit</span><span class="special">(</span> <span class="identifier">F</span><span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&amp;&amp;...</span> <span class="identifier">v</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[&amp;](</span> <span class="keyword">auto</span><span class="special">&amp;&amp;...</span> <span class="identifier">x</span> <span class="special">){</span> <span class="keyword">return</span> <span class="identifier">R</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;(</span><span class="identifier">x</span><span class="special">)...</span> <span class="special">)</span> <span class="special">);</span> <span class="special">},</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span> <span class="identifier">v</span> <span class="special">)...</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        What this does is basically calls <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span></code>
+        to do the work, but instead of passing it <code class="computeroutput"><span class="identifier">f</span></code>,
+        we pass a lambda that does the same as <code class="computeroutput"><span class="identifier">f</span></code>
+        except it converts the result to a common type <code class="computeroutput"><span class="identifier">R</span></code>.
+        <code class="computeroutput"><span class="identifier">R</span></code> is supposed to be <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;...&gt;</span></code> where the ellipsis denotes the
+        return types of calling <code class="computeroutput"><span class="identifier">f</span></code>
+        with all possible combinations of variant values.
+      </p>
+<p>
+        We'll first define a helper quoted metafunction <code class="computeroutput"><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>
+        that returns the result of the application of <code class="computeroutput"><span class="identifier">F</span></code>
+        to arguments of type <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">Qret</span>
+<span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;()(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()...</span> <span class="special">)</span> <span class="special">);</span>
+<span class="special">};</span>
+</pre>
+<p>
+        (Unfortunately, we can't just define this metafunction inside <code class="computeroutput"><span class="identifier">rvisit</span></code>; the language prohibits defining
+        template aliases inside functions.)
+      </p>
+<p>
+        With <code class="computeroutput"><span class="identifier">Qret</span></code> in hand, a <code class="computeroutput"><span class="identifier">variant</span></code> of the possible return types is
+        just a matter of applying it over the possible combinations of the variant
+        values:
+      </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;::</span><span class="keyword">template</span> <span class="identifier">invoke</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;...&gt;;</span>
+</pre>
+<p>
+        Why does this work? <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">L2</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;,</span> <span class="special">...,</span> <span class="identifier">Ln</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">...&gt;&gt;</span></code> returns <code class="computeroutput"><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,</span> <span class="identifier">U2</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">Un</span><span class="special">&gt;,</span> <span class="special">...&gt;</span></code>,
+        where <code class="computeroutput"><span class="identifier">Ui</span></code> traverse all possible
+        combinations of list values. Since in our case all <code class="computeroutput"><span class="identifier">Li</span></code>
+        are <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>, the result will also be <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>.
+      </p>
+<p>
+        One more step remains. Suppose that, as above, we're passing two variants
+        of type <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code>
+        and <code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><span class="special">[](</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span> <span class="special">){</span> <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span> <span class="special">}</span></code>. This
+        will generate <code class="computeroutput"><span class="identifier">R</span></code> of length
+        9, one per each combination, but many of those elements will be the same,
+        either <code class="computeroutput"><span class="keyword">int</span></code> or <code class="computeroutput"><span class="keyword">float</span></code>, and we need to filter out the duplicates.
+        So,
+      </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;::</span><span class="keyword">template</span> <span class="identifier">invoke</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;...&gt;&gt;;</span>
+</pre>
+<p>
+        and we're done:
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">demangle</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">variant</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">type_traits</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">typeinfo</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span><span class="special">;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">Qret</span>
+<span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;()(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()...</span> <span class="special">)</span> <span class="special">);</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">auto</span> <span class="identifier">rvisit</span><span class="special">(</span> <span class="identifier">F</span><span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&amp;&amp;...</span> <span class="identifier">v</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;::</span><span class="keyword">template</span> <span class="identifier">invoke</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;...&gt;&gt;;</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[&amp;](</span> <span class="keyword">auto</span><span class="special">&amp;&amp;...</span> <span class="identifier">x</span> <span class="special">){</span> <span class="keyword">return</span> <span class="identifier">R</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;(</span><span class="identifier">x</span><span class="special">)...</span> <span class="special">)</span> <span class="special">);</span> <span class="special">},</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span> <span class="identifier">v</span> <span class="special">)...</span> <span class="special">);</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">name</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">core</span><span class="special">::</span><span class="identifier">demangle</span><span class="special">(</span> <span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">).</span><span class="identifier">name</span><span class="special">()</span> <span class="special">);</span>
+<span class="special">}</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="keyword">signed</span> <span class="keyword">char</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="keyword">char</span><span class="special">,</span> <span class="keyword">signed</span> <span class="keyword">short</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">unsigned</span><span class="special">&gt;</span> <span class="identifier">v1</span><span class="special">(</span> <span class="number">1</span> <span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">v1</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")v1: "</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[](</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">){</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")"</span> <span class="special">&lt;&lt;</span> <span class="identifier">x</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="special">},</span> <span class="identifier">v1</span> <span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">&gt;</span> <span class="identifier">v2</span><span class="special">(</span> <span class="number">2.0f</span> <span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">v2</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")v2: "</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[](</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">){</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")"</span> <span class="special">&lt;&lt;</span> <span class="identifier">x</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="special">},</span> <span class="identifier">v2</span> <span class="special">);</span>
+
+    <span class="keyword">auto</span> <span class="identifier">v3</span> <span class="special">=</span> <span class="identifier">rvisit</span><span class="special">(</span> <span class="special">[](</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span> <span class="special">){</span> <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span> <span class="special">},</span> <span class="identifier">v1</span><span class="special">,</span> <span class="identifier">v2</span> <span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">v3</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")v3: "</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">visit</span><span class="special">(</span> <span class="special">[](</span> <span class="keyword">auto</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">){</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"("</span> <span class="special">&lt;&lt;</span> <span class="identifier">name</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">")"</span> <span class="special">&lt;&lt;</span> <span class="identifier">x</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span> <span class="special">},</span> <span class="identifier">v3</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -201,48 +474,6 @@
       The contents of the library are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span></code>, unless
       specified otherwise.
     </p>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="mp11.reference.definitions"></a><a class="link" href="mp11.html#mp11.reference.definitions" title="Definitions">Definitions</a>
-</h3></div></div></div>
-<p>
-        A <span class="emphasis"><em>list</em></span> is a &#8212; possibly but not necessarily variadic &#8212; template
-        class whose parameters are all types, for example <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[],</span>
-        <span class="keyword">void</span><span class="special">&gt;</span></code>,
-        <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;&gt;</span></code>,
-        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>,
-        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;</span></code>.
-      </p>
-<p>
-        A <span class="emphasis"><em>metafunction</em></span> is a class template or a template alias
-        whose parameters are all types, for example <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span></code>,
-        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_const</span></code>, <code class="computeroutput"><span class="identifier">mp_second</span></code>,
-        <code class="computeroutput"><span class="identifier">mp_push_front</span></code>, <code class="computeroutput"><span class="identifier">mp_list</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
-        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span></code>,
-        or
-      </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">F1</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F2</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F3</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span>
-</pre>
-<p>
-        A <span class="emphasis"><em>quoted metafunction</em></span> is a class with a public metafunction
-        called <code class="computeroutput"><span class="identifier">invoke</span></code>, for example
-      </p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Q1</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span> <span class="special">};</span>
-<span class="keyword">struct</span> <span class="identifier">Q2</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span> <span class="special">};</span>
-<span class="keyword">struct</span> <span class="identifier">Q3</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span> <span class="special">};</span>
-</pre>
-<p>
-        An <span class="emphasis"><em>integral constant type</em></span> is a class with a public member
-        <code class="computeroutput"><span class="identifier">value</span></code> that is an integral
-        constant in the C++ sense. For example, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span>
-        <span class="number">7</span><span class="special">&gt;</span></code>,
-        or
-      </p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">N</span> <span class="special">{</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">constexpr</span> <span class="identifier">value</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span> <span class="special">};</span>
-</pre>
-</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="mp11.reference.integral"></a><a class="link" href="mp11.html#mp11.reference.integral" title="Integral Constants, &lt;boost/mp11/integral.hpp&gt;">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
@@ -1373,7 +1604,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 17, 2017 at 00:17:37 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 17, 2017 at 03:26:57 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
