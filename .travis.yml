@@ -86,7 +86,7 @@ matrix:
       addons:
         apt:
           packages:
-            - g++-6
+            - g++-4.9
           sources:
             - ubuntu-toolchain-r-test
 
