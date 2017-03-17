@@ -82,15 +82,6 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - g++-4.9
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
       env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=c++11
       addons:
         apt:
