@@ -498,7 +498,37 @@ namespace detail
 
 template<class L, class V> struct mp_find_impl;
 
-#if !defined( BOOST_MP11_NO_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+
+struct mp_index_holder
+{
+    std::size_t i_;
+    bool f_;
+};
+
+constexpr inline mp_index_holder operator+( mp_index_holder const & v, bool f )
+{
+    if( v.f_ )
+    {
+        return v;
+    }
+    else if( f )
+    {
+        return { v.i_, true };
+    }
+    else
+    {
+        return { v.i_ + 1, false };
+    }
+}
+
+template<template<class...> class L, class... T, class V> struct mp_find_impl<L<T...>, V>
+{
+    static constexpr mp_index_holder _v{ 0, false };
+    using type = mp_size_t< (_v + ... + std::is_same<T, V>::value).i_ >;
+};
+
+#elif !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, class V> struct mp_find_impl<L<>, V>
 {
@@ -558,7 +588,15 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_find_if_impl;
 
-#if !defined( BOOST_MP11_NO_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_find_if_impl<L<T...>, P>
+{
+    static constexpr mp_index_holder _v{ 0, false };
+    using type = mp_size_t< (_v + ... + P<T>::value).i_ >;
+};
+
+#elif !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, template<class...> class P> struct mp_find_if_impl<L<>, P>
 {
