@@ -35,6 +35,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.overview">Overview</a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference">Reference</a></span></dt>
 <dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.definitions">Definitions</a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integral">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integral.mp_bool_b"><code class="computeroutput"><span class="identifier">mp_bool</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">&gt;</span></code></a></span></dt>
@@ -200,6 +201,48 @@
       The contents of the library are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span></code>, unless
       specified otherwise.
     </p>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.definitions"></a><a class="link" href="mp11.html#mp11.reference.definitions" title="Definitions">Definitions</a>
+</h3></div></div></div>
+<p>
+        A <span class="emphasis"><em>list</em></span> is a &#8212; possibly but not necessarily variadic &#8212; template
+        class whose parameters are all types, for example <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[],</span>
+        <span class="keyword">void</span><span class="special">&gt;</span></code>,
+        <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;&gt;</span></code>,
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>,
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;</span></code>.
+      </p>
+<p>
+        A <span class="emphasis"><em>metafunction</em></span> is a class template or a template alias
+        whose parameters are all types, for example <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">add_pointer_t</span></code>,
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_const</span></code>, <code class="computeroutput"><span class="identifier">mp_second</span></code>,
+        <code class="computeroutput"><span class="identifier">mp_push_front</span></code>, <code class="computeroutput"><span class="identifier">mp_list</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span></code>,
+        or
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">F1</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F2</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F3</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span>
+</pre>
+<p>
+        A <span class="emphasis"><em>quoted metafunction</em></span> is a class with a public metafunction
+        called <code class="computeroutput"><span class="identifier">invoke</span></code>, for example
+      </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Q1</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Q2</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span> <span class="special">};</span>
+<span class="keyword">struct</span> <span class="identifier">Q3</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">invoke</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;;</span> <span class="special">};</span>
+</pre>
+<p>
+        An <span class="emphasis"><em>integral constant type</em></span> is a class with a public member
+        <code class="computeroutput"><span class="identifier">value</span></code> that is an integral
+        constant in the C++ sense. For example, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span>
+        <span class="number">7</span><span class="special">&gt;</span></code>,
+        or
+      </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">N</span> <span class="special">{</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">constexpr</span> <span class="identifier">value</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span> <span class="special">};</span>
+</pre>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="mp11.reference.integral"></a><a class="link" href="mp11.html#mp11.reference.integral" title="Integral Constants, &lt;boost/mp11/integral.hpp&gt;">Integral Constants, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integral</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
@@ -1330,7 +1373,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 16, 2017 at 23:37:05 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 17, 2017 at 00:17:37 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

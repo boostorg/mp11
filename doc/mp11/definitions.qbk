@@ -1,0 +1,32 @@
+[/
+ /  Copyright 2017 Peter Dimov
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See
+ / accompanying file LICENSE_1_0.txt or copy at
+ / http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section Definitions]
+
+A /list/ is a '''&mdash;''' possibly but not necessarily variadic '''&mdash;''' template class whose parameters are all types,
+for example `mp_list<char[], void>`, `mp_list<>`, `std::tuple<int, float, char>`, `std::pair<int, float>`, `std::shared_ptr<X>`.
+
+A /metafunction/ is a class template or a template alias whose parameters are all types, for example `std::add_pointer_t`,
+`std::is_const`, `mp_second`, `mp_push_front`, `mp_list`, `std::tuple`, `std::pair`, `std::shared_ptr`, or
+
+  template<class...> using F1 = void;
+  template<class T> using F2 = T*;
+  template<class... T> using F3 = std::integral_constant<std::size_t, sizeof...(T)>;
+
+A /quoted metafunction/ is a class with a public metafunction called `invoke`, for example
+
+  struct Q1 { template<class...> using invoke = void; };
+  struct Q2 { template<class T> using invoke = T*; };
+  struct Q3 { template<class... T> using invoke = std::integral_constant<std::size_t, sizeof...(T)>; };
+
+An /integral constant type/ is a class with a public member `value` that is an integral constant in the C++ sense. For example,
+`std::integral_constant<int, 7>`, or
+
+  struct N { static int constexpr value = 2; };
+
+[endsect]
