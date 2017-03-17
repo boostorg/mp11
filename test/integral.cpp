@@ -14,29 +14,29 @@
 
 int main()
 {
-    using boost::mp_bool;
+    using boost::mp11::mp_bool;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_bool<false>, std::integral_constant<bool, false>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_bool<true>, std::integral_constant<bool, true>>));
 
-    using boost::mp_true;
-    using boost::mp_false;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_false, std::integral_constant<bool, false>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_true, std::integral_constant<bool, true>>));
 
-    using boost::mp_int;
+    using boost::mp11::mp_int;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_int<0>, std::integral_constant<int, 0>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_int<814>, std::integral_constant<int, 814>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_int<-144>, std::integral_constant<int, -144>>));
 
-    using boost::mp_size_t;
+    using boost::mp11::mp_size_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_size_t<0>, std::integral_constant<std::size_t, 0>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_size_t<1972>, std::integral_constant<std::size_t, 1972>>));
 
-    using boost::mp_to_bool;
+    using boost::mp11::mp_to_bool;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_false>, mp_false>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_true>, mp_true>));
@@ -51,7 +51,7 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_size_t<1>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_to_bool<mp_size_t<442>>, mp_true>));
 
-    using boost::mp_not;
+    using boost::mp11::mp_not;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_false>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_not<mp_true>, mp_false>));

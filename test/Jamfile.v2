@@ -48,8 +48,6 @@ run mp_remove.cpp : : : $(REQ) ;
 run mp_remove_if.cpp : : : $(REQ) ;
 run mp_partition.cpp : : : $(REQ) ;
 run mp_sort.cpp : : : $(REQ) ;
-run mp_find_index.cpp : : : $(REQ) ;
-run mp_find_index_if.cpp : : : $(REQ) ;
 run mp_find.cpp : : : $(REQ) ;
 run mp_find_if.cpp : : : $(REQ) ;
 run mp_reverse.cpp : : : $(REQ) ;
@@ -71,6 +69,7 @@ run mp_eval_if.cpp : : : $(REQ) ;
 run mp_valid.cpp : : : $(REQ) ;
 run mp_defer.cpp : : : $(REQ) ;
 run mp_quote.cpp : : : $(REQ) ;
+run mp_invoke.cpp : : : $(REQ) ;
 
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;

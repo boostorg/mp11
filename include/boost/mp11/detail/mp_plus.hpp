@@ -13,6 +13,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_plus
 namespace detail
@@ -41,6 +43,7 @@ template<class T1, class T2, class T3, class T4, class T5, class T6, class T7, c
 
 template<class... T> using mp_plus = typename detail::mp_plus_impl<T...>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_DETAIL_MP_PLUS_HPP_INCLUDED

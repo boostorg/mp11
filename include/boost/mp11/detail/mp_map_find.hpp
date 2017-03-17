@@ -12,6 +12,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_map_find
 namespace detail
@@ -35,6 +37,7 @@ template<template<class...> class M, class... T, class K> struct mp_map_find_imp
 
 template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_DETAIL_MP_MAP_FIND_HPP_INCLUDED

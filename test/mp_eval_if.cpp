@@ -14,23 +14,23 @@
 
 int main()
 {
-    using boost::mp_eval_if_c;
-    using boost::mp_identity;
+    using boost::mp11::mp_eval_if_c;
+    using boost::mp11::mp_identity;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if_c<true, char[], mp_identity, void, void, void>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if_c<false, char[], mp_identity, void()>, mp_identity<void()>>));
 
-    using boost::mp_eval_if;
+    using boost::mp11::mp_eval_if;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<std::true_type, char[], mp_identity, void, void, void>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<std::false_type, char[], mp_identity, void()>, mp_identity<void()>>));
 
-    using boost::mp_int;
+    using boost::mp11::mp_int;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<mp_int<-7>, char[], mp_identity, void, void, void>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<mp_int<0>, char[], mp_identity, void()>, mp_identity<void()>>));
 
-    using boost::mp_size_t;
+    using boost::mp11::mp_size_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<mp_size_t<14>, char[], mp_identity, void, void, void>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_eval_if<mp_size_t<0>, char[], mp_identity, void()>, mp_identity<void()>>));

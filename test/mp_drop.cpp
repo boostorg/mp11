@@ -23,10 +23,10 @@ struct X5 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_drop;
-    using boost::mp_drop_c;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_drop;
+    using boost::mp11::mp_drop_c;
+    using boost::mp11::mp_size_t;
 
     {
         using L1 = mp_list<>;

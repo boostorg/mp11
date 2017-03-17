@@ -20,13 +20,15 @@ struct X2 {};
 struct X3 {};
 struct X4 {};
 
+using boost::mp11::mp_not;
+
 template<class T> using add_pointer = T*;
-template<class T> using is_not_ref = boost::mp_not<std::is_reference<T>>;
+template<class T> using is_not_ref = mp_not<std::is_reference<T>>;
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_transform_if;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_transform_if;
 
     using L1 = mp_list<X1, X2&, X3 const, X4 const&>;
 

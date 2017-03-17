@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_FUNCTION_HPP_INCLUDED
 #define BOOST_MP11_FUNCTION_HPP_INCLUDED
 
-//  Copyright 2015, 2016 Peter Dimov.
+//  Copyright 2015-2017 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -15,9 +15,8 @@
 
 namespace boost
 {
-
-// mp_equal_to<T1, T2>
-template<class T1, class T2> using mp_equal_to = mp_bool< T1::value == T2::value >;
+namespace mp11
+{
 
 // mp_all<T...>
 template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value == sizeof...(T) >;
@@ -40,9 +39,14 @@ template<> struct mp_and_impl<>
     using type = mp_true;
 };
 
+template<class T> struct mp_and_impl<T>
+{
+    using type = T;
+};
+
 template<class T1, class... T> struct mp_and_impl<T1, T...>
 {
-    using type = mp_eval_if< mp_not<T1>, mp_false, mp_and, T... >;
+    using type = mp_eval_if< mp_not<T1>, T1, mp_and, T... >;
 };
 
 } // namespace detail
@@ -68,13 +72,19 @@ template<> struct mp_or_impl<>
     using type = mp_false;
 };
 
+template<class T> struct mp_or_impl<T>
+{
+    using type = T;
+};
+
 template<class T1, class... T> struct mp_or_impl<T1, T...>
 {
-    using type = mp_eval_if< T1, mp_true, mp_or, T... >;
+    using type = mp_eval_if< T1, T1, mp_or, T... >;
 };
 
 } // namespace detail
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_FUNCTION_HPP_INCLUDED

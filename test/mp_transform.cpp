@@ -34,8 +34,8 @@ template<class T, class U> using is_same = typename std::is_same<T, U>::type;
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_transform;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_transform;
 
     using L1 = mp_list<X1, X2, X3, X4>;
 

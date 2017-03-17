@@ -61,19 +61,20 @@ When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a ne
 `mp_defer<F, T...>` is an empty struct.
 [endsect]
 
-[section `mp_quote<F>`]
-    template<template<class...> class F> struct mp_quote
+[section `mp_quote<F, T...>`]
+    template<template<class...> class F, class... T> struct mp_quote
     {
-        template<class... T> using apply = F<T...>;
+        template<class... U> using invoke = F<T..., U...>;
     };
 
-`mp_quote<F>` transforms the template `F` into a type. The nested template `apply` of the result is an alias for `F`.
+`mp_quote<F, T...>` transforms the template `F` into a type. In the common case `mp_quote<F>`, the nested template `invoke` of the result is an alias for `F`;
+otherwise, `invoke<U...>` is an alias for `F<T..., U...>`, allowing partial application.
 [endsect]
 
-[section `mp_unquote<Q, T...>`]
-    template<class Q, class... T> using mp_unquote = typename Q::template apply<T...>;
+[section `mp_invoke<Q, T...>`]
+    template<class Q, class... T> using mp_invoke = typename Q::template invoke<T...>;
 
-`mp_unquote<Q, T...>`, where `Q` is `mp_quote<F>`, is an alias for `F<T...>`.
+`mp_invoke<Q, T...>` evaluates the nested template `invoke` of a quoted metafunction. `mp_invoke<mp_quote<F>, T...>` is an alias for `F<T...>`. `mp_invoke<mp_quote<F, T...>, U...>` is an alias for `F<T..., U...>`.
 [endsect]
 
 [endsect]

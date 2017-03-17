@@ -13,6 +13,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_bool
 template<bool B> using mp_bool = std::integral_constant<bool, B>;
@@ -32,6 +34,7 @@ template<int I> using mp_int = std::integral_constant<int, I>;
 // mp_size_t
 template<std::size_t N> using mp_size_t = std::integral_constant<std::size_t, N>;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_INTEGRAL_HPP_INCLUDED

@@ -15,8 +15,8 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_push_back;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_push_back;
 
     using L1 = mp_list<>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_push_back<L1>, mp_list<>>));

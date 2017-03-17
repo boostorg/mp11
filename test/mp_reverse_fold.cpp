@@ -20,13 +20,16 @@ struct X4 {};
 
 template<class T1, class T2> struct F {};
 
-template<class T, class L> using rev_push_back = boost::mp_push_back<L, T>;
-template<class T, class L> using rev_push_front = boost::mp_push_front<L, T>;
+using boost::mp11::mp_push_back;
+using boost::mp11::mp_push_front;
+
+template<class T, class L> using rev_push_back = mp_push_back<L, T>;
+template<class T, class L> using rev_push_front = mp_push_front<L, T>;
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_reverse_fold;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_reverse_fold;
 
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_reverse_fold<mp_list<>, void, F>, void>));

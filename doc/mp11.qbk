@@ -23,13 +23,13 @@
 [template endsimplesect[]
 [block '''</simplesect>''']]
 
-[section Overview]
-
-...
-
-[endsect]
+[include mp11/overview.qbk]
+[include mp11/definitions.qbk]
+[include mp11/examples.qbk]
 
 [section Reference]
+
+The contents of the library are in namespace `boost::mp11`, unless specified otherwise.
 
 [include mp11/integral.qbk]
 [include mp11/list.qbk]
@@ -37,5 +37,8 @@
 [include mp11/algorithm.qbk]
 [include mp11/set.qbk]
 [include mp11/map.qbk]
+[include mp11/function.qbk]
+[include mp11/integer_sequence.qbk]
+[include mp11/tuple_for_each.qbk]
 
 [endsect]

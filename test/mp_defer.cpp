@@ -12,17 +12,21 @@
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
+using boost::mp11::mp_identity;
+using boost::mp11::mp_true;
+using boost::mp11::mp_false;
+
 template<class T> struct has_type
 {
-    template<class U> static boost::mp_true f( boost::mp_identity<typename U::type>* );
-    template<class U> static boost::mp_false f( ... );
+    template<class U> static mp_true f( mp_identity<typename U::type>* );
+    template<class U> static mp_false f( ... );
 
     using type = decltype( f<T>(0) );
 
     static const auto value = type::value;
 };
 
-using boost::mp_defer;
+using boost::mp11::mp_defer;
 
 template<class T> using add_pointer = T*;
 template<class... T> using add_pointer_impl = mp_defer<add_pointer, T...>;

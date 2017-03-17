@@ -15,8 +15,8 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_set_push_front;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_set_push_front;
 
     {
         using L1 = mp_list<>;

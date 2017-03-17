@@ -17,7 +17,7 @@ struct X3 {};
 
 int main()
 {
-    using boost::mp_inherit;
+    using boost::mp11::mp_inherit;
 
     BOOST_TEST_TRAIT_TRUE((std::is_base_of<X1, mp_inherit<X1, X2, X3>>));
     BOOST_TEST_TRAIT_TRUE((std::is_base_of<X2, mp_inherit<X1, X2, X3>>));

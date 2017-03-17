@@ -13,6 +13,8 @@
 
 namespace boost
 {
+namespace mp11
+{
 
 // mp_set_contains<S, V>
 namespace detail
@@ -76,6 +78,7 @@ template<template<class...> class L, class... U, class T1, class... T> struct mp
 
 template<class S, class... T> using mp_set_push_front = typename detail::mp_set_push_front_impl<S, T...>::type;
 
+} // namespace mp11
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_SET_HPP_INCLUDED

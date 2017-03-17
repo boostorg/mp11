@@ -20,8 +20,8 @@ struct X3 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_assign;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_assign;
 
     using L1 = mp_list<int, void(), float[]>;
 

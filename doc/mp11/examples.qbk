@@ -1,0 +1,175 @@
+[/
+ /  Copyright 2017 Peter Dimov
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See
+ / accompanying file LICENSE_1_0.txt or copy at
+ / http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section Examples]
+
+[section Generating Test Cases]
+
+Let's suppose that we have written a metafunction `result<T, U>`:
+
+  template<class T> using promote = std::common_type_t<T, int>;
+  template<class T, class U> using result = std::common_type_t<promote<T>, promote<U>>;
+
+that ought to represent the result of an arithmetic operation on the integer types `T` and `U`,
+for example `t + u`. We want to test whether `result<T, U>` gives correct results for various combinations
+of `T` and `U`, so we write the function
+
+    template<class T1, class T2> void test_result()
+    {
+        using T3 = decltype( T1() + T2() );
+        using T4 = result<T1, T2>;
+
+        std::cout << ( std::is_same<T3, T4>::value? "[PASS]": "[FAIL]" ) << std::endl;
+    }
+
+and then need to call it a substantial number of times:
+
+    int main()
+    {
+        test_result<char, char>();
+        test_result<char, short>();
+        test_result<char, int>();
+        test_result<char, unsigned>();
+        // ...
+    }
+
+Writing all those type combinations by hand is unwieldy, error prone, and worst of all, boring. This is
+how we can leverage Mp11 to automate the task:
+
+    #include <boost/mp11.hpp>
+    #include <boost/tuple_for_each.hpp>
+    #include <boost/core/demangle.hpp>
+    #include <type_traits>
+    #include <iostream>
+    #include <typeinfo>
+
+    using namespace boost::mp11;
+
+    template<class T> std::string name()
+    {
+        return boost::core::demangle( typeid(T).name() );
+    }
+
+    template<class T> using promote = std::common_type_t<T, int>;
+    template<class T, class U> using result = std::common_type_t<promote<T>, promote<U>>;
+
+    template<class T1, class T2> void test_result( mp_list<T1, T2> const& )
+    {
+        using T3 = decltype( T1() + T2() );
+        using T4 = result<T1, T2>;
+
+        std::cout << ( std::is_same<T3, T4>::value? "[PASS] ": "[FAIL] " ) << name<T1>() << " + " << name<T2>() << " -> " << name<T3>() << ", result: " << name<T4>() << " " << std::endl;
+    }
+
+    int main()
+    {
+        using L = std::tuple<char, short, int, unsigned, long, unsigned long>;
+        boost::tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
+    }
+
+[endsect]
+
+[section Computing Return Types]
+
+C++17 has a standard variant type, called `std::variant`. It also defines a function template
+`std::visit` that can be used to apply a function to the contained value of one or more `variant`s.
+So for instance, if the `variant` `v1` contains `1`, and the `variant` `v2` contains `2.0f`,
+`std::visit(f, v1, v2)` will call `f(1, 2.0f)`.
+
+However, `std::visit` has one limitation: it cannot return a result unless all
+possible applications of the function have the same return type. If, for instance, `v1` and `v2`
+are both of type `std::variant<short, int, float>`,
+
+    std::visit( []( auto const& x, auto const& y ){ return x + y; }, v1, v2 );
+
+will fail to compile because the result of `x + y` can be either `int` or `float` depending on
+what `v1` and `v2` hold.
+
+A type that can hold either `int` or `float` already exists, called, surprisingly enough, `std::variant<int, float>`.
+Let's write our own function template `rvisit` that is the same as `visit` but returns a `variant`:
+
+    template<class F, class... V> auto rvisit( F&& f, V&&... v )
+    {
+        using R = /*...*/;
+        return std::visit( [&]( auto&&... x ){ return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); }, std::forward<V>( v )... );
+    }
+
+What this does is basically calls `std::visit` to do the work, but instead of passing it `f`, we pass a lambda that does the same as `f` except
+it converts the result to a common type `R`. `R` is supposed to be `std::variant<...>` where the ellipsis denotes the return types of
+calling `f` with all possible combinations of variant values.
+
+We'll first define a helper quoted metafunction `Qret<F>` that returns the result of the application of `F` to arguments of type `T...`:
+
+    template<class F> struct Qret
+    {
+        template<class... T> using invoke = decltype( std::declval<F>()( std::declval<T>()... ) );
+    };
+
+(Unfortunately, we can't just define this metafunction inside `rvisit`; the language prohibits defining template aliases inside functions.)
+
+With `Qret` in hand, a `variant` of the possible return types is just a matter of applying it over the possible combinations of the variant values:
+
+    using R = mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>;
+
+Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
+possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`.
+
+One more step remains. Suppose that, as above, we're passing two variants of type `std::variant<short, int, float>` and `F` is
+`[]( auto const& x, auto const& y ){ return x + y; }`. This will generate `R` of length 9, one per each combination, but many of those
+elements will be the same, either `int` or `float`, and we need to filter out the duplicates. So,
+
+    using R = mp_unique<mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>>;
+
+and we're done:
+
+    #include <boost/mp11.hpp>
+    #include <boost/core/demangle.hpp>
+    #include <variant>
+    #include <type_traits>
+    #include <typeinfo>
+    #include <iostream>
+
+    using namespace boost::mp11;
+
+    template<class F> struct Qret
+    {
+        template<class... T> using invoke = decltype( std::declval<F>()( std::declval<T>()... ) );
+    };
+
+    template<class F, class... V> auto rvisit( F&& f, V&&... v )
+    {
+        using R = mp_unique<mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>>;
+        return std::visit( [&]( auto&&... x ){ return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); }, std::forward<V>( v )... );
+    }
+
+    template<class T> std::string name()
+    {
+        return boost::core::demangle( typeid(T).name() );
+    }
+
+    int main()
+    {
+        std::variant<signed char, unsigned char, signed short, unsigned short, int, unsigned> v1( 1 );
+
+        std::cout << "(" << name<decltype(v1)>() << ")v1: ";
+        std::visit( []( auto const& x ){ std::cout << "(" << name<decltype(x)>() << ")" << x << std::endl; }, v1 );
+
+        std::variant<int, float, double> v2( 2.0f );
+
+        std::cout << "(" << name<decltype(v2)>() << ")v2: ";
+        std::visit( []( auto const& x ){ std::cout << "(" << name<decltype(x)>() << ")" << x << std::endl; }, v2 );
+
+        auto v3 = rvisit( []( auto const& x, auto const& y ){ return x + y; }, v1, v2 );
+
+        std::cout << "(" << name<decltype(v3)>() << ")v3: ";
+        std::visit( []( auto const& x ){ std::cout << "(" << name<decltype(x)>() << ")" << x << std::endl; }, v3 );
+    }
+
+[endsect]
+
+[endsect]

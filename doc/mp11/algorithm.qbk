@@ -10,150 +10,219 @@
 
 [section `mp_assign<L1, L2>`]
     template<class L1, class L2> using mp_assign = /*...*/;
+
+`mp_assign<L1<T1...>, L2<T2...>>` is an alias for `L1<T2...>`. That is, it replaces the elements of `L1` with those of `L2`.
 [endsect]
 
 [section `mp_clear<L>`]
     template<class L> using mp_clear = mp_assign<L, mp_list<>>;
+
+`mp_clear<L<T...>>` is an alias for `L<>`, that is, it removes the elements of `L`.
 [endsect]
 
 [section `mp_transform<F, L...>`]
     template<template<class...> class F, class... L> using mp_transform = /*...*/;
+
+`mp_transform<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` applies `F` to each successive tuple of elements and returns `L1<F<T1, T2, ..., Tn>...>`.
 [endsect]
 
 [section `mp_transform_if<P, F, L>`]
     template<template<class...> class P, template<class...> class F, class L> using mp_transform_if = /*...*/;
+
+`mp_transform_if` replaces the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` with `F<T>`, and returns the result.
 [endsect]
 
 [section `mp_fill<L, V>`]
     template<class L, class V> using mp_fill = /*...*/;
+
+`mp_fill<L<T...>, V>` returns `L<V, V, ..., V>`, with the result having the same size as the input.
 [endsect]
 
 [section `mp_count<L, V>`]
     template<class L, class V> using mp_count = /*...*/;
+
+`mp_count<L, V>` returns `mp_size_t<N>`, where `N` is the number of elements of `L` same as `V`.
 [endsect]
 
 [section `mp_count_if<L, P>`]
     template<class L, template<class...> class P> using mp_count_if = /*...*/;
+
+`mp_count_f<L, P>` returns `mp_size_t<N>`, where `N` is the number of elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true`.
 [endsect]
 
 [section `mp_contains<L, V>`]
     template<class L, class V> using mp_contains = mp_to_bool<mp_count<L, V>>;
+
+`mp_contains<L, V>` is `mp_true` when `L` contains an element `V`, `mp_false` otherwise.
 [endsect]
 
 [section `mp_repeat_c<L, N>`]
     template<class L, std::size_t N> using mp_repeat_c = /*...*/;
+
+`mp_repeat_c<L, N>` returns a list of the same type as `L` that consists of `N` concatenated copies of `L`.
 [endsect]
 
 [section `mp_repeat<L, N>`]
     template<class L, class N> using mp_repeat = /*...*/;
+
+Same as `mp_repeat_c` but with a type argument `N`. The number of copies is `N::value` and must be nonnegative.
 [endsect]
 
 [section `mp_product<F, L...>`]
     template<template<class...> class F, class... L> using mp_product = /*...*/;
+
+`mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` evaluates `F<U1, U2, ..., Un>` for values `Ui` taken from
+the Cartesian product of the lists, as if the elements `Ui` are formed by `n` nested loops, each traversing `Li`.
+It returns a list of type `L1` containing the results of the application of `F`.
 [endsect]
 
 [section `mp_drop_c<L, N>`]
     template<class L, std::size_t N> using mp_drop_c = /*...*/;
+
+`mp_drop_c<L, N>` removes the first `N` elements of `L` and returns the result.
 [endsect]
 
 [section `mp_drop<L, N>`]
     template<class L, class N> using mp_drop = /*...*/;
+
+Same as `mp_drop_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
 [endsect]
 
-[section `mp_iota_c<L, N>`]
+[section `mp_iota_c<N>`]
     template<std::size_t N> using mp_iota_c = /*...*/;
+
+`mp_iota_c<N>` is an alias for `mp_list<mp_size_t<0>, mp_size_t<1>, ..., mp_size_t<N-1>>`.
 [endsect]
 
-[section `mp_iota<L, N>`]
+[section `mp_iota<N>`]
     template<class N> using mp_iota = /*...*/;
+
+Same as `mp_iota_c`, but with a type argument `N`. `N::value` must be a nonnegative number. Returns
+`mp_list<std::integral_constant<T, 0>, std::integral_constant<T, 1>, ..., std::integral_constant<T, N::value-1>>`
+where `T` is the type of `N::value`.
 [endsect]
 
 [section `mp_at_c<L, I>`]
     template<class L, std::size_t I> using mp_at_c = /*...*/;
+
+`mp_at_c<L, I>` returns the `I`th element of `L`, zero-based.
 [endsect]
 
 [section `mp_at<L, I>`]
     template<class L, class I> using mp_at = /*...*/;
+
+Same as `mp_at_c`, but with a type argument `I`. `I::value` must be a nonnegative number.
 [endsect]
 
 [section `mp_take_c<L, N>`]
     template<class L, std::size_t N> using mp_take_c = /*...*/;
+
+`mp_take_c<L, N>` returns a list of the same type as `L` containing the first `N` elements of `L`.
 [endsect]
 
 [section `mp_take<L, N>`]
     template<class L, class N> using mp_take = /*...*/;
+
+Same as `mp_take_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
 [endsect]
 
 [section `mp_replace<L, V, W>`]
     template<class L, class V, class W> using mp_replace = /*...*/;
+
+Replaces all `V` elements of `L` with `W` and returns the result.
 [endsect]
 
 [section `mp_replace_if<L, P, W>`]
     template<class L, template<class...> class P, class W> using mp_replace_if = /*...*/;
+
+Replaces all `T` elements of `L` for which `mp_to_bool<P<T>>` is `mp_true` with `W` and returns the result.
 [endsect]
 
 [section `mp_copy_if<L, P>`]
     template<class L, template<class...> class P> using mp_copy_if = /*...*/;
+
+Copies the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` to a new list of the same type and returns it.
 [endsect]
 
 [section `mp_remove<L, V>`]
     template<class L, class V> using mp_remove = /*...*/;
+
+Removes all `V` elements of `L` and returns the result.
 [endsect]
 
 [section `mp_remove_if<L, P>`]
     template<class L, template<class...> class P> using mp_remove_if = /*...*/;
+
+Removes all elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` and returns the result.
 [endsect]
 
 [section `mp_partition<L, P>`]
     template<class L, template<class...> class P> using mp_partition = /*...*/;
+
+`mp_partition<L<T...>, P>` partitions `L` into two lists `L<U1...>` and `L<U2...>` such that `mp_to_bool<P<T>>` is `mp_true`
+for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Returns `L<L<U1...>, L<U2...>>`.
 [endsect]
 
 [section `mp_sort<L, P>`]
     template<class L, template<class...> class P> using mp_sort = /*...*/;
-[endsect]
 
-[section `mp_find_index<L, V>`]
-    template<class L, class V> using mp_find_index = /*...*/;
-[endsect]
-
-[section `mp_find_index_if<L, P>`]
-    template<class L, template<class...> class P> using mp_find_index_if = /*...*/;
+`mp_sort<L, P>` sorts the list `L` according to the strict weak ordering `mp_to_bool<P<T, U>>`.
 [endsect]
 
 [section `mp_find<L, V>`]
-    template<class L, class V> using mp_find = mp_drop<L, mp_find_index<L, V>>;
+    template<class L, class V> using mp_find = /*...*/;
+
+`mp_find<L, V>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first occurence of `V` in `L`. If
+`L` does not contain `V`, `mp_find<L, V>` is `mp_size<L>`.
 [endsect]
 
 [section `mp_find_if<L, P>`]
-    template<class L, template<class...> class P> using mp_find_if = mp_drop<L, mp_find_index_if<L, P>>;
+    template<class L, template<class...> class P> using mp_find_if = /*...*/;
+
+`mp_find_f<L, P>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first element `T` in `L` for which
+`mp_to_bool<P<T>>` is `mp_true`. If there is no such element, `mp_find<L, V>` is `mp_size<L>`.
 [endsect]
 
 [section `mp_reverse<L>`]
     template<class L> using mp_reverse = /*...*/;
+
+`mp_reverse<L<T1, T2, ..., Tn>>` is `L<Tn, ..., T2, T1>`.
 [endsect]
 
 [section `mp_fold<L, V, F>`]
     template<class L, class V, template<class...> class F> using mp_fold = /*...*/;
+
+`mp_fold<L<T1, T2, ..., Tn>, V, F>` is `F< F< F< F<V, T1>, T2>, ...>, Tn>`, or `V`, if `L` is empty.
 [endsect]
 
 [section `mp_reverse_fold<L, V, F>`]
     template<class L, class V, template<class...> class F> using mp_reverse_fold = /*...*/;
+
+`mp_reverse_fold<L<T1, T2, ..., Tn>, V, F>` is `F<T1, F<T2, F<..., F<Tn, V>>>>`, or `V`, if `L` is empty.
 [endsect]
 
 [section `mp_unique<L>`]
     template<class L> using mp_unique = /*...*/;
+
+`mp_unique<L>` returns a list of the same type as `L` with the duplicate elements removed.
 [endsect]
 
 [section `mp_all_of<L, P>`]
     template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+
+`mp_all_of<L, P>` is `mp_true` when `P` holds for all elements of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 [endsect]
 
 [section `mp_none_of<L, P>`]
     template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+
+`mp_none_of<L, P>` is `mp_true` when `P` holds for no element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 [endsect]
 
 [section `mp_any_of<L, P>`]
     template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+
+`mp_any_of<L, P>` is `mp_true` when `P` holds for at least one element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_false`.
 [endsect]
 
 [endsect]

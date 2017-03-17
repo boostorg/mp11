@@ -16,10 +16,10 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_set_contains;
-    using boost::mp_true;
-    using boost::mp_false;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_set_contains;
+    using boost::mp11::mp_true;
+    using boost::mp11::mp_false;
 
     {
         using L1 = mp_list<>;

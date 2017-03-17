@@ -19,8 +19,8 @@ struct X3 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_remove;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_remove;
 
     {
         using L1 = mp_list<>;

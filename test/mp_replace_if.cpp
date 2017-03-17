@@ -18,8 +18,8 @@ struct X1 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_replace_if;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_replace_if;
 
     {
         using L1 = mp_list<>;

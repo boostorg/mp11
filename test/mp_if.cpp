@@ -14,22 +14,22 @@
 
 int main()
 {
-    using boost::mp_if_c;
+    using boost::mp11::mp_if_c;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if_c<true, char[], void()>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if_c<false, char[], void()>, void()>));
 
-    using boost::mp_if;
+    using boost::mp11::mp_if;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<std::true_type, char[], void()>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<std::false_type, char[], void()>, void()>));
 
-    using boost::mp_int;
+    using boost::mp11::mp_int;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<mp_int<-7>, char[], void()>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<mp_int<0>, char[], void()>, void()>));
 
-    using boost::mp_size_t;
+    using boost::mp11::mp_size_t;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<mp_size_t<14>, char[], void()>, char[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_if<mp_size_t<0>, char[], void()>, void()>));

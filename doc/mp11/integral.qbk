@@ -8,6 +8,8 @@
 
 [section:integral Integral Constants, `<boost/mp11/integral.hpp>`]
 
+For an Mp11 integral constant type `T`, `T::value` is an integral constant in the C++ sense.
+
 [section `mp_bool<B>`]
     template<bool B> using mp_bool = std::integral_constant<bool, B>;
 [endsect]

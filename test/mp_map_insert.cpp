@@ -16,9 +16,9 @@
 
 int main()
 {
-    using boost::mp_map_insert;
-    using boost::mp_list;
-    using boost::mp_push_back;
+    using boost::mp11::mp_map_insert;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_push_back;
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_insert<mp_list<>, mp_list<void>>, mp_list<mp_list<void>>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_map_insert<std::tuple<>, std::tuple<int>>, std::tuple<std::tuple<int>>>));

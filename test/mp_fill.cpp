@@ -18,8 +18,8 @@ struct X1 {};
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_fill;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_fill;
 
     using L1 = mp_list<int, void(), float[]>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_fill<L1, X1>, mp_list<X1, X1, X1>>));

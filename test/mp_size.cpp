@@ -16,9 +16,9 @@
 
 int main()
 {
-    using boost::mp_list;
-    using boost::mp_size;
-    using boost::mp_size_t;
+    using boost::mp11::mp_list;
+    using boost::mp11::mp_size;
+    using boost::mp11::mp_size_t;
 
     using L1 = mp_list<>;
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_size<L1>, mp_size_t<0>>));

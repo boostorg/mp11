@@ -15,14 +15,14 @@
 #include <tuple>
 #include <utility>
 
-using boost::mp_int;
+using boost::mp11::mp_int;
 
 template<class T, class U> using inc = mp_int<U::value + 1>;
 
 int main()
 {
-    using boost::mp_map_update;
-    using boost::mp_list;
+    using boost::mp11::mp_map_update;
+    using boost::mp11::mp_list;
 
     using M1 = mp_list<>;
 
