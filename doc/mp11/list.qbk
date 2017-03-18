@@ -92,4 +92,31 @@ is an alias for `L<U..., T...>`.
 is an alias for `mp_list<>`. `mp_append<L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` is an alias for `L1<T1..., T2..., ..., Tn...>`.
 [endsect]
 
+[section `mp_replace_front<L, T>`]
+    template<class L, class T> using mp_replace_front = /*...*/;
+
+`mp_replace_front<L, T>` replaces the first element of the list `L` with `T`. That is, `mp_replace_front<L<U1, U...>, T>` is
+an alias for `L<T, U...>`.
+[endsect]
+
+[section `mp_replace_first<L, T>`]
+    template<class L, class T> using mp_replace_first = mp_replace_front<L, T>;
+
+`mp_replace_first` is another name for `mp_replace_front`.
+[endsect]
+
+[section `mp_replace_second<L, T>`]
+    template<class L, class T> using mp_replace_second = /*...*/;
+
+`mp_replace_second<L, T>` replaces the second element of the list `L` with `T`. That is, `mp_replace_second<L<U1, U2, U...>, T>`
+is an alias for `L<U1, T, U...>`.
+[endsect]
+
+[section `mp_replace_third<L, T>`]
+    template<class L, class T> using mp_replace_third = /*...*/;
+
+`mp_replace_third<L, T>` replaces the third element of the list `L` with `T`. That is, `mp_replace_third<L<U1, U2, U3, U...>, T>`
+is an alias for `L<U1, U2, T, U...>`.
+[endsect]
+
 [endsect]
