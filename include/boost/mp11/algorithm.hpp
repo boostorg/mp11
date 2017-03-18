@@ -834,6 +834,25 @@ template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_cou
 // mp_any_of<L, P>
 template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
 
+// mp_replace_at_c<L, I, W>
+namespace detail
+{
+
+template<class L, class I, class W> struct mp_replace_at_impl
+{
+    static_assert( I::value >= 0, "mp_replace_at<L, I, W>: I must not be negative" );
+
+    template<class T1, class T2> using _p = std::is_same<T2, mp_size_t<I::value>>;
+    template<class T1, class T2> using _f = W;
+
+    using type = mp_transform_if<_p, _f, L, mp_iota<mp_size<L>>>;
+};
+
+} // namespace detail
+
+template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
+template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
+
 } // namespace mp11
 } // namespace boost
 
