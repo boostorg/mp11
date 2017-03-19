@@ -170,6 +170,54 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 
 template<class... L> using mp_append = typename detail::mp_append_impl<L...>::type;
 
+// mp_replace_front<L, T>
+namespace detail
+{
+
+template<class L, class T> struct mp_replace_front_impl;
+
+template<template<class...> class L, class U1, class... U, class T> struct mp_replace_front_impl<L<U1, U...>, T>
+{
+    using type = L<T, U...>;
+};
+
+} // namespace detail
+
+template<class L, class T> using mp_replace_front = typename detail::mp_replace_front_impl<L, T>::type;
+
+// mp_replace_first<L, T>
+template<class L, class T> using mp_replace_first = typename detail::mp_replace_front_impl<L, T>::type;
+
+// mp_replace_second<L, T>
+namespace detail
+{
+
+template<class L, class T> struct mp_replace_second_impl;
+
+template<template<class...> class L, class U1, class U2, class... U, class T> struct mp_replace_second_impl<L<U1, U2, U...>, T>
+{
+    using type = L<U1, T, U...>;
+};
+
+} // namespace detail
+
+template<class L, class T> using mp_replace_second = typename detail::mp_replace_second_impl<L, T>::type;
+
+// mp_replace_third<L, T>
+namespace detail
+{
+
+template<class L, class T> struct mp_replace_third_impl;
+
+template<template<class...> class L, class U1, class U2, class U3, class... U, class T> struct mp_replace_third_impl<L<U1, U2, U3, U...>, T>
+{
+    using type = L<U1, U2, T, U...>;
+};
+
+} // namespace detail
+
+template<class L, class T> using mp_replace_third = typename detail::mp_replace_third_impl<L, T>::type;
+
 } // namespace mp11
 } // namespace boost
 

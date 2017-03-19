@@ -26,10 +26,11 @@
 `mp_transform<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` applies `F` to each successive tuple of elements and returns `L1<F<T1, T2, ..., Tn>...>`.
 [endsect]
 
-[section `mp_transform_if<P, F, L>`]
-    template<template<class...> class P, template<class...> class F, class L> using mp_transform_if = /*...*/;
+[section `mp_transform_if<P, F, L...>`]
+    template<template<class...> class P, template<class...> class F, class L...> using mp_transform_if = /*...*/;
 
-`mp_transform_if` replaces the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` with `F<T>`, and returns the result.
+`mp_transform_if<P, F, L1, L2, ..., Ln>` replaces the elements `T` of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>` is `mp_true` with
+`F<T1, T2, ..., Tn>`, and returns the result, where `Ti` are the corresponding elements of `Li`.
 [endsect]
 
 [section `mp_fill<L, V>`]
@@ -136,6 +137,18 @@ Replaces all `V` elements of `L` with `W` and returns the result.
     template<class L, template<class...> class P, class W> using mp_replace_if = /*...*/;
 
 Replaces all `T` elements of `L` for which `mp_to_bool<P<T>>` is `mp_true` with `W` and returns the result.
+[endsect]
+
+[section `mp_replace_at_c<L, I, W>`]
+    template<class L, std::size_t I, class W> using mp_replace_at_c = /*...*/;
+
+Replaces the element of `L` at zero-based index `I` with `W` and returns the result.
+[endsect]
+
+[section `mp_replace_at<L, I, W>`]
+    template<class L, class I, class W> using mp_replace_at = /*...*/;
+
+Same as `mp_replace_at_c`, but with a type argument `I`. `I::value` must be a nonnegative number.
 [endsect]
 
 [section `mp_copy_if<L, P>`]

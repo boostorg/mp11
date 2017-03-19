@@ -25,6 +25,9 @@ run mp_push_front.cpp : : : $(REQ) ;
 run mp_push_back.cpp : : : $(REQ) ;
 run mp_rename.cpp : : : $(REQ) ;
 run mp_append.cpp : : : $(REQ) ;
+run mp_replace_front.cpp : : : $(REQ) ;
+run mp_replace_second.cpp : : : $(REQ) ;
+run mp_replace_third.cpp : : : $(REQ) ;
 
 # algorithm
 run mp_assign.cpp : : : $(REQ) ;
@@ -57,6 +60,8 @@ run mp_unique.cpp : : : $(REQ) ;
 run mp_all_of.cpp : : : $(REQ) ;
 run mp_any_of.cpp : : : $(REQ) ;
 run mp_none_of.cpp : : : $(REQ) ;
+run mp_replace_at.cpp : : : $(REQ) ;
+run mp_replace_at_c.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;
