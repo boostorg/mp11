@@ -107,14 +107,14 @@ We'll first define a helper quoted metafunction `Qret<F>` that returns the resul
 
     template<class F> struct Qret
     {
-        template<class... T> using invoke = decltype( std::declval<F>()( std::declval<T>()... ) );
+        template<class... T> using fn = decltype( std::declval<F>()( std::declval<T>()... ) );
     };
 
 (Unfortunately, we can't just define this metafunction inside `rvisit`; the language prohibits defining template aliases inside functions.)
 
 With `Qret` in hand, a `variant` of the possible return types is just a matter of applying it over the possible combinations of the variant values:
 
-    using R = mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>;
+    using R = mp_product<Qret<F>::template fn, std::remove_reference_t<V>...>;
 
 Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
 possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`.
@@ -123,7 +123,7 @@ One more step remains. Suppose that, as above, we're passing two variants of typ
 `[]( auto const& x, auto const& y ){ return x + y; }`. This will generate `R` of length 9, one per each combination, but many of those
 elements will be the same, either `int` or `float`, and we need to filter out the duplicates. So,
 
-    using R = mp_unique<mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>>;
+    using R = mp_unique<mp_product<Qret<F>::template fn, std::remove_reference_t<V>...>>;
 
 and we're done:
 
@@ -138,12 +138,12 @@ and we're done:
 
     template<class F> struct Qret
     {
-        template<class... T> using invoke = decltype( std::declval<F>()( std::declval<T>()... ) );
+        template<class... T> using fn = decltype( std::declval<F>()( std::declval<T>()... ) );
     };
 
     template<class F, class... V> auto rvisit( F&& f, V&&... v )
     {
-        using R = mp_unique<mp_product<Qret<F>::template invoke, std::remove_reference_t<V>...>>;
+        using R = mp_unique<mp_product<Qret<F>::template fn, std::remove_reference_t<V>...>>;
         return std::visit( [&]( auto&&... x ){ return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); }, std::forward<V>( v )... );
     }
 

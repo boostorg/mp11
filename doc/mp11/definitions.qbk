@@ -18,11 +18,11 @@ A /metafunction/ is a class template or a template alias whose parameters are al
   template<class T> using F2 = T*;
   template<class... T> using F3 = std::integral_constant<std::size_t, sizeof...(T)>;
 
-A /quoted metafunction/ is a class with a public metafunction called `invoke`, for example
+A /quoted metafunction/ is a class with a public metafunction called `fn`, for example
 
-  struct Q1 { template<class...> using invoke = void; };
-  struct Q2 { template<class T> using invoke = T*; };
-  struct Q3 { template<class... T> using invoke = std::integral_constant<std::size_t, sizeof...(T)>; };
+  struct Q1 { template<class...> using fn = void; };
+  struct Q2 { template<class T> using fn = T*; };
+  struct Q3 { template<class... T> using fn = std::integral_constant<std::size_t, sizeof...(T)>; };
 
 An /integral constant type/ is a class with a public member `value` that is an integral constant in the C++ sense. For example,
 `std::integral_constant<int, 7>`, or

@@ -106,7 +106,7 @@ template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid
 // mp_quote
 template<template<class...> class F, class... T> struct mp_quote
 {
-    template<class... U> using invoke = F<T..., U...>;
+    template<class... U> using fn = F<T..., U...>;
 };
 
 // mp_unquote
@@ -115,7 +115,7 @@ namespace detail
 
 template<class Q, class... T> struct mp_invoke_impl
 {
-    using type = typename Q::template invoke<T...>;
+    using type = typename Q::template fn<T...>;
 };
 
 template<template<class...> class F, class... T, class... U> struct mp_invoke_impl<mp_quote<F, T...>, U...>

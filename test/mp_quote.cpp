@@ -54,7 +54,7 @@ int main()
     {
         using Q = mp_quote<mp_identity_t>;
 
-        // using R1 = Y<Q::template invoke, void, char, int>;
+        // using R1 = Y<Q::fn, void, char, int>;
         // BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<void, char, int>>));
         // 
         // error: pack expansion used as argument for non-pack parameter of alias template
@@ -71,7 +71,7 @@ int main()
 
 #if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
 #else
-        using R1 = Y<Q::template invoke, D1, D2, ND, int>;
+        using R1 = Y<Q::fn, D1, D2, ND, int>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<std::true_type, std::true_type, std::false_type, std::false_type>>));
 #endif
 
