@@ -24,7 +24,7 @@ struct D1: B {};
 struct D2: B {};
 struct ND {};
 
-template<class... T> using is_base_of_t = typename std::is_base_of<T...>::type;
+template<class T, class U> using is_base_of_t = typename std::is_base_of<T, U>::type;
 
 int main()
 {
@@ -54,10 +54,11 @@ int main()
     {
         using Q = mp_quote<mp_identity_t>;
 
-        // using R1 = Y<Q::fn, void, char, int>;
-        // BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<void, char, int>>));
-        // 
-        // error: pack expansion used as argument for non-pack parameter of alias template
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#else
+        using R1 = Y<Q::fn, void, char, int>;
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<void, char, int>>));
+#endif
 
 #if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
 #else

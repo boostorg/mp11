@@ -35,6 +35,11 @@ struct Q4
     template<class T1, class... T> using fn = T1;
 };
 
+struct Q5
+{
+    template<class T1, class T2> using fn = T2;
+};
+
 int main()
 {
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q1>, void>));
@@ -51,6 +56,8 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q4, int>, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q4, int[], char[]>, int[]>));
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q5, int, float>, float>));
 
     return boost::report_errors();
 }

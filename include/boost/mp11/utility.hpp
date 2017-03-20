@@ -106,7 +106,16 @@ template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid
 // mp_quote
 template<template<class...> class F, class... T> struct mp_quote
 {
-    template<class... U> using fn = F<T..., U...>;
+private:
+
+    template<class... U> struct _fn { using type = F<T..., U...>; };
+
+public:
+
+    // the indirection through _fn works around the language inability
+    // to expand T.. to expand into a fixed parameter list of an alias template
+
+    template<class... U> using fn = typename _fn<U...>::type;
 };
 
 // mp_unquote
