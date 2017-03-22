@@ -17,22 +17,27 @@ using boost::mp11::mp_size_t;
 
 struct Q1
 {
-    template<class...> using invoke = void;
+    template<class...> using fn = void;
 };
 
 struct Q2
 {
-    template<class...> class invoke;
+    template<class...> class fn;
 };
 
 struct Q3
 {
-    template<class... T> using invoke = mp_size_t<sizeof...(T)>;
+    template<class... T> using fn = mp_size_t<sizeof...(T)>;
 };
 
 struct Q4
 {
-    template<class T1, class... T> using invoke = T1;
+    template<class T1, class... T> using fn = T1;
+};
+
+struct Q5
+{
+    template<class T1, class T2> using fn = T2;
 };
 
 int main()
@@ -41,9 +46,9 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q1, int>, void>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q1, int[], char[]>, void>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2>, Q2::invoke<>>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2, int>, Q2::invoke<int>>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2, int[], char[]>, Q2::invoke<int[], char[]>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2>, Q2::fn<>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2, int>, Q2::fn<int>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q2, int[], char[]>, Q2::fn<int[], char[]>>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q3>, mp_size_t<0>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q3, int>, mp_size_t<1>>));
@@ -51,6 +56,8 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q4, int>, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q4, int[], char[]>, int[]>));
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q5, int, float>, float>));
 
     return boost::report_errors();
 }

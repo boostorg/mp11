@@ -49,6 +49,11 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<3>>, mp_list<X1, X2, X3>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<4>>, mp_list<X1, X2, X3, X4>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<5>>, mp_list<X1, X2, X3, X4, X5>>));
+
+        using L3 = mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3, 8>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t<9>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4>>));
     }
 
     {
@@ -72,6 +77,11 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<3>>, std::tuple<X1, X2, X3>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<4>>, std::tuple<X1, X2, X3, X4>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L2, mp_size_t<5>>, std::tuple<X1, X2, X3, X4, X5>>));
+
+        using L3 = std::tuple<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3, 8>, std::tuple<X1, X2, X3, X4, X5, X1, X2, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t<9>>, std::tuple<X1, X2, X3, X4, X5, X1, X2, X3, X4>>));
     }
 
     {

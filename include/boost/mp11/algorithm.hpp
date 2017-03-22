@@ -290,23 +290,47 @@ template<class L, class I> using mp_at = typename detail::mp_at_impl<L, I>::type
 namespace detail
 {
 
+template<class L, std::size_t N, class E = void> struct mp_take_c_impl;
+
+template<template<class...> class L, class... T> struct mp_take_c_impl<L<T...>, 0>
+{
+    using type = L<>;
+};
+
+template<template<class...> class L, class T1, class... T> struct mp_take_c_impl<L<T1, T...>, 1>
+{
+    using type = L<T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class... T> struct mp_take_c_impl<L<T1, T2, T...>, 2>
+{
+    using type = L<T1, T2>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class... T> struct mp_take_c_impl<L<T1, T2, T3, T...>, 3>
+{
+    using type = L<T1, T2, T3>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class... T> struct mp_take_c_impl<L<T1, T2, T3, T4, T...>, 4>
+{
+    using type = L<T1, T2, T3, T4>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class... T, std::size_t N> struct mp_take_c_impl<L<T1, T2, T3, T4, T5, T...>, N, typename std::enable_if<N >= 5>::type>
+{
+    using type = mp_append<L<T1, T2, T3, T4, T5>, typename mp_take_c_impl<L<T...>, N-5>::type>;
+};
+
 template<class L, class N> struct mp_take_impl
 {
     static_assert( N::value >= 0, "mp_take<L, N>: N must not be negative" );
-
-    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
-
-    template<class I> using _f = mp_second<mp_map_find<_map, I>>;
-
-    using _ind = mp_iota_c<N::value>;
-
-    using type = mp_assign<L, mp_transform<_f, _ind>>;
+    using type = typename mp_take_c_impl<L, N::value>::type;
 };
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_impl<L, mp_size_t<N>>::type;
-
+template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<L, N>::type;
 template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
 
 // mp_replace<L, V, W>
