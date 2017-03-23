@@ -24,7 +24,14 @@ namespace detail
 
 template<class L, class V> struct mp_count_impl;
 
-#if !defined( BOOST_MP11_NO_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+
+template<template<class...> class L, class... T, class V> struct mp_count_impl<L<T...>, V>
+{
+    using type = mp_size_t<(std::is_same<T, V>::value + ... + 0)>;
+};
+
+#elif !defined( BOOST_MP11_NO_CONSTEXPR )
 
 constexpr std::size_t cx_plus()
 {
@@ -66,7 +73,14 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_count_if_impl;
 
-#if !defined( BOOST_MP11_NO_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+
+template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
+{
+    using type = mp_size_t<(mp_to_bool<P<T>>::value + ... + 0)>;
+};
+
+#elif !defined( BOOST_MP11_NO_CONSTEXPR )
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
