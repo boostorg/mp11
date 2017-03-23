@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_LIST_HPP_INCLUDED
 #define BOOST_MP11_LIST_HPP_INCLUDED
 
-//  Copyright 2015 Peter Dimov.
+//  Copyright 2015-2017 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -10,6 +10,8 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 
 namespace boost
 {
@@ -165,6 +167,28 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 {
     using type = typename mp_append_impl<L1<T1..., T2...>, Lr...>::type;
 };
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#else
+
+template<
+    template<class...> class L1, class... T1,
+    template<class...> class L2, class... T2,
+    template<class...> class L3, class... T3,
+    template<class...> class L4, class... T4,
+    template<class...> class L5, class... T5,
+    template<class...> class L6, class... T6,
+    template<class...> class L7, class... T7,
+    template<class...> class L8, class... T8,
+    template<class...> class L9, class... T9,
+    template<class...> class L10, class... T10,
+    class... Lr>
+    struct mp_append_impl<L1<T1...>, L2<T2...>, L3<T3...>, L4<T4...>, L5<T5...>, L6<T6...>, L7<T7...>, L8<T8...>, L9<T9...>, L10<T10...>, Lr...>
+{
+    using type = typename mp_append_impl<L1<T1..., T2..., T3..., T4..., T5..., T6..., T7..., T8..., T9..., T10...>, Lr...>::type;
+};
+
+#endif
 
 } // namespace detail
 

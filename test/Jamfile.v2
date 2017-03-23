@@ -25,6 +25,7 @@ run mp_push_front.cpp : : : $(REQ) ;
 run mp_push_back.cpp : : : $(REQ) ;
 run mp_rename.cpp : : : $(REQ) ;
 run mp_append.cpp : : : $(REQ) ;
+run mp_append_2.cpp : : : $(REQ) ;
 run mp_replace_front.cpp : : : $(REQ) ;
 run mp_replace_second.cpp : : : $(REQ) ;
 run mp_replace_third.cpp : : : $(REQ) ;
