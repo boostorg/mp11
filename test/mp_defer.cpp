@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015-2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -23,7 +23,7 @@ template<class T> struct has_type
 
     using type = decltype( f<T>(0) );
 
-    static const auto value = type::value;
+    static const bool value = type::value;
 };
 
 using boost::mp11::mp_defer;

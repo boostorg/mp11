@@ -11,6 +11,8 @@
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <type_traits>
 #include <tuple>
 
@@ -26,6 +28,16 @@ using boost::mp11::mp_push_front;
 
 template<class T, class L> using rev_push_back = mp_push_back<L, T>;
 template<class T, class L> using rev_push_front = mp_push_front<L, T>;
+
+#if BOOST_WORKAROUND( BOOST_GCC, < 40800 )
+
+template<class A, class B> using mp_plus = std::integral_constant<typename std::remove_const<decltype( A::value + B::value )>::type, A::value + B::value>;
+
+#else
+
+using boost::mp11::mp_plus;
+
+#endif
 
 int main()
 {
@@ -59,7 +71,6 @@ int main()
     using boost::mp11::mp_iota_c;
     using boost::mp11::mp_reverse;
     using boost::mp11::mp_size_t;
-    using boost::mp11::mp_plus;
 
     {
         int const N = 37;
