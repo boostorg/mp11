@@ -384,27 +384,15 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_copy_if_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<P<U>, mp_list<U>, mp_list<>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, template<class...> class P> struct mp_copy_if_impl<L<>, P>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<P<U>, mp_list<U>, mp_list<>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_copy_if_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_copy_if_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, mp_push_front<rest, T1>, rest>;
 };
 
 } // namespace detail
@@ -417,32 +405,15 @@ namespace detail
 
 template<class L, class V> struct mp_remove_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, class V> struct mp_remove_impl<L<T...>, V>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<std::is_same<U, V>, mp_list<>, mp_list<U>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, class V> struct mp_remove_impl<L<>, V>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<std::is_same<U, V>, mp_list<>, mp_list<U>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T> struct mp_remove_impl<L<T1, T...>, T1>
-{
-    using type = typename mp_remove_impl<L<T...>, T1>::type;
-};
-
-template<template<class...> class L, class T1, class... T, class V> struct mp_remove_impl<L<T1, T...>, V>
-{
-    using rest = typename mp_remove_impl<L<T...>, V>::type;
-    using type = mp_push_front<rest, T1>;
 };
 
 } // namespace detail
@@ -455,27 +426,15 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_remove_if_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_remove_if_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<P<U>, mp_list<>, mp_list<U>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, template<class...> class P> struct mp_remove_if_impl<L<>, P>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<P<U>, mp_list<>, mp_list<U>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_remove_if_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_remove_if_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, rest, mp_push_front<rest, T1>>;
 };
 
 } // namespace detail
@@ -488,27 +447,9 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_partition_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_partition_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<L<>, L<>>;
-};
-
-#else
-
-template<template<class...> class L, template<class...> class P> struct mp_partition_impl<L<>, P>
-{
-    using type = L<L<>, L<>>;
-};
-
-#endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_partition_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_partition_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, L<mp_push_front<mp_first<rest>, T1>, mp_second<rest>>, L<mp_first<rest>, mp_push_front<mp_second<rest>, T1>>>;
+    using type = L<mp_copy_if<L<T...>, P>, mp_remove_if<L<T...>, P>>;
 };
 
 } // namespace detail
