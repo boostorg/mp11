@@ -796,6 +796,12 @@ template<template<class...> class L, class T1, class... T, class V, template<cla
     using type = F<T1, rest>;
 };
 
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, class V, template<class...> class F> struct mp_reverse_fold_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, V, F>
+{
+    using rest = typename mp_reverse_fold_impl<L<T...>, V, F>::type;
+    using type = F<T1, F<T2, F<T3, F<T4, F<T5, F<T6, F<T7, F<T8, F<T9, F<T10, rest>>>>>>>>>>;
+};
+
 } // namespace detail
 
 template<class L, class V, template<class...> class F> using mp_reverse_fold = typename detail::mp_reverse_fold_impl<L, V, F>::type;
