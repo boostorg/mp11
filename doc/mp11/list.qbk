@@ -85,6 +85,13 @@ is an alias for `L<U..., T...>`.
 `mp_rename<L, Y>` changes the type of the list `L` to `Y`. That is, `mp_rename<L<T...>, Y>` is an alias for `Y<T...>`.
 [endsect]
 
+[section `mp_apply<F, L>`]
+    template<template<class...> class F, class L> using mp_apply = mp_rename<L, F>;
+
+`mp_apply<F, L>` applies the function `F` to the contents of the list `L`, that is, `mp_rename<F, L<T...>>` is an alias for `F<T...>`.
+(`mp_apply` is the same as `mp_rename` with the arguments reversed.)
+[endsect]
+
 [section `mp_append<L...>`]
     template<class... L> using mp_append = /*...*/;
 
