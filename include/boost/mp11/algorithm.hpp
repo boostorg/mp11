@@ -337,27 +337,18 @@ template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::
 namespace detail
 {
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<class L, class V, class W> struct mp_replace_impl;
 
 template<template<class...> class L, class... T, class V, class W> struct mp_replace_impl<L<T...>, V, W>
 {
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
     template<class A> struct _f { using type = mp_if<std::is_same<A, V>, W, A>; };
-
     using type = L<typename _f<T>::type...>;
-};
-
 #else
-
-template<class L, class V, class W> struct mp_replace_impl
-{
     template<class A> using _f = mp_if<std::is_same<A, V>, W, A>;
-
-    using type = mp_transform<_f, L>;
-};
-
+    using type = L<_f<T>...>;
 #endif
+};
 
 } // namespace detail
 
@@ -367,11 +358,12 @@ template<class L, class V, class W> using mp_replace = typename detail::mp_repla
 namespace detail
 {
 
-template<class L, template<class...> class P, class W> struct mp_replace_if_impl
-{
-    template<class T> using _f = mp_if<P<T>, W, T>;
+template<class L, template<class...> class P, class W> struct mp_replace_if_impl;
 
-    using type = mp_transform<_f, L>;
+template<template<class...> class L, class... T, template<class...> class P, class W> struct mp_replace_if_impl<L<T...>, P, W>
+{
+    template<class U> using _f = mp_if<P<U>, W, U>;
+    using type = L<_f<T>...>;
 };
 
 } // namespace detail
