@@ -315,16 +315,10 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
     using type = mp_append<L<T1, T2, T3, T4, T5>, typename mp_take_c_impl<L<T...>, N-5>::type>;
 };
 
-template<class L, class N> struct mp_take_impl
-{
-    static_assert( N::value >= 0, "mp_take<L, N>: N must not be negative" );
-    using type = typename mp_take_c_impl<L, N::value>::type;
-};
-
 } // namespace detail
 
 template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<L, N>::type;
-template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
+template<class L, class N> using mp_take = typename detail::mp_take_c_impl<L, std::size_t{ N::value }>::type;
 
 // mp_replace<L, V, W>
 namespace detail
