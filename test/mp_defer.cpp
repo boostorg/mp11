@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015-2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -10,6 +10,8 @@
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <type_traits>
 
 using boost::mp11::mp_identity;
@@ -23,7 +25,15 @@ template<class T> struct has_type
 
     using type = decltype( f<T>(0) );
 
+#if BOOST_WORKAROUND( BOOST_GCC, < 40800 )
+
+    static constexpr auto value = type::value;
+
+#else
+
     static const auto value = type::value;
+
+#endif
 };
 
 using boost::mp11::mp_defer;
