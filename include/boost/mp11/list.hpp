@@ -147,6 +147,8 @@ template<template<class...> class A, class... T, template<class...> class B> str
 
 template<class A, template<class...> class B> using mp_rename = typename detail::mp_rename_impl<A, B>::type;
 
+template<template<class...> class F, class L> using mp_apply = typename detail::mp_rename_impl<L, F>::type;
+
 // mp_append<L...>
 namespace detail
 {

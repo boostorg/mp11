@@ -189,17 +189,10 @@ template<class L> struct mp_repeat_c_impl<L, 1>
     using type = L;
 };
 
-template<class L, class N> struct mp_repeat_impl
-{
-    static_assert( N::value >= 0, "mp_repeat<L, N>: N must not be negative" );
-
-    using type = typename mp_repeat_c_impl<L, N::value>::type;
-};
-
 } // namespace detail
 
 template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_c_impl<L, N>::type;
-template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, N>::type;
+template<class L, class N> using mp_repeat = typename detail::mp_repeat_c_impl<L, std::size_t{ N::value }>::type;
 
 // mp_product<F, L...>
 namespace detail
@@ -322,42 +315,27 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
     using type = mp_append<L<T1, T2, T3, T4, T5>, typename mp_take_c_impl<L<T...>, N-5>::type>;
 };
 
-template<class L, class N> struct mp_take_impl
-{
-    static_assert( N::value >= 0, "mp_take<L, N>: N must not be negative" );
-    using type = typename mp_take_c_impl<L, N::value>::type;
-};
-
 } // namespace detail
 
 template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<L, N>::type;
-template<class L, class N> using mp_take = typename detail::mp_take_impl<L, N>::type;
+template<class L, class N> using mp_take = typename detail::mp_take_c_impl<L, std::size_t{ N::value }>::type;
 
 // mp_replace<L, V, W>
 namespace detail
 {
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<class L, class V, class W> struct mp_replace_impl;
 
 template<template<class...> class L, class... T, class V, class W> struct mp_replace_impl<L<T...>, V, W>
 {
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
     template<class A> struct _f { using type = mp_if<std::is_same<A, V>, W, A>; };
-
     using type = L<typename _f<T>::type...>;
-};
-
 #else
-
-template<class L, class V, class W> struct mp_replace_impl
-{
     template<class A> using _f = mp_if<std::is_same<A, V>, W, A>;
-
-    using type = mp_transform<_f, L>;
-};
-
+    using type = L<_f<T>...>;
 #endif
+};
 
 } // namespace detail
 
@@ -367,11 +345,12 @@ template<class L, class V, class W> using mp_replace = typename detail::mp_repla
 namespace detail
 {
 
-template<class L, template<class...> class P, class W> struct mp_replace_if_impl
-{
-    template<class T> using _f = mp_if<P<T>, W, T>;
+template<class L, template<class...> class P, class W> struct mp_replace_if_impl;
 
-    using type = mp_transform<_f, L>;
+template<template<class...> class L, class... T, template<class...> class P, class W> struct mp_replace_if_impl<L<T...>, P, W>
+{
+    template<class U> using _f = mp_if<P<U>, W, U>;
+    using type = L<_f<T>...>;
 };
 
 } // namespace detail
@@ -384,27 +363,15 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_copy_if_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<P<U>, mp_list<U>, mp_list<>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, template<class...> class P> struct mp_copy_if_impl<L<>, P>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<P<U>, mp_list<U>, mp_list<>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_copy_if_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_copy_if_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, mp_push_front<rest, T1>, rest>;
 };
 
 } // namespace detail
@@ -417,32 +384,15 @@ namespace detail
 
 template<class L, class V> struct mp_remove_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, class V> struct mp_remove_impl<L<T...>, V>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<std::is_same<U, V>, mp_list<>, mp_list<U>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, class V> struct mp_remove_impl<L<>, V>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<std::is_same<U, V>, mp_list<>, mp_list<U>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T> struct mp_remove_impl<L<T1, T...>, T1>
-{
-    using type = typename mp_remove_impl<L<T...>, T1>::type;
-};
-
-template<template<class...> class L, class T1, class... T, class V> struct mp_remove_impl<L<T1, T...>, V>
-{
-    using rest = typename mp_remove_impl<L<T...>, V>::type;
-    using type = mp_push_front<rest, T1>;
 };
 
 } // namespace detail
@@ -455,27 +405,15 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_remove_if_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_remove_if_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<>;
-};
-
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+    template<class U> struct _f { using type = mp_if<P<U>, mp_list<>, mp_list<U>>; };
+    using type = mp_append<L<>, typename _f<T>::type...>;
 #else
-
-template<template<class...> class L, template<class...> class P> struct mp_remove_if_impl<L<>, P>
-{
-    using type = L<>;
-};
-
+    template<class U> using _f = mp_if<P<U>, mp_list<>, mp_list<U>>;
+    using type = mp_append<L<>, _f<T>...>;
 #endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_remove_if_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_remove_if_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, rest, mp_push_front<rest, T1>>;
 };
 
 } // namespace detail
@@ -488,27 +426,9 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_partition_impl;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
 template<template<class...> class L, class... T, template<class...> class P> struct mp_partition_impl<L<T...>, P>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = L<L<>, L<>>;
-};
-
-#else
-
-template<template<class...> class L, template<class...> class P> struct mp_partition_impl<L<>, P>
-{
-    using type = L<L<>, L<>>;
-};
-
-#endif
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_partition_impl<L<T1, T...>, P>
-{
-    using rest = typename mp_partition_impl<L<T...>, P>::type;
-    using type = mp_if<P<T1>, L<mp_push_front<mp_first<rest>, T1>, mp_second<rest>>, L<mp_first<rest>, mp_push_front<mp_second<rest>, T1>>>;
+    using type = L<mp_copy_if<L<T...>, P>, mp_remove_if<L<T...>, P>>;
 };
 
 } // namespace detail
@@ -760,9 +680,29 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
     using type = L<T5, T4, T3, T2, T1>;
 };
 
-template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class... T> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T...>>
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6>>
 {
-    using type = mp_push_back<typename mp_reverse_impl<L<T...>>::type, T6, T5, T4, T3, T2, T1>;
+    using type = L<T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7>>
+{
+    using type = L<T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8>>
+{
+    using type = L<T8, T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9>>
+{
+    using type = L<T9, T8, T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>>
+{
+    using type = mp_push_back<typename mp_reverse_impl<L<T...>>::type, T10, T9, T8, T7, T6, T5, T4, T3, T2, T1>;
 };
 
 } // namespace detail
@@ -797,6 +737,11 @@ template<template<class...> class L, class T1, class... T, class V, template<cla
     using type = typename mp_fold_impl<L<T...>, F<V, T1>, F>::type;
 };
 
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, class V, template<class...> class F> struct mp_fold_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, V, F>
+{
+    using type = typename mp_fold_impl<L<T...>, F<F<F<F<F<F<F<F<F<F<V, T1>, T2>, T3>, T4>, T5>, T6>, T7>, T8>, T9>, T10>, F>::type;
+};
+
 } // namespace detail
 
 template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
@@ -828,6 +773,12 @@ template<template<class...> class L, class T1, class... T, class V, template<cla
 {
     using rest = typename mp_reverse_fold_impl<L<T...>, V, F>::type;
     using type = F<T1, rest>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, class V, template<class...> class F> struct mp_reverse_fold_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, V, F>
+{
+    using rest = typename mp_reverse_fold_impl<L<T...>, V, F>::type;
+    using type = F<T1, F<T2, F<T3, F<T4, F<T5, F<T6, F<T7, F<T8, F<T9, F<T10, rest>>>>>>>>>>;
 };
 
 } // namespace detail

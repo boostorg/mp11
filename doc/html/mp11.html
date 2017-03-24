@@ -68,6 +68,8 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_push_back_l_t"><code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_rename_l_y"><code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span>
         <span class="identifier">Y</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_apply_f_l"><code class="computeroutput"><span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_append_l"><code class="computeroutput"><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_replace_front_l_t"><code class="computeroutput"><span class="identifier">mp_replace_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.list.mp_replace_first_l_t"><code class="computeroutput"><span class="identifier">mp_replace_first</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
@@ -695,6 +697,21 @@
           <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">&gt;</span></code> changes the type of the list <code class="computeroutput"><span class="identifier">L</span></code> to <code class="computeroutput"><span class="identifier">Y</span></code>.
           That is, <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">Y</span><span class="special">&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">Y</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.list.mp_apply_f_l"></a><a class="link" href="mp11.html#mp11.reference.list.mp_apply_f_l" title="mp_apply&lt;F, L&gt;"><code class="computeroutput"><span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">L</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_apply</span> <span class="special">=</span> <span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;</span></code> applies the function <code class="computeroutput"><span class="identifier">F</span></code> to the contents of the list <code class="computeroutput"><span class="identifier">L</span></code>, that is, <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
+          (<code class="computeroutput"><span class="identifier">mp_apply</span></code> is the same as
+          <code class="computeroutput"><span class="identifier">mp_rename</span></code> with the arguments
+          reversed.)
         </p>
 </div>
 <div class="section">
@@ -1688,7 +1705,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 20, 2017 at 14:09:13 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 24, 2017 at 12:24:11 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
