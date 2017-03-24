@@ -28,6 +28,15 @@ matrix:
 
   include:
     - os: linux
+      env: TOOLSET=gcc COMPILER=g++-4.8 CXXSTD=c++11
+      addons:
+        apt:
+          packages:
+            - g++-4.8
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - os: linux
       env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=c++11
       addons:
         apt:
@@ -176,6 +185,9 @@ matrix:
 
     - os: osx
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++14
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++1z
 
 install:
   - cd ..
