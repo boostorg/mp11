@@ -701,9 +701,29 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
     using type = L<T5, T4, T3, T2, T1>;
 };
 
-template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class... T> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T...>>
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6>>
 {
-    using type = mp_push_back<typename mp_reverse_impl<L<T...>>::type, T6, T5, T4, T3, T2, T1>;
+    using type = L<T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7>>
+{
+    using type = L<T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8>>
+{
+    using type = L<T8, T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9>>
+{
+    using type = L<T9, T8, T7, T6, T5, T4, T3, T2, T1>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T> struct mp_reverse_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>>
+{
+    using type = mp_push_back<typename mp_reverse_impl<L<T...>>::type, T10, T9, T8, T7, T6, T5, T4, T3, T2, T1>;
 };
 
 } // namespace detail
