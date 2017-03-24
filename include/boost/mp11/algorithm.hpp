@@ -189,17 +189,10 @@ template<class L> struct mp_repeat_c_impl<L, 1>
     using type = L;
 };
 
-template<class L, class N> struct mp_repeat_impl
-{
-    static_assert( N::value >= 0, "mp_repeat<L, N>: N must not be negative" );
-
-    using type = typename mp_repeat_c_impl<L, N::value>::type;
-};
-
 } // namespace detail
 
 template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_c_impl<L, N>::type;
-template<class L, class N> using mp_repeat = typename detail::mp_repeat_impl<L, N>::type;
+template<class L, class N> using mp_repeat = typename detail::mp_repeat_c_impl<L, std::size_t{ N::value }>::type;
 
 // mp_product<F, L...>
 namespace detail
