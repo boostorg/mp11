@@ -19,7 +19,7 @@ A map is a list of lists, the inner lists having at least one element (the key.)
 [section `mp_map_contains<M, K>`]
     template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
 
-`mp_map_contains<M, K>` is `mp_true`, if the map `M` contains an element with a key `K`, `mp_false` otherwise.
+`mp_map_contains<M, K>` is `mp_true` if the map `M` contains an element with a key `K`, `mp_false` otherwise.
 [endsect]
 
 [section `mp_map_insert<M, T>`]

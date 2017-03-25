@@ -29,7 +29,7 @@
 [section `mp_transform_if<P, F, L...>`]
     template<template<class...> class P, template<class...> class F, class L...> using mp_transform_if = /*...*/;
 
-`mp_transform_if<P, F, L1, L2, ..., Ln>` replaces the elements `T` of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>` is `mp_true` with
+`mp_transform_if<P, F, L1, L2, ..., Ln>` replaces the elements of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>` is `mp_true` with
 `F<T1, T2, ..., Tn>`, and returns the result, where `Ti` are the corresponding elements of `Li`.
 [endsect]
 
@@ -193,7 +193,7 @@ for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Re
     template<class L, template<class...> class P> using mp_find_if = /*...*/;
 
 `mp_find_f<L, P>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first element `T` in `L` for which
-`mp_to_bool<P<T>>` is `mp_true`. If there is no such element, `mp_find<L, V>` is `mp_size<L>`.
+`mp_to_bool<P<T>>` is `mp_true`. If there is no such element, `mp_find_if<L, P>` is `mp_size<L>`.
 [endsect]
 
 [section `mp_reverse<L>`]

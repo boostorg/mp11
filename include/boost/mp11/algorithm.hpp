@@ -264,20 +264,29 @@ template<class N> using mp_iota = detail::mp_from_sequence<make_integer_sequence
 namespace detail
 {
 
-template<class L, class I> struct mp_at_impl
+template<class L, std::size_t I> struct mp_at_c_impl;
+
+#if defined(BOOST_MP11_HAS_TYPE_PACK_ELEMENT)
+
+template<template<class...> class L, class... T, std::size_t I> struct mp_at_c_impl<L<T...>, I>
 {
-    static_assert( I::value >= 0, "mp_at<L, I>: I must not be negative" );
-
-    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
-
-    using type = mp_second<mp_map_find<_map, mp_size_t<I::value>>>;
+    using type = __type_pack_element<I, T...>;
 };
+
+#else
+
+template<class L, std::size_t I> struct mp_at_c_impl
+{
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
+    using type = mp_second<mp_map_find<_map, mp_size_t<I>>>;
+};
+
+#endif
 
 } // namespace detail
 
-template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_impl<L, mp_size_t<I>>::type;
-
-template<class L, class I> using mp_at = typename detail::mp_at_impl<L, I>::type;
+template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_c_impl<L, I>::type;
+template<class L, class I> using mp_at = typename detail::mp_at_c_impl<L, std::size_t{ I::value }>::type;
 
 // mp_take(_c)<L, N>
 namespace detail

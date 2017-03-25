@@ -88,7 +88,7 @@ is an alias for `L<U..., T...>`.
 [section `mp_apply<F, L>`]
     template<template<class...> class F, class L> using mp_apply = mp_rename<L, F>;
 
-`mp_apply<F, L>` applies the function `F` to the contents of the list `L`, that is, `mp_rename<F, L<T...>>` is an alias for `F<T...>`.
+`mp_apply<F, L>` applies the metafunction `F` to the contents of the list `L`, that is, `mp_rename<F, L<T...>>` is an alias for `F<T...>`.
 (`mp_apply` is the same as `mp_rename` with the arguments reversed.)
 [endsect]
 

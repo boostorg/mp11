@@ -63,7 +63,8 @@ how we can leverage Mp11 to automate the task:
         using T3 = decltype( T1() + T2() );
         using T4 = result<T1, T2>;
 
-        std::cout << ( std::is_same<T3, T4>::value? "[PASS] ": "[FAIL] " ) << name<T1>() << " + " << name<T2>() << " -> " << name<T3>() << ", result: " << name<T4>() << " " << std::endl;
+        std::cout << ( std::is_same<T3, T4>::value? "[PASS] ": "[FAIL] " )
+            << name<T1>() << " + " << name<T2>() << " -> " << name<T3>() << ", result: " << name<T4>() << std::endl;
     }
 
     int main()
