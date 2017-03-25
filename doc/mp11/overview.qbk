@@ -10,8 +10,9 @@
 
 Mp11 is a C++11 metaprogramming library based on template aliases and variadic templates.
 It implements the approach outlined in the article
-[@http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html Simple C++11 metaprogramming]
-([@http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html part 2]).
+[@http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html Simple C++11 metaprogramming] and
+[@http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html its sequel]. Reading these
+articles before proceeding with this documentation is highly recommended.
 
 The general principles upon which Mp11 is built are that algorithms and metafunctions are
 template aliases of the form `F<T...>` and data structures are lists of the form `L<T...>`,
