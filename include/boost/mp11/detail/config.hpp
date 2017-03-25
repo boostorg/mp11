@@ -29,4 +29,12 @@
 # endif
 #endif
 
+#if defined(__has_builtin)
+# if __has_builtin(__type_pack_element)
+
+#  define BOOST_MP11_HAS_TYPE_PACK_ELEMENT
+
+# endif
+#endif
+
 #endif // #ifndef BOOST_MP11_DETAIL_CONFIG_HPP_INCLUDED
