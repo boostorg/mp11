@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+//  Copyright 2015-2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -14,6 +14,8 @@
 #include <tuple>
 #include <utility>
 
+template<class T> struct W;
+
 int main()
 {
     using boost::mp11::mp_list;
@@ -21,13 +23,14 @@ int main()
     using boost::mp11::mp_iota_c;
     using boost::mp11::mp_transform;
     using boost::mp11::mp_rename;
+    using boost::mp11::mp_push_front;
 
-    using L1 = mp_iota_c<97>;
-    using L2 = mp_transform<mp_list, L1>;
+    using L1 = mp_iota_c<125>;
+    using L2 = mp_transform<W, L1>;
+    using L3 = mp_push_front<L2, mp_list<>>;
+    using L4 = mp_rename<L3, mp_append>;
 
-    using L3 = mp_rename<L2, mp_append>;
-
-    BOOST_TEST_TRAIT_TRUE((std::is_same<L3, L1>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<L4, L1>));
 
     //
 
