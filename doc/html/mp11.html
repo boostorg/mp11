@@ -157,6 +157,14 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_or_t"><code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_any_t"><code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind">Bind, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_arg_i"><code class="computeroutput"><span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.1_9"><code class="computeroutput"><span class="identifier">_1</span></code>,
+        ..., <code class="computeroutput"><span class="identifier">_9</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_f_t"><code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence">Integer Sequences,
       <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
@@ -215,7 +223,7 @@
 <a name="mp11.definitions"></a><a class="link" href="mp11.html#mp11.definitions" title="Definitions">Definitions</a>
 </h2></div></div></div>
 <p>
-      A <span class="emphasis"><em>list</em></span> is a &#8212; possibly but not necessarily variadic &#8212; template
+      A <span class="emphasis"><em>list</em></span> is a &#8212; usually but not necessarily variadic &#8212; template
       class whose parameters are all types, for example <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[],</span>
       <span class="keyword">void</span><span class="special">&gt;</span></code>,
       <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;&gt;</span></code>,
@@ -250,6 +258,16 @@
       or
     </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">N</span> <span class="special">{</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">constexpr</span> <span class="identifier">value</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span> <span class="special">};</span>
+</pre>
+<p>
+      A <span class="emphasis"><em>set</em></span> is a list whose elements are unique.
+    </p>
+<p>
+      A <span class="emphasis"><em>map</em></span> is a list of lists, the inner lists having at least
+      one element (the key.) The keys of the map must be unique. For example,
+    </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">M1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">*&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">float</span><span class="special">*&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">,</span> <span class="keyword">void</span><span class="special">*&gt;&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">M2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">*&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">]&gt;&gt;;</span>
 </pre>
 </div>
 <div class="section">
@@ -1609,6 +1627,62 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.reference.bind"></a><a class="link" href="mp11.html#mp11.reference.bind" title="Bind, &lt;boost/mp11/bind.hpp&gt;">Bind, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_arg_i"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_arg_i" title="mp_arg&lt;I&gt;"><code class="computeroutput"><span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_arg</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code>
+          is a quoted metafunction whose nested template <code class="computeroutput"><span class="identifier">fn</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code> returns the <code class="computeroutput"><span class="identifier">I</span></code>-th
+          zero-based element of <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.1_9"></a><a class="link" href="mp11.html#mp11.reference.bind.1_9" title="_1, ..., _9"><code class="computeroutput"><span class="identifier">_1</span></code>,
+        ..., <code class="computeroutput"><span class="identifier">_9</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">_1</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_2</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_3</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_4</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">3</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_5</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">4</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_6</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">5</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_7</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">6</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_8</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">7</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">_9</span> <span class="special">=</span> <span class="identifier">mp_arg</span><span class="special">&lt;</span><span class="number">8</span><span class="special">&gt;;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">_1</span></code> to <code class="computeroutput"><span class="identifier">_9</span></code>
+          are placeholder types, the equivalent to the placeholders of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_f_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_f_t" title="mp_bind&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_bind</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is a quoted metafunction that implements
+          the type-based equivalent of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span></code>.
+          Its nested template <code class="computeroutput"><span class="identifier">fn</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code> returns <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">...&gt;</span></code>, where <code class="computeroutput"><span class="identifier">V</span><span class="special">...</span></code> is <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code> with the placeholders replaced by the
+          corresponding element of <code class="computeroutput"><span class="identifier">U</span><span class="special">...</span></code> and the <code class="computeroutput"><span class="identifier">mp_bind</span></code>
+          expressions replaced with their corresponding evaluations against <code class="computeroutput"><span class="identifier">U</span><span class="special">...</span></code>.
+        </p>
+<p>
+          For example, <code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">_2</span><span class="special">,</span> <span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">G</span><span class="special">,</span> <span class="identifier">_1</span><span class="special">&gt;&gt;::</span><span class="identifier">fn</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">,</span> <span class="identifier">G</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&gt;</span></code>.
+        </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="mp11.reference.integer_sequence"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence" title="Integer Sequences, &lt;boost/integer_sequence.hpp&gt;">Integer Sequences,
       <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h3></div></div></div>
@@ -1706,7 +1780,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 25, 2017 at 01:01:08 GMT</small></p></td>
+<td align="left"><p><small>Last revised: April 01, 2017 at 16:43:16 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

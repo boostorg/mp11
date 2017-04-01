@@ -44,6 +44,16 @@ template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L
 // mp_clear<L>
 template<class L> using mp_clear = mp_assign<L, mp_list<>>;
 
+// mp_fold<L, V, F> forward declaration
+namespace detail
+{
+
+template<class L, class V, template<class...> class F> struct mp_fold_impl;
+
+} // namespace detail
+
+template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
+
 // mp_transform<F, L...>
 namespace detail
 {
@@ -71,68 +81,45 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 
 template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_impl<F, L...>::type;
 
+namespace detail
+{
+
+template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3, template<class...> class L4, class... T4, class... L> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>, L4<T4...>, L...>
+{
+    static_assert( sizeof...(T1) == sizeof...(T2) && sizeof...(T1) == sizeof...(T3) && sizeof...(T1) == sizeof...(T4), "The arguments of mp_transform should be of the same size" );
+
+    using A1 = L1<mp_list<T1, T2, T3, T4>...>;
+
+    template<class V, class T> using _f = mp_transform<mp_push_back, V, T>;
+
+    using A2 = mp_fold<mp_list<L...>, A1, _f>;
+
+    template<class T> using _g = mp_apply<F, T>;
+
+    using type = mp_transform<_g, A2>;
+};
+
+} // namespace detail
+
 // mp_transform_if<P, F, L...>
 namespace detail
 {
 
-/*
 template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
 {
-    // error: pack expansion used as argument for non-pack parameter of alias template
-    template<class... U> using _f = mp_eval_if<mp_not<P<U...>>, mp_first<mp_list<U...>>, F, U...>;
+    // the stupid quote-unquote dance avoids "pack expansion used as argument for non-pack parameter of alias template"
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+    template<class... U> struct _f_ { using type = mp_eval_if<mp_not<mp_invoke<mp_quote<P>, U...>>, mp_first<mp_list<U...>>, mp_quote<F>::template fn, U...>; };
+    template<class... U> using _f = typename _f_<U...>::type;
+
+#else
+
+    template<class... U> using _f = mp_eval_if<mp_not<mp_invoke<mp_quote<P>, U...>>, mp_first<mp_list<U...>>, mp_quote<F>::template fn, U...>;
+
+#endif
+
     using type = mp_transform<_f, L...>;
-};
-*/
-
-template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl;
-
-template<template<class...> class P, template<class...> class F, template<class...> class L, class... T> struct mp_transform_if_impl<P, F, L<T...>>
-{
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
-
-    template<class U> struct _f { using type = mp_eval_if<mp_not<P<U>>, U, F, U>; };
-    using type = L<typename _f<T>::type...>;
-
-#else
-
-    template<class U> using _f = mp_eval_if<mp_not<P<U>>, U, F, U>;
-    using type = L<_f<T>...>;
-
-#endif
-};
-
-template<template<class...> class P, template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_transform_if_impl<P, F, L1<T1...>, L2<T2...>>
-{
-    static_assert( sizeof...(T1) == sizeof...(T2), "The arguments of mp_transform_if should be of the same size" );
-
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
-
-    template<class U1, class U2> struct _f { using type = mp_eval_if<mp_not<P<U1, U2>>, U1, F, U1, U2>; };
-    using type = L1<typename _f<T1, T2>::type...>;
-
-#else
-
-    template<class U1, class U2> using _f = mp_eval_if<mp_not<P<U1, U2>>, U1, F, U1, U2>;
-    using type = L1<_f<T1, T2>...>;
-
-#endif
-};
-
-template<template<class...> class P, template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3> struct mp_transform_if_impl<P, F, L1<T1...>, L2<T2...>, L3<T3...>>
-{
-    static_assert( sizeof...(T1) == sizeof...(T2) && sizeof...(T1) == sizeof...(T3), "The arguments of mp_transform_if should be of the same size" );
-
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
-
-    template<class U1, class U2, class U3> struct _f { using type = mp_eval_if<mp_not<P<U1, U2, U3>>, U1, F, U1, U2, U3>; };
-    using type = L1<typename _f<T1, T2, T3>::type...>;
-
-#else
-
-    template<class U1, class U2, class U3> using _f = mp_eval_if<mp_not<P<U1, U2, U3>>, U1, F, U1, U2, U3>;
-    using type = L1<_f<T1, T2, T3>...>;
-
-#endif
 };
 
 } // namespace detail
@@ -752,8 +739,6 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
 };
 
 } // namespace detail
-
-template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
 
 // mp_reverse_fold<L, V, F>
 namespace detail
