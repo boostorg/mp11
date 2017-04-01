@@ -15,5 +15,6 @@
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/map.hpp>
 #include <boost/mp11/set.hpp>
+#include <boost/mp11/bind.hpp>
 
 #endif // #ifndef BOOST_MP11_HPP_INCLUDED
