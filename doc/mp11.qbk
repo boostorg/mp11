@@ -38,6 +38,7 @@ The contents of the library are in namespace `boost::mp11`, unless specified oth
 [include mp11/set.qbk]
 [include mp11/map.qbk]
 [include mp11/function.qbk]
+[include mp11/bind.qbk]
 [include mp11/integer_sequence.qbk]
 [include mp11/tuple_for_each.qbk]
 
