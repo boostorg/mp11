@@ -12,6 +12,7 @@
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_count.hpp>
+#include <type_traits>
 
 namespace boost
 {
@@ -83,6 +84,26 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 };
 
 } // namespace detail
+
+// mp_same<T...>
+namespace detail
+{
+
+template<class... T> struct mp_same_impl;
+
+template<> struct mp_same_impl<>
+{
+    using type = mp_true;
+};
+
+template<class T1, class... T> struct mp_same_impl<T1, T...>
+{
+    using type = mp_all<std::is_same<T1, T>...>;
+};
+
+} // namespace detail
+
+template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
 
 } // namespace mp11
 } // namespace boost
