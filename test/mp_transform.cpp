@@ -29,6 +29,15 @@ struct Z2 {};
 struct Z3 {};
 struct Z4 {};
 
+struct U1 {};
+struct U2 {};
+
+struct V1 {};
+struct V2 {};
+
+struct W1 {};
+struct W2 {};
+
 template<class T> using add_pointer = typename std::add_pointer<T>::type;
 template<class T, class U> using is_same = typename std::is_same<T, U>::type;
 
@@ -78,6 +87,17 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<is_same, L5, L5>, std::pair<std::true_type, std::true_type>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<is_same, L5, L6>, std::pair<std::false_type, std::false_type>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<is_same, L5, L7>, std::pair<std::true_type, std::false_type>>));
+
+    //
+
+    using L8 = std::pair<Z1, Z2>;
+    using L9 = std::pair<U1, U2>;
+    using L10 = std::pair<V1, V2>;
+    using L11 = std::pair<W1, W2>;
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<std::tuple, L5, L6, L8, L9>, std::pair<std::tuple<X1, Y1, Z1, U1>, std::tuple<X2, Y2, Z2, U2>>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<std::tuple, L5, L6, L8, L9, L10>, std::pair<std::tuple<X1, Y1, Z1, U1, V1>, std::tuple<X2, Y2, Z2, U2, V2>>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_transform<std::tuple, L5, L6, L8, L9, L10, L11>, std::pair<std::tuple<X1, Y1, Z1, U1, V1, W1>, std::tuple<X2, Y2, Z2, U2, V2, W2>>>));
 
     //
 

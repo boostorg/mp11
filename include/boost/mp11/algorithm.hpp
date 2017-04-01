@@ -44,6 +44,16 @@ template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L
 // mp_clear<L>
 template<class L> using mp_clear = mp_assign<L, mp_list<>>;
 
+// mp_fold<L, V, F> forward declaration
+namespace detail
+{
+
+template<class L, class V, template<class...> class F> struct mp_fold_impl;
+
+} // namespace detail
+
+template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
+
 // mp_transform<F, L...>
 namespace detail
 {
@@ -70,6 +80,26 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 } // namespace detail
 
 template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_impl<F, L...>::type;
+
+namespace detail
+{
+
+template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3, template<class...> class L4, class... T4, class... L> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>, L4<T4...>, L...>
+{
+    static_assert( sizeof...(T1) == sizeof...(T2) && sizeof...(T1) == sizeof...(T3) && sizeof...(T1) == sizeof...(T4), "The arguments of mp_transform should be of the same size" );
+
+    using A1 = L1<mp_list<T1, T2, T3, T4>...>;
+
+    template<class V, class T> using _f = mp_transform<mp_push_back, V, T>;
+
+    using A2 = mp_fold<mp_list<L...>, A1, _f>;
+
+    template<class T> using _g = mp_apply<F, T>;
+
+    using type = mp_transform<_g, A2>;
+};
+
+} // namespace detail
 
 // mp_transform_if<P, F, L...>
 namespace detail
@@ -752,8 +782,6 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
 };
 
 } // namespace detail
-
-template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
 
 // mp_reverse_fold<L, V, F>
 namespace detail
