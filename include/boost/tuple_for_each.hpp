@@ -17,7 +17,7 @@ namespace detail
 template<class Tp, std::size_t... J, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && tp, boost::integer_sequence<std::size_t, J...>, F && f )
 {
     using A = int[sizeof...(J)];
-    return (void)A{ (f(std::get<J>(std::forward<Tp>(tp))), 0)... }, std::forward<F>(f);
+    return (void)A{ ((void)f(std::get<J>(std::forward<Tp>(tp))), 0)... }, std::forward<F>(f);
 }
 
 } // namespace detail
