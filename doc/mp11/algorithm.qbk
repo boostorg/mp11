@@ -26,6 +26,12 @@
 `mp_transform<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` applies `F` to each successive tuple of elements and returns `L1<F<T1, T2, ..., Tn>...>`.
 [endsect]
 
+[section `mp_transform_q<Q, L...>`]
+    template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn, L...>;
+
+As `mp_transform`, but takes a quoted metafunction.
+[endsect]
+
 [section `mp_transform_if<P, F, L...>`]
     template<template<class...> class P, template<class...> class F, class L...> using mp_transform_if = /*...*/;
 

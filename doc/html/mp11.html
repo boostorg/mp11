@@ -98,6 +98,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_assign_l1_l2"><code class="computeroutput"><span class="identifier">mp_assign</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_clear_l"><code class="computeroutput"><span class="identifier">mp_clear</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_f_l"><code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_q_q_l"><code class="computeroutput"><span class="identifier">mp_transform_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_if_p_f_l"><code class="computeroutput"><span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_fill_l_v"><code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_count_l_v"><code class="computeroutput"><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
@@ -164,6 +165,10 @@
         ..., <code class="computeroutput"><span class="identifier">_9</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_f_t"><code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
         <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_front_f_t"><code class="computeroutput"><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_front_q_q_t"><code class="computeroutput"><span class="identifier">mp_bind_front_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_back_f_t"><code class="computeroutput"><span class="identifier">mp_bind_back</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_back_q_q_t"><code class="computeroutput"><span class="identifier">mp_bind_back_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence">Integer Sequences,
       <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
@@ -987,6 +992,17 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_transform_q_q_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_transform_q_q_l" title="mp_transform_q&lt;Q, L...&gt;"><code class="computeroutput"><span class="identifier">mp_transform_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform_q</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_transform</span></code>, but takes
+          a quoted metafunction.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_transform_if_p_f_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_transform_if_p_f_l" title="mp_transform_if&lt;P, F, L...&gt;"><code class="computeroutput"><span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">P</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">L</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform_if</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
@@ -1680,6 +1696,50 @@
           is <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">,</span> <span class="identifier">G</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&gt;</span></code>.
         </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_front_f_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_front_f_t" title="mp_bind_front&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_bind_front</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> binds the leftmost arguments of
+          <code class="computeroutput"><span class="identifier">F</span></code> to <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>. Its nested template <code class="computeroutput"><span class="identifier">fn</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code> returns <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_front_q_q_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_front_q_q_t" title="mp_bind_front_q&lt;Q, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_front_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_bind_front_q</span> <span class="special">=</span> <span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_bind_front</span></code>, but takes
+          a quoted metafunction.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_back_f_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_back_f_t" title="mp_bind_back&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_back</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_bind_back</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_bind_back</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> binds the rightmost arguments of
+          <code class="computeroutput"><span class="identifier">F</span></code> to <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>. Its nested template <code class="computeroutput"><span class="identifier">fn</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code> returns <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_back_q_q_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_back_q_q_t" title="mp_bind_back_q&lt;Q, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_back_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_bind_back_q</span> <span class="special">=</span> <span class="identifier">mp_bind_back</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_bind_back</span></code>, but takes
+          a quoted metafunction.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1780,7 +1840,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: April 01, 2017 at 16:43:16 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 09, 2017 at 21:23:56 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
