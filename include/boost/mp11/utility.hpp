@@ -9,6 +9,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 
 namespace boost
 {
@@ -106,14 +108,17 @@ template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid
 // mp_quote
 template<template<class...> class F, class... T> struct mp_quote
 {
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
+#else
 private:
+#endif
 
     template<class... U> struct _fn { using type = F<T..., U...>; };
 
 public:
 
     // the indirection through _fn works around the language inability
-    // to expand T.. to expand into a fixed parameter list of an alias template
+    // to expand T... into a fixed parameter list of an alias template
 
     template<class... U> using fn = typename _fn<U...>::type;
 };

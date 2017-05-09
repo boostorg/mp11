@@ -106,3 +106,6 @@ run mp_map_update.cpp : : : $(REQ) ;
 
 # bind
 run mp_bind.cpp : : : $(REQ) ;
+run mp_bind_q.cpp : : : $(REQ) ;
+run mp_bind_front.cpp : : : $(REQ) ;
+run mp_bind_back.cpp : : : $(REQ) ;
