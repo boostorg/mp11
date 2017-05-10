@@ -18,7 +18,7 @@ A /metafunction/ is a class template or a template alias whose parameters are al
   template<class T> using F2 = T*;
   template<class... T> using F3 = std::integral_constant<std::size_t, sizeof...(T)>;
 
-A /quoted metafunction/ is a class with a public metafunction called `fn`, for example
+A /quoted metafunction/ is a class with a public metafunction member called `fn`, for example
 
   struct Q1 { template<class...> using fn = void; };
   struct Q2 { template<class T> using fn = T*; };

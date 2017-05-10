@@ -165,6 +165,8 @@
         ..., <code class="computeroutput"><span class="identifier">_9</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_f_t"><code class="computeroutput"><span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
         <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_q_q_t"><code class="computeroutput"><span class="identifier">mp_bind_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_front_f_t"><code class="computeroutput"><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_front_q_q_t"><code class="computeroutput"><span class="identifier">mp_bind_front_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_back_f_t"><code class="computeroutput"><span class="identifier">mp_bind_back</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
@@ -249,7 +251,7 @@
 </pre>
 <p>
       A <span class="emphasis"><em>quoted metafunction</em></span> is a class with a public metafunction
-      called <code class="computeroutput"><span class="identifier">fn</span></code>, for example
+      member called <code class="computeroutput"><span class="identifier">fn</span></code>, for example
     </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Q1</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">fn</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">;</span> <span class="special">};</span>
 <span class="keyword">struct</span> <span class="identifier">Q2</span> <span class="special">{</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">fn</span> <span class="special">=</span> <span class="identifier">T</span><span class="special">*;</span> <span class="special">};</span>
@@ -1698,6 +1700,18 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.bind.mp_bind_q_q_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_q_q_t" title="mp_bind_q&lt;Q, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_bind_q</span> <span class="special">=</span> <span class="identifier">mp_bind</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_bind</span></code>, but takes a
+          quoted metafunction.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.bind.mp_bind_front_f_t"></a><a class="link" href="mp11.html#mp11.reference.bind.mp_bind_front_f_t" title="mp_bind_front&lt;F, T...&gt;"><code class="computeroutput"><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">mp_bind_front</span><span class="special">;</span>
@@ -1840,7 +1854,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 09, 2017 at 21:23:56 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 10, 2017 at 20:23:11 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
