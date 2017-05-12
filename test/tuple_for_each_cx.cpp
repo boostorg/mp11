@@ -37,11 +37,16 @@ int main()
         (void)r;
     }
 
+#if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
+#else
+
     {
         constexpr std::tuple<> tp;
         constexpr auto r = boost::tuple_for_each( tp, 11 );
         static_assert( r == 11, "r == 11" );
     }
+
+#endif
 }
 
 #endif
