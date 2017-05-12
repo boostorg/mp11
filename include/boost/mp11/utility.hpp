@@ -106,21 +106,21 @@ struct mp_no_type
 template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
 
 // mp_quote
-template<template<class...> class F, class... T> struct mp_quote
+template<template<class...> class F> struct mp_quote
 {
 #if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
 #else
 private:
 #endif
 
-    template<class... U> struct _fn { using type = F<T..., U...>; };
+    template<class... T> struct _fn { using type = F<T...>; };
 
 public:
 
     // the indirection through _fn works around the language inability
     // to expand T... into a fixed parameter list of an alias template
 
-    template<class... U> using fn = typename _fn<U...>::type;
+    template<class... T> using fn = typename _fn<T...>::type;
 };
 
 // mp_unquote
@@ -130,11 +130,6 @@ namespace detail
 template<class Q, class... T> struct mp_invoke_impl
 {
     using type = typename Q::template fn<T...>;
-};
-
-template<template<class...> class F, class... T, class... U> struct mp_invoke_impl<mp_quote<F, T...>, U...>
-{
-    using type = F<T..., U...>;
 };
 
 } // namespace detail
