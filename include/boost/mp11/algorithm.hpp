@@ -20,6 +20,7 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <type_traits>
+#include <utility>
 
 namespace boost
 {
@@ -822,6 +823,31 @@ template<class L, class I, class W> struct mp_replace_at_impl
 
 template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
 template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
+
+namespace detail
+{
+
+template<class... T, class F> BOOST_CONSTEXPR F mp_for_each_impl( mp_list<T...>, F && f )
+{
+    using A = int[sizeof...(T)];
+    return (void)A{ ((void)f(mp_identity<T>()), 0)... }, std::forward<F>(f);
+}
+
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<class F> BOOST_CONSTEXPR F mp_for_each_impl( mp_list<>, F && f )
+{
+    return std::forward<F>(f);
+}
+
+#endif
+
+} // namespace detail
+
+template<class L, class F> BOOST_CONSTEXPR F mp_for_each( F && f )
+{
+    return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
+}
 
 } // namespace mp11
 } // namespace boost
