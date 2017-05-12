@@ -136,6 +136,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_all_of_l_p"><code class="computeroutput"><span class="identifier">mp_all_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_none_of_l_p"><code class="computeroutput"><span class="identifier">mp_none_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_any_of_l_p"><code class="computeroutput"><span class="identifier">mp_any_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_for_each_l_f"><code class="computeroutput"><span class="identifier">mp_for_each</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.set">Set Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">set</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
@@ -1453,6 +1454,21 @@
           one element of <code class="computeroutput"><span class="identifier">L</span></code>, <code class="computeroutput"><span class="identifier">mp_false</span></code> otherwise. When <code class="computeroutput"><span class="identifier">L</span></code> is empty, the result is <code class="computeroutput"><span class="identifier">mp_false</span></code>.
         </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_for_each_l_f"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_for_each_l_f" title="mp_for_each&lt;L&gt;(f)"><code class="computeroutput"><span class="identifier">mp_for_each</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="identifier">F</span> <span class="identifier">mp_for_each</span><span class="special">(</span><span class="identifier">F</span><span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">);</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_for_each</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code> calls
+          <code class="computeroutput"><span class="identifier">f</span></code> with <code class="computeroutput"><span class="identifier">mp_identity</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()</span></code> for each element <code class="computeroutput"><span class="identifier">T</span></code>
+          of the list <code class="computeroutput"><span class="identifier">L</span></code>, in order.
+        </p>
+<p>
+          Returns <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code>.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1866,7 +1882,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 12, 2017 at 16:48:16 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 12, 2017 at 21:20:08 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
