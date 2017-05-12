@@ -29,6 +29,7 @@ run mp_append_2.cpp : : : $(REQ) ;
 run mp_replace_front.cpp : : : $(REQ) ;
 run mp_replace_second.cpp : : : $(REQ) ;
 run mp_replace_third.cpp : : : $(REQ) ;
+run mp_apply_q.cpp : : : $(REQ) ;
 
 # algorithm
 run mp_assign.cpp : : : $(REQ) ;
