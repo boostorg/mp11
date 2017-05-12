@@ -48,7 +48,8 @@ int main()
 
     BOOST_TEST_EQ( (mp_for_each<std::pair<int, short>>( F{0} ).s), 12 );
 
-#if !defined( BOOST_NO_CXX11_CONSTEXPR )
+#if defined( BOOST_NO_CXX11_CONSTEXPR ) || ( defined( _LIBCPP_VERSION ) && __cplusplus < 201400L )
+#else
 
     static_assert( mp_for_each<mp_list<>>( 11 ) == 11, "mp_for_each<mp_list<>>( 11 ) == 11" );
     static_assert( mp_for_each<std::tuple<>>( 12 ) == 12, "mp_for_each<std::tuple<>>( 12 ) == 12" );
