@@ -3,6 +3,7 @@
 
 #include <boost/integer_sequence.hpp>
 #include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <tuple>
 #include <utility>
 #include <type_traits>
@@ -19,6 +20,15 @@ template<class Tp, std::size_t... J, class F> BOOST_CONSTEXPR F tuple_for_each_i
     using A = int[sizeof...(J)];
     return (void)A{ ((void)f(std::get<J>(std::forward<Tp>(tp))), 0)... }, std::forward<F>(f);
 }
+
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && tp, boost::integer_sequence<std::size_t>, F && f )
+{
+    return std::forward<F>(f);
+}
+
+#endif
 
 } // namespace detail
 

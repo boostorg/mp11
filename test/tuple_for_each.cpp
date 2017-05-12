@@ -91,5 +91,19 @@ int main()
         }
     }
 
+    {
+        std::tuple<> tp;
+
+        BOOST_TEST_EQ( boost::tuple_for_each( tp, 11 ), 11 );
+        BOOST_TEST_EQ( boost::tuple_for_each( std::move( tp ), 12 ), 12 );
+    }
+
+    {
+        std::array<int, 0> tp;
+
+        BOOST_TEST_EQ( boost::tuple_for_each( tp, 11 ), 11 );
+        BOOST_TEST_EQ( boost::tuple_for_each( std::move( tp ), 12 ), 12 );
+    }
+
     return boost::report_errors();
 }

@@ -31,9 +31,17 @@ struct assert_is_integral
 
 int main()
 {
-    constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
-    constexpr auto r = boost::tuple_for_each( tp, assert_is_integral() );
-    (void)r;
+    {
+        constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
+        constexpr auto r = boost::tuple_for_each( tp, assert_is_integral() );
+        (void)r;
+    }
+
+    {
+        constexpr std::tuple<> tp;
+        constexpr auto r = boost::tuple_for_each( tp, 11 );
+        static_assert( r == 11, "r == 11" );
+    }
 }
 
 #endif
