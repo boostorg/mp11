@@ -28,4 +28,4 @@ For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of 
 `mp_set_push_front<S, T...>` inserts at the front of `S` those elements of `T...` for which `S` does not already contain the same type.
 [endsect]
 
-[endsect]
+[endsect:set]

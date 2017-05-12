@@ -76,4 +76,4 @@ When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a ne
 `mp_invoke<Q, T...>` evaluates the nested template `fn` of a quoted metafunction. `mp_invoke<mp_quote<F>, T...>` returns `F<T...>`.
 [endsect]
 
-[endsect]
+[endsect:utility]

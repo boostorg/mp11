@@ -10,7 +10,7 @@ project doc/mp11 ;
 import boostbook ;
 import quickbook ;
 
-xml mp11_ : mp11.qbk ;
+xml mp11_ : mp11.qbk : <quickbook-strict-mode>on ;
 boostbook standalone_mp11
     :
         mp11_

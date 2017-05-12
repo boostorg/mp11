@@ -42,4 +42,4 @@ The contents of this header are defined in namespace `boost`.
 `index_sequence_for<N>` is `make_index_sequence<sizeof...(T)>`. Same as C++14's `std::index_sequence_for`.
 [endsect]
 
-[endsect]
+[endsect:integer_sequence]

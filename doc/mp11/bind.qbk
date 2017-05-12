@@ -68,4 +68,4 @@ As `mp_bind_front`, but takes a quoted metafunction.
 As `mp_bind_back`, but takes a quoted metafunction.
 [endsect]
 
-[endsect]
+[endsect:bind]

@@ -48,4 +48,4 @@ replaces the existing element `L<X, Y...>` with `L<X, F<X, Y...>>`.
 If the map `M` contains an element with a key `K`, removes it.
 [endsect]
 
-[endsect]
+[endsect:map]

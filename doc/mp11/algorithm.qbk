@@ -244,4 +244,4 @@ for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Re
 `mp_any_of<L, P>` is `mp_true` when `P` holds for at least one element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_false`.
 [endsect]
 
-[endsect]
+[endsect:algorithm]

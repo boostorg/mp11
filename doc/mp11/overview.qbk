@@ -6,7 +6,7 @@
  / http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section Overview]
+[section:overview Overview]
 
 Mp11 is a C++11 metaprogramming library based on template aliases and variadic templates.
 It implements the approach outlined in the article
@@ -31,4 +31,4 @@ gives us `std::tuple<int*, float*>`, but we can also apply `mp_list` to the same
 
 and get `std::tuple<mp_list<int>, mp_list<float>>`.
 
-[endsect]
+[endsect:overview]
