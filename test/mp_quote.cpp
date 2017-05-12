@@ -19,12 +19,9 @@ template<template<class...> class F, class... T> using Y = X<F<T>...>;
 
 template<class Q, class... T> using Z = X<mp_invoke<Q, T>...>;
 
-struct B {};
-struct D1: B {};
-struct D2: B {};
-struct ND {};
+template<class T, class U> struct P {};
 
-template<class T, class U> using is_base_of_t = typename std::is_base_of<T, U>::type;
+template<class T, class U> using first = T;
 
 int main()
 {
@@ -36,19 +33,6 @@ int main()
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, void>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, int[]>));
-    }
-
-    {
-        using Q = mp_quote<std::is_same, void>;
-
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, std::is_same<void, void>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, std::is_same<void, int[]>>));
-    }
-
-    {
-        using Q = mp_quote<X, char[1], char[2], char[3]>;
-
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[1], int[2], int[3]>, X<char[1], char[2], char[3], int[1], int[2], int[3]>>));
     }
 
     {
@@ -68,19 +52,17 @@ int main()
     }
 
     {
-        using Q = mp_quote<is_base_of_t, B>;
+        using Q = mp_quote<P>;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-#else
-        using R1 = Y<Q::fn, D1, D2, ND, int>;
-        BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<std::true_type, std::true_type, std::false_type, std::false_type>>));
-#endif
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void, void>, P<void, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, char[], int[]>, P<char[], int[]>>));
+    }
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
-#else
-        using R2 = Z<Q, D1, D2, ND, int>;
-        BOOST_TEST_TRAIT_TRUE((std::is_same<R2, X<std::true_type, std::true_type, std::false_type, std::false_type>>));
-#endif
+    {
+        using Q = mp_quote<first>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void, int>, void>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, char[], int[]>, char[]>));
     }
 
     return boost::report_errors();

@@ -38,4 +38,4 @@ For an Mp11 integral constant type `T`, `T::value` is an integral constant in th
     template<std::size_t N> using mp_size_t = std::integral_constant<std::size_t, N>;
 [endsect]
 
-[endsect]
+[endsect:integral]

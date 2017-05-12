@@ -150,6 +150,8 @@ template<class A, template<class...> class B> using mp_rename = typename detail:
 
 template<template<class...> class F, class L> using mp_apply = typename detail::mp_rename_impl<L, F>::type;
 
+template<class Q, class L> using mp_apply_q = typename detail::mp_rename_impl<L, Q::template fn>::type;
+
 // mp_replace_front<L, T>
 namespace detail
 {

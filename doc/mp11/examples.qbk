@@ -6,7 +6,7 @@
  / http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section Examples]
+[section:examples Examples]
 
 [section Generating Test Cases]
 
@@ -173,4 +173,4 @@ and we're done:
 
 [endsect]
 
-[endsect]
+[endsect:examples]

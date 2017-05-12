@@ -80,6 +80,7 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 } // namespace detail
 
 template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_impl<F, L...>::type;
+template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn, L...>;
 
 namespace detail
 {

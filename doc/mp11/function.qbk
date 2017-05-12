@@ -37,4 +37,4 @@ If no such type exists, the last one is returned. `mp_or<>` is `mp_false`. Simil
 `mp_or`, but does not perform short-circuit evaluation.
 [endsect]
 
-[endsect]
+[endsect:function]
