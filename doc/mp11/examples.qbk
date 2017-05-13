@@ -115,10 +115,11 @@ We'll first define a helper quoted metafunction `Qret<F>` that returns the resul
 
 With `Qret` in hand, a `variant` of the possible return types is just a matter of applying it over the possible combinations of the variant values:
 
-    using R = mp_product<Qret<F>::template fn, std::remove_reference_t<V>...>;
+    using R = mp_product_q<Qret<F>, std::remove_reference_t<V>...>;
 
 Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
-possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`.
+possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`. (`mp_product_q` is
+the same as `mp_product`, but for quoted metafunctions such as our `Qret<F>`.)
 
 One more step remains. Suppose that, as above, we're passing two variants of type `std::variant<short, int, float>` and `F` is
 `[]( auto const& x, auto const& y ){ return x + y; }`. This will generate `R` of length 9, one per each combination, but many of those

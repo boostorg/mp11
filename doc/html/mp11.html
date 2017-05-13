@@ -436,7 +436,7 @@
         just a matter of applying it over the possible combinations of the variant
         values:
       </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;...&gt;;</span>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_product_q</span><span class="special">&lt;</span><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;...&gt;;</span>
 </pre>
 <p>
         Why does this work? <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
@@ -444,6 +444,9 @@
         where <code class="computeroutput"><span class="identifier">Ui</span></code> traverse all possible
         combinations of list values. Since in our case all <code class="computeroutput"><span class="identifier">Li</span></code>
         are <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>, the result will also be <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code>.
+        (<code class="computeroutput"><span class="identifier">mp_product_q</span></code> is the same
+        as <code class="computeroutput"><span class="identifier">mp_product</span></code>, but for quoted
+        metafunctions such as our <code class="computeroutput"><span class="identifier">Qret</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;</span></code>.)
       </p>
 <p>
         One more step remains. Suppose that, as above, we're passing two variants
@@ -1897,7 +1900,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 13, 2017 at 18:01:55 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 13, 2017 at 18:11:09 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
