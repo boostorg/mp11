@@ -191,10 +191,9 @@ for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Re
 [section `mp_find<L, V>`]
     template<class L, class V> using mp_find = /*...*/;
 
-Returns the index at which type `V` is located in list `L`.
-
-`mp_find<L, V>` is an alias for `mp_size_t<I>`, where `I` is the zero-based index of the first occurence of `V` in `L`. If
-`L` does not contain `V`, `mp_find<L, V>` is `mp_size<L>`.
+`mp_find<L, V>` returns the index at which the type `V` is located in the list `L`. It's an alias for `mp_size_t<I>`,
+where `I` is the zero-based index of the first occurence of `V` in `L`. If `L` does not contain `V`, `mp_find<L, V>`
+is `mp_size<L>`.
 [endsect]
 
 [section `mp_find_if<L, P>`]
