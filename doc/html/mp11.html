@@ -119,6 +119,10 @@
         <span class="identifier">I</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_take_c_l_n"><code class="computeroutput"><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_take_l_n"><code class="computeroutput"><span class="identifier">mp_take</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_insert_c_l_i_t"><code class="computeroutput"><span class="identifier">mp_insert_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_insert_l_i_t"><code class="computeroutput"><span class="identifier">mp_insert</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_erase_c_l_i_j"><code class="computeroutput"><span class="identifier">mp_erase_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_erase_l_i_j"><code class="computeroutput"><span class="identifier">mp_erase</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_replace_l_v_w"><code class="computeroutput"><span class="identifier">mp_replace</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_replace_if_l_p_w"><code class="computeroutput"><span class="identifier">mp_replace_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_replace_at_c_l_i_w"><code class="computeroutput"><span class="identifier">mp_replace_at_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a></span></dt>
@@ -1238,6 +1242,53 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_insert_c_l_i_t"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_insert_c_l_i_t" title="mp_insert_c&lt;L, I, T...&gt;"><code class="computeroutput"><span class="identifier">mp_insert_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_insert_c</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;;</span>
+</pre>
+<p>
+          Inserts the elements <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code> into the list <code class="computeroutput"><span class="identifier">L</span></code>
+          at position <code class="computeroutput"><span class="identifier">I</span></code> (a zero-based
+          index).
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_insert_l_i_t"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_insert_l_i_t" title="mp_insert&lt;L, I, T...&gt;"><code class="computeroutput"><span class="identifier">mp_insert</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_insert</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">mp_take</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;;</span>
+</pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_insert_c</span></code>, but
+          with a type argument <code class="computeroutput"><span class="identifier">I</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_erase_c_l_i_j"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_erase_c_l_i_j" title="mp_erase_c&lt;L, I, J&gt;"><code class="computeroutput"><span class="identifier">mp_erase_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">J</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_erase</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">mp_take_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;&gt;;</span>
+</pre>
+<p>
+          Removes from the list <code class="computeroutput"><span class="identifier">L</span></code>
+          the elements with indices from <code class="computeroutput"><span class="identifier">I</span></code>
+          (inclusive) to <code class="computeroutput"><span class="identifier">J</span></code> (exclusive).
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_erase_l_i_j"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_erase_l_i_j" title="mp_erase&lt;L, I, J&gt;"><code class="computeroutput"><span class="identifier">mp_erase</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">J</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_erase</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">mp_take</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">J</span><span class="special">&gt;&gt;;</span>
+</pre>
+<p>
+          Same as <code class="computeroutput"><span class="identifier">mp_erase_c</span></code>, but
+          with a type arguments <code class="computeroutput"><span class="identifier">I</span></code>
+          and <code class="computeroutput"><span class="identifier">J</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_replace_l_v_w"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_replace_l_v_w" title="mp_replace&lt;L, V, W&gt;"><code class="computeroutput"><span class="identifier">mp_replace</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">,</span> <span class="identifier">W</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">W</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_replace</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
@@ -1900,7 +1951,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 13, 2017 at 18:11:09 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 13, 2017 at 18:21:04 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

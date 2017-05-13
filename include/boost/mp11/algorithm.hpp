@@ -825,6 +825,7 @@ template<class L, class I, class W> struct mp_replace_at_impl
 template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
 template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
 
+//mp_for_each<L>(f)
 namespace detail
 {
 
@@ -849,6 +850,18 @@ template<class L, class F> BOOST_CONSTEXPR F mp_for_each( F && f )
 {
     return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
 }
+
+// mp_insert<L, I, T...>
+template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
+
+// mp_insert_c<L, I, T...>
+template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
+
+// mp_erase<L, I, J>
+template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
+
+// mp_erase_c<L, I, J>
+template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
 } // namespace mp11
 } // namespace boost

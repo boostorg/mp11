@@ -139,6 +139,30 @@ Same as `mp_at_c`, but with a type argument `I`. `I::value` must be a nonnegativ
 Same as `mp_take_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
 [endsect]
 
+[section `mp_insert_c<L, I, T...>`]
+    template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
+
+Inserts the elements `T...` into the list `L` at position `I` (a zero-based index).
+[endsect]
+
+[section `mp_insert<L, I, T...>`]
+    template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
+
+Same as `mp_insert_c`, but with a type argument `I`.
+[endsect]
+
+[section `mp_erase_c<L, I, J>`]
+    template<class L, std::size_t I, std::size_t J> using mp_erase = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
+
+Removes from the list `L` the elements with indices from `I` (inclusive) to `J` (exclusive).
+[endsect]
+
+[section `mp_erase<L, I, J>`]
+    template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
+
+Same as `mp_erase_c`, but with a type arguments `I` and `J`.
+[endsect]
+
 [section `mp_replace<L, V, W>`]
     template<class L, class V, class W> using mp_replace = /*...*/;
 
