@@ -209,6 +209,7 @@ template<template<class...> class F, class L1, class... L> struct mp_product_imp
 } // namespace detail
 
 template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
+template<class Q, class... L> using mp_product_q = typename detail::mp_product_impl<Q::template fn, L...>::type;
 
 // mp_drop(_c)<L, N>
 namespace detail

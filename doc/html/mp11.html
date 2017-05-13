@@ -109,6 +109,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_repeat_c_l_n"><code class="computeroutput"><span class="identifier">mp_repeat_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_repeat_l_n"><code class="computeroutput"><span class="identifier">mp_repeat</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_product_f_l"><code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_product_q_q_l"><code class="computeroutput"><span class="identifier">mp_product_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_c_l_n"><code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_drop_l_n"><code class="computeroutput"><span class="identifier">mp_drop</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_iota_c_n"><code class="computeroutput"><span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
@@ -1122,6 +1123,17 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_product_q_q_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_product_q_q_l" title="mp_product_q&lt;Q, L...&gt;"><code class="computeroutput"><span class="identifier">mp_product_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_product_q</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_product</span></code>, but takes
+          a quoted metafunction.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_drop_c_l_n"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_drop_c_l_n" title="mp_drop_c&lt;L, N&gt;"><code class="computeroutput"><span class="identifier">mp_drop_c</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_drop_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
@@ -1343,8 +1355,11 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_find</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">I</span></code>
-          is the zero-based index of the first occurence of <code class="computeroutput"><span class="identifier">V</span></code>
+          <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> returns the index at which the type
+          <code class="computeroutput"><span class="identifier">V</span></code> is located in the list
+          <code class="computeroutput"><span class="identifier">L</span></code>. It's an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span></code>,
+          where <code class="computeroutput"><span class="identifier">I</span></code> is the zero-based
+          index of the first occurence of <code class="computeroutput"><span class="identifier">V</span></code>
           in <code class="computeroutput"><span class="identifier">L</span></code>. If <code class="computeroutput"><span class="identifier">L</span></code> does not contain <code class="computeroutput"><span class="identifier">V</span></code>,
           <code class="computeroutput"><span class="identifier">mp_find</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;</span></code>.
         </p>
@@ -1882,7 +1897,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 12, 2017 at 21:20:08 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 13, 2017 at 18:01:55 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

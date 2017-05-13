@@ -83,6 +83,12 @@ the Cartesian product of the lists, as if the elements `Ui` are formed by `n` ne
 It returns a list of type `L1` containing the results of the application of `F`.
 [endsect]
 
+[section `mp_product_q<Q, L...>`]
+    template<class Q, class... L> using mp_product_q = mp_product<Q::template fn, L...>;
+
+As `mp_product`, but takes a quoted metafunction.
+[endsect]
+
 [section `mp_drop_c<L, N>`]
     template<class L, std::size_t N> using mp_drop_c = /*...*/;
 
