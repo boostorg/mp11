@@ -64,6 +64,9 @@ run mp_any_of.cpp : : : $(REQ) ;
 run mp_none_of.cpp : : : $(REQ) ;
 run mp_replace_at.cpp : : : $(REQ) ;
 run mp_replace_at_c.cpp : : : $(REQ) ;
+run mp_for_each.cpp : : : $(REQ) ;
+run mp_insert.cpp : : : $(REQ) ;
+run mp_erase.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;

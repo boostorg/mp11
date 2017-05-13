@@ -9,6 +9,7 @@
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
+#include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 #include <tuple>
@@ -29,6 +30,8 @@ int main()
 {
     using boost::mp11::mp_list;
     using boost::mp11::mp_product;
+    using boost::mp11::mp_product_q;
+    using boost::mp11::mp_quote;
 
     {
         using L1 = std::tuple<X1, X2, X3>;
@@ -36,6 +39,7 @@ int main()
         using L3 = std::pair<Z1, Z2>;
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product<F, L1, L2, L3>, std::tuple<F<X1, Y1, Z1>, F<X1, Y1, Z2>, F<X2, Y1, Z1>, F<X2, Y1, Z2>, F<X3, Y1, Z1>, F<X3, Y1, Z2>>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product_q<mp_quote<F>, L1, L2, L3>, std::tuple<F<X1, Y1, Z1>, F<X1, Y1, Z2>, F<X2, Y1, Z1>, F<X2, Y1, Z2>, F<X3, Y1, Z1>, F<X3, Y1, Z2>>>));
     }
 
     {
@@ -44,6 +48,7 @@ int main()
         using L3 = std::pair<Z1, Z2>;
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product<F, L1, L2, L3>, std::tuple<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product_q<mp_quote<F>, L1, L2, L3>, std::tuple<>>));
     }
 
     return boost::report_errors();

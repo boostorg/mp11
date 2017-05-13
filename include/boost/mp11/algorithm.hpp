@@ -20,6 +20,7 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <type_traits>
+#include <utility>
 
 namespace boost
 {
@@ -208,6 +209,7 @@ template<template<class...> class F, class L1, class... L> struct mp_product_imp
 } // namespace detail
 
 template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
+template<class Q, class... L> using mp_product_q = typename detail::mp_product_impl<Q::template fn, L...>::type;
 
 // mp_drop(_c)<L, N>
 namespace detail
@@ -822,6 +824,44 @@ template<class L, class I, class W> struct mp_replace_at_impl
 
 template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
 template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
+
+//mp_for_each<L>(f)
+namespace detail
+{
+
+template<class... T, class F> BOOST_CONSTEXPR F mp_for_each_impl( mp_list<T...>, F && f )
+{
+    using A = int[sizeof...(T)];
+    return (void)A{ ((void)f(mp_identity<T>()), 0)... }, std::forward<F>(f);
+}
+
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+
+template<class F> BOOST_CONSTEXPR F mp_for_each_impl( mp_list<>, F && f )
+{
+    return std::forward<F>(f);
+}
+
+#endif
+
+} // namespace detail
+
+template<class L, class F> BOOST_CONSTEXPR F mp_for_each( F && f )
+{
+    return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
+}
+
+// mp_insert<L, I, T...>
+template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
+
+// mp_insert_c<L, I, T...>
+template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
+
+// mp_erase<L, I, J>
+template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
+
+// mp_erase_c<L, I, J>
+template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
 } // namespace mp11
 } // namespace boost
