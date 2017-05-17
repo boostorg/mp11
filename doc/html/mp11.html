@@ -38,6 +38,7 @@
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.examples.generating_test_cases">Generating Test
       Cases</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.examples.fixing_tuple_cat">Fixing <code class="computeroutput"><span class="identifier">tuple_cat</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.examples.computing_return_types">Computing Return
       Types</a></span></dt>
 </dl></dd>
@@ -366,6 +367,258 @@
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple_for_each</span><span class="special">(</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;(),</span> <span class="special">[](</span><span class="keyword">auto</span><span class="special">&amp;&amp;</span> <span class="identifier">x</span><span class="special">){</span> <span class="identifier">test_result</span><span class="special">(</span><span class="identifier">x</span><span class="special">);</span> <span class="special">}</span> <span class="special">);</span>
 <span class="special">}</span>
 </pre>
+<p>
+        How does it work?
+      </p>
+<p>
+        <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">&gt;</span></code>
+        calls <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span></code> where <code class="computeroutput"><span class="identifier">T1</span></code>
+        varies over the elements of <code class="computeroutput"><span class="identifier">L1</span></code>
+        and <code class="computeroutput"><span class="identifier">T2</span></code> varies over the elements
+        of <code class="computeroutput"><span class="identifier">L2</span></code>, as if by executing
+        two nested loops. It then returns a list of these results, of the same type
+        as <code class="computeroutput"><span class="identifier">L1</span></code>.
+      </p>
+<p>
+        In our case, both lists are the same <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
+        and <code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><span class="identifier">mp_list</span></code>,
+        so <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;</span></code> will get us <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span>
+        <span class="keyword">char</span><span class="special">&gt;,</span>
+        <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">short</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span>
+        <span class="keyword">int</span><span class="special">&gt;,</span>
+        <span class="special">...,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">,</span> <span class="keyword">long</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">,</span> <span class="keyword">unsigned</span>
+        <span class="keyword">long</span><span class="special">&gt;&gt;</span></code>.
+      </p>
+<p>
+        We then default-construct this tuple and pass it to <code class="computeroutput"><span class="identifier">tuple_for_each</span></code>.
+        <code class="computeroutput"><span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">tp</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code> calls <code class="computeroutput"><span class="identifier">f</span></code>
+        for every tuple element; we use a (C++14) lambda that calls <code class="computeroutput"><span class="identifier">test_result</span></code>. (In pure C++11, we'd need
+        to make <code class="computeroutput"><span class="identifier">test_result</span></code> a function
+        object with a templated <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code> and pass that to <code class="computeroutput"><span class="identifier">tuple_for_each</span></code>
+        directly.)
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.examples.fixing_tuple_cat"></a><a class="link" href="mp11.html#mp11.examples.fixing_tuple_cat" title="Fixing tuple_cat">Fixing <code class="computeroutput"><span class="identifier">tuple_cat</span></code></a>
+</h3></div></div></div>
+<p>
+        The article <a href="http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html" target="_top">Simple
+        C++11 metaprogramming</a> builds an implementation of the standard function
+        <code class="computeroutput"><span class="identifier">tuple_cat</span></code>, with the end result
+        given below:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F</span> <span class="special">=</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">R</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span><span class="identifier">Is</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">Ks</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">&gt;</span>
+<span class="identifier">R</span> <span class="identifier">tuple_cat_</span><span class="special">(</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">...&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">...&gt;,</span> <span class="identifier">Tp</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">R</span><span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">tp</span><span class="special">))...</span> <span class="special">};</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">Tp</span><span class="special">,</span>
+    <span class="keyword">class</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;&gt;,</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">...&gt;&gt;</span>
+    <span class="identifier">R</span> <span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">Tp</span> <span class="special">&amp;&amp;...</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="keyword">const</span> <span class="identifier">N</span> <span class="special">=</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">Tp</span><span class="special">);</span>
+
+    <span class="comment">// inner</span>
+
+    <span class="keyword">using</span> <span class="identifier">list1</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&gt;...&gt;;</span>
+    <span class="keyword">using</span> <span class="identifier">list2</span> <span class="special">=</span> <span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">list3</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">mp_fill</span><span class="special">,</span> <span class="identifier">list1</span><span class="special">,</span> <span class="identifier">list2</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">inner</span> <span class="special">=</span> <span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">,</span> <span class="identifier">list3</span><span class="special">&gt;;</span>
+
+    <span class="comment">// outer</span>
+
+    <span class="keyword">using</span> <span class="identifier">list4</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">list1</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">outer</span> <span class="special">=</span> <span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">,</span> <span class="identifier">list4</span><span class="special">&gt;;</span>
+
+    <span class="comment">//</span>
+
+    <span class="keyword">return</span> <span class="identifier">tuple_cat_</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;(</span> <span class="identifier">inner</span><span class="special">(),</span> <span class="identifier">outer</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_as_tuple</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;(</span><span class="identifier">tp</span><span class="special">)...</span> <span class="special">)</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        This function, however, is not entirely correct, in that it doesn't handle
+        some cases properly. For example, trying to concatenate tuples containing
+        move-only elements such as <code class="computeroutput"><span class="identifier">unique_ptr</span></code>
+        fails:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">unique_ptr</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&gt;</span> <span class="identifier">t1</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">unique_ptr</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&gt;</span> <span class="identifier">t2</span><span class="special">;</span>
+
+<span class="keyword">auto</span> <span class="identifier">result</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span> <span class="identifier">t1</span> <span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span> <span class="identifier">t2</span> <span class="special">)</span> <span class="special">);</span>
+</pre>
+<p>
+        Trying to concatenate <code class="computeroutput"><span class="keyword">const</span></code>
+        tuples fails:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">t1</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">t2</span><span class="special">;</span>
+
+<span class="keyword">auto</span> <span class="identifier">result</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">t1</span><span class="special">,</span> <span class="identifier">t2</span> <span class="special">);</span>
+</pre>
+<p>
+        And finally, the standard <code class="computeroutput"><span class="identifier">tuple_cat</span></code>
+        is specified to work on arbitrary tuple-like types (that is, all types that
+        support <code class="computeroutput"><span class="identifier">tuple_size</span></code>, <code class="computeroutput"><span class="identifier">tuple_element</span></code>, and <code class="computeroutput"><span class="identifier">get</span></code>),
+        while our implementation only works with <code class="computeroutput"><span class="identifier">tuple</span></code>
+        and <code class="computeroutput"><span class="identifier">pair</span></code>. <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span></code>,
+        for example, fails:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="number">2</span><span class="special">&gt;</span> <span class="identifier">t1</span><span class="special">{</span> <span class="number">1</span><span class="special">,</span> <span class="number">2</span> <span class="special">};</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">t2</span><span class="special">{</span> <span class="number">3.0f</span><span class="special">,</span> <span class="number">4.0f</span><span class="special">,</span> <span class="number">5.0f</span> <span class="special">};</span>
+
+<span class="keyword">auto</span> <span class="identifier">result</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">t1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span> <span class="identifier">t2</span> <span class="special">)</span> <span class="special">);</span>
+</pre>
+<p>
+        Let's fix these one by one. Support for move-only types is easy, if one knows
+        where to look. The problem is that <code class="computeroutput"><span class="identifier">Tp</span></code>
+        that we're passing to the helper <code class="computeroutput"><span class="identifier">tuple_cat_</span></code>
+        is (correctly) <code class="computeroutput"><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">unique_ptr</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;&amp;,</span>
+        <span class="identifier">unique_ptr</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;&amp;&amp;&gt;</span></code>,
+        but <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;(</span><span class="identifier">tp</span><span class="special">)</span></code> still returns <code class="computeroutput"><span class="identifier">unique_ptr</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span></code>,
+        because <code class="computeroutput"><span class="identifier">tp</span></code> is an lvalue.
+        This behavior is a bit surprising, but consistent with how rvalue reference
+        members are treated by the language.
+      </p>
+<p>
+        Long story short, we need <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">tp</span><span class="special">)</span></code>
+        in <code class="computeroutput"><span class="identifier">tuple_cat_</span></code> to make <code class="computeroutput"><span class="identifier">tp</span></code> an rvalue:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">R</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span><span class="identifier">Is</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">Ks</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">&gt;</span>
+<span class="identifier">R</span> <span class="identifier">tuple_cat_</span><span class="special">(</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">...&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">...&gt;,</span> <span class="identifier">Tp</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">R</span><span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">tp</span><span class="special">)))...</span> <span class="special">};</span>
+<span class="special">}</span>
+</pre>
+<p>
+        Next, <code class="computeroutput"><span class="keyword">const</span></code>-qualified tuples.
+        The issue here is that we're stripping references from the input tuples,
+        but not <code class="computeroutput"><span class="keyword">const</span></code>. As a result,
+        we're trying to manipulate types such as <code class="computeroutput"><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span>
+        <span class="keyword">const</span></code> with Mp11 algorithms, and these
+        types do not fit the list concept. We just need to strip qualifiers as well,
+        by defining the useful <code class="computeroutput"><span class="identifier">remove_cv_ref</span></code>
+        primitive that is inexplicably missing from the standard library:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">remove_cv_ref</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">;</span>
+</pre>
+<p>
+        and then by using <code class="computeroutput"><span class="identifier">remove_cv_ref</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;</span></code> in place of <code class="computeroutput"><span class="keyword">typename</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span></code>:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">Tp</span><span class="special">,</span>
+    <span class="keyword">class</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;&gt;,</span> <span class="identifier">remove_cv_ref</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;...&gt;&gt;</span>
+    <span class="identifier">R</span> <span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">Tp</span> <span class="special">&amp;&amp;...</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="keyword">const</span> <span class="identifier">N</span> <span class="special">=</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">Tp</span><span class="special">);</span>
+
+    <span class="comment">// inner</span>
+
+    <span class="keyword">using</span> <span class="identifier">list1</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">remove_cv_ref</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;,</span> <span class="identifier">mp_list</span><span class="special">&gt;...&gt;;</span>
+
+    <span class="comment">// ...</span>
+</pre>
+<p>
+        Finally, tuple-like types. We've so far exploited the fact that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>
+        and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code> are valid Mp11 lists, but in general,
+        arbitrary tuple-like types aren't, so we need to convert them into such.
+        For that, we'll need to define a metafunction <code class="computeroutput"><span class="identifier">from_tuple_like</span></code>
+        that will take an arbitrary tuple-like type and will return, in our case,
+        the corresponding <code class="computeroutput"><span class="identifier">mp_list</span></code>.
+      </p>
+<p>
+        Technically, a more principled approach would've been to return <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
+        but here <code class="computeroutput"><span class="identifier">mp_list</span></code> will prove
+        more convenient.
+      </p>
+<p>
+        What we need is, given a tuple-like type <code class="computeroutput"><span class="identifier">Tp</span></code>,
+        to obtain <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="number">0</span><span class="special">,</span>
+        <span class="identifier">Tp</span><span class="special">&gt;,</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="number">1</span><span class="special">,</span> <span class="identifier">Tp</span><span class="special">&gt;,</span> <span class="special">...,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">,</span> <span class="identifier">Tp</span><span class="special">&gt;&gt;</span></code>, where <code class="computeroutput"><span class="identifier">N</span></code>
+        is <code class="computeroutput"><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">value</span></code>. Here's one way to do it:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">from_tuple_like</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">tuple_element</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;&gt;;</span>
+</pre>
+<p>
+        (<code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code> is
+        an algorithm that returns an <code class="computeroutput"><span class="identifier">mp_list</span></code>
+        with elements <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;</span></code>, ...,
+        <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;</span></code>.)
+      </p>
+<p>
+        Remember that <code class="computeroutput"><span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">&gt;</span></code>
+        performs the equivalent of two nested loops over the elements of <code class="computeroutput"><span class="identifier">L1</span></code> and <code class="computeroutput"><span class="identifier">L2</span></code>,
+        applying <code class="computeroutput"><span class="identifier">F</span></code> to the two variables
+        and gathering the result. In our case <code class="computeroutput"><span class="identifier">L1</span></code>
+        consists of the single element <code class="computeroutput"><span class="identifier">T</span></code>,
+        so only the second loop (over <code class="computeroutput"><span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>,
+        where <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>),
+        remains, and we get a list of the same type as <code class="computeroutput"><span class="identifier">L1</span></code>
+        (an <code class="computeroutput"><span class="identifier">mp_list</span></code>) with contents
+        <code class="computeroutput"><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;&gt;</span></code>,
+        <code class="computeroutput"><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;&gt;</span></code>,
+        ..., <code class="computeroutput"><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">&gt;&gt;</span></code>.
+      </p>
+<p>
+        For completeness's sake, here's another, more traditional way to achieve
+        the same result:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">from_tuple_like</span> <span class="special">=</span> <span class="identifier">mp_transform_q</span><span class="special">&lt;</span><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">tuple_element</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;&gt;;</span>
+</pre>
+<p>
+        With all these fixes applied, our fully operational <code class="computeroutput"><span class="identifier">tuple_cat</span></code>
+        now looks like this:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">F</span> <span class="special">=</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">R</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span><span class="identifier">Is</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">Ks</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">&gt;</span>
+<span class="identifier">R</span> <span class="identifier">tuple_cat_</span><span class="special">(</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">...&gt;,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">...&gt;,</span> <span class="identifier">Tp</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">R</span><span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Ks</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Is</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">tp</span><span class="special">)))...</span> <span class="special">};</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">remove_cv_ref</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">from_tuple_like</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">tuple_element</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">Tp</span><span class="special">,</span>
+    <span class="keyword">class</span> <span class="identifier">R</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;&gt;,</span> <span class="identifier">from_tuple_like</span><span class="special">&lt;</span><span class="identifier">remove_cv_ref</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;&gt;...&gt;&gt;</span>
+    <span class="identifier">R</span> <span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">Tp</span> <span class="special">&amp;&amp;...</span> <span class="identifier">tp</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="keyword">const</span> <span class="identifier">N</span> <span class="special">=</span> <span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">Tp</span><span class="special">);</span>
+
+    <span class="comment">// inner</span>
+
+    <span class="keyword">using</span> <span class="identifier">list1</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">from_tuple_like</span><span class="special">&lt;</span><span class="identifier">remove_cv_ref</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;&gt;...&gt;;</span>
+    <span class="keyword">using</span> <span class="identifier">list2</span> <span class="special">=</span> <span class="identifier">mp_iota_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">list3</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">mp_fill</span><span class="special">,</span> <span class="identifier">list1</span><span class="special">,</span> <span class="identifier">list2</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">inner</span> <span class="special">=</span> <span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">,</span> <span class="identifier">list3</span><span class="special">&gt;;</span>
+
+    <span class="comment">// outer</span>
+
+    <span class="keyword">using</span> <span class="identifier">list4</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">list1</span><span class="special">&gt;;</span>
+
+    <span class="keyword">using</span> <span class="identifier">outer</span> <span class="special">=</span> <span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">,</span> <span class="identifier">list4</span><span class="special">&gt;;</span>
+
+    <span class="comment">//</span>
+
+    <span class="keyword">return</span> <span class="identifier">tuple_cat_</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;(</span> <span class="identifier">inner</span><span class="special">(),</span> <span class="identifier">outer</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_as_tuple</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;(</span><span class="identifier">tp</span><span class="special">)...</span> <span class="special">)</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -611,6 +864,15 @@
           words, <code class="computeroutput"><span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="keyword">sizeof</span><span class="special">...(</span><span class="identifier">T</span><span class="special">)&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// mp_size_t&lt;0&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// mp_size_t&lt;2&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R3</span> <span class="special">=</span> <span class="identifier">mp_size</span><span class="special">&lt;</span><span class="identifier">L3</span><span class="special">&gt;;</span> <span class="comment">// mp_size_t&lt;1&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -637,6 +899,15 @@
           That is, <code class="computeroutput"><span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">T1</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// int</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// float</span>
+
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R3</span> <span class="special">=</span> <span class="identifier">mp_front</span><span class="special">&lt;</span><span class="identifier">L3</span><span class="special">&gt;;</span> <span class="comment">// char[1]</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -650,6 +921,12 @@
           That is, <code class="computeroutput"><span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;double, long double&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_pop_front</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// mp_list&lt;&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -685,6 +962,15 @@
           That is, <code class="computeroutput"><span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">T2</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// float</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// double</span>
+
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R3</span> <span class="special">=</span> <span class="identifier">mp_second</span><span class="special">&lt;</span><span class="identifier">L3</span><span class="special">&gt;;</span> <span class="comment">// char[2]</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -698,6 +984,12 @@
           That is, <code class="computeroutput"><span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">T3</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">T3</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// long double</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_third</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// char[3]</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -710,6 +1002,12 @@
           at the front of the list <code class="computeroutput"><span class="identifier">L</span></code>.
           That is, <code class="computeroutput"><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;float, double, long double&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">]&gt;;</span> <span class="comment">// mp_list&lt;char[1], char[2], void&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -723,6 +1021,12 @@
           That is, <code class="computeroutput"><span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;double, long double, float&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_push_back</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">]&gt;;</span> <span class="comment">// mp_list&lt;void, char[1], char[2]&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -736,6 +1040,12 @@
           That is, <code class="computeroutput"><span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;,</span> <span class="identifier">Y</span><span class="special">&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">Y</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;double, long double&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&gt;;</span> <span class="comment">// mp_list&lt;void&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -751,6 +1061,9 @@
           <code class="computeroutput"><span class="identifier">mp_rename</span></code> with the arguments
           reversed.)
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_apply</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">,</span> <span class="identifier">L1</span><span class="special">&gt;;</span> <span class="comment">// std::is_same&lt;double, long double&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -763,6 +1076,10 @@
           Same as <code class="computeroutput"><span class="identifier">mp_apply</span></code>, but takes
           a quoted metafunction.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">long</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_apply_q</span><span class="special">&lt;</span><span class="identifier">mp_bind_front</span><span class="special">&lt;</span><span class="identifier">mp_push_back</span><span class="special">,</span> <span class="identifier">L1</span><span class="special">&gt;,</span> <span class="identifier">L2</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;double, long double, int, long&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -777,6 +1094,13 @@
           <span class="identifier">Ln</span><span class="special">&lt;</span><span class="identifier">Tn</span><span class="special">...&gt;&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L1</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...,</span> <span class="identifier">T2</span><span class="special">...,</span> <span class="special">...,</span> <span class="identifier">Tn</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">short</span><span class="special">,</span> <span class="keyword">long</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">L4</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;&gt;;</span>
+
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="identifier">L2</span><span class="special">,</span> <span class="identifier">L3</span><span class="special">,</span> <span class="identifier">L4</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;double, long double, int, short, long&gt;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -791,6 +1115,15 @@
           <span class="identifier">T</span><span class="special">&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_replace_front</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// std::pair&lt;void, float&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_replace_front</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;void, double, long double&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R3</span> <span class="special">=</span> <span class="identifier">mp_replace_front</span><span class="special">&lt;</span><span class="identifier">L3</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// mp_list&lt;void, char[2], char[3], char[4]&gt;;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -815,6 +1148,15 @@
           <span class="identifier">T</span><span class="special">&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">float</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_replace_second</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// std::pair&lt;int, void&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_replace_second</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;float, void, long double&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L3</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R3</span> <span class="special">=</span> <span class="identifier">mp_replace_second</span><span class="special">&lt;</span><span class="identifier">L3</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// mp_list&lt;char[1], void, char[3], char[4]&gt;;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -829,6 +1171,12 @@
           <span class="identifier">T</span><span class="special">&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">L</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,</span> <span class="identifier">U2</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">U</span><span class="special">...&gt;</span></code>.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">L1</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="keyword">double</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_replace_third</span><span class="special">&lt;</span><span class="identifier">L1</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// std::tuple&lt;float, double, void&gt;</span>
+
+<span class="keyword">using</span> <span class="identifier">L2</span> <span class="special">=</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">2</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">3</span><span class="special">],</span> <span class="keyword">char</span><span class="special">[</span><span class="number">4</span><span class="special">]&gt;;</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_replace_third</span><span class="special">&lt;</span><span class="identifier">L2</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// mp_list&lt;char[1], char[2], void, char[4]&gt;;</span>
+</pre>
 </div>
 </div>
 <div class="section">
@@ -1951,7 +2299,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 13, 2017 at 18:21:04 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 17, 2017 at 17:44:23 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

@@ -73,6 +73,186 @@ how we can leverage Mp11 to automate the task:
         boost::tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
     }
 
+How does it work?
+
+`mp_product<F, L1, L2>` calls `F<T1, T2>` where `T1` varies over the elements of `L1` and `T2` varies over
+the elements of `L2`, as if by executing two nested loops. It then returns a list of these results, of the same
+type as `L1`.
+
+In our case, both lists are the same `std::tuple`, and `F` is `mp_list`, so `mp_product<mp_list, L, L>` will get us
+`std::tuple<mp_list<char, char>, mp_list<char, short>, mp_list<char, int>, ..., mp_list<unsigned long, long>, mp_list<unsigned long, unsigned long>>`.
+
+We then default-construct this tuple and pass it to `tuple_for_each`. `tuple_for_each(tp, f)` calls `f` for every
+tuple element; we use a (C++14) lambda that calls `test_result`. (In pure C++11, we'd need to make `test_result` a
+function object with a templated `operator()` and pass that to `tuple_for_each` directly.)
+[endsect]
+
+[section Fixing `tuple_cat`]
+
+The article [@http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html Simple C++11 metaprogramming] builds an
+implementation of the standard function `tuple_cat`, with the end result given below:
+
+    template<class L> using F = mp_iota<mp_size<L>>;
+
+    template<class R, class...Is, class... Ks, class Tp>
+    R tuple_cat_( mp_list<Is...>, mp_list<Ks...>, Tp tp )
+    {
+        return R{ std::get<Ks::value>(std::get<Is::value>(tp))... };
+    }
+
+    template<class... Tp,
+        class R = mp_append<std::tuple<>, typename std::remove_reference<Tp>::type...>>
+        R tuple_cat( Tp &&... tp )
+    {
+        std::size_t const N = sizeof...(Tp);
+
+        // inner
+
+        using list1 = mp_list<mp_rename<typename std::remove_reference<Tp>::type, mp_list>...>;
+        using list2 = mp_iota_c<N>;
+
+        using list3 = mp_transform<mp_fill, list1, list2>;
+
+        using inner = mp_apply<mp_append, list3>;
+
+        // outer
+
+        using list4 = mp_transform<F, list1>;
+
+        using outer = mp_apply<mp_append, list4>;
+
+        //
+
+        return tuple_cat_<R>( inner(), outer(), std::forward_as_tuple( std::forward<Tp>(tp)... ) );
+    }
+
+This function, however, is not entirely correct, in that it doesn't handle some cases properly. For example,
+trying to concatenate tuples containing move-only elements such as `unique_ptr` fails:
+
+    std::tuple<std::unique_ptr<int>> t1;
+    std::tuple<std::unique_ptr<float>> t2;
+
+    auto result = ::tuple_cat( std::move( t1 ), std::move( t2 ) );
+
+Trying to concatenate `const` tuples fails:
+
+	std::tuple<int> const t1;
+	std::tuple<float> const t2;
+
+	auto result = ::tuple_cat( t1, t2 );
+
+And finally, the standard `tuple_cat` is specified to work on arbitrary tuple-like types (that is, all types
+that support `tuple_size`, `tuple_element`, and `get`), while our implementation only works with `tuple` and
+`pair`. `std::array`, for example, fails:
+
+    std::array<int, 2> t1{ 1, 2 };
+    std::array<float, 3> t2{ 3.0f, 4.0f, 5.0f };
+
+    auto result = ::tuple_cat( t1, std::move( t2 ) );
+
+Let's fix these one by one. Support for move-only types is easy, if one knows where to look. The problem is
+that `Tp` that we're passing to the helper `tuple_cat_` is (correctly) `tuple<unique_ptr<int>&&, unique_ptr<float>&&>`,
+but `std::get<0>(tp)` still returns `unique_ptr<int>&`, because `tp` is an lvalue. This behavior is a bit
+surprising, but consistent with how rvalue reference members are treated by the language.
+
+Long story short, we need `std::move(tp)` in `tuple_cat_` to make `tp` an rvalue:
+
+    template<class R, class...Is, class... Ks, class Tp>
+    R tuple_cat_( mp_list<Is...>, mp_list<Ks...>, Tp tp )
+    {
+        return R{ std::get<Ks::value>(std::get<Is::value>(std::move(tp)))... };
+    }
+
+Next, `const`-qualified tuples. The issue here is that we're stripping references from the input tuples, but not
+`const`. As a result, we're trying to manipulate types such as `tuple<int> const` with Mp11 algorithms, and these
+types do not fit the list concept. We just need to strip qualifiers as well, by defining the useful `remove_cv_ref`
+primitive that is inexplicably missing from the standard library:
+
+    template<class T> using remove_cv_ref = typename std::remove_cv<
+        typename std::remove_reference<T>::type>::type;
+
+and then by using `remove_cv_ref<Tp>` in place of `typename std::remove_reference<Tp>::type`:
+
+    template<class... Tp,
+        class R = mp_append<std::tuple<>, remove_cv_ref<Tp>...>>
+        R tuple_cat( Tp &&... tp )
+    {
+        std::size_t const N = sizeof...(Tp);
+
+        // inner
+
+        using list1 = mp_list<mp_rename<remove_cv_ref<Tp>, mp_list>...>;
+        
+        // ...
+
+Finally, tuple-like types. We've so far exploited the fact that `std::pair` and `std::tuple` are valid Mp11 lists,
+but in general, arbitrary tuple-like types aren't, so we need to convert them into such. For that, we'll need to
+define a metafunction `from_tuple_like` that will take an arbitrary tuple-like type and will return, in our case,
+the corresponding `mp_list`.
+
+Technically, a more principled approach would've been to return `std::tuple`, but here `mp_list` will prove more
+convenient.
+
+What we need is, given a tuple-like type `Tp`, to obtain `mp_list<std::tuple_element<0, Tp>, std::tuple_element<1, Tp>,
+..., std::tuple_element<N-1, Tp>>`, where `N` is `tuple_size<Tp>::value`. Here's one way to do it:
+
+    template<class T, class I> using tuple_element = std::tuple_element_t<I::value, T>;
+    template<class T> using from_tuple_like = mp_product<tuple_element, mp_list<T>, mp_iota<std::tuple_size<T>>>;
+
+(`mp_iota<N>` is an algorithm that returns an `mp_list` with elements `mp_size_t<0>`, `mp_size_t<1>`, ..., `mp_size_t<N-1>`.)
+
+Remember that `mp_product<F, L1, L2>` performs the equivalent of two nested loops over the elements of `L1` and `L2`,
+applying `F` to the two variables and gathering the result. In our case `L1` consists of the single element `T`, so
+only the second loop (over `mp_iota<N>`, where `N` is `tuple_size<T>`), remains, and we get a list of the same type
+as `L1` (an `mp_list`) with contents `tuple_element<T, mp_size_t<0>>`, `tuple_element<T, mp_size_t<1>>`, ...,
+`tuple_element<T, mp_size_t<N-1>>`.
+
+For completeness's sake, here's another, more traditional way to achieve the same result:
+
+    template<class T> using from_tuple_like = mp_transform_q<mp_bind_front<tuple_element, T>, mp_iota<std::tuple_size<T>>>;
+
+With all these fixes applied, our fully operational `tuple_cat` now looks like this:
+
+    template<class L> using F = mp_iota<mp_size<L>>;
+
+    template<class R, class...Is, class... Ks, class Tp>
+    R tuple_cat_( mp_list<Is...>, mp_list<Ks...>, Tp tp )
+    {
+        return R{ std::get<Ks::value>(std::get<Is::value>(std::move(tp)))... };
+    }
+
+    template<class T> using remove_cv_ref = typename std::remove_cv<
+        typename std::remove_reference<T>::type>::type;
+
+    template<class T, class I> using tuple_element = std::tuple_element_t<I::value, T>;
+    template<class T> using from_tuple_like = mp_product<tuple_element, mp_list<T>, mp_iota<std::tuple_size<T>>>;
+
+    template<class... Tp,
+        class R = mp_append<std::tuple<>, from_tuple_like<remove_cv_ref<Tp>>...>>
+        R tuple_cat( Tp &&... tp )
+    {
+        std::size_t const N = sizeof...(Tp);
+
+        // inner
+
+        using list1 = mp_list<from_tuple_like<remove_cv_ref<Tp>>...>;
+        using list2 = mp_iota_c<N>;
+
+        using list3 = mp_transform<mp_fill, list1, list2>;
+
+        using inner = mp_apply<mp_append, list3>;
+
+        // outer
+
+        using list4 = mp_transform<F, list1>;
+
+        using outer = mp_apply<mp_append, list4>;
+
+        //
+
+        return tuple_cat_<R>( inner(), outer(), std::forward_as_tuple( std::forward<Tp>(tp)... ) );
+    }
+
 [endsect]
 
 [section Computing Return Types]
