@@ -12,6 +12,7 @@
 #include <boost/mp11/set.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/mp_count.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/mp11/detail/mp_map_find.hpp>
@@ -59,7 +60,9 @@ template<class L, class V, template<class...> class F> using mp_fold = typename 
 namespace detail
 {
 
-template<template<class...> class F, class... L> struct mp_transform_impl;
+template<template<class...> class F, class... L> struct mp_transform_impl
+{
+};
 
 template<template<class...> class F, template<class...> class L, class... T> struct mp_transform_impl<F, L<T...>>
 {
@@ -68,19 +71,33 @@ template<template<class...> class F, template<class...> class L, class... T> str
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_transform_impl<F, L1<T1...>, L2<T2...>>
 {
-    static_assert( sizeof...(T1) == sizeof...(T2), "The arguments of mp_transform should be of the same size" );
     using type = L1<F<T1,T2>...>;
 };
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>>
 {
-    static_assert( sizeof...(T1) == sizeof...(T2) && sizeof...(T1) == sizeof...(T3), "The arguments of mp_transform should be of the same size" );
     using type = L1<F<T1,T2,T3>...>;
 };
 
+#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 )
+
+template<class... L> using mp_same_size_1 = mp_same<mp_size<L>...>;
+template<class... L> struct mp_same_size_2: mp_defer<mp_same_size_1, L...> {};
+
+#endif
+
 } // namespace detail
 
-template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_impl<F, L...>::type;
+#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 )
+
+template<template<class...> class F, class... L> using mp_transform = typename mp_if<typename detail::mp_same_size_2<L...>::type, detail::mp_transform_impl<F, L...>>::type;
+
+#else
+
+template<template<class...> class F, class... L> using mp_transform = typename mp_if<mp_same<mp_size<L>...>, detail::mp_transform_impl<F, L...>>::type;
+
+#endif
+
 template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn, L...>;
 
 namespace detail
@@ -88,8 +105,6 @@ namespace detail
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3, template<class...> class L4, class... T4, class... L> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>, L4<T4...>, L...>
 {
-    static_assert( sizeof...(T1) == sizeof...(T2) && sizeof...(T1) == sizeof...(T3) && sizeof...(T1) == sizeof...(T4), "The arguments of mp_transform should be of the same size" );
-
     using A1 = L1<mp_list<T1, T2, T3, T4>...>;
 
     template<class V, class T> using _f = mp_transform<mp_push_back, V, T>;
