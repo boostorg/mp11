@@ -148,7 +148,7 @@ that support `tuple_size`, `tuple_element`, and `get`), while our implementation
     std::array<int, 2> t1{ 1, 2 };
     std::array<float, 3> t2{ 3.0f, 4.0f, 5.0f };
 
-    auto result = ::tuple_cat( t1, std::move( t2 ) );
+    auto result = ::tuple_cat( t1, t2 );
 
 Let's fix these one by one. Support for move-only types is easy, if one knows where to look. The problem is
 that `Tp` that we're passing to the helper `tuple_cat_` is (correctly) `tuple<unique_ptr<int>&&, unique_ptr<float>&&>`,
@@ -193,10 +193,10 @@ the corresponding `mp_list`.
 Technically, a more principled approach would've been to return `std::tuple`, but here `mp_list` will prove more
 convenient.
 
-What we need is, given a tuple-like type `Tp`, to obtain `mp_list<std::tuple_element<0, Tp>, std::tuple_element<1, Tp>,
-..., std::tuple_element<N-1, Tp>>`, where `N` is `tuple_size<Tp>::value`. Here's one way to do it:
+What we need is, given a tuple-like type `Tp`, to obtain `mp_list<std::tuple_element<0, Tp>::type, std::tuple_element<1, Tp>::type,
+..., std::tuple_element<N-1, Tp>::type>`, where `N` is `tuple_size<Tp>::value`. Here's one way to do it:
 
-    template<class T, class I> using tuple_element = std::tuple_element_t<I::value, T>;
+    template<class T, class I> using tuple_element = typename std::tuple_element<I::value, T>::type;
     template<class T> using from_tuple_like = mp_product<tuple_element, mp_list<T>, mp_iota<std::tuple_size<T>>>;
 
 (`mp_iota<N>` is an algorithm that returns an `mp_list` with elements `mp_size_t<0>`, `mp_size_t<1>`, ..., `mp_size_t<N-1>`.)
@@ -224,7 +224,7 @@ With all these fixes applied, our fully operational `tuple_cat` now looks like t
     template<class T> using remove_cv_ref = typename std::remove_cv<
         typename std::remove_reference<T>::type>::type;
 
-    template<class T, class I> using tuple_element = std::tuple_element_t<I::value, T>;
+    template<class T, class I> using tuple_element = typename std::tuple_element<I::value, T>::type;
     template<class T> using from_tuple_like = mp_product<tuple_element, mp_list<T>, mp_iota<std::tuple_size<T>>>;
 
     template<class... Tp,
