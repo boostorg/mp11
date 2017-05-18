@@ -88,7 +88,7 @@ template<class... L> struct mp_same_size_2: mp_defer<mp_same_size_1, L...> {};
 
 } // namespace detail
 
-#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 )
+#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 40800 )
 
 template<template<class...> class F, class... L> using mp_transform = typename mp_if<typename detail::mp_same_size_2<L...>::type, detail::mp_transform_impl<F, L...>>::type;
 
