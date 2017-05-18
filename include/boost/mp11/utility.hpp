@@ -52,27 +52,6 @@ template<class T, class E> struct mp_if_c_impl<false, T, E>
 template<bool C, class T, class... E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E...>::type;
 template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E...>::type;
 
-// mp_eval_if, mp_eval_if_c
-namespace detail
-{
-
-template<bool C, class T, template<class...> class F, class... U> struct mp_eval_if_c_impl;
-
-template<class T, template<class...> class F, class... U> struct mp_eval_if_c_impl<true, T, F, U...>
-{
-    using type = T;
-};
-
-template<class T, template<class...> class F, class... U> struct mp_eval_if_c_impl<false, T, F, U...>
-{
-    using type = F<U...>;
-};
-
-} // namespace detail
-
-template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
-template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
-
 // mp_valid
 // implementation by Bruno Dutra (by the name is_evaluable)
 namespace detail
@@ -106,6 +85,26 @@ struct mp_no_type
 } // namespace detail
 
 template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
+
+// mp_eval_if, mp_eval_if_c
+namespace detail
+{
+
+template<bool C, class T, template<class...> class F, class... U> struct mp_eval_if_c_impl;
+
+template<class T, template<class...> class F, class... U> struct mp_eval_if_c_impl<true, T, F, U...>
+{
+    using type = T;
+};
+
+template<class T, template<class...> class F, class... U> struct mp_eval_if_c_impl<false, T, F, U...>: mp_defer<F, U...>
+{
+};
+
+} // namespace detail
+
+template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
+template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
 
 // mp_quote
 template<template<class...> class F> struct mp_quote
