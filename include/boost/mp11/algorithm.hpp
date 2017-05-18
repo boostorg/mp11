@@ -79,7 +79,7 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
     using type = L1<F<T1,T2,T3>...>;
 };
 
-#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 )
+#if BOOST_WORKAROUND( BOOST_MSVC, == 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 40800 )
 
 template<class... L> using mp_same_size_1 = mp_same<mp_size<L>...>;
 template<class... L> struct mp_same_size_2: mp_defer<mp_same_size_1, L...> {};
