@@ -38,6 +38,8 @@
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.examples.generating_test_cases">Generating Test
       Cases</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.examples.writing_common_type_specializati">Writing
+      <code class="computeroutput"><span class="identifier">common_type</span></code> specializations</a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.examples.fixing_tuple_cat">Fixing <code class="computeroutput"><span class="identifier">tuple_cat</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.examples.computing_return_types">Computing Return
       Types</a></span></dt>
@@ -397,6 +399,102 @@
         to make <code class="computeroutput"><span class="identifier">test_result</span></code> a function
         object with a templated <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code> and pass that to <code class="computeroutput"><span class="identifier">tuple_for_each</span></code>
         directly.)
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.examples.writing_common_type_specializati"></a><a class="link" href="mp11.html#mp11.examples.writing_common_type_specializati" title="Writing common_type specializations">Writing
+      <code class="computeroutput"><span class="identifier">common_type</span></code> specializations</a>
+</h3></div></div></div>
+<p>
+        The standard trait <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>, used to obtain a type to which
+        all of its arguments can convert without unnecessary loss of precision, can
+        be user-specialized when its default implementation (based on the ternary
+        <code class="computeroutput"><span class="special">?:</span></code> operator) is unsuitable.
+      </p>
+<p>
+        Let's write a <code class="computeroutput"><span class="identifier">common_type</span></code>
+        specialization for two <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>
+        arguments. For that, we need a metafunction that applies <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>
+        to each pair of elements and gathers the results into a tuple:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Tp2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">common_tuple</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">,</span> <span class="identifier">Tp1</span><span class="special">,</span> <span class="identifier">Tp2</span><span class="special">&gt;;</span>
+</pre>
+<p>
+        then specialize <code class="computeroutput"><span class="identifier">common_type</span></code>
+        to use it:
+      </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span>
+<span class="special">{</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T2</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">common_type</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;:</span> <span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">common_tuple</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// std</span>
+</pre>
+<p>
+        (There is no need to specialize <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>
+        for more than two arguments - it takes care of synthesizing the appropriate
+        semantics from the binary case.)
+      </p>
+<p>
+        The subtlety here is the use of <code class="computeroutput"><span class="identifier">mp_defer</span></code>.
+        We could have defined a nested <code class="computeroutput"><span class="identifier">type</span></code>
+        to <code class="computeroutput"><span class="identifier">common_tuple</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;</span></code>, and it would still have worked
+        in all valid cases. By letting <code class="computeroutput"><span class="identifier">mp_defer</span></code>
+        define <code class="computeroutput"><span class="identifier">type</span></code>, though, we make
+        our specialization <span class="emphasis"><em>SFINAE-friendly</em></span>.
+      </p>
+<p>
+        That is, when our <code class="computeroutput"><span class="identifier">common_tuple</span></code>
+        causes a substitution failure instead of a hard error, <code class="computeroutput"><span class="identifier">mp_defer</span></code>
+        will not define a nested <code class="computeroutput"><span class="identifier">type</span></code>,
+        and <code class="computeroutput"><span class="identifier">common_type_t</span></code>, which
+        is defined as <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">common_type</span><span class="special">&lt;...&gt;::</span><span class="identifier">type</span></code>,
+        will also cause a substitution failure.
+      </p>
+<p>
+        As another example, consider the hypothetical type <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span>
+        <span class="identifier">E</span><span class="special">...&gt;</span></code>
+        that represents either a successful return with a value of <code class="computeroutput"><span class="identifier">T</span></code>, or an unsucessful return with an error
+        code of some type in the list <code class="computeroutput"><span class="identifier">E</span><span class="special">...</span></code>. The common type of <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">,</span>
+        <span class="identifier">E2</span><span class="special">,</span> <span class="identifier">E3</span><span class="special">&gt;</span></code>
+        and <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E4</span><span class="special">,</span>
+        <span class="identifier">E5</span><span class="special">&gt;</span></code>
+        is <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;,</span>
+        <span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">,</span> <span class="identifier">E3</span><span class="special">,</span> <span class="identifier">E4</span><span class="special">,</span>
+        <span class="identifier">E5</span><span class="special">&gt;</span></code>.
+        That is, the possible return values are combined into their common type,
+        and we take the union of the set of error types.
+      </p>
+<p>
+        Therefore,
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">common_expected</span> <span class="special">=</span> <span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">&gt;&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;&gt;,</span> <span class="identifier">expected</span><span class="special">&gt;;</span>
+
+<span class="keyword">namespace</span> <span class="identifier">std</span>
+<span class="special">{</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E2</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">common_type</span><span class="special">&lt;</span><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">...&gt;,</span> <span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">...&gt;&gt;:</span> <span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">common_expected</span><span class="special">,</span> <span class="identifier">T1</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">...&gt;,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">E2</span><span class="special">...&gt;&gt;</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// std</span>
+</pre>
+<p>
+        Here we've taken a different tack; instead of passing the <code class="computeroutput"><span class="identifier">expected</span></code>
+        types to <code class="computeroutput"><span class="identifier">common_expected</span></code>,
+        we're passing the <code class="computeroutput"><span class="identifier">T</span></code> types
+        and lists of the <code class="computeroutput"><span class="identifier">E</span></code> types.
+        This makes our job easier. <code class="computeroutput"><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">&gt;&gt;</span></code>
+        gives us the concatenation of <code class="computeroutput"><span class="identifier">E1</span></code>
+        and <code class="computeroutput"><span class="identifier">E2</span></code> with the duplicates
+        removed; we then add <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span></code>
+        to the front via <code class="computeroutput"><span class="identifier">mp_push_front</span></code>;
+        and finally, we <code class="computeroutput"><span class="identifier">mp_rename</span></code>
+        the resultant <code class="computeroutput"><span class="identifier">mp_list</span></code> to
+        <code class="computeroutput"><span class="identifier">expected</span></code>.
       </p>
 </div>
 <div class="section">
@@ -2317,7 +2415,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 18, 2017 at 22:41:31 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 18, 2017 at 23:36:45 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

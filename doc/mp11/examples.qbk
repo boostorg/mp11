@@ -87,6 +87,62 @@ tuple element; we use a (C++14) lambda that calls `test_result`. (In pure C++11,
 function object with a templated `operator()` and pass that to `tuple_for_each` directly.)
 [endsect]
 
+[section Writing `common_type` specializations]
+
+The standard trait `std::common_type`, used to obtain a type to which all of its arguments can convert without
+unnecessary loss of precision, can be user-specialized when its default implementation (based on the ternary `?:`
+operator) is unsuitable.
+
+Let's write a `common_type` specialization for two `std::tuple` arguments. For that, we need a metafunction that
+applies `std::common_type` to each pair of elements and gathers the results into a tuple:
+
+    template<class Tp1, class Tp2> using common_tuple = mp_transform<std::common_type_t, Tp1, Tp2>;
+
+then specialize `common_type` to use it:
+
+    namespace std
+    {
+
+        template<class... T1, class... T2> struct common_type<std::tuple<T1...>, std::tuple<T2...>>: mp_defer<common_tuple, std::tuple<T1...>, std::tuple<T2...>>
+        {
+        };
+
+    } // std
+
+(There is no need to specialize `std::common_type` for more than two arguments - it takes care of synthesizing the appropriate semantics from
+the binary case.)
+
+The subtlety here is the use of `mp_defer`. We could have defined a nested `type` to `common_tuple<std::tuple<T1...>, std::tuple<T2...>>`,
+and it would still have worked in all valid cases. By letting `mp_defer` define `type`, though, we make our specialization /SFINAE-friendly/.
+
+That is, when our `common_tuple` causes a substitution failure instead of a hard error, `mp_defer` will not define a nested `type`,
+and `common_type_t`, which is defined as `typename common_type<...>::type`, will also cause a substitution failure.
+
+As another example, consider the hypothetical type `expected<T, E...>` that represents either a successful return with a value of `T`,
+or an unsucessful return with an error code of some type in the list `E...`. The common type of `expected<T1, E1, E2, E3>` and
+`expected<T2, E1, E4, E5>` is `expected<std::common_type_t<T1, T2>, E1, E2, E3, E4, E5>`. That is, the possible return values are
+combined into their common type, and we take the union of the set of error types.
+
+Therefore,
+
+    template<class T1, class E1, class T2, class E2> using common_expected = mp_rename<mp_push_front<mp_unique<mp_append<E1, E2>>, std::common_type_t<T1, T2>>, expected>;
+
+    namespace std
+    {
+
+        template<class T1, class... E1, class T2, class... E2> struct common_type<expected<T1, E1...>, expected<T2, E2...>>: mp_defer<common_expected, T1, mp_list<E1...>, T2, mp_list<E2...>>
+        {
+        };
+
+    } // std
+
+Here we've taken a different tack; instead of passing the `expected` types to `common_expected`, we're passing the `T` types and lists of
+the `E` types. This makes our job easier. `mp_unique<mp_append<E1, E2>>` gives us the concatenation of `E1` and `E2` with the duplicates
+removed; we then add `std::common_type_t<T1, T2>` to the front via `mp_push_front`; and finally, we `mp_rename` the resultant `mp_list`
+to `expected`.
+
+[endsect]
+
 [section Fixing `tuple_cat`]
 
 The article [@http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html Simple C++11 metaprogramming] builds an
