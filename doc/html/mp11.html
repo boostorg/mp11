@@ -84,7 +84,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t"><code class="computeroutput"><span class="identifier">mp_identity</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t_t"><code class="computeroutput"><span class="identifier">mp_identity_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_inherit_t"><code class="computeroutput"><span class="identifier">mp_inherit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_t_e"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
         <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_b_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
@@ -1210,16 +1210,20 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.utility.mp_if_c_b_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e" title="mp_if_c&lt;B, T, E&gt;"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.utility.mp_if_c_b_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e" title="mp_if_c&lt;B, T, E...&gt;"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
-          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
-          <code class="computeroutput"><span class="identifier">B</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
-          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
+          <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T</span></code>. <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">false</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">E</span></code>.
+          Otherwise, the result is a substitution failure.
         </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span>  <span class="comment">// int</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">flase</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// void</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">void_if_5</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span> <span class="special">==</span> <span class="number">5</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// `void` when `I::value` is 5, substitution failure otherwise</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -1229,10 +1233,8 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span><span class="special">),</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
-          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
-          <code class="computeroutput"><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
-          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
+          Like <code class="computeroutput"><span class="identifier">mp_if_c</span></code>, but the first
+          argument is a type.
         </p>
 </div>
 <div class="section">
@@ -2315,7 +2317,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 18, 2017 at 11:17:12 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 18, 2017 at 11:57:59 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

@@ -33,9 +33,11 @@ template<class... T> struct mp_inherit: T... {};
 namespace detail
 {
 
-template<bool C, class T, class E> struct mp_if_c_impl;
+template<bool C, class T, class... E> struct mp_if_c_impl
+{
+};
 
-template<class T, class E> struct mp_if_c_impl<true, T, E>
+template<class T, class... E> struct mp_if_c_impl<true, T, E...>
 {
     using type = T;
 };
@@ -47,8 +49,8 @@ template<class T, class E> struct mp_if_c_impl<false, T, E>
 
 } // namespace detail
 
-template<bool C, class T, class E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E>::type;
-template<class C, class T, class E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E>::type;
+template<bool C, class T, class... E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E...>::type;
+template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E...>::type;
 
 // mp_eval_if, mp_eval_if_c
 namespace detail
