@@ -105,23 +105,15 @@ template<class T, template<class...> class F, class... U> struct mp_eval_if_c_im
 
 template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
 template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
+template<class C, class T, class Q, class... U> using mp_eval_if_q = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, Q::template fn, U...>::type;
 
 // mp_quote
 template<template<class...> class F> struct mp_quote
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
-#else
-private:
-#endif
-
-    template<class... T> struct _fn { using type = F<T...>; };
-
-public:
-
-    // the indirection through _fn works around the language inability
+    // the indirection through mp_defer works around the language inability
     // to expand T... into a fixed parameter list of an alias template
 
-    template<class... T> using fn = typename _fn<T...>::type;
+    template<class... T> using fn = typename mp_defer<F, T...>::type;
 };
 
 // mp_unquote
