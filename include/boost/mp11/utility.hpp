@@ -116,18 +116,23 @@ template<template<class...> class F> struct mp_quote
     template<class... T> using fn = typename mp_defer<F, T...>::type;
 };
 
-// mp_unquote
+// mp_invoke
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
+
 namespace detail
 {
 
-template<class Q, class... T> struct mp_invoke_impl
-{
-    using type = typename Q::template fn<T...>;
-};
+template<class Q, class... T> struct mp_invoke_impl: mp_defer<Q::template fn, T...> {};
 
 } // namespace detail
 
 template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
+
+#else
+
+template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
+
+#endif
 
 } // namespace mp11
 } // namespace boost
