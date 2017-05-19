@@ -117,7 +117,7 @@ template<template<class...> class F> struct mp_quote
 };
 
 // mp_invoke
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 50000 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
 
 namespace detail
 {
@@ -127,6 +127,10 @@ template<class Q, class... T> struct mp_invoke_impl: mp_defer<Q::template fn, T.
 } // namespace detail
 
 template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
+
+#elif BOOST_WORKAROUND( BOOST_GCC, < 50000 )
+
+template<class Q, class... T> using mp_invoke = typename mp_defer<Q::template fn, T...>::type;
 
 #else
 
