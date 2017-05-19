@@ -23,22 +23,27 @@
     template<class... T> struct mp_inherit: T... {};
 [endsect]
 
-[section `mp_if_c<B, T, E>`]
-    template<bool C, class T, class E> using mp_if_c = /*...*/;
+[section `mp_if_c<C, T, E...>`]
+    template<bool C, class T, class... E> using mp_if_c = /*...*/;
 
-`mp_if_c<B, T, E>` is an alias for `T` when `B` is `true`, for `E` otherwise.
+`mp_if_c<true, T, E...>` is an alias for `T`. `mp_if_c<false, T, E>` is an alias for `E`. Otherwise, the result is a substitution failure.
+
+    using R1 = mp_if_c<true, int, void>;  // int
+    using R2 = mp_if_c<flase, int, void>; // void
+
+	template<class I> using void_if_5 = mp_if_c<I::value == 5, void>; // `void` when `I::value` is 5, substitution failure otherwise
 [endsect]
 
-[section `mp_if<C, T, E>`]
-    template<class C, class T, class E> using mp_if = mp_if_c<static_cast<bool>(C::value), T, E>;
+[section `mp_if<C, T, E...>`]
+    template<class C, class T, class E...> using mp_if = mp_if_c<static_cast<bool>(C::value), T, E...>;
 
-`mp_if<C, T, E>` is an alias for `T` when `C::value` is `true`, for `E` otherwise.
+Like `mp_if_c`, but the first argument is a type.
 [endsect]
 
-[section `mp_eval_if_c<B, T, F, U...>`]
+[section `mp_eval_if_c<C, T, F, U...>`]
     template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = /*...*/;
 
-`mp_eval_if_c<B, T, F, U...>` is an alias for `T` when `B` is `true`, for `F<U...>` otherwise. Its purpose
+`mp_eval_if_c<C, T, F, U...>` is an alias for `T` when `C` is `true`, for `F<U...>` otherwise. Its purpose
 is to avoid evaluating `F<U...>` when the condition is `true` as it may not be valid in this case.
 [endsect]
 
@@ -46,6 +51,12 @@ is to avoid evaluating `F<U...>` when the condition is `true` as it may not be v
     template<class C, class T, template<class...> class F, class... U> using mp_eval_if = mp_eval_if_c<static_cast<bool>(C::value), T, F, U...>;
 
 Like `mp_eval_if_c`, but the first argument is a type.
+[endsect]
+
+[section `mp_eval_if_q<C, T, Q, U...>`]
+    template<class C, class T, class Q, class... U> using mp_eval_if_q = mp_eval_if<C, T, Q::template fn, U...>;
+
+Like `mp_eval_if`, but takes a quoted metafunction.
 [endsect]
 
 [section `mp_valid<F, T...>`]

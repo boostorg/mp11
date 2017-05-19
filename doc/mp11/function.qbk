@@ -37,4 +37,10 @@ If no such type exists, the last one is returned. `mp_or<>` is `mp_false`. Simil
 `mp_or`, but does not perform short-circuit evaluation.
 [endsect]
 
+[section `mp_same<T...>`]
+    template<class... T> using mp_same = /*...*/;
+
+`mp_same<T...>` is `mp_true` if all the types in `T...` are the same type, `mp_false` otherwise. `mp_same<>` is `mp_true`.
+[endsect]
+
 [endsect:function]

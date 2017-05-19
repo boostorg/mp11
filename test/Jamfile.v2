@@ -35,6 +35,7 @@ run mp_apply_q.cpp : : : $(REQ) ;
 run mp_assign.cpp : : : $(REQ) ;
 run mp_clear.cpp : : : $(REQ) ;
 run mp_transform.cpp : : : $(REQ) ;
+run mp_transform_sf.cpp : : : $(REQ) ;
 run mp_transform_if.cpp : : : $(REQ) ;
 run mp_fill.cpp : : : $(REQ) ;
 run mp_count.cpp : : : $(REQ) ;
@@ -75,11 +76,14 @@ run integral.cpp : : : $(REQ) ;
 run mp_identity.cpp : : : $(REQ) ;
 run mp_inherit.cpp : : : $(REQ) ;
 run mp_if.cpp : : : $(REQ) ;
+run mp_if_sf.cpp : : : $(REQ) ;
 run mp_eval_if.cpp : : : $(REQ) ;
+run mp_eval_if_sf.cpp : : : $(REQ) ;
 run mp_valid.cpp : : : $(REQ) ;
 run mp_defer.cpp : : : $(REQ) ;
 run mp_quote.cpp : : : $(REQ) ;
 run mp_invoke.cpp : : : $(REQ) ;
+run mp_invoke_sf.cpp : : : $(REQ) ;
 
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;

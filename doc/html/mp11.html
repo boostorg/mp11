@@ -38,6 +38,8 @@
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.examples.generating_test_cases">Generating Test
       Cases</a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.examples.writing_common_type_specializati">Writing
+      <code class="computeroutput"><span class="identifier">common_type</span></code> specializations</a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.examples.fixing_tuple_cat">Fixing <code class="computeroutput"><span class="identifier">tuple_cat</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.examples.computing_return_types">Computing Return
       Types</a></span></dt>
@@ -84,12 +86,14 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t"><code class="computeroutput"><span class="identifier">mp_identity</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_identity_t_t"><code class="computeroutput"><span class="identifier">mp_identity_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_inherit_t"><code class="computeroutput"><span class="identifier">mp_inherit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_c_t_e"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_if_c_t_e"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
-        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a></span></dt>
-<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_b_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_c_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
         <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_c_t_f_u"><code class="computeroutput"><span class="identifier">mp_eval_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_eval_if_q_c_t_q_u"><code class="computeroutput"><span class="identifier">mp_eval_if_q</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Q</span><span class="special">,</span>
         <span class="identifier">U</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_valid_f_t"><code class="computeroutput"><span class="identifier">mp_valid</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.utility.mp_defer_f_t"><code class="computeroutput"><span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
@@ -166,6 +170,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_all_t"><code class="computeroutput"><span class="identifier">mp_all</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_or_t"><code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_any_t"><code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_same_t"><code class="computeroutput"><span class="identifier">mp_same</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind">Bind, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
@@ -400,6 +405,102 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="mp11.examples.writing_common_type_specializati"></a><a class="link" href="mp11.html#mp11.examples.writing_common_type_specializati" title="Writing common_type specializations">Writing
+      <code class="computeroutput"><span class="identifier">common_type</span></code> specializations</a>
+</h3></div></div></div>
+<p>
+        The standard trait <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>, used to obtain a type to which
+        all of its arguments can convert without unnecessary loss of precision, can
+        be user-specialized when its default implementation (based on the ternary
+        <code class="computeroutput"><span class="special">?:</span></code> operator) is unsuitable.
+      </p>
+<p>
+        Let's write a <code class="computeroutput"><span class="identifier">common_type</span></code>
+        specialization for two <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>
+        arguments. For that, we need a metafunction that applies <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>
+        to each pair of elements and gathers the results into a tuple:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Tp2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">common_tuple</span> <span class="special">=</span> <span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">,</span> <span class="identifier">Tp1</span><span class="special">,</span> <span class="identifier">Tp2</span><span class="special">&gt;;</span>
+</pre>
+<p>
+        then specialize <code class="computeroutput"><span class="identifier">common_type</span></code>
+        to use it:
+      </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span>
+<span class="special">{</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">T2</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">common_type</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;:</span> <span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">common_tuple</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// std</span>
+</pre>
+<p>
+        (There is no need to specialize <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type</span></code>
+        for more than two arguments - it takes care of synthesizing the appropriate
+        semantics from the binary case.)
+      </p>
+<p>
+        The subtlety here is the use of <code class="computeroutput"><span class="identifier">mp_defer</span></code>.
+        We could have defined a nested <code class="computeroutput"><span class="identifier">type</span></code>
+        to <code class="computeroutput"><span class="identifier">common_tuple</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">...&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">...&gt;&gt;</span></code>, and it would still have worked
+        in all valid cases. By letting <code class="computeroutput"><span class="identifier">mp_defer</span></code>
+        define <code class="computeroutput"><span class="identifier">type</span></code>, though, we make
+        our specialization <span class="emphasis"><em>SFINAE-friendly</em></span>.
+      </p>
+<p>
+        That is, when our <code class="computeroutput"><span class="identifier">common_tuple</span></code>
+        causes a substitution failure instead of a hard error, <code class="computeroutput"><span class="identifier">mp_defer</span></code>
+        will not define a nested <code class="computeroutput"><span class="identifier">type</span></code>,
+        and <code class="computeroutput"><span class="identifier">common_type_t</span></code>, which
+        is defined as <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">common_type</span><span class="special">&lt;...&gt;::</span><span class="identifier">type</span></code>,
+        will also cause a substitution failure.
+      </p>
+<p>
+        As another example, consider the hypothetical type <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span>
+        <span class="identifier">E</span><span class="special">...&gt;</span></code>
+        that represents either a successful return with a value of <code class="computeroutput"><span class="identifier">T</span></code>, or an unsucessful return with an error
+        code of some type in the list <code class="computeroutput"><span class="identifier">E</span><span class="special">...</span></code>. The common type of <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">,</span>
+        <span class="identifier">E2</span><span class="special">,</span> <span class="identifier">E3</span><span class="special">&gt;</span></code>
+        and <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E4</span><span class="special">,</span>
+        <span class="identifier">E5</span><span class="special">&gt;</span></code>
+        is <code class="computeroutput"><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;,</span>
+        <span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">,</span> <span class="identifier">E3</span><span class="special">,</span> <span class="identifier">E4</span><span class="special">,</span>
+        <span class="identifier">E5</span><span class="special">&gt;</span></code>.
+        That is, the possible return values are combined into their common type,
+        and we take the union of the set of error types.
+      </p>
+<p>
+        Therefore,
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E2</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">common_expected</span> <span class="special">=</span> <span class="identifier">mp_rename</span><span class="special">&lt;</span><span class="identifier">mp_push_front</span><span class="special">&lt;</span><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">&gt;&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;&gt;,</span> <span class="identifier">expected</span><span class="special">&gt;;</span>
+
+<span class="keyword">namespace</span> <span class="identifier">std</span>
+<span class="special">{</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E2</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">common_type</span><span class="special">&lt;</span><span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">E1</span><span class="special">...&gt;,</span> <span class="identifier">expected</span><span class="special">&lt;</span><span class="identifier">T2</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">...&gt;&gt;:</span> <span class="identifier">mp_defer</span><span class="special">&lt;</span><span class="identifier">common_expected</span><span class="special">,</span> <span class="identifier">T1</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">...&gt;,</span> <span class="identifier">T2</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">E2</span><span class="special">...&gt;&gt;</span>
+    <span class="special">{</span>
+    <span class="special">};</span>
+
+<span class="special">}</span> <span class="comment">// std</span>
+</pre>
+<p>
+        Here we've taken a different tack; instead of passing the <code class="computeroutput"><span class="identifier">expected</span></code>
+        types to <code class="computeroutput"><span class="identifier">common_expected</span></code>,
+        we're passing the <code class="computeroutput"><span class="identifier">T</span></code> types
+        and lists of the <code class="computeroutput"><span class="identifier">E</span></code> types.
+        This makes our job easier. <code class="computeroutput"><span class="identifier">mp_unique</span><span class="special">&lt;</span><span class="identifier">mp_append</span><span class="special">&lt;</span><span class="identifier">E1</span><span class="special">,</span> <span class="identifier">E2</span><span class="special">&gt;&gt;</span></code>
+        gives us the concatenation of <code class="computeroutput"><span class="identifier">E1</span></code>
+        and <code class="computeroutput"><span class="identifier">E2</span></code> with the duplicates
+        removed; we then add <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">common_type_t</span><span class="special">&lt;</span><span class="identifier">T1</span><span class="special">,</span> <span class="identifier">T2</span><span class="special">&gt;</span></code>
+        to the front via <code class="computeroutput"><span class="identifier">mp_push_front</span></code>;
+        and finally, we <code class="computeroutput"><span class="identifier">mp_rename</span></code>
+        the resultant <code class="computeroutput"><span class="identifier">mp_list</span></code> to
+        <code class="computeroutput"><span class="identifier">expected</span></code>.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="mp11.examples.fixing_tuple_cat"></a><a class="link" href="mp11.html#mp11.examples.fixing_tuple_cat" title="Fixing tuple_cat">Fixing <code class="computeroutput"><span class="identifier">tuple_cat</span></code></a>
 </h3></div></div></div>
 <p>
@@ -473,7 +574,7 @@
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="number">2</span><span class="special">&gt;</span> <span class="identifier">t1</span><span class="special">{</span> <span class="number">1</span><span class="special">,</span> <span class="number">2</span> <span class="special">};</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">t2</span><span class="special">{</span> <span class="number">3.0f</span><span class="special">,</span> <span class="number">4.0f</span><span class="special">,</span> <span class="number">5.0f</span> <span class="special">};</span>
 
-<span class="keyword">auto</span> <span class="identifier">result</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">t1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span> <span class="identifier">t2</span> <span class="special">)</span> <span class="special">);</span>
+<span class="keyword">auto</span> <span class="identifier">result</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">tuple_cat</span><span class="special">(</span> <span class="identifier">t1</span><span class="special">,</span> <span class="identifier">t2</span> <span class="special">);</span>
 </pre>
 <p>
         Let's fix these one by one. Support for move-only types is easy, if one knows
@@ -541,11 +642,11 @@
 <p>
         What we need is, given a tuple-like type <code class="computeroutput"><span class="identifier">Tp</span></code>,
         to obtain <code class="computeroutput"><span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="number">0</span><span class="special">,</span>
-        <span class="identifier">Tp</span><span class="special">&gt;,</span>
-        <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="number">1</span><span class="special">,</span> <span class="identifier">Tp</span><span class="special">&gt;,</span> <span class="special">...,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">,</span> <span class="identifier">Tp</span><span class="special">&gt;&gt;</span></code>, where <code class="computeroutput"><span class="identifier">N</span></code>
+        <span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="number">1</span><span class="special">,</span>
+        <span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="special">...,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">-</span><span class="number">1</span><span class="special">,</span> <span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code>, where <code class="computeroutput"><span class="identifier">N</span></code>
         is <code class="computeroutput"><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">&gt;::</span><span class="identifier">value</span></code>. Here's one way to do it:
       </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">from_tuple_like</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">tuple_element</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;&gt;;</span>
 </pre>
 <p>
@@ -590,7 +691,7 @@
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">remove_cv_ref</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">;</span>
 
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element_t</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">tuple_element</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_element</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">from_tuple_like</span> <span class="special">=</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">tuple_element</span><span class="special">,</span> <span class="identifier">mp_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">mp_iota</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">Tp</span><span class="special">,</span>
@@ -1209,43 +1310,45 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.utility.mp_if_c_b_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_b_t_e" title="mp_if_c&lt;B, T, E&gt;"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.utility.mp_if_c_c_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_c_t_e" title="mp_if_c&lt;C, T, E...&gt;"><code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
-          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
-          <code class="computeroutput"><span class="identifier">B</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
-          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
+          <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">T</span></code>. <code class="computeroutput"><span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">false</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">E</span></code>.
+          Otherwise, the result is a substitution failure.
+        </p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span>  <span class="comment">// int</span>
+<span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">flase</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// void</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">void_if_5</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">::</span><span class="identifier">value</span> <span class="special">==</span> <span class="number">5</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span> <span class="comment">// `void` when `I::value` is 5, substitution failure otherwise</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_if_c_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_t_e" title="mp_if&lt;C, T, E...&gt;"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
+        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">...&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span><span class="special">),</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          Like <code class="computeroutput"><span class="identifier">mp_if_c</span></code>, but the first
+          argument is a type.
         </p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.utility.mp_if_c_t_e"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_if_c_t_e" title="mp_if&lt;C, T, E&gt;"><code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span>
-        <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code></a>
-</h4></div></div></div>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">E</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_if</span> <span class="special">=</span> <span class="identifier">mp_if_c</span><span class="special">&lt;</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;(</span><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span><span class="special">),</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;;</span>
-</pre>
-<p>
-          <code class="computeroutput"><span class="identifier">mp_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">E</span><span class="special">&gt;</span></code>
-          is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
-          <code class="computeroutput"><span class="identifier">C</span><span class="special">::</span><span class="identifier">value</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
-          for <code class="computeroutput"><span class="identifier">E</span></code> otherwise.
-        </p>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.utility.mp_eval_if_c_b_t_f_u"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_eval_if_c_b_t_f_u" title="mp_eval_if_c&lt;B, T, F, U...&gt;"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+<a name="mp11.reference.utility.mp_eval_if_c_c_t_f_u"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_eval_if_c_c_t_f_u" title="mp_eval_if_c&lt;C, T, F, U...&gt;"><code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
         <span class="identifier">U</span><span class="special">...&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...&gt;</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_eval_if_c</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
 </pre>
 <p>
-          <code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
+          <code class="computeroutput"><span class="identifier">mp_eval_if_c</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span>
           <span class="identifier">U</span><span class="special">...&gt;</span></code>
           is an alias for <code class="computeroutput"><span class="identifier">T</span></code> when
-          <code class="computeroutput"><span class="identifier">B</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
+          <code class="computeroutput"><span class="identifier">C</span></code> is <code class="computeroutput"><span class="keyword">true</span></code>,
           for <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code>
           otherwise. Its purpose is to avoid evaluating <code class="computeroutput"><span class="identifier">F</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">...&gt;</span></code> when the condition is <code class="computeroutput"><span class="keyword">true</span></code> as it may not be valid in this case.
         </p>
@@ -1260,6 +1363,18 @@
 <p>
           Like <code class="computeroutput"><span class="identifier">mp_eval_if_c</span></code>, but
           the first argument is a type.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.utility.mp_eval_if_q_c_t_q_u"></a><a class="link" href="mp11.html#mp11.reference.utility.mp_eval_if_q_c_t_q_u" title="mp_eval_if_q&lt;C, T, Q, U...&gt;"><code class="computeroutput"><span class="identifier">mp_eval_if_q</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Q</span><span class="special">,</span>
+        <span class="identifier">U</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">C</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Q</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_eval_if_q</span> <span class="special">=</span> <span class="identifier">mp_eval_if</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Q</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">U</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          Like <code class="computeroutput"><span class="identifier">mp_eval_if</span></code>, but takes
+          a quoted metafunction.
         </p>
 </div>
 <div class="section">
@@ -2087,6 +2202,21 @@
           but does not perform short-circuit evaluation.
         </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_same_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_same_t" title="mp_same&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_same</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_same</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_same</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code> if all the types
+          in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
+          are the same type, <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          otherwise. <code class="computeroutput"><span class="identifier">mp_same</span><span class="special">&lt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -2299,7 +2429,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 17, 2017 at 17:44:23 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 18, 2017 at 23:57:52 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
