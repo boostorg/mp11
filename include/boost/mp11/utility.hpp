@@ -117,7 +117,7 @@ template<template<class...> class F> struct mp_quote
 };
 
 // mp_invoke
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 50000 )
 
 namespace detail
 {
