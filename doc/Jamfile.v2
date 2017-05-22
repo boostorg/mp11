@@ -30,6 +30,8 @@ boostbook standalone_mp11
         <xsl:param>generate.section.toc.level=0
 
         <xsl:param>generate.manifest=0
+
+        <xsl:param>html.stylesheet=../css/boostbook.css
      ;
 
 ###############################################################################
