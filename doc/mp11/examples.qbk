@@ -42,7 +42,6 @@ Writing all those type combinations by hand is unwieldy, error prone, and worst 
 how we can leverage Mp11 to automate the task:
 
     #include <boost/mp11.hpp>
-    #include <boost/tuple_for_each.hpp>
     #include <boost/core/demangle.hpp>
     #include <type_traits>
     #include <iostream>
@@ -70,7 +69,7 @@ how we can leverage Mp11 to automate the task:
     int main()
     {
         using L = std::tuple<char, short, int, unsigned, long, unsigned long>;
-        boost::tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
+        tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
     }
 
 How does it work?

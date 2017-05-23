@@ -1,9 +1,18 @@
-#ifndef BOOST_INTEGER_SEQUENCE_HPP_INCLUDED
-#define BOOST_INTEGER_SEQUENCE_HPP_INCLUDED
+#ifndef BOOST_MP11_INTEGER_SEQUENCE_HPP_INCLUDED
+#define BOOST_MP11_INTEGER_SEQUENCE_HPP_INCLUDED
+
+//  Copyright 2015, 2017 Peter Dimov.
+//
+//  Distributed under the Boost Software License, Version 1.0.
+//
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
 
 #include <cstddef>
 
 namespace boost
+{
+namespace mp11
 {
 
 // integer_sequence
@@ -82,6 +91,7 @@ template<std::size_t N> using make_index_sequence = make_integer_sequence<std::s
 // index_sequence_for
 template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
 
+} // namespace mp11
 } // namespace boost
 
-#endif // #ifndef BOOST_INTEGER_SEQUENCE_HPP_INCLUDED
+#endif // #ifndef BOOST_MP11_INTEGER_SEQUENCE_HPP_INCLUDED

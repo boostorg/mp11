@@ -7,7 +7,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
-#include <boost/tuple_for_each.hpp>
+#include <boost/mp11/tuple_for_each.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <tuple>
 #include <memory>
@@ -16,13 +16,15 @@
 
 int main()
 {
+    using boost::mp11::tuple_for_each;
+
     {
         std::tuple<int, short, char> tp{ 1, 2, 3 };
 
         {
             int s = 0;
 
-            boost::tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 123 );
         }
@@ -30,7 +32,7 @@ int main()
         {
             int s = 0;
 
-            boost::tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 123 );
         }
@@ -44,7 +46,7 @@ int main()
 
         int s = 0;
 
-        boost::tuple_for_each( std::move(tp), [&]( std::unique_ptr<int> p ){ s = s * 10 + *p; } );
+        tuple_for_each( std::move(tp), [&]( std::unique_ptr<int> p ){ s = s * 10 + *p; } );
 
         BOOST_TEST_EQ( s, 123 );
     }
@@ -57,7 +59,7 @@ int main()
         {
             int s = 0;
 
-            boost::tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 12 );
         }
@@ -65,7 +67,7 @@ int main()
         {
             int s = 0;
 
-            boost::tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 12 );
         }
@@ -77,7 +79,7 @@ int main()
         {
             int s = 0;
 
-            boost::tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( tp, [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 123 );
         }
@@ -85,7 +87,7 @@ int main()
         {
             int s = 0;
 
-            boost::tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
+            tuple_for_each( std::move(tp), [&]( int x ){ s = s * 10 + x; } );
 
             BOOST_TEST_EQ( s, 123 );
         }
@@ -94,15 +96,15 @@ int main()
     {
         std::tuple<> tp;
 
-        BOOST_TEST_EQ( boost::tuple_for_each( tp, 11 ), 11 );
-        BOOST_TEST_EQ( boost::tuple_for_each( std::move( tp ), 12 ), 12 );
+        BOOST_TEST_EQ( tuple_for_each( tp, 11 ), 11 );
+        BOOST_TEST_EQ( tuple_for_each( std::move( tp ), 12 ), 12 );
     }
 
     {
         std::array<int, 0> tp;
 
-        BOOST_TEST_EQ( boost::tuple_for_each( tp, 11 ), 11 );
-        BOOST_TEST_EQ( boost::tuple_for_each( std::move( tp ), 12 ), 12 );
+        BOOST_TEST_EQ( tuple_for_each( tp, 11 ), 11 );
+        BOOST_TEST_EQ( tuple_for_each( std::move( tp ), 12 ), 12 );
     }
 
     return boost::report_errors();

@@ -187,7 +187,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind.mp_bind_back_q_q_t"><code class="computeroutput"><span class="identifier">mp_bind_back_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence">Integer Sequences,
-      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.integer_sequence_t_i"><code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.make_integer_sequence_t_n"><code class="computeroutput"><span class="identifier">make_integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code></a></span></dt>
@@ -196,7 +196,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.integer_sequence.index_sequence_for_t"><code class="computeroutput"><span class="identifier">index_sequence_for</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each">A "for each"
-      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl><dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a></span></dt></dl></dd>
 </dl></dd>
 </dl>
@@ -341,7 +341,6 @@
         worst of all, boring. This is how we can leverage Mp11 to automate the task:
       </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">demangle</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">type_traits</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
@@ -369,7 +368,7 @@
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="keyword">using</span> <span class="identifier">L</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="keyword">short</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">unsigned</span><span class="special">,</span> <span class="keyword">long</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">&gt;;</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple_for_each</span><span class="special">(</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;(),</span> <span class="special">[](</span><span class="keyword">auto</span><span class="special">&amp;&amp;</span> <span class="identifier">x</span><span class="special">){</span> <span class="identifier">test_result</span><span class="special">(</span><span class="identifier">x</span><span class="special">);</span> <span class="special">}</span> <span class="special">);</span>
+    <span class="identifier">tuple_for_each</span><span class="special">(</span> <span class="identifier">mp_product</span><span class="special">&lt;</span><span class="identifier">mp_list</span><span class="special">,</span> <span class="identifier">L</span><span class="special">,</span> <span class="identifier">L</span><span class="special">&gt;(),</span> <span class="special">[](</span><span class="keyword">auto</span><span class="special">&amp;&amp;</span> <span class="identifier">x</span><span class="special">){</span> <span class="identifier">test_result</span><span class="special">(</span><span class="identifier">x</span><span class="special">);</span> <span class="special">}</span> <span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -871,8 +870,7 @@
 <a name="mp11.reference"></a><a class="link" href="mp11.html#mp11.reference" title="Reference">Reference</a>
 </h2></div></div></div>
 <p>
-      The contents of the library are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span></code>, unless
-      specified otherwise.
+      The contents of the library are in namespace <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mp11</span></code>.
     </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -2332,12 +2330,9 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="mp11.reference.integer_sequence"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence" title="Integer Sequences, &lt;boost/integer_sequence.hpp&gt;">Integer Sequences,
-      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.integer_sequence"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence" title="Integer Sequences, &lt;boost/mp11/integer_sequence.hpp&gt;">Integer Sequences,
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">integer_sequence</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h3></div></div></div>
-<p>
-        The contents of this header are defined in namespace <code class="computeroutput"><span class="identifier">boost</span></code>.
-      </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.integer_sequence.integer_sequence_t_i"></a><a class="link" href="mp11.html#mp11.reference.integer_sequence.integer_sequence_t_i" title="integer_sequence&lt;T, I...&gt;"><code class="computeroutput"><span class="identifier">integer_sequence</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">...&gt;</span></code></a>
@@ -2401,12 +2396,9 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="mp11.reference.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each" title='A "for each" algorithm for tuple-like types, &lt;boost/tuple_for_each.hpp&gt;'>A "for each"
-      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+<a name="mp11.reference.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each" title='A "for each" algorithm for tuple-like types, &lt;boost/mp11/tuple_for_each.hpp&gt;'>A "for each"
+      algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h3></div></div></div>
-<p>
-        The contents of this header are defined in namespace <code class="computeroutput"><span class="identifier">boost</span></code>.
-      </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.tuple_for_each.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each" title="tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a>
@@ -2429,7 +2421,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 22, 2017 at 13:46:31 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 23, 2017 at 17:21:43 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
