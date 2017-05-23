@@ -172,6 +172,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_or_t"><code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_any_t"><code class="computeroutput"><span class="identifier">mp_any</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_same_t"><code class="computeroutput"><span class="identifier">mp_same</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.function.mp_plus_t"><code class="computeroutput"><span class="identifier">mp_plus</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.bind">Bind, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
@@ -2272,6 +2273,20 @@
           is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
         </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.function.mp_plus_t"></a><a class="link" href="mp11.html#mp11.reference.function.mp_plus_t" title="mp_plus&lt;T...&gt;"><code class="computeroutput"><span class="identifier">mp_plus</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span><span class="special">...</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_plus</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_plus</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
+          is an integral constant type with a value that is the sum of <code class="computeroutput"><span class="identifier">U</span><span class="special">::</span><span class="identifier">value</span></code>
+          for all types <code class="computeroutput"><span class="identifier">U</span></code> in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>.
+          <code class="computeroutput"><span class="identifier">mp_plus</span><span class="special">&lt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_int</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;</span></code>.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -2478,7 +2493,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 23, 2017 at 22:20:27 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 23, 2017 at 22:51:13 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

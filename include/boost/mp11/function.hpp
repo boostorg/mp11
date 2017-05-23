@@ -12,6 +12,7 @@
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_count.hpp>
+#include <boost/mp11/detail/mp_plus.hpp>
 #include <type_traits>
 
 namespace boost
