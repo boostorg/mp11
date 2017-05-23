@@ -2164,12 +2164,15 @@
 </pre>
 <p>
           <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
-          is an alias for the first type <code class="computeroutput"><span class="identifier">U</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">mp_false</span></code>
+          if there exists a type <code class="computeroutput"><span class="identifier">U</span></code>
           in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
           for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
-          is <code class="computeroutput"><span class="identifier">mp_false</span></code>. If no such
-          type exists, the last one is returned. <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
-          Similar to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">conjunction</span></code> in C++17.
+          is <code class="computeroutput"><span class="identifier">mp_false</span></code>. <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is not evaluated for types after <code class="computeroutput"><span class="identifier">U</span></code>.
+          If no such type exists, <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_true</span></code>.
+          (<code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>.)
         </p>
 </div>
 <div class="section">
@@ -2189,7 +2192,7 @@
           is an error because <code class="computeroutput"><span class="keyword">void</span></code> does
           not have a nested <code class="computeroutput"><span class="identifier">value</span></code>.
           The upside is that <code class="computeroutput"><span class="identifier">mp_all</span></code>
-          is faster.
+          is faster on legacy compilers.
         </p>
 </div>
 <div class="section">
@@ -2200,12 +2203,15 @@
 </pre>
 <p>
           <code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
-          is an alias for the first type <code class="computeroutput"><span class="identifier">U</span></code>
+          is an alias for <code class="computeroutput"><span class="identifier">mp_true</span></code>
+          if there exists a type <code class="computeroutput"><span class="identifier">U</span></code>
           in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
           for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
-          is <code class="computeroutput"><span class="identifier">mp_true</span></code>. If no such
-          type exists, the last one is returned. <code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;&gt;</span></code> is <code class="computeroutput"><span class="identifier">mp_false</span></code>.
-          Similar to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">disjunction</span></code> in C++17.
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>. <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
+          is not evaluated for types after <code class="computeroutput"><span class="identifier">U</span></code>.
+          If no such type exists, <code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_false</span></code>.
+          (<code class="computeroutput"><span class="identifier">mp_or</span><span class="special">&lt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_false</span></code>.)
         </p>
 </div>
 <div class="section">
@@ -2444,7 +2450,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 23, 2017 at 17:37:57 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 23, 2017 at 20:23:39 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

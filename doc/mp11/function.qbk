@@ -11,8 +11,9 @@
 [section `mp_and<T...>`]
     template<class... T> using mp_and = /*...*/;
 
-`mp_and<T...>` is an alias for the first type `U` in `T...` for which `mp_to_bool<U>` is `mp_false`.
-If no such type exists, the last one is returned. `mp_and<>` is `mp_true`. Similar to `std::conjunction` in C++17.
+`mp_and<T...>` is an alias for `mp_false` if there exists a type `U` in `T...` for which `mp_to_bool<U>` is `mp_false`.
+`mp_to_bool<U>` is not evaluated for types after `U`. If no such type exists, `mp_and<T...>` is an alias for `mp_true`.
+(`mp_and<>` is `mp_true`.)
 [endsect]
 
 [section `mp_all<T...>`]
@@ -20,14 +21,15 @@ If no such type exists, the last one is returned. `mp_and<>` is `mp_true`. Simil
 
 `mp_all<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for all types `U` in `T...`, `mp_false` otherwise. Same as
 `mp_and`, but does not perform short-circuit evaluation. `mp_and<mp_false, void>` is `mp_false`, but `mp_all<mp_false, void>`
-is an error because `void` does not have a nested `value`. The upside is that `mp_all` is faster.
+is an error because `void` does not have a nested `value`. The upside is that `mp_all` is faster on legacy compilers.
 [endsect]
 
 [section `mp_or<T...>`]
     template<class... T> using mp_or = /*...*/;
 
-`mp_or<T...>` is an alias for the first type `U` in `T...` for which `mp_to_bool<U>` is `mp_true`.
-If no such type exists, the last one is returned. `mp_or<>` is `mp_false`. Similar to `std::disjunction` in C++17.
+`mp_or<T...>` is an alias for `mp_true` if there exists a type `U` in `T...` for which `mp_to_bool<U>` is `mp_true`.
+`mp_to_bool<U>` is not evaluated for types after `U`. If no such type exists, `mp_or<T...>` is an alias for `mp_false`.
+(`mp_or<>` is `mp_false`.)
 [endsect]
 
 [section `mp_any<T...>`]
