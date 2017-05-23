@@ -19,9 +19,22 @@ namespace boost
 namespace mp11
 {
 
+// mp_void<T...>
+namespace detail
+{
+
+template<class... T> struct mp_void_impl
+{
+    using type = void;
+};
+
+} // namespace detail
+
+template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
+
 // mp_and<T...>, mp_all<T...>
 
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1910 )
 
 namespace detail
 {
@@ -64,9 +77,7 @@ template<class L, class E = void> struct mp_and_impl
     using type = mp_false;
 };
 
-void mp_and_impl_f(...);
-
-template<class... T> struct mp_and_impl< mp_list<T...>, decltype( mp_and_impl_f( mp_if<T, int>()... ) ) >
+template<class... T> struct mp_and_impl< mp_list<T...>, mp_void<mp_if<T, void>...> >
 {
     using type = mp_true;
 };
@@ -78,10 +89,7 @@ template<class... T> using mp_all = typename detail::mp_and_impl<mp_list<T...>>:
 
 #endif
 
-// mp_or<T...>, mp_any<T...>
-
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
-
+// mp_or<T...>
 namespace detail
 {
 
@@ -111,31 +119,8 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 
 } // namespace detail
 
+// mp_any<T...>
 template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value != 0 >;
-
-#else
-
-namespace detail
-{
-
-template<class L, class E = void> struct mp_or_impl
-{
-    using type = mp_true;
-};
-
-void mp_and_impl_f(...);
-
-template<class... T> struct mp_or_impl< mp_list<T...>, decltype( mp_and_impl_f( mp_if<mp_not<T>, int>()... ) ) >
-{
-    using type = mp_false;
-};
-
-} // namespace detail
-
-template<class... T> using mp_or = typename detail::mp_or_impl<mp_list<T...>>::type;
-template<class... T> using mp_any = typename detail::mp_or_impl<mp_list<T...>>::type;
-
-#endif
 
 // mp_same<T...>
 namespace detail
