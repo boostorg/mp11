@@ -33,8 +33,7 @@ template<class... T> struct mp_void_impl
 
 template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
 
-// mp_and<T...>, mp_all<T...>
-
+// mp_and<T...>
 #if BOOST_WORKAROUND( BOOST_MSVC, < 1910 )
 
 namespace detail
@@ -66,8 +65,6 @@ template<class T1, class... T> struct mp_and_impl<T1, T...>
 
 } // namespace detail
 
-template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value == sizeof...(T) >;
-
 #else
 
 namespace detail
@@ -86,7 +83,17 @@ template<class... T> struct mp_and_impl< mp_list<T...>, mp_void<mp_if<T, void>..
 } // namespace detail
 
 template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
-template<class... T> using mp_all = typename detail::mp_and_impl<mp_list<T...>>::type;
+
+#endif
+
+// mp_all<T...>
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value == sizeof...(T) >;
+
+#else
+
+template<class... T> using mp_all = mp_and<mp_to_bool<T>...>;
 
 #endif
 
