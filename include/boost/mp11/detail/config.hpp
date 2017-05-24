@@ -21,7 +21,11 @@
 
 #endif
 
-#if defined(BOOST_CLANG) && defined(__has_cpp_attribute)
+#if defined(__cpp_fold_expressions) && __cpp_fold_expressions >= 201603
+
+#  define BOOST_MP11_HAS_FOLD_EXPRESSIONS
+
+#elif defined(BOOST_CLANG) && defined(__has_cpp_attribute)
 # if __has_cpp_attribute(fallthrough) && __cplusplus >= 201406L // Clang 3.9+ in c++1z mode
 
 #  define BOOST_MP11_HAS_FOLD_EXPRESSIONS

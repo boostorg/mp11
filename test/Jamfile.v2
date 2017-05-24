@@ -103,6 +103,7 @@ run mp_and.cpp : : : $(REQ) ;
 run mp_any.cpp : : : $(REQ) ;
 run mp_or.cpp : : : $(REQ) ;
 run mp_same.cpp : : : $(REQ) ;
+run mp_plus.cpp : : : $(REQ) ;
 
 # map
 run mp_map_find.cpp : : : $(REQ) ;

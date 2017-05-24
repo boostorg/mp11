@@ -8,11 +8,23 @@
 
 [section:function Helper Metafunctions, `<boost/mp11/function.hpp>`]
 
+[section `mp_void<T...>`]
+    template<class... T> using mp_void = void;
+
+Same as `std::void_t` from C++17.
+[endsect]
+
 [section `mp_and<T...>`]
     template<class... T> using mp_and = /*...*/;
 
-`mp_and<T...>` is an alias for the first type `U` in `T...` for which `mp_to_bool<U>` is `mp_false`.
-If no such type exists, the last one is returned. `mp_and<>` is `mp_true`. Similar to `std::conjunction` in C++17.
+`mp_and<T...>` applies `mp_to_bool` to the types in `T...`, in order. If the result of an application is `mp_false`, `mp_and`
+returns `mp_false`. If the application causes a substitution failure, returns `mp_false`. If all results are `mp_true`,
+returns `mp_true`. `mp_and<>` is `mp_true`.
+
+    using R1 = mp_and<mp_true, mp_true>;   // mp_true
+    using R2 = mp_and<mp_false, void>;     // mp_false, void is not reached
+    using R3 = mp_and<mp_false, mp_false>; // mp_false
+    using R4 = mp_and<void, mp_true>;      // mp_false (!)
 [endsect]
 
 [section `mp_all<T...>`]
@@ -20,14 +32,25 @@ If no such type exists, the last one is returned. `mp_and<>` is `mp_true`. Simil
 
 `mp_all<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for all types `U` in `T...`, `mp_false` otherwise. Same as
 `mp_and`, but does not perform short-circuit evaluation. `mp_and<mp_false, void>` is `mp_false`, but `mp_all<mp_false, void>`
-is an error because `void` does not have a nested `value`. The upside is that `mp_all` is faster.
+is an error because `void` does not have a nested `value`. The upside is that `mp_all` is potentially faster and does not
+mask substitution failures as `mp_and` does.
+
+    using R1 = mp_and<mp_true, mp_true>;   // mp_true
+    using R2 = mp_and<mp_false, void>;     // compile-time error
+    using R3 = mp_and<mp_false, mp_false>; // mp_false
+    using R4 = mp_and<void, mp_true>;      // compile-time error
 [endsect]
 
 [section `mp_or<T...>`]
     template<class... T> using mp_or = /*...*/;
 
-`mp_or<T...>` is an alias for the first type `U` in `T...` for which `mp_to_bool<U>` is `mp_true`.
-If no such type exists, the last one is returned. `mp_or<>` is `mp_false`. Similar to `std::disjunction` in C++17.
+`mp_or<T...>` applies `mp_to_bool` to the types in `T...`, in order. If the result of an application is `mp_true`, `mp_or`
+returns `mp_true`. If all results are `mp_false`, returns `mp_false`. `mp_or<>` is `mp_false`.
+
+    using R1 = mp_or<mp_true, mp_false>;   // mp_true
+    using R2 = mp_or<mp_true, void>;       // mp_true, void is not reached
+    using R3 = mp_or<mp_false, mp_false>;  // mp_false
+    using R4 = mp_or<void, mp_true>;       // compile-time error
 [endsect]
 
 [section `mp_any<T...>`]
@@ -35,12 +58,24 @@ If no such type exists, the last one is returned. `mp_or<>` is `mp_false`. Simil
 
 `mp_any<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for any type `U` in `T...`, `mp_false` otherwise. Same as
 `mp_or`, but does not perform short-circuit evaluation.
+
+    using R1 = mp_any<mp_true, mp_false>;  // mp_true
+    using R2 = mp_any<mp_true, void>;      // compile-time error
+    using R3 = mp_any<mp_false, mp_false>; // mp_false
+    using R4 = mp_any<void, mp_true>;      // compile-time error
 [endsect]
 
 [section `mp_same<T...>`]
     template<class... T> using mp_same = /*...*/;
 
 `mp_same<T...>` is `mp_true` if all the types in `T...` are the same type, `mp_false` otherwise. `mp_same<>` is `mp_true`.
+[endsect]
+
+[section `mp_plus<T...>`]
+    template<class... T> using mp_plus = /*...*/;
+
+`mp_plus<T...>` is an integral constant type with a value that is the sum of `U::value` for all types `U` in `T...`.
+`mp_plus<>` is `mp_int<0>`.
 [endsect]
 
 [endsect:function]

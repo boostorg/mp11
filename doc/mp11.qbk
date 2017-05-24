@@ -29,7 +29,7 @@
 
 [section Reference]
 
-The contents of the library are in namespace `boost::mp11`, unless specified otherwise.
+The contents of the library are in namespace `boost::mp11`.
 
 [include mp11/integral.qbk]
 [include mp11/list.qbk]

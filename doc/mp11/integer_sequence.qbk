@@ -6,9 +6,7 @@
  / http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section:integer_sequence Integer Sequences, `<boost/integer_sequence.hpp>`]
-
-The contents of this header are defined in namespace `boost`.
+[section:integer_sequence Integer Sequences, `<boost/mp11/integer_sequence.hpp>`]
 
 [section `integer_sequence<T, I...>`]
     template<class T, T... I> struct integer_sequence

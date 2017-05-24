@@ -12,8 +12,8 @@
 
 Let's suppose that we have written a metafunction `result<T, U>`:
 
-  template<class T> using promote = std::common_type_t<T, int>;
-  template<class T, class U> using result = std::common_type_t<promote<T>, promote<U>>;
+  template<class T> using promote = typename std::common_type<T, int>::type;
+  template<class T, class U> using result = typename std::common_type<promote<T>, promote<U>>::type;
 
 that ought to represent the result of an arithmetic operation on the integer types `T` and `U`,
 for example `t + u`. We want to test whether `result<T, U>` gives correct results for various combinations
@@ -42,7 +42,6 @@ Writing all those type combinations by hand is unwieldy, error prone, and worst 
 how we can leverage Mp11 to automate the task:
 
     #include <boost/mp11.hpp>
-    #include <boost/tuple_for_each.hpp>
     #include <boost/core/demangle.hpp>
     #include <type_traits>
     #include <iostream>
@@ -55,8 +54,8 @@ how we can leverage Mp11 to automate the task:
         return boost::core::demangle( typeid(T).name() );
     }
 
-    template<class T> using promote = std::common_type_t<T, int>;
-    template<class T, class U> using result = std::common_type_t<promote<T>, promote<U>>;
+    template<class T> using promote = typename std::common_type<T, int>::type;
+    template<class T, class U> using result = typename std::common_type<promote<T>, promote<U>>::type;
 
     template<class T1, class T2> void test_result( mp_list<T1, T2> const& )
     {
@@ -70,7 +69,7 @@ how we can leverage Mp11 to automate the task:
     int main()
     {
         using L = std::tuple<char, short, int, unsigned, long, unsigned long>;
-        boost::tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
+        tuple_for_each( mp_product<mp_list, L, L>(), [](auto&& x){ test_result(x); } );
     }
 
 How does it work?
@@ -83,8 +82,29 @@ In our case, both lists are the same `std::tuple`, and `F` is `mp_list`, so `mp_
 `std::tuple<mp_list<char, char>, mp_list<char, short>, mp_list<char, int>, ..., mp_list<unsigned long, long>, mp_list<unsigned long, unsigned long>>`.
 
 We then default-construct this tuple and pass it to `tuple_for_each`. `tuple_for_each(tp, f)` calls `f` for every
-tuple element; we use a (C++14) lambda that calls `test_result`. (In pure C++11, we'd need to make `test_result` a
-function object with a templated `operator()` and pass that to `tuple_for_each` directly.)
+tuple element; we use a (C++14) lambda that calls `test_result`.
+
+In pure C++11, we can't use a lambda with an `auto&&` parameter, so we'll have to make `test_result` a function object with
+a templated `operator()` and pass that to `tuple_for_each` directly:
+
+    struct test_result
+    {
+        template<class T1, class T2> void operator()( mp_list<T1, T2> const& ) const
+        {
+            using T3 = decltype( T1() + T2() );
+            using T4 = result<T1, T2>;
+
+            std::cout << ( std::is_same<T3, T4>::value? "[PASS] ": "[FAIL] " )
+                << name<T1>() << " + " << name<T2>() << " -> " << name<T3>() << ", result: " << name<T4>() << std::endl;
+        }
+    };
+
+    int main()
+    {
+        using L = std::tuple<char, short, int, unsigned, long, unsigned long>;
+        tuple_for_each( mp_product<mp_list, L, L>(), test_result() );
+    }
+
 [endsect]
 
 [section Writing `common_type` specializations]
@@ -96,7 +116,9 @@ operator) is unsuitable.
 Let's write a `common_type` specialization for two `std::tuple` arguments. For that, we need a metafunction that
 applies `std::common_type` to each pair of elements and gathers the results into a tuple:
 
-    template<class Tp1, class Tp2> using common_tuple = mp_transform<std::common_type_t, Tp1, Tp2>;
+    template<class... T> using common_type_t = typename std::common_type<T...>::type; // standard in C++14
+
+    template<class Tp1, class Tp2> using common_tuple = mp_transform<common_type_t, Tp1, Tp2>;
 
 then specialize `common_type` to use it:
 
@@ -120,12 +142,12 @@ and `common_type_t`, which is defined as `typename common_type<...>::type`, will
 
 As another example, consider the hypothetical type `expected<T, E...>` that represents either a successful return with a value of `T`,
 or an unsucessful return with an error code of some type in the list `E...`. The common type of `expected<T1, E1, E2, E3>` and
-`expected<T2, E1, E4, E5>` is `expected<std::common_type_t<T1, T2>, E1, E2, E3, E4, E5>`. That is, the possible return values are
+`expected<T2, E1, E4, E5>` is `expected<common_type_t<T1, T2>, E1, E2, E3, E4, E5>`. That is, the possible return values are
 combined into their common type, and we take the union of the set of error types.
 
 Therefore,
 
-    template<class T1, class E1, class T2, class E2> using common_expected = mp_rename<mp_push_front<mp_unique<mp_append<E1, E2>>, std::common_type_t<T1, T2>>, expected>;
+    template<class T1, class E1, class T2, class E2> using common_expected = mp_rename<mp_push_front<mp_unique<mp_append<E1, E2>>, common_type_t<T1, T2>>, expected>;
 
     namespace std
     {
@@ -138,7 +160,7 @@ Therefore,
 
 Here we've taken a different tack; instead of passing the `expected` types to `common_expected`, we're passing the `T` types and lists of
 the `E` types. This makes our job easier. `mp_unique<mp_append<E1, E2>>` gives us the concatenation of `E1` and `E2` with the duplicates
-removed; we then add `std::common_type_t<T1, T2>` to the front via `mp_push_front`; and finally, we `mp_rename` the resultant `mp_list`
+removed; we then add `common_type_t<T1, T2>` to the front via `mp_push_front`; and finally, we `mp_rename` the resultant `mp_list`
 to `expected`.
 
 [endsect]
@@ -192,10 +214,10 @@ trying to concatenate tuples containing move-only elements such as `unique_ptr` 
 
 Trying to concatenate `const` tuples fails:
 
-	std::tuple<int> const t1;
-	std::tuple<float> const t2;
+    std::tuple<int> const t1;
+    std::tuple<float> const t2;
 
-	auto result = ::tuple_cat( t1, t2 );
+    auto result = ::tuple_cat( t1, t2 );
 
 And finally, the standard `tuple_cat` is specified to work on arbitrary tuple-like types (that is, all types
 that support `tuple_size`, `tuple_element`, and `get`), while our implementation only works with `tuple` and

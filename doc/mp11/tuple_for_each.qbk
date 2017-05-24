@@ -6,9 +6,7 @@
  / http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section:tuple_for_each A "for each" algorithm for tuple-like types, `<boost/tuple_for_each.hpp>`]
-
-The contents of this header are defined in namespace `boost`.
+[section:tuple_for_each A "for each" algorithm for tuple-like types, `<boost/mp11/tuple_for_each.hpp>`]
 
 [section `tuple_for_each`]
     template<class Tp, class F> constexpr F tuple_for_each(Tp&& tp, F&& f);

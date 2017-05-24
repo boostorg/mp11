@@ -6,7 +6,7 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tuple_for_each.hpp>
+#include <boost/mp11/tuple_for_each.hpp>
 #include <boost/config.hpp>
 
 // Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
@@ -33,7 +33,7 @@ int main()
 {
     {
         constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
-        constexpr auto r = boost::tuple_for_each( tp, assert_is_integral() );
+        constexpr auto r = boost::mp11::tuple_for_each( tp, assert_is_integral() );
         (void)r;
     }
 
@@ -42,7 +42,7 @@ int main()
 
     {
         constexpr std::tuple<> tp;
-        constexpr auto r = boost::tuple_for_each( tp, 11 );
+        constexpr auto r = boost::mp11::tuple_for_each( tp, 11 );
         static_assert( r == 11, "r == 11" );
     }
 
