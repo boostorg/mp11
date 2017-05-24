@@ -403,7 +403,7 @@ and we're done:
 
     template<class F, class... V> auto rvisit( F&& f, V&&... v )
     {
-        using R = mp_unique<mp_product<Qret<F>::template fn, std::remove_reference_t<V>...>>;
+        using R = mp_unique<mp_product_q<Qret<F>, std::remove_reference_t<V>...>>;
         return std::visit( [&]( auto&&... x ){ return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); }, std::forward<V>( v )... );
     }
 

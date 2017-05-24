@@ -12,7 +12,7 @@
     template<class Tp, class F> constexpr F tuple_for_each(Tp&& tp, F&& f);
 
 `tuple_for_each(tp, f)` applies the function object `f` to each element of `tp` by evaluating the
-expression `f(std::get<J>(std::forward<Tp>(tp)))` for `J` in 0..`N-1`, where `N` is `std::tuple_size<std::remove_reference_t<Tp>>::value`.
+expression `f(std::get<J>(std::forward<Tp>(tp)))` for `J` in 0..`N-1`, where `N` is `std::tuple_size<typename std::remove_reference<Tp>::type>::value`.
 
 Returns `std::forward<F>(f)`.
 [endsect]
