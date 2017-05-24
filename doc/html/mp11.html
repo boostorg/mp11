@@ -2176,15 +2176,14 @@
 </pre>
 <p>
           <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code>
-          is an alias for <code class="computeroutput"><span class="identifier">mp_false</span></code>
-          if there exists a type <code class="computeroutput"><span class="identifier">U</span></code>
-          in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>
-          for which <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
-          is not <code class="computeroutput"><span class="identifier">mp_true</span></code>. <code class="computeroutput"><span class="identifier">mp_to_bool</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;</span></code>
-          is not evaluated for types after <code class="computeroutput"><span class="identifier">U</span></code>.
-          If no such type exists, <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">...&gt;</span></code> is an alias for <code class="computeroutput"><span class="identifier">mp_true</span></code>.
-          (<code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;&gt;</span></code>
-          is <code class="computeroutput"><span class="identifier">mp_true</span></code>.)
+          applies <code class="computeroutput"><span class="identifier">mp_to_bool</span></code> to the
+          types in <code class="computeroutput"><span class="identifier">T</span><span class="special">...</span></code>,
+          in order. If the result of an application is <code class="computeroutput"><span class="identifier">mp_false</span></code>,
+          <code class="computeroutput"><span class="identifier">mp_and</span></code> returns <code class="computeroutput"><span class="identifier">mp_false</span></code>. If the application causes a
+          substitution failure, returns <code class="computeroutput"><span class="identifier">mp_false</span></code>.
+          If all results are <code class="computeroutput"><span class="identifier">mp_true</span></code>,
+          returns <code class="computeroutput"><span class="identifier">mp_true</span></code>. <code class="computeroutput"><span class="identifier">mp_and</span><span class="special">&lt;&gt;</span></code>
+          is <code class="computeroutput"><span class="identifier">mp_true</span></code>.
         </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">mp_true</span><span class="special">,</span> <span class="identifier">mp_true</span><span class="special">&gt;;</span>   <span class="comment">// mp_true</span>
 <span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">mp_false</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span>     <span class="comment">// mp_false, void is not reached</span>
@@ -2209,7 +2208,7 @@
           is an error because <code class="computeroutput"><span class="keyword">void</span></code> does
           not have a nested <code class="computeroutput"><span class="identifier">value</span></code>.
           The upside is that <code class="computeroutput"><span class="identifier">mp_all</span></code>
-          is faster on legacy compilers.
+          is potentially faster and does not mask substitution failures as <code class="computeroutput"><span class="identifier">mp_and</span></code> does.
         </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="identifier">R1</span> <span class="special">=</span> <span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">mp_true</span><span class="special">,</span> <span class="identifier">mp_true</span><span class="special">&gt;;</span>   <span class="comment">// mp_true</span>
 <span class="keyword">using</span> <span class="identifier">R2</span> <span class="special">=</span> <span class="identifier">mp_and</span><span class="special">&lt;</span><span class="identifier">mp_false</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;;</span>     <span class="comment">// compile-time error</span>
@@ -2493,7 +2492,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 23, 2017 at 22:51:13 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 24, 2017 at 02:43:53 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
