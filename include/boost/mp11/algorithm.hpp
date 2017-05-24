@@ -499,7 +499,7 @@ namespace detail
 
 template<class L, class V> struct mp_find_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+#if defined( BOOST_CLANG ) && defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
 
 struct mp_index_holder
 {
@@ -589,7 +589,7 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_find_if_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+#if defined( BOOST_CLANG ) && defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_find_if_impl<L<T...>, P>
 {
