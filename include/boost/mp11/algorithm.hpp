@@ -125,14 +125,18 @@ namespace detail
 template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
 {
     // the stupid quote-unquote dance avoids "pack expansion used as argument for non-pack parameter of alias template"
+
+    using Qp = mp_quote<P>;
+    using Qf = mp_quote<F>;
+
 #if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
 
-    template<class... U> struct _f_ { using type = mp_eval_if<mp_not<mp_invoke<mp_quote<P>, U...>>, mp_first<mp_list<U...>>, mp_quote<F>::template fn, U...>; };
+    template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
     template<class... U> using _f = typename _f_<U...>::type;
 
 #else
 
-    template<class... U> using _f = mp_eval_if<mp_not<mp_invoke<mp_quote<P>, U...>>, mp_first<mp_list<U...>>, mp_quote<F>::template fn, U...>;
+    template<class... U> using _f = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
 
 #endif
 
@@ -142,6 +146,7 @@ template<template<class...> class P, template<class...> class F, class... L> str
 } // namespace detail
 
 template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L...>::type;
+template<class Qp, class Qf, class... L> using mp_transform_if_q = typename detail::mp_transform_if_impl<Qp::template fn, Qf::template fn, L...>::type;
 
 // mp_fill<L, V>
 namespace detail

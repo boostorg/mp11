@@ -107,6 +107,7 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_f_l"><code class="computeroutput"><span class="identifier">mp_transform</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_q_q_l"><code class="computeroutput"><span class="identifier">mp_transform_q</span><span class="special">&lt;</span><span class="identifier">Q</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_if_p_f_l"><code class="computeroutput"><span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">,</span> <span class="identifier">F</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_transform_if_q_qp_qf_l"><code class="computeroutput"><span class="identifier">mp_transform_if_q</span><span class="special">&lt;</span><span class="identifier">Qp</span><span class="special">,</span> <span class="identifier">Qf</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_fill_l_v"><code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_count_l_v"><code class="computeroutput"><span class="identifier">mp_count</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_count_if_l_p"><code class="computeroutput"><span class="identifier">mp_count_if</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
@@ -1526,6 +1527,17 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_transform_if_q_qp_qf_l"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_transform_if_q_qp_qf_l" title="mp_transform_if_q&lt;Qp, Qf, L...&gt;"><code class="computeroutput"><span class="identifier">mp_transform_if_q</span><span class="special">&lt;</span><span class="identifier">Qp</span><span class="special">,</span> <span class="identifier">Qf</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Qp</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Qf</span><span class="special">,</span> <span class="keyword">class</span><span class="special">...</span> <span class="identifier">L</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_transform_if_q</span> <span class="special">=</span> <span class="identifier">mp_transform_if</span><span class="special">&lt;</span><span class="identifier">Qp</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">Qf</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">fn</span><span class="special">,</span> <span class="identifier">L</span><span class="special">...&gt;;</span>
+</pre>
+<p>
+          As <code class="computeroutput"><span class="identifier">mp_transform_if</span></code>, but
+          takes a quoted metafunction.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="mp11.reference.algorithm.mp_fill_l_v"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_fill_l_v" title="mp_fill&lt;L, V&gt;"><code class="computeroutput"><span class="identifier">mp_fill</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">L</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">V</span><span class="special">&gt;</span> <span class="keyword">using</span> <span class="identifier">mp_fill</span> <span class="special">=</span> <span class="comment">/*...*/</span><span class="special">;</span>
@@ -2492,7 +2504,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 24, 2017 at 17:55:07 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 25, 2017 at 18:29:52 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

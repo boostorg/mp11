@@ -37,6 +37,7 @@ run mp_clear.cpp : : : $(REQ) ;
 run mp_transform.cpp : : : $(REQ) ;
 run mp_transform_sf.cpp : : : $(REQ) ;
 run mp_transform_if.cpp : : : $(REQ) ;
+run mp_transform_if_q.cpp : : : $(REQ) ;
 run mp_fill.cpp : : : $(REQ) ;
 run mp_count.cpp : : : $(REQ) ;
 run mp_count_if.cpp : : : $(REQ) ;
