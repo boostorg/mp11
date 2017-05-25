@@ -60,7 +60,7 @@ As `mp_transform_if`, but takes a quoted metafunction.
 [section `mp_count_if<L, P>`]
     template<class L, template<class...> class P> using mp_count_if = /*...*/;
 
-`mp_count_f<L, P>` returns `mp_size_t<N>`, where `N` is the number of elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true`.
+`mp_count_if<L, P>` returns `mp_size_t<N>`, where `N` is the number of elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true`.
 [endsect]
 
 [section `mp_contains<L, V>`]
