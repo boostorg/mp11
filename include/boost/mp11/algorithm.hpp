@@ -66,17 +66,47 @@ template<template<class...> class F, class... L> struct mp_transform_impl
 
 template<template<class...> class F, template<class...> class L, class... T> struct mp_transform_impl<F, L<T...>>
 {
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+    template<class... U> struct f { using type = F<U...>; };
+
+    using type = L<typename f<T>::type...>;
+
+#else
+
     using type = L<F<T>...>;
+
+#endif
 };
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_transform_impl<F, L1<T1...>, L2<T2...>>
 {
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+    template<class... U> struct f { using type = F<U...>; };
+
+    using type = L1<typename f<T1, T2>::type...>;
+
+#else
+
     using type = L1<F<T1,T2>...>;
+
+#endif
 };
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>>
 {
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+
+    template<class... U> struct f { using type = F<U...>; };
+
+    using type = L1<typename f<T1, T2, T3>::type...>;
+
+#else
+
     using type = L1<F<T1,T2,T3>...>;
+
+#endif
 };
 
 #if BOOST_WORKAROUND( BOOST_MSVC, == 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 40800 )
@@ -129,7 +159,7 @@ template<template<class...> class P, template<class...> class F, class... L> str
     using Qp = mp_quote<P>;
     using Qf = mp_quote<F>;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
 
     template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
     template<class... U> using _f = typename _f_<U...>::type;
