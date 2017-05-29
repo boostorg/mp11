@@ -14,8 +14,6 @@
 #include <boost/detail/workaround.hpp>
 #include <tuple>
 
-using boost::mp11::mp_identity;
-
 #if !defined( BOOST_NO_CXX14_CONSTEXPR )
 # define CONSTEXPR14 constexpr
 #else
@@ -26,9 +24,9 @@ struct F
 {
     int s;
 
-    CONSTEXPR14 void operator()( mp_identity<int> ) { s = s * 10 + 1; }
-    CONSTEXPR14 void operator()( mp_identity<short> ) { s = s * 10 + 2; }
-    CONSTEXPR14 void operator()( mp_identity<char> ) { s = s * 10 + 3; }
+    CONSTEXPR14 void operator()( int ) { s = s * 10 + 1; }
+    CONSTEXPR14 void operator()( short ) { s = s * 10 + 2; }
+    CONSTEXPR14 void operator()( char ) { s = s * 10 + 3; }
 };
 
 using boost::mp11::mp_list;
