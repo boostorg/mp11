@@ -882,7 +882,7 @@ namespace detail
 template<class... T, class F> BOOST_CONSTEXPR F mp_for_each_impl( mp_list<T...>, F && f )
 {
     using A = int[sizeof...(T)];
-    return (void)A{ ((void)f(mp_identity<T>()), 0)... }, std::forward<F>(f);
+    return (void)A{ ((void)f(T()), 0)... }, std::forward<F>(f);
 }
 
 #if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )

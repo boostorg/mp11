@@ -284,7 +284,7 @@ is `mp_size<L>`.
 [section `mp_for_each<L>(f)`]
     template<class L, class F> constexpr F mp_for_each(F&& f);
 
-`mp_for_each<L>(f)` calls `f` with `mp_identity<T>()` for each element `T` of the list `L`, in order.
+`mp_for_each<L>(f)` calls `f` with `T()` for each element `T` of the list `L`, in order.
 
 Returns `std::forward<F>(f)`.
 [endsect]
