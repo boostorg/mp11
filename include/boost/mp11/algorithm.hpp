@@ -325,8 +325,8 @@ template<class L, std::size_t I> struct mp_at_c_impl
 
 } // namespace detail
 
-template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_c_impl<L, I>::type;
-template<class L, class I> using mp_at = typename detail::mp_at_c_impl<L, std::size_t{ I::value }>::type;
+template<class L, std::size_t I> using mp_at_c = typename mp_if_c<(I < mp_size<L>::value), detail::mp_at_c_impl<L, I>, void>::type;
+template<class L, class I> using mp_at = mp_at_c<L, std::size_t{ I::value }>;
 
 // mp_take(_c)<L, N>
 namespace detail
