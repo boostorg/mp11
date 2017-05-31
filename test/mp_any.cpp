@@ -12,9 +12,12 @@
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
+using boost::mp11::mp_any;
+
+template<class... T> using check = mp_any<std::is_nothrow_copy_constructible<T>..., mp_any<std::is_nothrow_move_constructible<T>...>>;
+
 int main()
 {
-    using boost::mp11::mp_any;
     using boost::mp11::mp_true;
     using boost::mp11::mp_false;
     using boost::mp11::mp_int;
@@ -57,6 +60,8 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_any<mp_size_t<0>, mp_int<0>, mp_false, mp_size_t<141>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_any<mp_size_t<0>, mp_int<0>, mp_false>, mp_false>));
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<check<void, int, float>, mp_true>));
 
     return boost::report_errors();
 }

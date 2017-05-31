@@ -87,7 +87,7 @@ template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>:
 #endif
 
 // mp_all<T...>
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 ) || BOOST_WORKAROUND( BOOST_GCC, < 40800 )
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 ) || BOOST_WORKAROUND( BOOST_GCC, < 70000 )
 
 template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value == sizeof...(T) >;
 
