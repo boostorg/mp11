@@ -72,6 +72,7 @@ run mp_for_each.cpp : : : $(REQ) ;
 run mp_insert.cpp : : : $(REQ) ;
 run mp_erase.cpp : : : $(REQ) ;
 run mp_for_index.cpp : : : $(REQ) ;
+run mp_for_index_cx.cpp : : : $(REQ) ;
 
 # integral
 run integral.cpp : : : $(REQ) ;
