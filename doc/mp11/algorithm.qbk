@@ -289,16 +289,14 @@ is `mp_size<L>`.
 Returns `std::forward<F>(f)`.
 [endsect]
 
-[section `mp_for_index_c<N>(i, f)`]
+[section `mp_for_index<N>(i, f)`]
     template<std::size_t N, class F> decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f );
 
-`mp_for_index_c<N>(i, f)` calls `f` with `mp_size_t<i>()` and returns the result. `i` must be less than `N`.
-[endsect]
+`mp_for_index<N>(i, f)` calls `f` with `mp_size_t<i>()` and returns the result. `i` must be less than `N`.
 
-[section `mp_for_index<N>(i, f)`]
     template<class N, class F> decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f );
 
-Returns `mp_for_index_c<N::value>(i, f)`.
+Returns `mp_for_index<N::value>(i, f)`.
 [endsect]
 
 [endsect:algorithm]

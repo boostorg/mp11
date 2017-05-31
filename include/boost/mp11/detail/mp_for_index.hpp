@@ -348,7 +348,7 @@ template<> struct mp_for_index_impl_<16>
 
 } // namespace detail
 
-template<std::size_t N, class F> inline decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index_c( std::size_t i, F && f )
+template<std::size_t N, class F> inline decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f )
 {
     assert( i < N );
     return detail::mp_for_index_impl_<N>::template call<0>( i, std::forward<F>(f) );
@@ -356,7 +356,7 @@ template<std::size_t N, class F> inline decltype(std::declval<F>()(std::declval<
 
 template<class N, class F> inline decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f )
 {
-    return mp_for_index_c<N::value>( i, std::forward<F>(f) );
+    return mp_for_index<N::value>( i, std::forward<F>(f) );
 }
 
 } // namespace mp11
