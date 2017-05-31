@@ -21,7 +21,7 @@ template<class... T> using check3 = mp_any<mp_all<std::is_nothrow_copy_construct
 
 template<bool is_trivially_destructible, bool is_single_buffered, class... T> struct variant_base_impl {};
 #if BOOST_WORKAROUND( BOOST_GCC, < 40800 )
-template<class... T> using variant_base = variant_base_impl<mp_all<std::is_nothrow_destructible<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;
+template<class... T> using variant_base = variant_base_impl<mp_all<std::has_trivial_destructor<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;
 #else
 template<class... T> using variant_base = variant_base_impl<mp_all<std::is_trivially_destructible<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;
 #endif
