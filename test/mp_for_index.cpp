@@ -25,9 +25,10 @@ struct F
 
     explicit F( int i ): i_( i ) {}
 
-    template<std::size_t I> void operator()( mp_size_t<I> ) const
+    template<std::size_t I> bool operator()( mp_size_t<I> ) const
     {
         BOOST_TEST_EQ( I, i_ );
+        return false;
     }
 };
 

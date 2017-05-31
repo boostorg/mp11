@@ -68,7 +68,7 @@ template<> struct mp_for_index_impl_<2>
         switch( i )
         {
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
-        case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
+        default: return std::forward<F>(f)( mp_size_t<K+1>() );
         }
     }
 };
@@ -81,7 +81,7 @@ template<> struct mp_for_index_impl_<3>
         {
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
-        case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
+        default: return std::forward<F>(f)( mp_size_t<K+2>() );
         }
     }
 };
@@ -95,7 +95,7 @@ template<> struct mp_for_index_impl_<4>
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
-        case 3: return std::forward<F>(f)( mp_size_t<K+3>() );
+        default: return std::forward<F>(f)( mp_size_t<K+3>() );
         }
     }
 };
@@ -110,7 +110,7 @@ template<> struct mp_for_index_impl_<5>
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
         case 3: return std::forward<F>(f)( mp_size_t<K+3>() );
-        case 4: return std::forward<F>(f)( mp_size_t<K+4>() );
+        default: return std::forward<F>(f)( mp_size_t<K+4>() );
         }
     }
 };
@@ -126,7 +126,7 @@ template<> struct mp_for_index_impl_<6>
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
         case 3: return std::forward<F>(f)( mp_size_t<K+3>() );
         case 4: return std::forward<F>(f)( mp_size_t<K+4>() );
-        case 5: return std::forward<F>(f)( mp_size_t<K+5>() );
+        default: return std::forward<F>(f)( mp_size_t<K+5>() );
         }
     }
 };
@@ -143,7 +143,7 @@ template<> struct mp_for_index_impl_<7>
         case 3: return std::forward<F>(f)( mp_size_t<K+3>() );
         case 4: return std::forward<F>(f)( mp_size_t<K+4>() );
         case 5: return std::forward<F>(f)( mp_size_t<K+5>() );
-        case 6: return std::forward<F>(f)( mp_size_t<K+6>() );
+        default: return std::forward<F>(f)( mp_size_t<K+6>() );
         }
     }
 };
@@ -161,7 +161,7 @@ template<> struct mp_for_index_impl_<8>
         case 4: return std::forward<F>(f)( mp_size_t<K+4>() );
         case 5: return std::forward<F>(f)( mp_size_t<K+5>() );
         case 6: return std::forward<F>(f)( mp_size_t<K+6>() );
-        case 7: return std::forward<F>(f)( mp_size_t<K+7>() );
+        default: return std::forward<F>(f)( mp_size_t<K+7>() );
         }
     }
 };
@@ -180,7 +180,7 @@ template<> struct mp_for_index_impl_<9>
         case 5: return std::forward<F>(f)( mp_size_t<K+5>() );
         case 6: return std::forward<F>(f)( mp_size_t<K+6>() );
         case 7: return std::forward<F>(f)( mp_size_t<K+7>() );
-        case 8: return std::forward<F>(f)( mp_size_t<K+8>() );
+        default: return std::forward<F>(f)( mp_size_t<K+8>() );
         }
     }
 };
@@ -200,7 +200,7 @@ template<> struct mp_for_index_impl_<10>
         case 6: return std::forward<F>(f)( mp_size_t<K+6>() );
         case 7: return std::forward<F>(f)( mp_size_t<K+7>() );
         case 8: return std::forward<F>(f)( mp_size_t<K+8>() );
-        case 9: return std::forward<F>(f)( mp_size_t<K+9>() );
+        default: return std::forward<F>(f)( mp_size_t<K+9>() );
         }
     }
 };
@@ -221,7 +221,7 @@ template<> struct mp_for_index_impl_<11>
         case 7: return std::forward<F>(f)( mp_size_t<K+7>() );
         case 8: return std::forward<F>(f)( mp_size_t<K+8>() );
         case 9: return std::forward<F>(f)( mp_size_t<K+9>() );
-        case 10: return std::forward<F>(f)( mp_size_t<K+10>() );
+        default: return std::forward<F>(f)( mp_size_t<K+10>() );
         }
     }
 };
@@ -243,7 +243,7 @@ template<> struct mp_for_index_impl_<12>
         case 8: return std::forward<F>(f)( mp_size_t<K+8>() );
         case 9: return std::forward<F>(f)( mp_size_t<K+9>() );
         case 10: return std::forward<F>(f)( mp_size_t<K+10>() );
-        case 11: return std::forward<F>(f)( mp_size_t<K+11>() );
+        default: return std::forward<F>(f)( mp_size_t<K+11>() );
         }
     }
 };
@@ -266,7 +266,7 @@ template<> struct mp_for_index_impl_<13>
         case 9: return std::forward<F>(f)( mp_size_t<K+9>() );
         case 10: return std::forward<F>(f)( mp_size_t<K+10>() );
         case 11: return std::forward<F>(f)( mp_size_t<K+11>() );
-        case 12: return std::forward<F>(f)( mp_size_t<K+12>() );
+        default: return std::forward<F>(f)( mp_size_t<K+12>() );
         }
     }
 };
@@ -290,7 +290,7 @@ template<> struct mp_for_index_impl_<14>
         case 10: return std::forward<F>(f)( mp_size_t<K+10>() );
         case 11: return std::forward<F>(f)( mp_size_t<K+11>() );
         case 12: return std::forward<F>(f)( mp_size_t<K+12>() );
-        case 13: return std::forward<F>(f)( mp_size_t<K+13>() );
+        default: return std::forward<F>(f)( mp_size_t<K+13>() );
         }
     }
 };
@@ -315,7 +315,7 @@ template<> struct mp_for_index_impl_<15>
         case 11: return std::forward<F>(f)( mp_size_t<K+11>() );
         case 12: return std::forward<F>(f)( mp_size_t<K+12>() );
         case 13: return std::forward<F>(f)( mp_size_t<K+13>() );
-        case 14: return std::forward<F>(f)( mp_size_t<K+14>() );
+        default: return std::forward<F>(f)( mp_size_t<K+14>() );
         }
     }
 };
@@ -341,7 +341,7 @@ template<> struct mp_for_index_impl_<16>
         case 12: return std::forward<F>(f)( mp_size_t<K+12>() );
         case 13: return std::forward<F>(f)( mp_size_t<K+13>() );
         case 14: return std::forward<F>(f)( mp_size_t<K+14>() );
-        case 15: return std::forward<F>(f)( mp_size_t<K+15>() );
+        default: return std::forward<F>(f)( mp_size_t<K+15>() );
         }
     }
 };
