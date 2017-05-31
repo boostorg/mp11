@@ -148,6 +148,8 @@
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_none_of_l_p"><code class="computeroutput"><span class="identifier">mp_none_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_any_of_l_p"><code class="computeroutput"><span class="identifier">mp_any_of</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">,</span> <span class="identifier">P</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_for_each_l_f"><code class="computeroutput"><span class="identifier">mp_for_each</span><span class="special">&lt;</span><span class="identifier">L</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_for_index_c_n_i_f"><code class="computeroutput"><span class="identifier">mp_for_index_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a></span></dt>
+<dt><span class="section"><a href="mp11.html#mp11.reference.algorithm.mp_for_index_n_i_f"><code class="computeroutput"><span class="identifier">mp_for_index</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.set">Set Operations, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">set</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl>
@@ -200,7 +202,7 @@
 </dl></dd>
 <dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each">A "for each"
       algorithm for tuple-like types, <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mp11</span><span class="special">/</span><span class="identifier">tuple_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
-<dd><dl><dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a></span></dt></dl></dd>
+<dd><dl><dt><span class="section"><a href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each_tp_f"><code class="computeroutput"><span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">tp</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a></span></dt></dl></dd>
 </dl></dd>
 </dl>
 </div>
@@ -2036,6 +2038,29 @@
           Returns <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_for_index_c_n_i_f"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_for_index_c_n_i_f" title="mp_for_index_c&lt;N&gt;(i, f)"><code class="computeroutput"><span class="identifier">mp_for_index_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;()(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;&gt;()))</span> <span class="identifier">mp_for_index</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">,</span> <span class="identifier">F</span> <span class="special">&amp;&amp;</span> <span class="identifier">f</span> <span class="special">);</span>
+</pre>
+<p>
+          <code class="computeroutput"><span class="identifier">mp_for_index_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code> calls <code class="computeroutput"><span class="identifier">f</span></code>
+          with <code class="computeroutput"><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="identifier">i</span><span class="special">&gt;()</span></code>
+          and returns the result. <code class="computeroutput"><span class="identifier">i</span></code>
+          must be less than <code class="computeroutput"><span class="identifier">N</span></code>.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="mp11.reference.algorithm.mp_for_index_n_i_f"></a><a class="link" href="mp11.html#mp11.reference.algorithm.mp_for_index_n_i_f" title="mp_for_index&lt;N&gt;(i, f)"><code class="computeroutput"><span class="identifier">mp_for_index</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;()(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">mp_size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;&gt;()))</span> <span class="identifier">mp_for_index</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">i</span><span class="special">,</span> <span class="identifier">F</span> <span class="special">&amp;&amp;</span> <span class="identifier">f</span> <span class="special">);</span>
+</pre>
+<p>
+          Returns <code class="computeroutput"><span class="identifier">mp_for_index_c</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code>.
+        </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -2484,7 +2509,7 @@
 </h3></div></div></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="mp11.reference.tuple_for_each.tuple_for_each"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each" title="tuple_for_each"><code class="computeroutput"><span class="identifier">tuple_for_each</span></code></a>
+<a name="mp11.reference.tuple_for_each.tuple_for_each_tp_f"></a><a class="link" href="mp11.html#mp11.reference.tuple_for_each.tuple_for_each_tp_f" title="tuple_for_each(tp, f)"><code class="computeroutput"><span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">tp</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code></a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">F</span><span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="identifier">F</span> <span class="identifier">tuple_for_each</span><span class="special">(</span><span class="identifier">Tp</span><span class="special">&amp;&amp;</span> <span class="identifier">tp</span><span class="special">,</span> <span class="identifier">F</span><span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">);</span>
 </pre>
@@ -2504,7 +2529,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 28, 2017 at 23:51:44 GMT</small></p></td>
+<td align="left"><p><small>Last revised: May 31, 2017 at 16:52:56 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
