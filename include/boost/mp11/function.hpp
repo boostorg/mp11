@@ -87,18 +87,7 @@ template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>:
 #endif
 
 // mp_all<T...>
-#if BOOST_WORKAROUND( BOOST_GCC, < 40900 )
-
-namespace detail
-{
-
-template<class T> using mp_to_true = mp_true;
-
-} // namespace detail
-
-template<class... T> using mp_all = mp_to_bool<std::is_same<mp_list<mp_to_bool<T>...>, mp_list<detail::mp_to_true<T>...>>>;
-
-#elif BOOST_WORKAROUND( BOOST_MSVC, <= 1910 ) || BOOST_WORKAROUND( BOOST_GCC, < 70200 )
+#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 ) || BOOST_WORKAROUND( BOOST_GCC, < 70200 )
 
 template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_not >::value == 0 >;
 

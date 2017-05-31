@@ -58,7 +58,12 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_all<mp_size_t<1>, mp_size_t<2>, mp_size_t<114>, mp_size_t<0>, mp_size_t<94>>, mp_false>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<check1<void, int, float>, mp_true>));
+
+#if !BOOST_WORKAROUND( BOOST_GCC, < 40900 )
+
     BOOST_TEST_TRAIT_TRUE((std::is_same<check2<void, int, float>, mp_true>));
+
+#endif
 
     return boost::report_errors();
 }
