@@ -26,6 +26,8 @@ struct Z2 {};
 
 template<class T1, class T2, class T3> struct F {};
 
+template<class T> struct F1 {};
+
 int main()
 {
     using boost::mp11::mp_list;
@@ -49,6 +51,17 @@ int main()
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product<F, L1, L2, L3>, std::tuple<>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product_q<mp_quote<F>, L1, L2, L3>, std::tuple<>>));
+    }
+
+    {
+        using L1 = std::tuple<X1, X2, X3>;
+        using L2 = mp_list<X1, X2, X3>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product<F1, L1>, std::tuple<F1<X1>, F1<X2>, F1<X3>>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product_q<mp_quote<F1>, L1>, std::tuple<F1<X1>, F1<X2>, F1<X3>>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product<F1, L2>, mp_list<F1<X1>, F1<X2>, F1<X3>>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_product_q<mp_quote<F1>, L2>, mp_list<F1<X1>, F1<X2>, F1<X3>>>));
     }
 
     return boost::report_errors();

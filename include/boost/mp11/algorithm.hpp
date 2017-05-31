@@ -16,6 +16,7 @@
 #include <boost/mp11/detail/mp_count.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/mp11/detail/mp_map_find.hpp>
+#include <boost/mp11/detail/mp_for_index.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/integer_sequence.hpp>
 #include <boost/config.hpp>
