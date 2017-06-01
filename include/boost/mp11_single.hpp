@@ -1163,7 +1163,7 @@ template<> struct mp_for_index_impl_<0>
 
 template<> struct mp_for_index_impl_<1>
 {
-    template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
+    template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t /*i*/, F && f )
     {
         return std::forward<F>(f)( mp_size_t<K+0>() );
     }
