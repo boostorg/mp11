@@ -20,7 +20,7 @@ int main() {}
 #include <boost/detail/workaround.hpp>
 
 using boost::mp11::mp_size_t;
-using boost::mp11::mp_for_index;
+using boost::mp11::mp_with_index;
 
 struct F
 {
@@ -34,7 +34,7 @@ struct F
 
 int main()
 {
-    constexpr std::size_t i = mp_for_index<64>( 57, F{} );
+    constexpr std::size_t i = mp_with_index<64>( 57, F{} );
     STATIC_ASSERT( i == 57 );
 }
 

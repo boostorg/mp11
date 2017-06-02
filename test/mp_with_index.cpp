@@ -15,7 +15,7 @@
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_for_each;
-using boost::mp11::mp_for_index;
+using boost::mp11::mp_with_index;
 using boost::mp11::mp_iota_c;
 
 struct F
@@ -41,8 +41,8 @@ struct G
     {
         for( std::size_t i = 0; i < N; ++i )
         {
-            mp_for_index<N>( i, F(i) );
-            mp_for_index<mp_size_t<N>>( i, F(i) );
+            mp_with_index<N>( i, F(i) );
+            mp_with_index<mp_size_t<N>>( i, F(i) );
         }
     }
 };

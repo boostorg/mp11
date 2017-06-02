@@ -1,5 +1,5 @@
-#ifndef BOOST_MP11_DETAIL_MP_FOR_INDEX_HPP_INCLUDED
-#define BOOST_MP11_DETAIL_MP_FOR_INDEX_HPP_INCLUDED
+#ifndef BOOST_MP11_DETAIL_MP_WITH_INDEX_HPP_INCLUDED
+#define BOOST_MP11_DETAIL_MP_WITH_INDEX_HPP_INCLUDED
 
 //  Copyright 2017 Peter Dimov.
 //
@@ -28,7 +28,7 @@ namespace mp11
 namespace detail
 {
 
-template<std::size_t N> struct mp_for_index_impl_
+template<std::size_t N> struct mp_with_index_impl_
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -52,15 +52,15 @@ template<std::size_t N> struct mp_for_index_impl_
         case 15: return std::forward<F>(f)( mp_size_t<K+15>() );
         }
 
-        return mp_for_index_impl_<N-16>::template call<K+16>( i-16, std::forward<F>(f) );
+        return mp_with_index_impl_<N-16>::template call<K+16>( i-16, std::forward<F>(f) );
     }
 };
 
-template<> struct mp_for_index_impl_<0>
+template<> struct mp_with_index_impl_<0>
 {
 };
 
-template<> struct mp_for_index_impl_<1>
+template<> struct mp_with_index_impl_<1>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t /*i*/, F && f )
     {
@@ -68,7 +68,7 @@ template<> struct mp_for_index_impl_<1>
     }
 };
 
-template<> struct mp_for_index_impl_<2>
+template<> struct mp_with_index_impl_<2>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -80,7 +80,7 @@ template<> struct mp_for_index_impl_<2>
     }
 };
 
-template<> struct mp_for_index_impl_<3>
+template<> struct mp_with_index_impl_<3>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -93,7 +93,7 @@ template<> struct mp_for_index_impl_<3>
     }
 };
 
-template<> struct mp_for_index_impl_<4>
+template<> struct mp_with_index_impl_<4>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -107,7 +107,7 @@ template<> struct mp_for_index_impl_<4>
     }
 };
 
-template<> struct mp_for_index_impl_<5>
+template<> struct mp_with_index_impl_<5>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -122,7 +122,7 @@ template<> struct mp_for_index_impl_<5>
     }
 };
 
-template<> struct mp_for_index_impl_<6>
+template<> struct mp_with_index_impl_<6>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -138,7 +138,7 @@ template<> struct mp_for_index_impl_<6>
     }
 };
 
-template<> struct mp_for_index_impl_<7>
+template<> struct mp_with_index_impl_<7>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -155,7 +155,7 @@ template<> struct mp_for_index_impl_<7>
     }
 };
 
-template<> struct mp_for_index_impl_<8>
+template<> struct mp_with_index_impl_<8>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -173,7 +173,7 @@ template<> struct mp_for_index_impl_<8>
     }
 };
 
-template<> struct mp_for_index_impl_<9>
+template<> struct mp_with_index_impl_<9>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -192,7 +192,7 @@ template<> struct mp_for_index_impl_<9>
     }
 };
 
-template<> struct mp_for_index_impl_<10>
+template<> struct mp_with_index_impl_<10>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -212,7 +212,7 @@ template<> struct mp_for_index_impl_<10>
     }
 };
 
-template<> struct mp_for_index_impl_<11>
+template<> struct mp_with_index_impl_<11>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -233,7 +233,7 @@ template<> struct mp_for_index_impl_<11>
     }
 };
 
-template<> struct mp_for_index_impl_<12>
+template<> struct mp_with_index_impl_<12>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -255,7 +255,7 @@ template<> struct mp_for_index_impl_<12>
     }
 };
 
-template<> struct mp_for_index_impl_<13>
+template<> struct mp_with_index_impl_<13>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -278,7 +278,7 @@ template<> struct mp_for_index_impl_<13>
     }
 };
 
-template<> struct mp_for_index_impl_<14>
+template<> struct mp_with_index_impl_<14>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -302,7 +302,7 @@ template<> struct mp_for_index_impl_<14>
     }
 };
 
-template<> struct mp_for_index_impl_<15>
+template<> struct mp_with_index_impl_<15>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -327,7 +327,7 @@ template<> struct mp_for_index_impl_<15>
     }
 };
 
-template<> struct mp_for_index_impl_<16>
+template<> struct mp_with_index_impl_<16>
 {
     template<std::size_t K, class F> static BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) call( std::size_t i, F && f )
     {
@@ -355,15 +355,15 @@ template<> struct mp_for_index_impl_<16>
 
 } // namespace detail
 
-template<std::size_t N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f )
+template<std::size_t N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
 {
     assert( i < N );
-    return detail::mp_for_index_impl_<N>::template call<0>( i, std::forward<F>(f) );
+    return detail::mp_with_index_impl_<N>::template call<0>( i, std::forward<F>(f) );
 }
 
-template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_for_index( std::size_t i, F && f )
+template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
 {
-    return mp_for_index<N::value>( i, std::forward<F>(f) );
+    return mp_with_index<std::size_t{N::value}>( i, std::forward<F>(f) );
 }
 
 #undef BOOST_MP11_CONSTEXPR14
@@ -371,4 +371,4 @@ template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F
 } // namespace mp11
 } // namespace boost
 
-#endif // #ifndef BOOST_MP11_DETAIL_MP_FIND_INDEX_HPP_INCLUDED
+#endif // #ifndef BOOST_MP11_DETAIL_MP_WITH_INDEX_HPP_INCLUDED
