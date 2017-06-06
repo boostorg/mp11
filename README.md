@@ -26,8 +26,6 @@ is available in [include/boost/mp11_single.hpp](include/boost/mp11_single.hpp).
 
 [Reference](doc/mp11/reference.adoc)
 
-The contents of the library are in namespace `boost::mp11`.
-
 * [Integral Constants](doc/mp11/integral.adoc)
 
 * [List Operations](doc/mp11/list.adoc)
