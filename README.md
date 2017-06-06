@@ -45,3 +45,7 @@ is available in [include/boost/mp11_single.hpp](include/boost/mp11_single.hpp).
 * [Integer Sequences](doc/mp11/integer_sequence.adoc)
 
 * [A "for each" algorithm for tuple-like types](doc/mp11/tuple_for_each.adoc)
+
+## License
+
+Distributed under the [Boost Software License, Version 1.0](http://boost.org/LICENSE_1_0.txt).
