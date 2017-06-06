@@ -1,20 +1,26 @@
-[/
- /  Copyright 2017 Peter Dimov
- /
- / Distributed under the Boost Software License, Version 1.0. (See
- / accompanying file LICENSE_1_0.txt or copy at
- / http://www.boost.org/LICENSE_1_0.txt)
- /]
+////
+Copyright 2017 Peter Dimov
 
-[section:function Helper Metafunctions, `<boost/mp11/function.hpp>`]
+Distributed under the Boost Software License, Version 1.0.
 
-[section `mp_void<T...>`]
+See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt
+////
+
+[#function]
+# Helper Metafunctions, <boost/mp11/function.hpp>
+:toc:
+:toc-title:
+:idprefix:
+
+## mp_void<T...>
+
     template<class... T> using mp_void = void;
 
 Same as `std::void_t` from C++17.
-[endsect]
 
-[section `mp_and<T...>`]
+## mp_and<T...>
+
     template<class... T> using mp_and = /*...*/;
 
 `mp_and<T...>` applies `mp_to_bool` to the types in `T...`, in order. If the result of an application is `mp_false`, `mp_and`
@@ -25,9 +31,9 @@ returns `mp_true`. `mp_and<>` is `mp_true`.
     using R2 = mp_and<mp_false, void>;     // mp_false, void is not reached
     using R3 = mp_and<mp_false, mp_false>; // mp_false
     using R4 = mp_and<void, mp_true>;      // mp_false (!)
-[endsect]
 
-[section `mp_all<T...>`]
+## mp_all<T...>
+
     template<class... T> using mp_all = /*...*/;
 
 `mp_all<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for all types `U` in `T...`, `mp_false` otherwise. Same as
@@ -39,9 +45,9 @@ mask substitution failures as `mp_and` does.
     using R2 = mp_and<mp_false, void>;     // compile-time error
     using R3 = mp_and<mp_false, mp_false>; // mp_false
     using R4 = mp_and<void, mp_true>;      // compile-time error
-[endsect]
 
-[section `mp_or<T...>`]
+## mp_or<T...>
+
     template<class... T> using mp_or = /*...*/;
 
 `mp_or<T...>` applies `mp_to_bool` to the types in `T...`, in order. If the result of an application is `mp_true`, `mp_or`
@@ -51,9 +57,9 @@ returns `mp_true`. If all results are `mp_false`, returns `mp_false`. `mp_or<>` 
     using R2 = mp_or<mp_true, void>;       // mp_true, void is not reached
     using R3 = mp_or<mp_false, mp_false>;  // mp_false
     using R4 = mp_or<void, mp_true>;       // compile-time error
-[endsect]
 
-[section `mp_any<T...>`]
+## mp_any<T...>
+
     template<class... T> using mp_any = /*...*/;
 
 `mp_any<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for any type `U` in `T...`, `mp_false` otherwise. Same as
@@ -63,19 +69,16 @@ returns `mp_true`. If all results are `mp_false`, returns `mp_false`. `mp_or<>` 
     using R2 = mp_any<mp_true, void>;      // compile-time error
     using R3 = mp_any<mp_false, mp_false>; // mp_false
     using R4 = mp_any<void, mp_true>;      // compile-time error
-[endsect]
 
-[section `mp_same<T...>`]
+## mp_same<T...>
+
     template<class... T> using mp_same = /*...*/;
 
 `mp_same<T...>` is `mp_true` if all the types in `T...` are the same type, `mp_false` otherwise. `mp_same<>` is `mp_true`.
-[endsect]
 
-[section `mp_plus<T...>`]
+## mp_plus<T...>
+
     template<class... T> using mp_plus = /*...*/;
 
 `mp_plus<T...>` is an integral constant type with a value that is the sum of `U::value` for all types `U` in `T...`.
 `mp_plus<>` is `mp_int<0>`.
-[endsect]
-
-[endsect:function]

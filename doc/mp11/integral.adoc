@@ -1,0 +1,44 @@
+////
+Copyright 2017 Peter Dimov
+
+Distributed under the Boost Software License, Version 1.0.
+
+See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt
+////
+
+[#integral]
+# Integral Constants, <boost/mp11/integral.hpp>
+:toc:
+:toc-title:
+:idprefix:
+
+For an Mp11 integral constant type `T`, `T::value` is an integral constant in the C++ sense.
+
+## mp_bool<B>
+
+    template<bool B> using mp_bool = std::integral_constant<bool, B>;
+
+## mp_true
+
+    using mp_true = mp_bool<true>;
+
+## mp_false
+
+    using mp_false = mp_bool<false>;
+
+## mp_to_bool<T>
+
+    template<class T> using mp_to_bool = mp_bool<static_cast<bool>(T::value)>;
+
+## mp_not<T>
+
+    template<class T> using mp_not = mp_bool< !T::value >;
+
+## mp_int<I>
+
+    template<int I> using mp_int = std::integral_constant<int, I>;
+
+## mp_size_t<N>
+
+    template<std::size_t N> using mp_size_t = std::integral_constant<std::size_t, N>;
