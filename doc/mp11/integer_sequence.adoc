@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#integer_sequence]
 # Integer Sequences, <boost/mp11/integer_sequence.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 ## integer_sequence<T, I...>

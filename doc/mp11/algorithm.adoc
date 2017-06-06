@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#algorithm]
 # Algorithms, <boost/mp11/algorithm.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 ## mp_assign<L1, L2>

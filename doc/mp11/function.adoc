@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#function]
 # Helper Metafunctions, <boost/mp11/function.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 ## mp_void<T...>

@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#reference]
 # Reference
 :toc:
+:toc-title:
 :idprefix:
 
 The contents of the library are in namespace `boost::mp11`.

@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#set]
 # Set Operations, <boost/mp11/set.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 A set is a list whose elements are unique.

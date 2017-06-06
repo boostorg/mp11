@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#map]
 # Map Operations, <boost/mp11/map.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 A map is a list of lists, the inner lists having at least one element (the key.) The keys of the map must be unique.
