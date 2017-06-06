@@ -1,0 +1,50 @@
+# Copyright 2017 Peter Dimov
+# 
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt)
+
+import type ;
+import scanner ;
+import generators ;
+import boostbook ;
+
+# File type
+
+type.register ASCIIDOC : asciidoc adoc ;
+
+# Define dependency scanner
+
+class asciidoc-scanner : common-scanner
+{
+    rule pattern ( )
+    {
+        return "include::([^[]+)\\[" ;
+    }
+}
+
+scanner.register asciidoc-scanner : include ;
+type.set-scanner ASCIIDOC : asciidoc-scanner ;
+
+# Define generators
+
+generators.register-standard asciidoctor.asciidoc-to-html : ASCIIDOC : HTML ;
+generators.register-standard asciidoctor.asciidoc-to-pdf : ASCIIDOC : PDF ;
+# generators.register-standard asciidoctor.asciidoc-to-docbook : ASCIIDOC : DOCBOOK ;
+
+# Define actions
+
+actions asciidoc-to-html
+{
+    asciidoctor -b html -o $(1) $(2)
+}
+
+actions asciidoc-to-pdf
+{
+    asciidoctor -r asciidoctor-pdf -b pdf -o $(1) $(2)
+}
+
+actions asciidoc-to-docbook
+{
+    asciidoctor -b docbook -o $(1) $(2)
+}

@@ -1,17 +1,19 @@
-[/
- /  Copyright 2017 Peter Dimov
- /
- / Distributed under the Boost Software License, Version 1.0. (See
- / accompanying file LICENSE_1_0.txt or copy at
- / http://www.boost.org/LICENSE_1_0.txt)
- /]
+////
+Copyright 2017 Peter Dimov
 
-[section:overview Overview]
+Distributed under the Boost Software License, Version 1.0.
+
+See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt
+////
+
+[#overview]
+# Overview
 
 Mp11 is a C++11 metaprogramming library based on template aliases and variadic templates.
 It implements the approach outlined in the article
-[@http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html Simple C++11 metaprogramming] and
-[@http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html its sequel]. Reading these
+http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html["Simple {cpp} metaprogramming"]
+and http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html[its sequel]. Reading these
 articles before proceeding with this documentation is highly recommended.
 
 The general principles upon which Mp11 is built are that algorithms and metafunctions are
@@ -30,5 +32,3 @@ gives us `std::tuple<int*, float*>`, but we can also apply `mp_list` to the same
     using R = mp_transform<mp_list, std::tuple<int, float>>;
 
 and get `std::tuple<mp_list<int>, mp_list<float>>`.
-
-[endsect:overview]

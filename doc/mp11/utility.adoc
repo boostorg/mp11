@@ -1,29 +1,34 @@
-[/
- /  Copyright 2017 Peter Dimov
- /
- / Distributed under the Boost Software License, Version 1.0. (See
- / accompanying file LICENSE_1_0.txt or copy at
- / http://www.boost.org/LICENSE_1_0.txt)
- /]
+////
+Copyright 2017 Peter Dimov
 
-[section:utility Utility Components, `<boost/mp11/utility.hpp>`]
+Distributed under the Boost Software License, Version 1.0.
 
-[section `mp_identity<T>`]
+See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt
+////
+
+[#utility]
+# Utility Components, <boost/mp11/utility.hpp>
+:toc:
+:idprefix:
+
+## mp_identity<T>
+
     template<class T> struct mp_identity
     {
         using type = T;
     };
-[endsect]
 
-[section `mp_identity_t<T>`]
+## mp_identity_t<T>
+
     template<class T> using mp_identity_t = T;
-[endsect]
 
-[section `mp_inherit<T...>`]
+## mp_inherit<T...>
+
     template<class... T> struct mp_inherit: T... {};
-[endsect]
 
-[section `mp_if_c<C, T, E...>`]
+## mp_if_c<C, T, E...>
+
     template<bool C, class T, class... E> using mp_if_c = /*...*/;
 
 `mp_if_c<true, T, E...>` is an alias for `T`. `mp_if_c<false, T, E>` is an alias for `E`. Otherwise, the result is a substitution failure.
@@ -32,59 +37,56 @@
     using R2 = mp_if_c<flase, int, void>; // void
 
 	template<class I> using void_if_5 = mp_if_c<I::value == 5, void>; // `void` when `I::value` is 5, substitution failure otherwise
-[endsect]
 
-[section `mp_if<C, T, E...>`]
+## mp_if<C, T, E...>
+
     template<class C, class T, class E...> using mp_if = mp_if_c<static_cast<bool>(C::value), T, E...>;
 
 Like `mp_if_c`, but the first argument is a type.
-[endsect]
 
-[section `mp_eval_if_c<C, T, F, U...>`]
+## mp_eval_if_c<C, T, F, U...>
+
     template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = /*...*/;
 
 `mp_eval_if_c<C, T, F, U...>` is an alias for `T` when `C` is `true`, for `F<U...>` otherwise. Its purpose
 is to avoid evaluating `F<U...>` when the condition is `true` as it may not be valid in this case.
-[endsect]
 
-[section `mp_eval_if<C, T, F, U...>`]
+## mp_eval_if<C, T, F, U...>
+
     template<class C, class T, template<class...> class F, class... U> using mp_eval_if = mp_eval_if_c<static_cast<bool>(C::value), T, F, U...>;
 
 Like `mp_eval_if_c`, but the first argument is a type.
-[endsect]
 
-[section `mp_eval_if_q<C, T, Q, U...>`]
+## mp_eval_if_q<C, T, Q, U...>
+
     template<class C, class T, class Q, class... U> using mp_eval_if_q = mp_eval_if<C, T, Q::template fn, U...>;
 
 Like `mp_eval_if`, but takes a quoted metafunction.
-[endsect]
 
-[section `mp_valid<F, T...>`]
+## mp_valid<F, T...>
+
     template<template<class...> class F, class... T> using mp_valid = /*...*/;
 
 `mp_valid<F, T...>` is an alias for `mp_true` when `F<T...>` is a valid expression, for `mp_false` otherwise.
-[endsect]
 
-[section `mp_defer<F, T...>`]
+## mp_defer<F, T...>
+
     template<template<class...> class F, class... T> using mp_defer = /*...*/;
 
 When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a nested type `type` which is an alias for `F<T...>`. Otherwise,
 `mp_defer<F, T...>` is an empty struct.
-[endsect]
 
-[section `mp_quote<F>`]
+## mp_quote<F>
+
     template<template<class...> class F> struct mp_quote
     {
         template<class... T> using fn = F<T...>;
     };
 
 `mp_quote<F>` transforms the template `F` into a type with a nested template `fn` such that `fn<T...>` returns `F<T...>`.
-[endsect]
 
-[section `mp_invoke<Q, T...>`]
+## mp_invoke<Q, T...>
+
     template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
 
 `mp_invoke<Q, T...>` evaluates the nested template `fn` of a quoted metafunction. `mp_invoke<mp_quote<F>, T...>` returns `F<T...>`.
-[endsect]
-
-[endsect:utility]
