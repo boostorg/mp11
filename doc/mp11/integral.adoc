@@ -10,6 +10,7 @@ http://www.boost.org/LICENSE_1_0.txt
 [#integral]
 # Integral Constants, <boost/mp11/integral.hpp>
 :toc:
+:toc-title:
 :idprefix:
 
 For an Mp11 integral constant type `T`, `T::value` is an integral constant in the C++ sense.
