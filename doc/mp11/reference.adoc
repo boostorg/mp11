@@ -35,6 +35,6 @@ include::bind.adoc[]
 
 include::integer_sequence.adoc[]
 
-include::tuple_for_each.adoc[]
+include::tuple.adoc[]
 
 :leveloffset: -1

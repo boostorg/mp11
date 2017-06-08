@@ -46,7 +46,7 @@ Tested on [Travis](https://travis-ci.org/pdimov/mp11/) and [Appveyor](https://ci
 
 * [Integer Sequences](doc/mp11/integer_sequence.adoc)
 
-* [A "for each" algorithm for tuple-like types](doc/mp11/tuple_for_each.adoc)
+* [Tuple Operations](doc/mp11/tuple.adoc)
 
 ## License
 

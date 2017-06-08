@@ -1,5 +1,5 @@
-#ifndef BOOST_MP11_TUPLE_FOR_EACH_HPP_INCLUDED
-#define BOOST_MP11_TUPLE_FOR_EACH_HPP_INCLUDED
+#ifndef BOOST_MP11_TUPLE_HPP_INCLUDED
+#define BOOST_MP11_TUPLE_HPP_INCLUDED
 
 //  Copyright 2015, 2017 Peter Dimov.
 //
@@ -21,6 +21,7 @@ namespace boost
 namespace mp11
 {
 
+// tuple_for_each
 namespace detail
 {
 
@@ -50,4 +51,4 @@ template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 } // namespace mp11
 } // namespace boost
 
-#endif // #ifndef BOOST_TUPLE_FOR_EACH_HPP_INCLUDED
+#endif // #ifndef BOOST_TUPLE_HPP_INCLUDED
