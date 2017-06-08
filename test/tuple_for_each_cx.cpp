@@ -38,6 +38,7 @@ int main()
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
+// "error: default initialization of an object of const type 'const std::tuple<>' without a user-provided default constructor"
 #else
 
     {

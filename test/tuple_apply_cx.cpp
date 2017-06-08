@@ -56,11 +56,17 @@ int main()
         static_assert( r == 123, "r == 123" );
     }
 
+#if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
+// "error: default initialization of an object of const type 'const std::tuple<>' without a user-provided default constructor"
+#else
+
     {
         constexpr std::tuple<> tp;
         constexpr auto r = boost::mp11::tuple_apply( h, tp );
         static_assert( r == 11, "r == 11" );
     }
+
+#endif
 }
 
 #endif

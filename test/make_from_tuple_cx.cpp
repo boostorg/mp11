@@ -62,6 +62,10 @@ int main()
         static_assert( r.z == 3, "r.z == 3" );
     }
 
+#if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
+// "error: default initialization of an object of const type 'const std::tuple<>' without a user-provided default constructor"
+#else
+
     {
         constexpr std::tuple<> tp;
 
@@ -71,6 +75,8 @@ int main()
         static_assert( r.y == 0, "r.y == 0" );
         static_assert( r.z == 0, "r.z == 0" );
     }
+
+#endif
 }
 
 #endif
