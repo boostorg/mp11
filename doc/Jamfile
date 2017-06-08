@@ -1,0 +1,26 @@
+# Copyright 2017 Peter Dimov
+# 
+# Distributed under the Boost Software License, Version 1.0.
+#
+# See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt
+
+project doc/mp11 ;
+
+import asciidoctor ;
+
+html mp11.html : mp11.adoc ;
+
+install html_ : mp11.html : <location>html ;
+
+pdf mp11.pdf : mp11.adoc ;
+explicit mp11.pdf ;
+
+install pdf_ : mp11.pdf : <location>pdf ;
+explicit pdf_ ;
+
+###############################################################################
+alias boostdoc ;
+explicit boostdoc ;
+alias boostrelease ;
+explicit boostrelease ;

@@ -1,51 +1,54 @@
-[/
- /  Copyright 2017 Peter Dimov
- /
- / Distributed under the Boost Software License, Version 1.0. (See
- / accompanying file LICENSE_1_0.txt or copy at
- / http://www.boost.org/LICENSE_1_0.txt)
- /]
+////
+Copyright 2017 Peter Dimov
 
-[section:map Map Operations, `<boost/mp11/map.hpp>`]
+Distributed under the Boost Software License, Version 1.0.
+
+See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt
+////
+
+[#map]
+# Map Operations, <boost/mp11/map.hpp>
+:toc:
+:toc-title:
+:idprefix:
 
 A map is a list of lists, the inner lists having at least one element (the key.) The keys of the map must be unique.
 
-[section `mp_map_find<M, K>`]
+## mp_map_find<M, K>
+
     template<class M, class K> using mp_map_find = /*...*/;
 
 `mp_map_find<M, K>` is an alias for the element of the map `M` with a key `K`, or for `void`, if there is no such element.
-[endsect]
 
-[section `mp_map_contains<M, K>`]
+## mp_map_contains<M, K>
+
     template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
 
 `mp_map_contains<M, K>` is `mp_true` if the map `M` contains an element with a key `K`, `mp_false` otherwise.
-[endsect]
 
-[section `mp_map_insert<M, T>`]
+## mp_map_insert<M, T>
+
     template<class M, class T> using mp_map_insert = mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
 
 Inserts the element `T` into the map `M`, if an element with a key `mp_first<T>` is not already in `M`.
-[endsect]
 
-[section `mp_map_replace<M, T>`]
+## mp_map_replace<M, T>
+
     template<class M, class T> using mp_map_replace = /*...*/;
 
 If the map `M` does not contain an element with a key `mp_first<T>`, inserts it (using `mp_push_back<M, T>`); otherwise,
 replaces the existing element with `T`.
-[endsect]
 
-[section `mp_map_update<M, T, F>`]
+## mp_map_update<M, T, F>
+
     template<class M, class T, template<class...> class F> using mp_map_update = /*...*/;
 
 If the map `M` does not contain an element with a key `mp_first<T>`, inserts it (using `mp_push_back<M, T>`); otherwise,
 replaces the existing element `L<X, Y...>` with `L<X, F<X, Y...>>`.
-[endsect]
 
-[section `mp_map_erase<M, K>`]
+## mp_map_erase<M, K>
+
     template<class M, class K> using mp_map_erase = /*...*/;
 
 If the map `M` contains an element with a key `K`, removes it.
-[endsect]
-
-[endsect:map]
