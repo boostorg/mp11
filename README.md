@@ -13,8 +13,10 @@ is available in [include/boost/mp11_single.hpp](include/boost/mp11_single.hpp).
 ## Supported compilers
 
 * g++ 4.7 or later
-* clang 3.5 or later
+* clang++ 3.5 or later
 * Visual Studio 2013, 2015, 2017
+
+Tested on [Travis](https://travis-ci.org/pdimov/mp11/) and [Appveyor](https://ci.appveyor.com/project/pdimov/mp11/).
 
 ## Documentation
 
