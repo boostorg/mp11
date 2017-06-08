@@ -38,13 +38,13 @@ struct T2
 
 int main()
 {
-    using boost::mp11::make_from_tuple;
+    using boost::mp11::construct_from_tuple;
 
     {
         std::tuple<int, short, char> tp{ 1, 2, 3 };
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -52,7 +52,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -64,7 +64,7 @@ int main()
         std::tuple<int, short, char> const tp{ 1, 2, 3 };
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -72,7 +72,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -86,7 +86,7 @@ int main()
     {
         std::tuple<std::unique_ptr<int>, std::unique_ptr<int>, std::unique_ptr<int>> tp{ std::unique_ptr<int>(new int(1)), std::unique_ptr<int>(new int(2)), std::unique_ptr<int>(new int(3)) };
 
-            T2 t2 = make_from_tuple<T2>( std::move(tp) );
+            T2 t2 = construct_from_tuple<T2>( std::move(tp) );
 
             BOOST_TEST_EQ( *t2.x, 1 );
             BOOST_TEST_EQ( *t2.y, 2 );
@@ -99,7 +99,7 @@ int main()
         std::pair<int, short> tp{ 1, 2 };
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -107,7 +107,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -119,7 +119,7 @@ int main()
         std::pair<int, short> const tp{ 1, 2 };
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -127,7 +127,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -139,7 +139,7 @@ int main()
         std::array<int, 3> tp{{ 1, 2, 3 }};
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -147,7 +147,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -159,7 +159,7 @@ int main()
         std::array<int, 3> const tp{{ 1, 2, 3 }};
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -167,7 +167,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 1 );
             BOOST_TEST_EQ( t1.y, 2 );
@@ -179,7 +179,7 @@ int main()
         std::tuple<> tp;
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 0 );
             BOOST_TEST_EQ( t1.y, 0 );
@@ -187,7 +187,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 0 );
             BOOST_TEST_EQ( t1.y, 0 );
@@ -199,7 +199,7 @@ int main()
         std::array<int, 0> tp;
 
         {
-            T1 t1 = make_from_tuple<T1>( tp );
+            T1 t1 = construct_from_tuple<T1>( tp );
 
             BOOST_TEST_EQ( t1.x, 0 );
             BOOST_TEST_EQ( t1.y, 0 );
@@ -207,7 +207,7 @@ int main()
         }
 
         {
-            T1 t1 = make_from_tuple<T1>( std::move(tp) );
+            T1 t1 = construct_from_tuple<T1>( std::move(tp) );
 
             BOOST_TEST_EQ( t1.x, 0 );
             BOOST_TEST_EQ( t1.y, 0 );

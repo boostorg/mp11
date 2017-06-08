@@ -592,7 +592,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tuple">Tuple Operations, &lt;boost/mp11/tuple.hpp&gt;</a>
 <ul class="sectlevel3">
 <li><a href="#tuple_apply_f_tp">tuple_apply(f, tp)</a></li>
-<li><a href="#make_from_tuple_t_tp">make_from_tuple&lt;T&gt;(tp)</a></li>
+<li><a href="#construct_from_tuple_t_tp">construct_from_tuple&lt;T&gt;(tp)</a></li>
 <li><a href="#tuple_for_each_tp_f">tuple_for_each(tp, f)</a></li>
 </ul>
 </li>
@@ -2823,15 +2823,16 @@ where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&
 </div>
 </div>
 <div class="sect3">
-<h4 id="make_from_tuple_t_tp">make_from_tuple&lt;T&gt;(tp)</h4>
+<h4 id="construct_from_tuple_t_tp">construct_from_tuple&lt;T&gt;(tp)</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class T, class Tp&gt; T make_from_tuple(Tp&amp;&amp; tp);</pre>
+<pre>template&lt;class T, class Tp&gt; T construct_from_tuple(Tp&amp;&amp; tp);</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>make_from_tuple&lt;T&gt;(tp)</code> returns <code>T(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp))&#8230;&#8203;)</code> for <code>J</code> in 0..<code>N-1</code>,
-where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&lt;Tp&gt;::type&gt;::value</code>. Same as <code>std::make_from_tuple</code> in C++17.</p>
+<p><code>construct_from_tuple&lt;T&gt;(tp)</code> returns <code>T(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp))&#8230;&#8203;)</code> for <code>J</code> in 0..<code>N-1</code>,
+where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&lt;Tp&gt;::type&gt;::value</code>. Same as <code>std::make_from_tuple</code> in C++17.
+The name of the function doesn&#8217;t match the C++17 one to avoid ambiguities when both are visible or in unqualified calls.</p>
 </div>
 </div>
 <div class="sect3">

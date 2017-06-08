@@ -2695,11 +2695,11 @@ BOOST_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
     return detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() );
 }
 
-// make_from_tuple
+// construct_from_tuple
 namespace detail
 {
 
-template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T make_from_tuple_impl( Tp && tp, integer_sequence<std::size_t, J...> )
+template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T construct_from_tuple_impl( Tp && tp, integer_sequence<std::size_t, J...> )
 {
     return T( std::get<J>(std::forward<Tp>(tp))... );
 }
@@ -2708,9 +2708,9 @@ template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T make_from_tuple_
 
 template<class T, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
-BOOST_CONSTEXPR T make_from_tuple( Tp && tp )
+BOOST_CONSTEXPR T construct_from_tuple( Tp && tp )
 {
-    return detail::make_from_tuple_impl<T>( std::forward<Tp>(tp), Seq() );
+    return detail::construct_from_tuple_impl<T>( std::forward<Tp>(tp), Seq() );
 }
 
 // tuple_for_each

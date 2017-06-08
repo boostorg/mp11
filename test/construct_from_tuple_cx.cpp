@@ -30,12 +30,12 @@ struct T1
 
 int main()
 {
-    using boost::mp11::make_from_tuple;
+    using boost::mp11::construct_from_tuple;
 
     {
         constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
 
-        constexpr auto r = make_from_tuple<T1>( tp );
+        constexpr auto r = construct_from_tuple<T1>( tp );
 
         static_assert( r.x == 1, "r.x == 1" );
         static_assert( r.y == 2, "r.y == 2" );
@@ -45,7 +45,7 @@ int main()
     {
         constexpr std::pair<short, char> tp{ 1, 2 };
 
-        constexpr auto r = make_from_tuple<T1>( tp );
+        constexpr auto r = construct_from_tuple<T1>( tp );
 
         static_assert( r.x == 1, "r.x == 1" );
         static_assert( r.y == 2, "r.y == 2" );
@@ -55,7 +55,7 @@ int main()
     {
         constexpr std::array<short, 3> tp{{ 1, 2, 3 }};
 
-        constexpr auto r = make_from_tuple<T1>( tp );
+        constexpr auto r = construct_from_tuple<T1>( tp );
 
         static_assert( r.x == 1, "r.x == 1" );
         static_assert( r.y == 2, "r.y == 2" );
@@ -69,7 +69,7 @@ int main()
     {
         constexpr std::tuple<> tp;
 
-        constexpr auto r = make_from_tuple<T1>( tp );
+        constexpr auto r = construct_from_tuple<T1>( tp );
 
         static_assert( r.x == 0, "r.x == 0" );
         static_assert( r.y == 0, "r.y == 0" );
