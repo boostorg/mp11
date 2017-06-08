@@ -98,6 +98,8 @@ run tuple_for_each.cpp : : : $(REQ) ;
 run tuple_for_each_cx.cpp : : : $(REQ) ;
 run tuple_apply.cpp : : : $(REQ) ;
 run tuple_apply_cx.cpp : : : $(REQ) ;
+run make_from_tuple.cpp : : : $(REQ) ;
+run make_from_tuple_cx.cpp : : : $(REQ) ;
 
 # set
 run mp_set_contains.cpp : : : $(REQ) ;
