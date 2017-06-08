@@ -589,8 +589,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#index_sequence_for_t">index_sequence_for&lt;T&#8230;&#8203;&gt;</a></li>
 </ul>
 </li>
-<li><a href="#tuple_for_each">A "for each" algorithm for tuple-like types, &lt;boost/mp11/tuple_for_each.hpp&gt;</a>
+<li><a href="#tuple">Tuple Operations, &lt;boost/mp11/tuple.hpp&gt;</a>
 <ul class="sectlevel3">
+<li><a href="#tuple_apply_f_tp">tuple_apply(f, tp)</a></li>
+<li><a href="#construct_from_tuple_t_tp">construct_from_tuple&lt;T&gt;(tp)</a></li>
 <li><a href="#tuple_for_each_tp_f">tuple_for_each(tp, f)</a></li>
 </ul>
 </li>
@@ -2807,7 +2809,32 @@ of <code>U&#8230;&#8203;</code> and the <code>mp_bind</code> expressions replace
 </div>
 </div>
 <div class="sect2">
-<h3 id="tuple_for_each">A "for each" algorithm for tuple-like types, &lt;boost/mp11/tuple_for_each.hpp&gt;</h3>
+<h3 id="tuple">Tuple Operations, &lt;boost/mp11/tuple.hpp&gt;</h3>
+<div class="sect3">
+<h4 id="tuple_apply_f_tp">tuple_apply(f, tp)</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class F, class Tp&gt; constexpr /*...*/ tuple_apply(F&amp;&amp; f, Tp&amp;&amp; tp);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>tuple_apply(f, tp)</code> returns <code>std::forward&lt;F&gt;(f)(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp))&#8230;&#8203;)</code> for <code>J</code> in 0..<code>N-1</code>,
+where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&lt;Tp&gt;::type&gt;::value</code>. Same as <code>std::apply</code> in C++17.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="construct_from_tuple_t_tp">construct_from_tuple&lt;T&gt;(tp)</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class T, class Tp&gt; T construct_from_tuple(Tp&amp;&amp; tp);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>construct_from_tuple&lt;T&gt;(tp)</code> returns <code>T(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp))&#8230;&#8203;)</code> for <code>J</code> in 0..<code>N-1</code>,
+where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&lt;Tp&gt;::type&gt;::value</code>. Same as <code>std::make_from_tuple</code> in C++17.
+The name of the function doesn&#8217;t match the C++17 one to avoid ambiguities when both are visible or in unqualified calls.</p>
+</div>
+</div>
 <div class="sect3">
 <h4 id="tuple_for_each_tp_f">tuple_for_each(tp, f)</h4>
 <div class="literalblock">
@@ -2847,7 +2874,7 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-07 00:11:03 GTBDT
+Last updated 2017-06-08 04:54:36 GTBDT
 </div>
 </div>
 </body>

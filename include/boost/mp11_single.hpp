@@ -2653,8 +2653,8 @@ template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn
 } // namespace boost
 
 #endif // #ifndef BOOST_MP11_BIND_HPP_INCLUDED
-#ifndef BOOST_MP11_TUPLE_FOR_EACH_HPP_INCLUDED
-#define BOOST_MP11_TUPLE_FOR_EACH_HPP_INCLUDED
+#ifndef BOOST_MP11_TUPLE_HPP_INCLUDED
+#define BOOST_MP11_TUPLE_HPP_INCLUDED
 
 //  Copyright 2015, 2017 Peter Dimov.
 //
@@ -2675,6 +2675,45 @@ namespace boost
 namespace mp11
 {
 
+// tuple_apply
+namespace detail
+{
+
+template<class F, class Tp, std::size_t... J> BOOST_CONSTEXPR auto tuple_apply_impl( F && f, Tp && tp, integer_sequence<std::size_t, J...> )
+    -> decltype( std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... ) )
+{
+    return std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... );
+}
+
+} // namespace detail
+
+template<class F, class Tp,
+    class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
+BOOST_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
+    -> decltype( detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() ) )
+{
+    return detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() );
+}
+
+// construct_from_tuple
+namespace detail
+{
+
+template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T construct_from_tuple_impl( Tp && tp, integer_sequence<std::size_t, J...> )
+{
+    return T( std::get<J>(std::forward<Tp>(tp))... );
+}
+
+} // namespace detail
+
+template<class T, class Tp,
+    class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
+BOOST_CONSTEXPR T construct_from_tuple( Tp && tp )
+{
+    return detail::construct_from_tuple_impl<T>( std::forward<Tp>(tp), Seq() );
+}
+
+// tuple_for_each
 namespace detail
 {
 
@@ -2704,6 +2743,6 @@ template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 } // namespace mp11
 } // namespace boost
 
-#endif // #ifndef BOOST_TUPLE_FOR_EACH_HPP_INCLUDED
+#endif // #ifndef BOOST_TUPLE_HPP_INCLUDED
 
 #endif // #ifndef BOOST_MP11_HPP_INCLUDED

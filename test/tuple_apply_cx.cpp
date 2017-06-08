@@ -18,23 +18,42 @@ int main() {}
 #else
 
 #include <tuple>
-#include <type_traits>
+#include <array>
+#include <utility>
 
-struct assert_is_integral
+constexpr int f( int x, int y, int z )
 {
-    template<class T> constexpr bool operator()( T ) const
-    {
-        static_assert( std::is_integral<T>::value, "T must be an integral type" );
-        return true;
-    }
-};
+    return x * 100 + y * 10 + z;
+}
+
+constexpr int g( int x, int y )
+{
+    return x * 10 + y;
+}
+
+constexpr int h()
+{
+    return 11;
+}
 
 int main()
 {
     {
         constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
-        constexpr auto r = boost::mp11::tuple_for_each( tp, assert_is_integral() );
-        (void)r;
+        constexpr auto r = boost::mp11::tuple_apply( f, tp );
+        static_assert( r == 123, "r == 123" );
+    }
+
+    {
+        constexpr std::pair<short, char> tp{ 1, 2 };
+        constexpr auto r = boost::mp11::tuple_apply( g, tp );
+        static_assert( r == 12, "r == 12" );
+    }
+
+    {
+        constexpr std::array<short, 3> tp{{ 1, 2, 3 }};
+        constexpr auto r = boost::mp11::tuple_apply( f, tp );
+        static_assert( r == 123, "r == 123" );
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
@@ -43,7 +62,7 @@ int main()
 
     {
         constexpr std::tuple<> tp;
-        constexpr auto r = boost::mp11::tuple_for_each( tp, 11 );
+        constexpr auto r = boost::mp11::tuple_apply( h, tp );
         static_assert( r == 11, "r == 11" );
     }
 
