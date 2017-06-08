@@ -93,9 +93,11 @@ run mp_invoke_sf.cpp : : : $(REQ) ;
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;
 
-# tuple_for_each
+# tuple
 run tuple_for_each.cpp : : : $(REQ) ;
 run tuple_for_each_cx.cpp : : : $(REQ) ;
+run tuple_apply.cpp : : : $(REQ) ;
+run tuple_apply_cx.cpp : : : $(REQ) ;
 
 # set
 run mp_set_contains.cpp : : : $(REQ) ;

@@ -2675,6 +2675,26 @@ namespace boost
 namespace mp11
 {
 
+// tuple_apply
+namespace detail
+{
+
+template<class F, class Tp, std::size_t... J> BOOST_CONSTEXPR auto tuple_apply_impl( F && f, Tp && tp, integer_sequence<std::size_t, J...> )
+    -> decltype( std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... ) )
+{
+    return std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... );
+}
+
+} // namespace detail
+
+template<class F, class Tp,
+    class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
+BOOST_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
+    -> decltype( detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() ) )
+{
+    return detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() );
+}
+
 // tuple_for_each
 namespace detail
 {
