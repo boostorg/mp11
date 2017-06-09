@@ -29,7 +29,8 @@ A map is a list of lists, the inner lists having at least one element (the key.)
 
 ## mp_map_insert<M, T>
 
-    template<class M, class T> using mp_map_insert = mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
+    template<class M, class T> using mp_map_insert =
+        mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
 
 Inserts the element `T` into the map `M`, if an element with a key `mp_first<T>` is not already in `M`.
 

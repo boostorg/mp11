@@ -1354,6 +1354,9 @@ the list.</p>
 <p><code>mp_size&lt;L&gt;</code> returns the number of elements in the list <code>L</code>, as a <code>mp_size_t</code>. In other words, <code>mp_size&lt;L&lt;T&#8230;&#8203;&gt;&gt;</code> is an alias for
 <code>mp_size_t&lt;sizeof&#8230;&#8203;(T)&gt;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = mp_list&lt;&gt;;
@@ -1394,6 +1397,9 @@ using R3 = mp_size&lt;L3&gt;; // mp_size_t&lt;1&gt;</pre>
 <div class="paragraph">
 <p><code>mp_front&lt;L&gt;</code> is the first element of the list <code>L</code>. That is, <code>mp_front&lt;L&lt;T1, T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>T1</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::pair&lt;int, float&gt;;
@@ -1422,6 +1428,9 @@ using R3 = mp_front&lt;L3&gt;; // char[1]</pre>
 </div>
 <div class="paragraph">
 <p><code>mp_pop_front&lt;L&gt;</code> removes the first element of the list <code>L</code>. That is, <code>mp_pop_front&lt;L&lt;T1, T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>L&lt;T&#8230;&#8203;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1468,6 +1477,9 @@ using R2 = mp_pop_front&lt;L2&gt;; // mp_list&lt;&gt;</pre>
 <div class="paragraph">
 <p><code>mp_second&lt;L&gt;</code> is the second element of the list <code>L</code>. That is, <code>mp_second&lt;L&lt;T1, T2, T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>T2</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::pair&lt;int, float&gt;;
@@ -1497,6 +1509,9 @@ using R3 = mp_second&lt;L3&gt;; // char[2]</pre>
 <div class="paragraph">
 <p><code>mp_third&lt;L&gt;</code> is the third element of the list <code>L</code>. That is, <code>mp_third&lt;L&lt;T1, T2, T3, T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>T3</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::tuple&lt;float, double, long double&gt;;
@@ -1520,6 +1535,9 @@ using R2 = mp_third&lt;L2&gt;; // char[3]</pre>
 <div class="paragraph">
 <p><code>mp_push_front&lt;L, T&#8230;&#8203;&gt;</code> inserts the elements <code>T&#8230;&#8203;</code> at the front of the list <code>L</code>. That is, <code>mp_push_front&lt;L&lt;U&#8230;&#8203;&gt;, T&#8230;&#8203;&gt;</code>
 is an alias for <code>L&lt;T&#8230;&#8203;, U&#8230;&#8203;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1545,6 +1563,9 @@ using R2 = mp_push_front&lt;L2, char[1], char[2]&gt;; // mp_list&lt;char[1], cha
 <p><code>mp_push_back&lt;L, T&#8230;&#8203;&gt;</code> inserts the elements <code>T&#8230;&#8203;</code> at the back of the list <code>L</code>. That is, <code>mp_push_back&lt;L&lt;U&#8230;&#8203;&gt;, T&#8230;&#8203;&gt;</code>
 is an alias for <code>L&lt;U&#8230;&#8203;, T&#8230;&#8203;&gt;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::tuple&lt;double, long double&gt;;
@@ -1567,6 +1588,9 @@ using R2 = mp_push_back&lt;L2, char[1], char[2]&gt;; // mp_list&lt;void, char[1]
 </div>
 <div class="paragraph">
 <p><code>mp_rename&lt;L, Y&gt;</code> changes the type of the list <code>L</code> to <code>Y</code>. That is, <code>mp_rename&lt;L&lt;T&#8230;&#8203;&gt;, Y&gt;</code> is an alias for <code>Y&lt;T&#8230;&#8203;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1592,6 +1616,9 @@ using R2 = mp_rename&lt;L2, mp_list&gt;; // mp_list&lt;void&gt;</pre>
 <p><code>mp_apply&lt;F, L&gt;</code> applies the metafunction <code>F</code> to the contents of the list <code>L</code>, that is, <code>mp_apply&lt;F, L&lt;T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>F&lt;T&#8230;&#8203;&gt;</code>.
 (<code>mp_apply</code> is the same as <code>mp_rename</code> with the arguments reversed.)</p>
 </div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::pair&lt;double, long double&gt;;
@@ -1608,6 +1635,9 @@ using R1 = mp_apply&lt;std::is_same, L1&gt;; // std::is_same&lt;double, long dou
 </div>
 <div class="paragraph">
 <p>Same as <code>mp_apply</code>, but takes a quoted metafunction.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1630,6 +1660,9 @@ using R1 = mp_apply_q&lt;mp_bind_front&lt;mp_push_back, L1&gt;, L2&gt;;
 <p><code>mp_append&lt;L&#8230;&#8203;&gt;</code> concatenates the lists in <code>L&#8230;&#8203;</code> into a single list that has the same type as the first list. <code>mp_append&lt;&gt;</code>
 is an alias for <code>mp_list&lt;&gt;</code>. <code>mp_append&lt;L1&lt;T1&#8230;&#8203;&gt;, L2&lt;T2&#8230;&#8203;&gt;, &#8230;&#8203;, Ln&lt;Tn&#8230;&#8203;&gt;&gt;</code> is an alias for <code>L1&lt;T1&#8230;&#8203;, T2&#8230;&#8203;, &#8230;&#8203;, Tn&#8230;&#8203;&gt;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;double, long double&gt;;
@@ -1651,6 +1684,9 @@ using R1 = mp_append&lt;L1, L2, L3, L4&gt;; // std::tuple&lt;double, long double
 <div class="paragraph">
 <p><code>mp_replace_front&lt;L, T&gt;</code> replaces the first element of the list <code>L</code> with <code>T</code>. That is, <code>mp_replace_front&lt;L&lt;U1, U&#8230;&#8203;&gt;, T&gt;</code> is
 an alias for <code>L&lt;T, U&#8230;&#8203;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1693,6 +1729,9 @@ using R3 = mp_replace_front&lt;L3, void&gt;; // mp_list&lt;void, char[2], char[3
 <p><code>mp_replace_second&lt;L, T&gt;</code> replaces the second element of the list <code>L</code> with <code>T</code>. That is, <code>mp_replace_second&lt;L&lt;U1, U2, U&#8230;&#8203;&gt;, T&gt;</code>
 is an alias for <code>L&lt;U1, T, U&#8230;&#8203;&gt;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>using L1 = std::pair&lt;int, float&gt;;
@@ -1722,6 +1761,9 @@ using R3 = mp_replace_second&lt;L3, void&gt;; // mp_list&lt;char[1], void, char[
 <div class="paragraph">
 <p><code>mp_replace_third&lt;L, T&gt;</code> replaces the third element of the list <code>L</code> with <code>T</code>. That is, <code>mp_replace_third&lt;L&lt;U1, U2, U3, U&#8230;&#8203;&gt;, T&gt;</code>
 is an alias for <code>L&lt;U1, U2, T, U&#8230;&#8203;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1776,15 +1818,23 @@ using R2 = mp_replace_third&lt;L2, void&gt;; // mp_list&lt;char[1], char[2], voi
 <div class="paragraph">
 <p><code>mp_if_c&lt;true, T, E&#8230;&#8203;&gt;</code> is an alias for <code>T</code>. <code>mp_if_c&lt;false, T, E&gt;</code> is an alias for <code>E</code>. Otherwise, the result is a substitution failure.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>using R1 = mp_if_c&lt;true, int, void&gt;;  // int
-using R2 = mp_if_c&lt;flase, int, void&gt;; // void</pre>
+<pre>using R1 = mp_if_c&lt;true, int, void&gt;;  // int</pre>
 </div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class I&gt; using void_if_5 = mp_if_c&lt;I::value == 5, void&gt;; // `void` when `I::value` is 5, substitution failure otherwise</pre>
+<pre>using R2 = mp_if_c&lt;flase, int, void&gt;; // void</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class I&gt; using void_if_5 = mp_if_c&lt;I::value == 5, void&gt;;
+  // `void` when `I::value` is 5, substitution failure otherwise</pre>
 </div>
 </div>
 </div>
@@ -1792,7 +1842,8 @@ using R2 = mp_if_c&lt;flase, int, void&gt;; // void</pre>
 <h4 id="mp_if_c_t_e">mp_if&lt;C, T, E&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class C, class T, class E...&gt; using mp_if = mp_if_c&lt;static_cast&lt;bool&gt;(C::value), T, E...&gt;;</pre>
+<pre>template&lt;class C, class T, class E...&gt; using mp_if =
+    mp_if_c&lt;static_cast&lt;bool&gt;(C::value), T, E...&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1815,7 +1866,8 @@ is to avoid evaluating <code>F&lt;U&#8230;&#8203;&gt;</code> when the condition 
 <h4 id="mp_eval_if_c_t_f_u">mp_eval_if&lt;C, T, F, U&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class C, class T, template&lt;class...&gt; class F, class... U&gt; using mp_eval_if = mp_eval_if_c&lt;static_cast&lt;bool&gt;(C::value), T, F, U...&gt;;</pre>
+<pre>template&lt;class C, class T, template&lt;class...&gt; class F, class... U&gt; using mp_eval_if =
+    mp_eval_if_c&lt;static_cast&lt;bool&gt;(C::value), T, F, U...&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1826,7 +1878,8 @@ is to avoid evaluating <code>F&lt;U&#8230;&#8203;&gt;</code> when the condition 
 <h4 id="mp_eval_if_q_c_t_q_u">mp_eval_if_q&lt;C, T, Q, U&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class C, class T, class Q, class... U&gt; using mp_eval_if_q = mp_eval_if&lt;C, T, Q::template fn, U...&gt;;</pre>
+<pre>template&lt;class C, class T, class Q, class... U&gt; using mp_eval_if_q =
+    mp_eval_if&lt;C, T, Q::template fn, U...&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2135,7 +2188,8 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <h4 id="mp_insert_c_l_i_t">mp_insert_c&lt;L, I, T&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, std::size_t I, class... T&gt; using mp_insert_c = mp_append&lt;mp_take_c&lt;L, I&gt;, mp_push_front&lt;mp_drop_c&lt;L, I&gt;, T...&gt;&gt;;</pre>
+<pre>template&lt;class L, std::size_t I, class... T&gt; using mp_insert_c =
+    mp_append&lt;mp_take_c&lt;L, I&gt;, mp_push_front&lt;mp_drop_c&lt;L, I&gt;, T...&gt;&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2146,7 +2200,8 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <h4 id="mp_insert_l_i_t">mp_insert&lt;L, I, T&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, class I, class... T&gt; using mp_insert = mp_append&lt;mp_take&lt;L, I&gt;, mp_push_front&lt;mp_drop&lt;L, I&gt;, T...&gt;&gt;;</pre>
+<pre>template&lt;class L, class I, class... T&gt; using mp_insert =
+    mp_append&lt;mp_take&lt;L, I&gt;, mp_push_front&lt;mp_drop&lt;L, I&gt;, T...&gt;&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2157,7 +2212,8 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <h4 id="mp_erase_c_l_i_j">mp_erase_c&lt;L, I, J&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, std::size_t I, std::size_t J&gt; using mp_erase = mp_append&lt;mp_take_c&lt;L, I&gt;, mp_drop_c&lt;L, J&gt;&gt;;</pre>
+<pre>template&lt;class L, std::size_t I, std::size_t J&gt; using mp_erase_c =
+    mp_append&lt;mp_take_c&lt;L, I&gt;, mp_drop_c&lt;L, J&gt;&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2168,7 +2224,8 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <h4 id="mp_erase_l_i_j">mp_erase&lt;L, I, J&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, class I, class J&gt; using mp_erase = mp_append&lt;mp_take&lt;L, I&gt;, mp_drop&lt;L, J&gt;&gt;;</pre>
+<pre>template&lt;class L, class I, class J&gt; using mp_erase =
+    mp_append&lt;mp_take&lt;L, I&gt;, mp_drop&lt;L, J&gt;&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2274,6 +2331,17 @@ for the elements of <code>L&lt;U1&#8230;&#8203;&gt;</code> and <code>mp_false</c
 <div class="paragraph">
 <p><code>mp_sort&lt;L, P&gt;</code> sorts the list <code>L</code> according to the strict weak ordering <code>mp_to_bool&lt;P&lt;T, U&gt;&gt;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>#include &lt;ratio&gt;
+
+using L1 = mp_list&lt;std::ratio&lt;1,2&gt;, std::ratio&lt;1,4&gt;&gt;;
+using R1 = mp_sort&lt;L1, std::ratio_less&gt;; // mp_list&lt;ratio&lt;1,4&gt;, ratio&lt;1,2&gt;&gt;</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="mp_find_l_v">mp_find&lt;L, V&gt;</h4>
@@ -2348,7 +2416,8 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <h4 id="mp_all_of_l_p">mp_all_of&lt;L, P&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_all_of = mp_bool&lt; mp_count_if&lt;L, P&gt;::value == mp_size&lt;L&gt;::value &gt;;</pre>
+<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_all_of =
+    mp_bool&lt; mp_count_if&lt;L, P&gt;::value == mp_size&lt;L&gt;::value &gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2359,7 +2428,8 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <h4 id="mp_none_of_l_p">mp_none_of&lt;L, P&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_none_of = mp_bool&lt; mp_count_if&lt;L, P&gt;::value == 0 &gt;;</pre>
+<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_none_of =
+    mp_bool&lt; mp_count_if&lt;L, P&gt;::value == 0 &gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2370,7 +2440,8 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <h4 id="mp_any_of_l_p">mp_any_of&lt;L, P&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_any_of = mp_bool&lt; mp_count_if&lt;L, P&gt;::value != 0 &gt;;</pre>
+<pre>template&lt;class L, template&lt;class...&gt; class P&gt; using mp_any_of =
+    mp_bool&lt; mp_count_if&lt;L, P&gt;::value != 0 &gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2481,7 +2552,8 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <h4 id="mp_map_insert_m_t">mp_map_insert&lt;M, T&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class M, class T&gt; using mp_map_insert = mp_if&lt; mp_map_contains&lt;M, mp_first&lt;T&gt;&gt;, M, mp_push_back&lt;M, T&gt; &gt;;</pre>
+<pre>template&lt;class M, class T&gt; using mp_map_insert =
+    mp_if&lt; mp_map_contains&lt;M, mp_first&lt;T&gt;&gt;, M, mp_push_back&lt;M, T&gt; &gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2549,12 +2621,27 @@ replaces the existing element <code>L&lt;X, Y&#8230;&#8203;&gt;</code> with <cod
 returns <code>mp_false</code>. If the application causes a substitution failure, returns <code>mp_false</code>. If all results are <code>mp_true</code>,
 returns <code>mp_true</code>. <code>mp_and&lt;&gt;</code> is <code>mp_true</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>using R1 = mp_and&lt;mp_true, mp_true&gt;;   // mp_true
-using R2 = mp_and&lt;mp_false, void&gt;;     // mp_false, void is not reached
-using R3 = mp_and&lt;mp_false, mp_false&gt;; // mp_false
-using R4 = mp_and&lt;void, mp_true&gt;;      // mp_false (!)</pre>
+<pre>using R1 = mp_and&lt;mp_true, mp_true&gt;;   // mp_true</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R2 = mp_and&lt;mp_false, void&gt;;     // mp_false, void is not reached</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R3 = mp_and&lt;mp_false, mp_false&gt;; // mp_false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R4 = mp_and&lt;void, mp_true&gt;;      // mp_false (!)</pre>
 </div>
 </div>
 </div>
@@ -2571,12 +2658,27 @@ using R4 = mp_and&lt;void, mp_true&gt;;      // mp_false (!)</pre>
 is an error because <code>void</code> does not have a nested <code>value</code>. The upside is that <code>mp_all</code> is potentially faster and does not
 mask substitution failures as <code>mp_and</code> does.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>using R1 = mp_and&lt;mp_true, mp_true&gt;;   // mp_true
-using R2 = mp_and&lt;mp_false, void&gt;;     // compile-time error
-using R3 = mp_and&lt;mp_false, mp_false&gt;; // mp_false
-using R4 = mp_and&lt;void, mp_true&gt;;      // compile-time error</pre>
+<pre>using R1 = mp_all&lt;mp_true, mp_true&gt;;   // mp_true</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R2 = mp_all&lt;mp_false, void&gt;;     // compile-time error</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R3 = mp_all&lt;mp_false, mp_false&gt;; // mp_false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R4 = mp_all&lt;void, mp_true&gt;;      // compile-time error</pre>
 </div>
 </div>
 </div>
@@ -2591,12 +2693,27 @@ using R4 = mp_and&lt;void, mp_true&gt;;      // compile-time error</pre>
 <p><code>mp_or&lt;T&#8230;&#8203;&gt;</code> applies <code>mp_to_bool</code> to the types in <code>T&#8230;&#8203;</code>, in order. If the result of an application is <code>mp_true</code>, <code>mp_or</code>
 returns <code>mp_true</code>. If all results are <code>mp_false</code>, returns <code>mp_false</code>. <code>mp_or&lt;&gt;</code> is <code>mp_false</code>.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>using R1 = mp_or&lt;mp_true, mp_false&gt;;   // mp_true
-using R2 = mp_or&lt;mp_true, void&gt;;       // mp_true, void is not reached
-using R3 = mp_or&lt;mp_false, mp_false&gt;;  // mp_false
-using R4 = mp_or&lt;void, mp_true&gt;;       // compile-time error</pre>
+<pre>using R1 = mp_or&lt;mp_true, mp_false&gt;;   // mp_true</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R2 = mp_or&lt;mp_true, void&gt;;       // mp_true, void is not reached</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R3 = mp_or&lt;mp_false, mp_false&gt;;  // mp_false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R4 = mp_or&lt;void, mp_true&gt;;       // compile-time error</pre>
 </div>
 </div>
 </div>
@@ -2611,12 +2728,27 @@ using R4 = mp_or&lt;void, mp_true&gt;;       // compile-time error</pre>
 <p><code>mp_any&lt;T&#8230;&#8203;&gt;</code> is <code>mp_true</code> if <code>mp_to_bool&lt;U&gt;</code> is <code>mp_true</code> for any type <code>U</code> in <code>T&#8230;&#8203;</code>, <code>mp_false</code> otherwise. Same as
 <code>mp_or</code>, but does not perform short-circuit evaluation.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>using R1 = mp_any&lt;mp_true, mp_false&gt;;  // mp_true
-using R2 = mp_any&lt;mp_true, void&gt;;      // compile-time error
-using R3 = mp_any&lt;mp_false, mp_false&gt;; // mp_false
-using R4 = mp_any&lt;void, mp_true&gt;;      // compile-time error</pre>
+<pre>using R1 = mp_any&lt;mp_true, mp_false&gt;;  // mp_true</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R2 = mp_any&lt;mp_true, void&gt;;      // compile-time error</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R3 = mp_any&lt;mp_false, mp_false&gt;; // mp_false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using R4 = mp_any&lt;void, mp_true&gt;;      // compile-time error</pre>
 </div>
 </div>
 </div>

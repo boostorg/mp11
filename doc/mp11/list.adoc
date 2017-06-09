@@ -28,6 +28,8 @@ the list.
 `mp_size<L>` returns the number of elements in the list `L`, as a `mp_size_t`. In other words, `mp_size<L<T...>>` is an alias for
 `mp_size_t<sizeof...(T)>`.
 
+Examples:
+
     using L1 = mp_list<>;
     using R1 = mp_size<L1>; // mp_size_t\<0>
 
@@ -49,6 +51,8 @@ the list.
 
 `mp_front<L>` is the first element of the list `L`. That is, `mp_front<L<T1, T...>>` is an alias for `T1`.
 
+Examples:
+
     using L1 = std::pair<int, float>;
     using R1 = mp_front<L1>; // int
 
@@ -63,6 +67,8 @@ the list.
     template<class L> using mp_pop_front = /*...*/;
 
 `mp_pop_front<L>` removes the first element of the list `L`. That is, `mp_pop_front<L<T1, T...>>` is an alias for `L<T...>`.
+
+Examples:
 
     using L1 = std::tuple<float, double, long double>;
     using R1 = mp_pop_front<L1>; // std::tuple<double, long double>
@@ -88,6 +94,8 @@ the list.
 
 `mp_second<L>` is the second element of the list `L`. That is, `mp_second<L<T1, T2, T...>>` is an alias for `T2`.
 
+Examples:
+
     using L1 = std::pair<int, float>;
     using R1 = mp_second<L1>; // float
 
@@ -103,6 +111,8 @@ the list.
 
 `mp_third<L>` is the third element of the list `L`. That is, `mp_third<L<T1, T2, T3, T...>>` is an alias for `T3`.
 
+Examples:
+
     using L1 = std::tuple<float, double, long double>;
     using R1 = mp_third<L1>; // long double
 
@@ -115,6 +125,8 @@ the list.
 
 `mp_push_front<L, T...>` inserts the elements `T...` at the front of the list `L`. That is, `mp_push_front<L<U...>, T...>`
 is an alias for `L<T..., U...>`.
+
+Examples:
 
     using L1 = std::tuple<double, long double>;
     using R1 = mp_push_front<L1, float>; // std::tuple<float, double, long double>
@@ -129,6 +141,8 @@ is an alias for `L<T..., U...>`.
 `mp_push_back<L, T...>` inserts the elements `T...` at the back of the list `L`. That is, `mp_push_back<L<U...>, T...>`
 is an alias for `L<U..., T...>`.
 
+Examples:
+
     using L1 = std::tuple<double, long double>;
     using R1 = mp_push_back<L1, float>; // std::tuple<double, long double, float>
 
@@ -140,6 +154,8 @@ is an alias for `L<U..., T...>`.
     template<class L, template<class...> class Y> using mp_rename = /*...*/;
 
 `mp_rename<L, Y>` changes the type of the list `L` to `Y`. That is, `mp_rename<L<T...>, Y>` is an alias for `Y<T...>`.
+
+Examples:
 
     using L1 = std::pair<double, long double>;
     using R1 = mp_rename<L1, std::tuple>; // std::tuple<double, long double>
@@ -154,6 +170,8 @@ is an alias for `L<U..., T...>`.
 `mp_apply<F, L>` applies the metafunction `F` to the contents of the list `L`, that is, `mp_apply<F, L<T...>>` is an alias for `F<T...>`.
 (`mp_apply` is the same as `mp_rename` with the arguments reversed.)
 
+Example:
+
     using L1 = std::pair<double, long double>;
     using R1 = mp_apply<std::is_same, L1>; // std::is_same<double, long double>
 
@@ -162,6 +180,9 @@ is an alias for `L<U..., T...>`.
     template<class Q, class L> using mp_apply_q = mp_apply<Q::template fn, L>;
 
 Same as `mp_apply`, but takes a quoted metafunction.
+
+Example:
+
 ```
 using L1 = std::tuple<double, long double>;
 using L2 = mp_list<int, long>;
@@ -169,12 +190,16 @@ using L2 = mp_list<int, long>;
 using R1 = mp_apply_q<mp_bind_front<mp_push_back, L1>, L2>;
 // R1 is std::tuple<double, long double, int, long>
 ```
+
 ## mp_append<L...>
 
     template<class... L> using mp_append = /*...*/;
 
 `mp_append<L...>` concatenates the lists in `L...` into a single list that has the same type as the first list. `mp_append<>`
 is an alias for `mp_list<>`. `mp_append<L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` is an alias for `L1<T1..., T2..., ..., Tn...>`.
+
+Example:
+
 ```
 using L1 = std::tuple<double, long double>;
 using L2 = mp_list<int>;
@@ -183,12 +208,15 @@ using L4 = mp_list<>;
 
 using R1 = mp_append<L1, L2, L3, L4>; // std::tuple<double, long double, int, short, long>
 ```
+
 ## mp_replace_front<L, T>
 
     template<class L, class T> using mp_replace_front = /*...*/;
 
 `mp_replace_front<L, T>` replaces the first element of the list `L` with `T`. That is, `mp_replace_front<L<U1, U...>, T>` is
 an alias for `L<T, U...>`.
+
+Examples:
 
     using L1 = std::pair<int, float>;
     using R1 = mp_replace_front<L1, void>; // std::pair<void, float>
@@ -212,6 +240,8 @@ an alias for `L<T, U...>`.
 `mp_replace_second<L, T>` replaces the second element of the list `L` with `T`. That is, `mp_replace_second<L<U1, U2, U...>, T>`
 is an alias for `L<U1, T, U...>`.
 
+Examples:
+
     using L1 = std::pair<int, float>;
     using R1 = mp_replace_second<L1, void>; // std::pair<int, void>
 
@@ -227,6 +257,8 @@ is an alias for `L<U1, T, U...>`.
 
 `mp_replace_third<L, T>` replaces the third element of the list `L` with `T`. That is, `mp_replace_third<L<U1, U2, U3, U...>, T>`
 is an alias for `L<U1, U2, T, U...>`.
+
+Examples:
 
     using L1 = std::tuple<float, double, long double>;
     using R1 = mp_replace_third<L1, void>; // std::tuple<float, double, void>

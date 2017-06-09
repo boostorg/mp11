@@ -152,25 +152,29 @@ Same as `mp_take_c`, but with a type argument `N`. `N::value` must be a nonnegat
 
 ## mp_insert_c<L, I, T...>
 
-    template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
+    template<class L, std::size_t I, class... T> using mp_insert_c =
+        mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
 
 Inserts the elements `T...` into the list `L` at position `I` (a zero-based index).
 
 ## mp_insert<L, I, T...>
 
-    template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
+    template<class L, class I, class... T> using mp_insert =
+        mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
 
 Same as `mp_insert_c`, but with a type argument `I`.
 
 ## mp_erase_c<L, I, J>
 
-    template<class L, std::size_t I, std::size_t J> using mp_erase = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
+    template<class L, std::size_t I, std::size_t J> using mp_erase_c =
+        mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
 Removes from the list `L` the elements with indices from `I` (inclusive) to `J` (exclusive).
 
 ## mp_erase<L, I, J>
 
-    template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
+    template<class L, class I, class J> using mp_erase =
+        mp_append<mp_take<L, I>, mp_drop<L, J>>;
 
 Same as `mp_erase_c`, but with a type arguments `I` and `J`.
 
@@ -229,6 +233,13 @@ for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Re
 
 `mp_sort<L, P>` sorts the list `L` according to the strict weak ordering `mp_to_bool<P<T, U>>`.
 
+Example:
+```
+#include <ratio>
+
+using L1 = mp_list<std::ratio<1,2>, std::ratio<1,4>>;
+using R1 = mp_sort<L1, std::ratio_less>; // mp_list<ratio<1,4>, ratio<1,2>>
+```
 ## mp_find<L, V>
 
     template<class L, class V> using mp_find = /*...*/;
@@ -270,19 +281,22 @@ is `mp_size<L>`.
 
 ## mp_all_of<L, P>
 
-    template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+    template<class L, template<class...> class P> using mp_all_of =
+        mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
 
 `mp_all_of<L, P>` is `mp_true` when `P` holds for all elements of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 
 ## mp_none_of<L, P>
 
-    template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+    template<class L, template<class...> class P> using mp_none_of =
+        mp_bool< mp_count_if<L, P>::value == 0 >;
 
 `mp_none_of<L, P>` is `mp_true` when `P` holds for no element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 
 ## mp_any_of<L, P>
 
-    template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+    template<class L, template<class...> class P> using mp_any_of =
+        mp_bool< mp_count_if<L, P>::value != 0 >;
 
 `mp_any_of<L, P>` is `mp_true` when `P` holds for at least one element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_false`.
 

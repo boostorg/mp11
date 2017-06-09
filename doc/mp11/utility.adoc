@@ -34,14 +34,19 @@ http://www.boost.org/LICENSE_1_0.txt
 
 `mp_if_c<true, T, E...>` is an alias for `T`. `mp_if_c<false, T, E>` is an alias for `E`. Otherwise, the result is a substitution failure.
 
+Examples:
+
     using R1 = mp_if_c<true, int, void>;  // int
+
     using R2 = mp_if_c<flase, int, void>; // void
 
-	template<class I> using void_if_5 = mp_if_c<I::value == 5, void>; // `void` when `I::value` is 5, substitution failure otherwise
+	template<class I> using void_if_5 = mp_if_c<I::value == 5, void>;
+	  // `void` when `I::value` is 5, substitution failure otherwise
 
 ## mp_if<C, T, E...>
 
-    template<class C, class T, class E...> using mp_if = mp_if_c<static_cast<bool>(C::value), T, E...>;
+    template<class C, class T, class E...> using mp_if =
+        mp_if_c<static_cast<bool>(C::value), T, E...>;
 
 Like `mp_if_c`, but the first argument is a type.
 
@@ -54,13 +59,15 @@ is to avoid evaluating `F<U...>` when the condition is `true` as it may not be v
 
 ## mp_eval_if<C, T, F, U...>
 
-    template<class C, class T, template<class...> class F, class... U> using mp_eval_if = mp_eval_if_c<static_cast<bool>(C::value), T, F, U...>;
+    template<class C, class T, template<class...> class F, class... U> using mp_eval_if =
+        mp_eval_if_c<static_cast<bool>(C::value), T, F, U...>;
 
 Like `mp_eval_if_c`, but the first argument is a type.
 
 ## mp_eval_if_q<C, T, Q, U...>
 
-    template<class C, class T, class Q, class... U> using mp_eval_if_q = mp_eval_if<C, T, Q::template fn, U...>;
+    template<class C, class T, class Q, class... U> using mp_eval_if_q =
+        mp_eval_if<C, T, Q::template fn, U...>;
 
 Like `mp_eval_if`, but takes a quoted metafunction.
 
