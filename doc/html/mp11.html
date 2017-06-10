@@ -1853,7 +1853,7 @@ int main()
 <h4 id="mp_identity_t_t">mp_identity_t&lt;T&gt;</h4>
 <div class="literalblock">
 <div class="content">
-<pre>template&lt;class T&gt; using mp_identity_t = T;</pre>
+<pre>template&lt;class T&gt; using mp_identity_t = typename mp_identity&lt;T&gt;::type;</pre>
 </div>
 </div>
 </div>
@@ -3377,7 +3377,7 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-10 01:59:58 GTBDT
+Last updated 2017-06-10 03:46:37 GTBDT
 </div>
 </div>
 </body>

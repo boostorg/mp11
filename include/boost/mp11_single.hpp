@@ -117,7 +117,7 @@ template<class T> struct mp_identity
 };
 
 // mp_identity_t
-template<class T> using mp_identity_t = T;
+template<class T> using mp_identity_t = typename mp_identity<T>::type;
 
 // mp_inherit
 template<class... T> struct mp_inherit: T... {};
