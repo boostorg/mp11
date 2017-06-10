@@ -10,8 +10,9 @@ http://www.boost.org/LICENSE_1_0.txt
 [#overview]
 # Overview
 
-Mp11 is a C++11 metaprogramming library based on template aliases and variadic templates.
-It implements the approach outlined in the article
+Mp11 is a C++11 metaprogramming library for compile-time manipulation of data structures
+that contain types. It's based on template aliases and variadic templates and implements the
+approach outlined in the article
 http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html["Simple {cpp} metaprogramming"]
 and http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html[its sequel]. Reading these
 articles before proceeding with this documentation is _highly_ recommended.
