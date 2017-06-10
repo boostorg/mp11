@@ -57,7 +57,8 @@ As `mp_bind`, but takes a quoted metafunction.
 
 ## mp_bind_front_q<Q, T...>
 
-    template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template fn, T...>;
+    template<class Q, class... T> using mp_bind_front_q =
+        mp_bind_front<Q::template fn, T...>;
 
 As `mp_bind_front`, but takes a quoted metafunction.
 
@@ -69,6 +70,7 @@ As `mp_bind_front`, but takes a quoted metafunction.
 
 ## mp_bind_back_q<Q, T...>
 
-    template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn, T...>;
+    template<class Q, class... T> using mp_bind_back_q =
+        mp_bind_back<Q::template fn, T...>;
 
 As `mp_bind_back`, but takes a quoted metafunction.

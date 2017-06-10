@@ -35,12 +35,14 @@ http://www.boost.org/LICENSE_1_0.txt
 
 ## make_index_sequence<N>
 
-    template<std::size_t N> using make_index_sequence = make_integer_sequence<std::size_t, N>;
+    template<std::size_t N> using make_index_sequence =
+        make_integer_sequence<std::size_t, N>;
 
 `make_index_sequence<N>` is `index_sequence<0, 1, ..., N-1>`. Same as C++14's `std::make_index_sequence`.
 
 ## index_sequence_for<T...>
 
-    template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
+    template<class... T> using index_sequence_for =
+        make_integer_sequence<std::size_t, sizeof...(T)>;
 
 `index_sequence_for<N>` is `make_index_sequence<sizeof...(T)>`. Same as C++14's `std::index_sequence_for`.

@@ -27,15 +27,16 @@ Same as `std::void_t` from C++17.
 returns `mp_false`. If the application causes a substitution failure, returns `mp_false`. If all results are `mp_true`,
 returns `mp_true`. `mp_and<>` is `mp_true`.
 
-Examples:
+.mp_and behavior
+```
+using R1 = mp_and<mp_true, mp_true>;   // mp_true
 
-    using R1 = mp_and<mp_true, mp_true>;   // mp_true
+using R2 = mp_and<mp_false, void>;     // mp_false, void is not reached
 
-    using R2 = mp_and<mp_false, void>;     // mp_false, void is not reached
+using R3 = mp_and<mp_false, mp_false>; // mp_false
 
-    using R3 = mp_and<mp_false, mp_false>; // mp_false
-
-    using R4 = mp_and<void, mp_true>;      // mp_false (!)
+using R4 = mp_and<void, mp_true>;      // mp_false (!)
+```
 
 ## mp_all<T...>
 
@@ -46,15 +47,16 @@ Examples:
 is an error because `void` does not have a nested `value`. The upside is that `mp_all` is potentially faster and does not
 mask substitution failures as `mp_and` does.
 
-Examples:
+.mp_all behavior
+```
+using R1 = mp_all<mp_true, mp_true>;   // mp_true
 
-    using R1 = mp_all<mp_true, mp_true>;   // mp_true
+using R2 = mp_all<mp_false, void>;     // compile-time error
 
-    using R2 = mp_all<mp_false, void>;     // compile-time error
+using R3 = mp_all<mp_false, mp_false>; // mp_false
 
-    using R3 = mp_all<mp_false, mp_false>; // mp_false
-
-    using R4 = mp_all<void, mp_true>;      // compile-time error
+using R4 = mp_all<void, mp_true>;      // compile-time error
+```
 
 ## mp_or<T...>
 
@@ -63,15 +65,16 @@ Examples:
 `mp_or<T...>` applies `mp_to_bool` to the types in `T...`, in order. If the result of an application is `mp_true`, `mp_or`
 returns `mp_true`. If all results are `mp_false`, returns `mp_false`. `mp_or<>` is `mp_false`.
 
-Examples:
+.mp_or behavior
+```
+using R1 = mp_or<mp_true, mp_false>;   // mp_true
 
-    using R1 = mp_or<mp_true, mp_false>;   // mp_true
+using R2 = mp_or<mp_true, void>;       // mp_true, void is not reached
 
-    using R2 = mp_or<mp_true, void>;       // mp_true, void is not reached
+using R3 = mp_or<mp_false, mp_false>;  // mp_false
 
-    using R3 = mp_or<mp_false, mp_false>;  // mp_false
-
-    using R4 = mp_or<void, mp_true>;       // compile-time error
+using R4 = mp_or<void, mp_true>;       // compile-time error
+```
 
 ## mp_any<T...>
 
@@ -80,15 +83,16 @@ Examples:
 `mp_any<T...>` is `mp_true` if `mp_to_bool<U>` is `mp_true` for any type `U` in `T...`, `mp_false` otherwise. Same as
 `mp_or`, but does not perform short-circuit evaluation.
 
-Examples:
+.mp_any behavior
+```
+using R1 = mp_any<mp_true, mp_false>;  // mp_true
 
-    using R1 = mp_any<mp_true, mp_false>;  // mp_true
+using R2 = mp_any<mp_true, void>;      // compile-time error
 
-    using R2 = mp_any<mp_true, void>;      // compile-time error
+using R3 = mp_any<mp_false, mp_false>; // mp_false
 
-    using R3 = mp_any<mp_false, mp_false>; // mp_false
-
-    using R4 = mp_any<void, mp_true>;      // compile-time error
+using R4 = mp_any<void, mp_true>;      // compile-time error
+```
 
 ## mp_same<T...>
 
