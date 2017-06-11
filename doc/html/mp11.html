@@ -2092,6 +2092,45 @@ using L2 = mp_list&lt;int, float&gt;;
 using R1 = mp_assign&lt;L1, L2&gt;; // std::pair&lt;int, float&gt;</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 1. mp_assign</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_assign&lt;L1, L2&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_clear_l">mp_clear&lt;L&gt;</h4>
@@ -2152,7 +2191,7 @@ using R1 = mp_all&lt;mp_transform&lt;eq, L1, L2&gt;&gt;; // mp_true</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 1. mp_transform on one list</caption>
+<caption class="title">Illustration 2. mp_transform on one list</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -2160,37 +2199,28 @@ using R1 = mp_all&lt;mp_transform&lt;eq, L1, L2&gt;&gt;; // mp_true</code></pre>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-middle">List</th>
-<th class="tableblock halign-center valign-middle" colspan="4">Contents</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle" colspan="5"></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A0</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A1</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>An</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle" colspan="5"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_transform&lt;F, L1&gt;</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A0&gt;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A1&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>&gt;</code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;An&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>n</sub>&gt;</code></p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 2. mp_transform on two lists</caption>
+<caption class="title">Illustration 3. mp_transform on two lists</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -2198,42 +2228,33 @@ using R1 = mp_all&lt;mp_transform&lt;eq, L1, L2&gt;&gt;; // mp_true</code></pre>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-middle">List</th>
-<th class="tableblock halign-center valign-middle" colspan="4">Contents</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle" colspan="5"></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A0</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A1</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>An</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle" colspan="5"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B0</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B1</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Bn</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle" colspan="5"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_transform&lt;F, L1, L2&gt;</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A0,B0&gt;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A1,B1&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>1</sub>,B<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>,B<sub>2</sub>&gt;</code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;An,Bn&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>n</sub>,B<sub>n</sub>&gt;</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2258,6 +2279,45 @@ using R1 = mp_apply&lt;mp_plus,
     mp_transform_q&lt;mp_bind_front&lt;std::is_same, void&gt;, L1&gt;&gt;; // mp_int&lt;2&gt;</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 4. mp_transform_q on two lists</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_transform_q&lt;Q, L1, L2&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Q::fn&lt;A<sub>1</sub>,B<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Q::fn&lt;A<sub>2</sub>,B<sub>2</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Q::fn&lt;A<sub>n</sub>,B<sub>n</sub>&gt;</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_transform_if_p_f_l">mp_transform_if&lt;P, F, L&#8230;&#8203;&gt;</h4>
@@ -2284,6 +2344,55 @@ using R1 = mp_transform_if&lt;first_is_void, second, L1, L2&gt;;
   // std::tuple&lt;char[1], int, float, char[4], int&gt;</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 5. mp_transform_if</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>P&lt;A<sub>i</sub>&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_true</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_transform_if&lt;P, F, L1, L2&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>,B<sub>2</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_transform_if_q_qp_qf_l">mp_transform_if_q&lt;Qp, Qf, L&#8230;&#8203;&gt;</h4>
@@ -2306,6 +2415,55 @@ using R1 = mp_transform_if_q&lt;mp_bind&lt;std::is_same, _1, void&gt;, _2, L1, L
   // std::tuple&lt;char[1], int, float, char[4], int&gt;</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 6. mp_transform_if_q</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>Qp::fn&lt;A<sub>i</sub>&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_true</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_transform_if_q&lt;Qp, _2, L1, L2&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_fill_l_v">mp_fill&lt;L, V&gt;</h4>
@@ -2331,6 +2489,35 @@ using R1 = mp_fill&lt;L1, double&gt;; // std::tuple&lt;double, double, double&gt
 using R1 = mp_fill&lt;L1, void&gt;; // std::pair&lt;void, void&gt;</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 7. mp_fill</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_fill&lt;L1, V&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>V</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>V</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>V</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_count_l_v">mp_count&lt;L, V&gt;</h4>
@@ -2400,7 +2587,7 @@ the Cartesian product of the lists, as if the elements <code>Ui</code> are forme
 It returns a list of type <code>L1</code> containing the results of the application of <code>F</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 3. mp_product on two lists</caption>
+<caption class="title">Illustration 8. mp_product on two lists</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -2408,51 +2595,51 @@ It returns a list of type <code>L1</code> containing the results of the applicat
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-middle">List</th>
-<th class="tableblock halign-center valign-middle" colspan="4">Contents</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle" colspan="5"></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A0</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A1</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>An</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle" colspan="5"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L2</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B0</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B1</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Bm</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>m</sub></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle" colspan="5"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_product&lt;F, L1, L2&gt;</strong></code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A0,B0&gt;
-F&lt;A0,B1&gt;
-&#8230;&#8203;
-F&lt;A0,Bm&gt;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A1,B0&gt;
-F&lt;A1,B1&gt;
-&#8230;&#8203;
-F&lt;A1,Bm&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>1</sub>,B<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>1</sub>,B<sub>2</sub>&gt;</code></p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;An,B0&gt;
-F&lt;An,B1&gt;
-&#8230;&#8203;
-F&lt;An,Bm&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>1</sub>,B<sub>m</sub>&gt;</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>,B<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>,B<sub>2</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>2</sub>,B<sub>m</sub>&gt;</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"></td>
+<td class="tableblock halign-center valign-middle" colspan="4"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>n</sub>,B<sub>1</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>n</sub>,B<sub>2</sub>&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>F&lt;A<sub>n</sub>,B<sub>m</sub>&gt;</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2513,6 +2700,25 @@ F&lt;An,Bm&gt;</code></p></td>
 <code>mp_list&lt;std::integral_constant&lt;T, 0&gt;, std::integral_constant&lt;T, 1&gt;, &#8230;&#8203;, std::integral_constant&lt;T, N::value-1&gt;&gt;</code>
 where <code>T</code> is the type of <code>N::value</code>.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 9. mp_iota</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_iota&lt;mp_int&lt;4&gt;&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_int&lt;0&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_int&lt;1&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_int&lt;2&gt;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_int&lt;3&gt;</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_at_c_l_i">mp_at_c&lt;L, I&gt;</h4>
@@ -2616,6 +2822,35 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <div class="paragraph">
 <p>Replaces all <code>V</code> elements of <code>L</code> with <code>W</code> and returns the result.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 10. mp_replace</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>V</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_replace&lt;L1, V, W&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>W</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_replace_if_l_p_w">mp_replace_if&lt;L, P, W&gt;</h4>
@@ -2627,6 +2862,45 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <div class="paragraph">
 <p>Replaces all <code>T</code> elements of <code>L</code> for which <code>mp_to_bool&lt;P&lt;T&gt;&gt;</code> is <code>mp_true</code> with <code>W</code> and returns the result.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 11. mp_replace_if</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>P&lt;A<sub>i</sub>&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_true</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>mp_false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_replace_if&lt;L1, P, W&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>W</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_replace_at_c_l_i_w">mp_replace_at_c&lt;L, I, W&gt;</h4>
@@ -2750,6 +3024,35 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <div class="paragraph">
 <p><code>mp_reverse&lt;L&lt;T1, T2, &#8230;&#8203;, Tn&gt;&gt;</code> is <code>L&lt;Tn, &#8230;&#8203;, T2, T1&gt;</code>.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 12. mp_reverse</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="5"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_reverse&lt;L1&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n-1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_fold_l_v_f">mp_fold&lt;L, V, F&gt;</h4>
@@ -3377,8 +3680,41 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-10 03:46:37 GTBDT
+Last updated 2017-06-11 03:50:25 GTBDT
 </div>
 </div>
+<style>
+
+*:not(pre)>code { background: none; color: #600000; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: none; }
+
+</style>
+
+<script>
+
+var header = document.getElementById( 'boost-common-heading-doc' );
+
+if( header )
+{
+    header.style.position = 'fixed';
+    header.style.zIndex = '100';
+
+    var notice = document.getElementsByClassName( 'boost-common-header-notice' )[ 0 ];
+
+    if( notice )
+    {
+        notice.style.position = 'fixed';
+        notice.style.zIndex = '101';
+    }
+
+    var toc = document.getElementById( 'toc' );
+
+    if( toc )
+    {
+        toc.style.top = '101px';
+    }
+}
+
+</script>
 </body>
 </html>

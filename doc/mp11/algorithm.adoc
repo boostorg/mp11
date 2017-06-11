@@ -35,6 +35,16 @@ using L2 = mp_list<int, float>;
 using R1 = mp_assign<L1, L2>; // std::pair<int, float>
 ```
 
+.mp_assign
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*mp_assign<L1, L2>*|B~1~|B~2~|...|B~n~
+|===
+
 ## mp_clear<L>
 
     template<class L> using mp_clear = mp_assign<L, mp_list<>>;
@@ -81,27 +91,21 @@ using R1 = mp_all<mp_transform<eq, L1, L2>>; // mp_true
 ```
 
 .mp_transform on one list
-[cols="<.^4m,4*^.^1m",options="header",width=85%]
+[cols="<.^4m,4*^.^1m",width=85%]
 |===
-^|List
-4+|Contents
+|*L1*|A~1~|A~2~|...|A~n~
 5+|
-|*L1*|A0|A1|...|An
-5+|
-|*mp_transform<F, L1>*|F<A0>|F<A1>|...|F<An>
+|*mp_transform<F, L1>*|F<A~1~>|F<A~2~>|...|F<A~n~>
 |===
 
 .mp_transform on two lists
-[cols="<.^4m,4*^.^1m",options="header",width=85%]
+[cols="<.^4m,4*^.^1m",width=85%]
 |===
-^|List
-4+|Contents
+|*L1*|A~1~|A~2~|...|A~n~
 5+|
-|*L1*|A0|A1|...|An
+|*L2*|B~1~|B~2~|...|B~n~
 5+|
-|*L2*|B0|B1|...|Bn
-5+|
-|*mp_transform<F, L1, L2>*|F<A0,B0>|F<A1,B1>|...|F<An,Bn>
+|*mp_transform<F, L1, L2>*|F<A~1~,B~1~>|F<A~2~,B~2~>|...|F<A~n~,B~n~>
 |===
 
 ## mp_transform_q<Q, L...>
@@ -118,6 +122,16 @@ using L1 = std::tuple<void, int, float, void, int>;
 using R1 = mp_apply<mp_plus,
     mp_transform_q<mp_bind_front<std::is_same, void>, L1>>; // mp_int\<2>
 ```
+
+[cols="<.^4m,4*^.^1m",width=85%]
+.mp_transform_q on two lists
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*mp_transform_q<Q, L1, L2>*|Q::fn<A~1~,B~1~>|Q::fn<A~2~,B~2~>|...|Q::fn<A~n~,B~n~>
+|===
 
 ## mp_transform_if<P, F, L...>
 
@@ -139,6 +153,18 @@ using R1 = mp_transform_if<first_is_void, second, L1, L2>;
   // std::tuple<char[1], int, float, char[4], int>
 ```
 
+.mp_transform_if
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*P<A~i~>*|mp_false|mp_true|...|mp_false
+5+|
+|*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*mp_transform_if<P, F, L1, L2>*|A~1~|F<A~2~,B~2~>|...|A~n~
+|===
+
 ## mp_transform_if_q<Qp, Qf, L...>
 
     template<class Qp, class Qf, class... L> using mp_transform_if_q =
@@ -154,6 +180,18 @@ using L2 = std::tuple<char[1], char[2], char[3], char[4], char[5]>;
 using R1 = mp_transform_if_q<mp_bind<std::is_same, _1, void>, _2, L1, L2>;
   // std::tuple<char[1], int, float, char[4], int>
 ```
+
+.mp_transform_if_q
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*Qp::fn<A~i~>*|mp_false|mp_true|...|mp_false
+5+|
+|*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*mp_transform_if_q<Qp, _2, L1, L2>*|A~1~|B~2~|...|A~n~
+|===
 
 ## mp_fill<L, V>
 
@@ -172,6 +210,14 @@ using R1 = mp_fill<L1, double>; // std::tuple<double, double, double>
 using L1 = std::pair<int, float>;
 using R1 = mp_fill<L1, void>; // std::pair<void, void>
 ```
+
+.mp_fill
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*mp_fill<L1, V>*|V|V|...|V
+|===
 
 ## mp_count<L, V>
 
@@ -212,29 +258,17 @@ the Cartesian product of the lists, as if the elements `Ui` are formed by `n` ne
 It returns a list of type `L1` containing the results of the application of `F`.
 
 .mp_product on two lists
-[cols="<.^4m,4*^.^1m",options="header",width=85%]
+[cols="<.^4m,4*^.^1m",width=85%]
 |===
-^|List
-4+|Contents
+|*L1*|A~1~|A~2~|...|A~n~
 5+|
-|*L1*|A0|A1|...|An
+|*L2*|B~1~|B~2~|...|B~m~
 5+|
-|*L2*|B0|B1|...|Bm
-5+|
-|*mp_product<F, L1, L2>*
-|F<A0,B0>
-F<A0,B1>
-...
-F<A0,Bm>
-|F<A1,B0>
-F<A1,B1>
-...
-F<A1,Bm>
-|...
-|F<An,B0>
-F<An,B1>
-...
-F<An,Bm>
+|*mp_product<F, L1, L2>*|F<A~1~,B~1~>|F<A~1~,B~2~>|...|F<A~1~,B~m~>
+||F<A~2~,B~1~>|F<A~2~,B~2~>|...|F<A~2~,B~m~>
+|
+4+|...
+||F<A~n~,B~1~>|F<A~n~,B~2~>|...|F<A~n~,B~m~>
 |===
 
 ## mp_product_q<Q, L...>
@@ -268,6 +302,12 @@ Same as `mp_drop_c`, but with a type argument `N`. `N::value` must be a nonnegat
 Same as `mp_iota_c`, but with a type argument `N`. `N::value` must be a nonnegative number. Returns
 `mp_list<std::integral_constant<T, 0>, std::integral_constant<T, 1>, ..., std::integral_constant<T, N::value-1>>`
 where `T` is the type of `N::value`.
+
+.mp_iota
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*mp_iota<mp_int<4>>*|mp_int<0>|mp_int<1>|mp_int<2>|mp_int<3>
+|===
 
 ## mp_at_c<L, I>
 
@@ -327,11 +367,29 @@ Same as `mp_erase_c`, but with a type arguments `I` and `J`.
 
 Replaces all `V` elements of `L` with `W` and returns the result.
 
+.mp_replace
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|V|...|A~n~
+5+|
+|*mp_replace<L1, V, W>*|A~1~|W|...|A~n~
+|===
+
 ## mp_replace_if<L, P, W>
 
     template<class L, template<class...> class P, class W> using mp_replace_if = /*...*/;
 
 Replaces all `T` elements of `L` for which `mp_to_bool<P<T>>` is `mp_true` with `W` and returns the result.
+
+.mp_replace_if
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*P<A~i~>*|mp_false|mp_true|...|mp_false
+5+|
+|*mp_replace_if<L1, P, W>*|A~1~|W|...|A~n~
+|===
 
 ## mp_replace_at_c<L, I, W>
 
@@ -404,6 +462,14 @@ is `mp_size<L>`.
     template<class L> using mp_reverse = /*...*/;
 
 `mp_reverse<L<T1, T2, ..., Tn>>` is `L<Tn, ..., T2, T1>`.
+
+.mp_reverse
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*L1*|A~1~|A~2~|...|A~n~
+5+|
+|*mp_reverse<L1>*|A~n~|A~n-1~|...|A~1~
+|===
 
 ## mp_fold<L, V, F>
 
