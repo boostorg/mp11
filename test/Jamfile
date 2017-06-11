@@ -12,7 +12,7 @@ import ../../config/checks/config : requires ;
 REQ = ; #[ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
 
 # include-only
-compile mp11.cpp : : : $(REQ) ;
+compile mp11.cpp : $(REQ) ;
 
 # list
 run mp_size.cpp : : : $(REQ) ;
@@ -95,11 +95,11 @@ run integer_sequence.cpp : : : $(REQ) ;
 
 # tuple
 run tuple_for_each.cpp : : : $(REQ) ;
-compile tuple_for_each_cx.cpp : : : $(REQ) ;
+compile tuple_for_each_cx.cpp : $(REQ) ;
 run tuple_apply.cpp : : : $(REQ) ;
-compile tuple_apply_cx.cpp : : : $(REQ) ;
+compile tuple_apply_cx.cpp : $(REQ) ;
 run construct_from_tuple.cpp : : : $(REQ) ;
-compile construct_from_tuple_cx.cpp : : : $(REQ) ;
+compile construct_from_tuple_cx.cpp : $(REQ) ;
 
 # set
 run mp_set_contains.cpp : : : $(REQ) ;
