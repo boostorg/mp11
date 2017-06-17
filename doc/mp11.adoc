@@ -34,4 +34,6 @@ include::mp11/reference.adoc[]
 This documentation is
 
 * Copyright 2017 Peter Dimov
-* Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
+* Copyright 2017 Bjørn Reese
+
+and is distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
