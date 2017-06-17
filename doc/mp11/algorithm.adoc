@@ -509,6 +509,14 @@ is `mp_size<L>`.
 
 `mp_fold<L<T1, T2, ..., Tn>, V, F>` is `F< F< F< F<V, T1>, T2>, ...>, Tn>`, or `V`, if `L` is empty.
 
+.Using mp_fold to add the contents of a list of std::ratio values
+----
+#include <ratio>
+
+using L1 = mp_list<std::ratio<1,8>, std::ratio<1,4>, std::ratio<1,2>>;
+using R1 = mp_fold<L1, std::ratio<0,1>, std::ratio_add>; // std::ratio<7,8>
+----
+
 ## mp_reverse_fold<L, V, F>
 
     template<class L, class V, template<class...> class F> using mp_reverse_fold =

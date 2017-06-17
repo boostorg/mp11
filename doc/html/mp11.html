@@ -3212,6 +3212,15 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <div class="paragraph">
 <p><code>mp_fold&lt;L&lt;T1, T2, &#8230;&#8203;, Tn&gt;, V, F&gt;</code> is <code>F&lt; F&lt; F&lt; F&lt;V, T1&gt;, T2&gt;, &#8230;&#8203;&gt;, Tn&gt;</code>, or <code>V</code>, if <code>L</code> is empty.</p>
 </div>
+<div class="listingblock">
+<div class="title">Code Example 57. Using mp_fold to add the contents of a list of std::ratio values</div>
+<div class="content">
+<pre>#include &lt;ratio&gt;
+
+using L1 = mp_list&lt;std::ratio&lt;1,8&gt;, std::ratio&lt;1,4&gt;, std::ratio&lt;1,2&gt;&gt;;
+using R1 = mp_fold&lt;L1, std::ratio&lt;0,1&gt;, std::ratio_add&gt;; // std::ratio&lt;7,8&gt;</pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="mp_reverse_fold_l_v_f">mp_reverse_fold&lt;L, V, F&gt;</h4>
@@ -3286,7 +3295,7 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <p>Returns <code>std::forward&lt;F&gt;(f)</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 57. Using mp_for_each and a C++14 lambda to print a tuple</div>
+<div class="title">Code Example 58. Using mp_for_each and a C++14 lambda to print a tuple</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class... T&gt; void print( std::tuple&lt;T...&gt; const &amp; tp )
 {
@@ -3327,7 +3336,7 @@ Only <code>constexpr</code> on C++14 and higher.</p>
 <p>Returns <code>mp_with_index&lt;N::value&gt;(i, f)</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 58. Using mp_with_index and a C++14 lambda to print the active element of a variant</div>
+<div class="title">Code Example 59. Using mp_with_index and a C++14 lambda to print the active element of a variant</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class... T&gt; void print( std::variant&lt;T...&gt; const&amp; v )
 {
@@ -3484,7 +3493,7 @@ returns <code>mp_false</code>. If the application causes a substitution failure,
 returns <code>mp_true</code>. <code>mp_and&lt;&gt;</code> is <code>mp_true</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 59. mp_and behavior</div>
+<div class="title">Code Example 60. mp_and behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_and&lt;mp_true, mp_true&gt;;   // mp_true
 
@@ -3510,7 +3519,7 @@ is an error because <code>void</code> does not have a nested <code>value</code>.
 mask substitution failures as <code>mp_and</code> does.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 60. mp_all behavior</div>
+<div class="title">Code Example 61. mp_all behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_all&lt;mp_true, mp_true&gt;;   // mp_true
 
@@ -3534,7 +3543,7 @@ using R4 = mp_all&lt;void, mp_true&gt;;      // compile-time error</code></pre>
 returns <code>mp_true</code>. If all results are <code>mp_false</code>, returns <code>mp_false</code>. <code>mp_or&lt;&gt;</code> is <code>mp_false</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 61. mp_or behavior</div>
+<div class="title">Code Example 62. mp_or behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_or&lt;mp_true, mp_false&gt;;   // mp_true
 
@@ -3558,7 +3567,7 @@ using R4 = mp_or&lt;void, mp_true&gt;;       // compile-time error</code></pre>
 <code>mp_or</code>, but does not perform short-circuit evaluation.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 62. mp_any behavior</div>
+<div class="title">Code Example 63. mp_any behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_any&lt;mp_true, mp_false&gt;;  // mp_true
 
