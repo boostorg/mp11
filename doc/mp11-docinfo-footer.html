@@ -4,30 +4,3 @@
 table tr.even, table tr.alt, table tr:nth-of-type(even) { background: none; }
 
 </style>
-
-<script>
-
-var header = document.getElementById( 'boost-common-heading-doc' );
-
-if( header )
-{
-    header.style.position = 'fixed';
-    header.style.zIndex = '100';
-
-    var notice = document.getElementsByClassName( 'boost-common-header-notice' )[ 0 ];
-
-    if( notice )
-    {
-        notice.style.position = 'fixed';
-        notice.style.zIndex = '101';
-    }
-
-    var toc = document.getElementById( 'toc' );
-
-    if( toc )
-    {
-        toc.style.top = '101px';
-    }
-}
-
-</script>
