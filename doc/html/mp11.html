@@ -2665,6 +2665,39 @@ It returns a list of type <code>L1</code> containing the results of the applicat
 <div class="paragraph">
 <p><code>mp_drop_c&lt;L, N&gt;</code> removes the first <code>N</code> elements of <code>L</code> and returns the result.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 9. mp_drop_c</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m+1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="7"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_drop_c&lt;L1, M&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m+1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+<td class="tableblock halign-center valign-middle" colspan="3"></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_drop_l_n">mp_drop&lt;L, N&gt;</h4>
@@ -2701,7 +2734,7 @@ It returns a list of type <code>L1</code> containing the results of the applicat
 where <code>T</code> is the type of <code>N::value</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 9. mp_iota</caption>
+<caption class="title">Illustration 10. mp_iota</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -2752,6 +2785,39 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <div class="paragraph">
 <p><code>mp_take_c&lt;L, N&gt;</code> returns a list of the same type as <code>L</code> containing the first <code>N</code> elements of <code>L</code>.</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 11. mp_take_c</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m+1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="7"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_take_c&lt;L1, M&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m</sub></code></p></td>
+<td class="tableblock halign-center valign-middle" colspan="3"></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_take_l_n">mp_take&lt;L, N&gt;</h4>
@@ -2775,6 +2841,46 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <div class="paragraph">
 <p>Inserts the elements <code>T&#8230;&#8203;</code> into the list <code>L</code> at position <code>I</code> (a zero-based index).</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 12. mp_insert_c with two elements</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3333%;">
+<col style="width: 8.3336%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m+1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+<td class="tableblock halign-center valign-middle" colspan="2"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="9"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_insert_c&lt;L1, M, B<sub>1</sub>, B<sub>2</sub>&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>B<sub>2</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>m+1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n</sub></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_insert_l_i_t">mp_insert&lt;L, I, T&#8230;&#8203;&gt;</h4>
@@ -2799,6 +2905,48 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <div class="paragraph">
 <p>Removes from the list <code>L</code> the elements with indices from <code>I</code> (inclusive) to <code>J</code> (exclusive).</p>
 </div>
+<table class="tableblock frame-all grid-all" style="width: 85%;">
+<caption class="title">Illustration 13. mp_erase_c</caption>
+<colgroup>
+<col style="width: 30.7692%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6923%;">
+<col style="width: 7.6924%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>L1</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>0</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>i-1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>i</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>j-1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>j</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n-1</sub></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" colspan="10"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code><strong>mp_erase_c&lt;L1, I, J&gt;</strong></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>0</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>i-1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>j</sub></code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>A<sub>n-1</sub></code></p></td>
+<td class="tableblock halign-center valign-middle" colspan="3"></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="mp_erase_l_i_j">mp_erase&lt;L, I, J&gt;</h4>
@@ -2823,7 +2971,7 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <p>Replaces all <code>V</code> elements of <code>L</code> with <code>W</code> and returns the result.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 10. mp_replace</caption>
+<caption class="title">Illustration 14. mp_replace</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -2863,7 +3011,7 @@ where <code>T</code> is the type of <code>N::value</code>.</p>
 <p>Replaces all <code>T</code> elements of <code>L</code> for which <code>mp_to_bool&lt;P&lt;T&gt;&gt;</code> is <code>mp_true</code> with <code>W</code> and returns the result.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 11. mp_replace_if</caption>
+<caption class="title">Illustration 15. mp_replace_if</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -3025,7 +3173,7 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <p><code>mp_reverse&lt;L&lt;T1, T2, &#8230;&#8203;, Tn&gt;&gt;</code> is <code>L&lt;Tn, &#8230;&#8203;, T2, T1&gt;</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Illustration 12. mp_reverse</caption>
+<caption class="title">Illustration 16. mp_reverse</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 12.5%;">
@@ -3680,7 +3828,7 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-11 03:50:25 GTBDT
+Last updated 2017-06-17 18:51:14 GTBDT
 </div>
 </div>
 <style>
@@ -3689,32 +3837,5 @@ Last updated 2017-06-11 03:50:25 GTBDT
 table tr.even, table tr.alt, table tr:nth-of-type(even) { background: none; }
 
 </style>
-
-<script>
-
-var header = document.getElementById( 'boost-common-heading-doc' );
-
-if( header )
-{
-    header.style.position = 'fixed';
-    header.style.zIndex = '100';
-
-    var notice = document.getElementsByClassName( 'boost-common-header-notice' )[ 0 ];
-
-    if( notice )
-    {
-        notice.style.position = 'fixed';
-        notice.style.zIndex = '101';
-    }
-
-    var toc = document.getElementById( 'toc' );
-
-    if( toc )
-    {
-        toc.style.top = '101px';
-    }
-}
-
-</script>
 </body>
 </html>
