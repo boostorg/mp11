@@ -283,6 +283,14 @@ As `mp_product`, but takes a quoted metafunction.
 
 `mp_drop_c<L, N>` removes the first `N` elements of `L` and returns the result.
 
+.mp_drop_c
+[cols="<.^4m,6*^.^1m",width=85%]
+|===
+|*L1*|A~1~|...|A~m~|A~m+1~|...|A~n~
+7+|
+|*mp_drop_c<L1, M>*|A~m+1~|...|A~n~ 3+|
+|===
+
 ## mp_drop<L, N>
 
     template<class L, class N> using mp_drop = /*...*/;
@@ -327,6 +335,14 @@ Same as `mp_at_c`, but with a type argument `I`. `I::value` must be a nonnegativ
 
 `mp_take_c<L, N>` returns a list of the same type as `L` containing the first `N` elements of `L`.
 
+.mp_take_c
+[cols="<.^4m,6*^.^1m",width=85%]
+|===
+|*L1*|A~1~|...|A~m~|A~m+1~|...|A~n~
+7+|
+|*mp_take_c<L1, M>*|A~1~|...|A~m~ 3+|
+|===
+
 ## mp_take<L, N>
 
     template<class L, class N> using mp_take = /*...*/;
@@ -339,6 +355,14 @@ Same as `mp_take_c`, but with a type argument `N`. `N::value` must be a nonnegat
         mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
 
 Inserts the elements `T...` into the list `L` at position `I` (a zero-based index).
+
+.mp_insert_c with two elements
+[cols="<.^4m,8*^.^1m",width=85%]
+|===
+|*L1*|A~1~|...|A~m~|A~m+1~|...|A~n~ 2+|
+9+|
+|*mp_insert_c<L1, M, B~1~, B~2~>*|A~1~|...|A~m~|B~1~|B~2~|A~m+1~|...|A~n~
+|===
 
 ## mp_insert<L, I, T...>
 
@@ -353,6 +377,14 @@ Same as `mp_insert_c`, but with a type argument `I`.
         mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
 Removes from the list `L` the elements with indices from `I` (inclusive) to `J` (exclusive).
+
+.mp_erase_c
+[cols="<.^4m,9*^.^1m",width=85%]
+|===
+|*L1*|A~0~|...|A~i-1~|A~i~|...|A~j-1~|A~j~|...|A~n-1~
+10+|
+|*mp_erase_c<L1, I, J>*|A~0~|...|A~i-1~|A~j~|...|A~n-1~ 3+|
+|===
 
 ## mp_erase<L, I, J>
 
