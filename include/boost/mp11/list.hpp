@@ -23,7 +23,10 @@ namespace mp11
 namespace detail
 {
 
-template<class L> struct mp_size_impl;
+template<class L> struct mp_size_impl
+{
+// An error "no type named 'type'" here means that the argument to mp_size is not a list
+};
 
 template<template<class...> class L, class... T> struct mp_size_impl<L<T...>>
 {
@@ -41,7 +44,11 @@ template<class L> using mp_empty = mp_bool< mp_size<L>::value == 0 >;
 namespace detail
 {
 
-template<class L> struct mp_front_impl;
+template<class L> struct mp_front_impl
+{
+// An error "no type named 'type'" here means that the argument to mp_front
+// is either not a list, or is an empty list
+};
 
 template<template<class...> class L, class T1, class... T> struct mp_front_impl<L<T1, T...>>
 {
@@ -56,7 +63,11 @@ template<class L> using mp_front = typename detail::mp_front_impl<L>::type;
 namespace detail
 {
 
-template<class L> struct mp_pop_front_impl;
+template<class L> struct mp_pop_front_impl
+{
+// An error "no type named 'type'" here means that the argument to mp_pop_front
+// is either not a list, or is an empty list
+};
 
 template<template<class...> class L, class T1, class... T> struct mp_pop_front_impl<L<T1, T...>>
 {
@@ -77,7 +88,11 @@ template<class L> using mp_rest = mp_pop_front<L>;
 namespace detail
 {
 
-template<class L> struct mp_second_impl;
+template<class L> struct mp_second_impl
+{
+// An error "no type named 'type'" here means that the argument to mp_second
+// is either not a list, or has fewer than two elements
+};
 
 template<template<class...> class L, class T1, class T2, class... T> struct mp_second_impl<L<T1, T2, T...>>
 {
@@ -92,7 +107,11 @@ template<class L> using mp_second = typename detail::mp_second_impl<L>::type;
 namespace detail
 {
 
-template<class L> struct mp_third_impl;
+template<class L> struct mp_third_impl
+{
+// An error "no type named 'type'" here means that the argument to mp_third
+// is either not a list, or has fewer than three elements
+};
 
 template<template<class...> class L, class T1, class T2, class T3, class... T> struct mp_third_impl<L<T1, T2, T3, T...>>
 {
@@ -107,7 +126,10 @@ template<class L> using mp_third = typename detail::mp_third_impl<L>::type;
 namespace detail
 {
 
-template<class L, class... T> struct mp_push_front_impl;
+template<class L, class... T> struct mp_push_front_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_push_front is not a list
+};
 
 template<template<class...> class L, class... U, class... T> struct mp_push_front_impl<L<U...>, T...>
 {
@@ -122,7 +144,10 @@ template<class L, class... T> using mp_push_front = typename detail::mp_push_fro
 namespace detail
 {
 
-template<class L, class... T> struct mp_push_back_impl;
+template<class L, class... T> struct mp_push_back_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_push_back is not a list
+};
 
 template<template<class...> class L, class... U, class... T> struct mp_push_back_impl<L<U...>, T...>
 {
@@ -137,7 +162,10 @@ template<class L, class... T> using mp_push_back = typename detail::mp_push_back
 namespace detail
 {
 
-template<class A, template<class...> class B> struct mp_rename_impl;
+template<class A, template<class...> class B> struct mp_rename_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_rename is not a list
+};
 
 template<template<class...> class A, class... T, template<class...> class B> struct mp_rename_impl<A<T...>, B>
 {
@@ -156,7 +184,11 @@ template<class Q, class L> using mp_apply_q = typename detail::mp_rename_impl<L,
 namespace detail
 {
 
-template<class L, class T> struct mp_replace_front_impl;
+template<class L, class T> struct mp_replace_front_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_replace_front
+// is either not a list, or is an empty list
+};
 
 template<template<class...> class L, class U1, class... U, class T> struct mp_replace_front_impl<L<U1, U...>, T>
 {
@@ -174,7 +206,11 @@ template<class L, class T> using mp_replace_first = typename detail::mp_replace_
 namespace detail
 {
 
-template<class L, class T> struct mp_replace_second_impl;
+template<class L, class T> struct mp_replace_second_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_replace_second
+// is either not a list, or has fewer than two elements
+};
 
 template<template<class...> class L, class U1, class U2, class... U, class T> struct mp_replace_second_impl<L<U1, U2, U...>, T>
 {
@@ -189,7 +225,11 @@ template<class L, class T> using mp_replace_second = typename detail::mp_replace
 namespace detail
 {
 
-template<class L, class T> struct mp_replace_third_impl;
+template<class L, class T> struct mp_replace_third_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_replace_third
+// is either not a list, or has fewer than three elements
+};
 
 template<template<class...> class L, class U1, class U2, class U3, class... U, class T> struct mp_replace_third_impl<L<U1, U2, U3, U...>, T>
 {
