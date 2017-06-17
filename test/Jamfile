@@ -9,7 +9,7 @@
 import testing ;
 import ../../config/checks/config : requires ;
 
-REQ = ; #[ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
+REQ = [ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
 
 # include-only
 compile mp11.cpp : $(REQ) ;
