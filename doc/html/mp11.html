@@ -3301,7 +3301,7 @@ using R1 = mp_fold&lt;L1, std::ratio&lt;0,1&gt;, std::ratio_add&gt;; // std::rat
 {
     std::size_t const N = sizeof...(T);
 
-    mp_for_each&lt;mp_iota_c&lt;N&gt;&gt;( []( auto I ){
+    mp_for_each&lt;mp_iota_c&lt;N&gt;&gt;( [&amp;]( auto I ){
 
         // I is mp_size_t&lt;0&gt;, mp_size_t&lt;1&gt;, ..., mp_size_t&lt;N-1&gt;
 
@@ -3840,7 +3840,7 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-17 19:42:32 GTBDT
+Last updated 2017-06-18 02:23:06 GTBDT
 </div>
 </div>
 <style>
