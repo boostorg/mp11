@@ -565,7 +565,7 @@ template<class... T> void print( std::tuple<T...> const & tp )
 {
     std::size_t const N = sizeof...(T);
 
-    mp_for_each<mp_iota_c<N>>( []( auto I ){
+    mp_for_each<mp_iota_c<N>>( [&tp]( auto I ){
 
         // I is mp_size_t<0>, mp_size_t<1>, ..., mp_size_t<N-1>
 
