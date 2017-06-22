@@ -1,4 +1,4 @@
-# Copyright 2016 Peter Dimov
+# Copyright 2016, 2017 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -30,7 +30,7 @@ install:
   - mkdir libs\mp11
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\mp11
   - python tools/boostdep/depinst/depinst.py mp11
-  - bootstrap
+  - cmd /c bootstrap
   - b2 headers
 
 build: off
