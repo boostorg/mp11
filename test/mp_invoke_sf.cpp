@@ -13,7 +13,9 @@
 
 using boost::mp11::mp_invoke;
 using boost::mp11::mp_quote;
+using boost::mp11::mp_quote_trait;
 using boost::mp11::mp_valid;
+using boost::mp11::mp_identity;
 using boost::mp11::mp_identity_t;
 
 int main()
@@ -28,6 +30,15 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_invoke, Qi>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<mp_invoke, Qi, void>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_invoke, Qi, void, void>));
+
+    using Qt = mp_quote_trait<mp_identity>;
+
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#else
+    BOOST_TEST_TRAIT_FALSE((mp_valid<mp_invoke, Qt>));
+#endif
+    BOOST_TEST_TRAIT_TRUE((mp_valid<mp_invoke, Qt, void>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid<mp_invoke, Qt, void, void>));
 
     return boost::report_errors();
 }

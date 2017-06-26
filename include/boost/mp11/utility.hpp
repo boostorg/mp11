@@ -116,6 +116,12 @@ template<template<class...> class F> struct mp_quote
     template<class... T> using fn = typename mp_defer<F, T...>::type;
 };
 
+// mp_quote_trait
+template<template<class...> class F> struct mp_quote_trait
+{
+    template<class... T> using fn = typename F<T...>::type;
+};
+
 // mp_invoke
 #if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
 

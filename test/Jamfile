@@ -89,6 +89,7 @@ run mp_defer.cpp : : : $(REQ) ;
 run mp_quote.cpp : : : $(REQ) ;
 run mp_invoke.cpp : : : $(REQ) ;
 run mp_invoke_sf.cpp : : : $(REQ) ;
+run mp_quote_trait.cpp : : : $(REQ) ;
 
 # integer_sequence
 run integer_sequence.cpp : : : $(REQ) ;
