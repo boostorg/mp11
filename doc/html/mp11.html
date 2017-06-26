@@ -487,6 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#mp_valid_f_t">mp_valid&lt;F, T&#8230;&#8203;&gt;</a></li>
 <li><a href="#mp_defer_f_t">mp_defer&lt;F, T&#8230;&#8203;&gt;</a></li>
 <li><a href="#mp_quote_f">mp_quote&lt;F&gt;</a></li>
+<li><a href="#mp_quote_trait_f">mp_quote_trait&lt;F&gt;</a></li>
 <li><a href="#mp_invoke_q_t">mp_invoke&lt;Q, T&#8230;&#8203;&gt;</a></li>
 </ul>
 </li>
@@ -2028,6 +2029,28 @@ template&lt;class T&gt; struct has_nested_type: mp_valid&lt;get_nested_type, T&g
 </div>
 </div>
 <div class="sect3">
+<h4 id="mp_quote_trait_f">mp_quote_trait&lt;F&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;template&lt;class...&gt; class F&gt; struct mp_quote_trait
+{
+    template&lt;class... T&gt; using fn = typename F&lt;T...&gt;::type;
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>mp_quote_trait&lt;F&gt;</code> transforms the C++03-style trait <code>F</code> into a quoted metafunction.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code Example 42. Using mp_quote_trait with std::add_pointer</div>
+<div class="content">
+<pre class="highlight"><code>using L1 = mp_list&lt;int, void, float&gt;;
+using R1 = mp_transform_q&lt;mp_quote_trait&lt;std::add_pointer&gt;, L1&gt;;
+  // mp_list&lt;int*, void*, float*&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="mp_invoke_q_t">mp_invoke&lt;Q, T&#8230;&#8203;&gt;</h4>
 <div class="literalblock">
 <div class="content">
@@ -2038,7 +2061,7 @@ template&lt;class T&gt; struct has_nested_type: mp_valid&lt;get_nested_type, T&g
 <p><code>mp_invoke&lt;Q, T&#8230;&#8203;&gt;</code> evaluates the nested template <code>fn</code> of a quoted metafunction. <code>mp_invoke&lt;mp_quote&lt;F&gt;, T&#8230;&#8203;&gt;</code> returns <code>F&lt;T&#8230;&#8203;&gt;</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 42. Using mp_invoke to invoke a list of metafunctions, technique 1</div>
+<div class="title">Code Example 43. Using mp_invoke to invoke a list of metafunctions, technique 1</div>
 <div class="content">
 <pre class="highlight"><code>using LQ = mp_list&lt;mp_quote&lt;std::is_const&gt;, mp_quote&lt;std::is_volatile&gt;&gt;;
 
@@ -2047,14 +2070,14 @@ template&lt;class T&gt; using is_const_and_volatile =
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 43. Using mp_invoke to invoke a list of metafunctions, technique 2</div>
+<div class="title">Code Example 44. Using mp_invoke to invoke a list of metafunctions, technique 2</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class T&gt; using is_const_and_volatile =
     mp_all&lt;mp_transform_q&lt;mp_bind_back&lt;mp_invoke, T&gt;, LQ&gt;&gt;;</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 44. Using mp_invoke to invoke a list of metafunctions, technique 3</div>
+<div class="title">Code Example 45. Using mp_invoke to invoke a list of metafunctions, technique 3</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class T&gt; using is_const_and_volatile =
     mp_all&lt;mp_transform&lt;mp_invoke, LQ, mp_fill&lt;LQ, T&gt;&gt;&gt;;</code></pre>
@@ -2075,7 +2098,7 @@ template&lt;class T&gt; using is_const_and_volatile =
 <p><code>mp_assign&lt;L1&lt;T1&#8230;&#8203;&gt;, L2&lt;T2&#8230;&#8203;&gt;&gt;</code> is an alias for <code>L1&lt;T2&#8230;&#8203;&gt;</code>. That is, it replaces the elements of <code>L1</code> with those of <code>L2</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 45. Using mp_assign with mp_list and std::tuple</div>
+<div class="title">Code Example 46. Using mp_assign with mp_list and std::tuple</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;long&gt;;
 using L2 = mp_list&lt;int, float&gt;;
@@ -2084,7 +2107,7 @@ using R1 = mp_assign&lt;L1, L2&gt;; // std::tuple&lt;int, float&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 46. Using mp_assign with mp_list and std::pair</div>
+<div class="title">Code Example 47. Using mp_assign with mp_list and std::pair</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::pair&lt;long, char&gt;;
 using L2 = mp_list&lt;int, float&gt;;
@@ -2143,7 +2166,7 @@ using R1 = mp_assign&lt;L1, L2&gt;; // std::pair&lt;int, float&gt;</code></pre>
 <p><code>mp_clear&lt;L&lt;T&#8230;&#8203;&gt;&gt;</code> is an alias for <code>L&lt;&gt;</code>, that is, it removes the elements of <code>L</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 47. Using mp_clear with std::tuple</div>
+<div class="title">Code Example 48. Using mp_clear with std::tuple</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;int, float&gt;;
 using R1 = mp_clear&lt;L1&gt;; // std::tuple&lt;&gt;</code></pre>
@@ -2161,7 +2184,7 @@ using R1 = mp_clear&lt;L1&gt;; // std::tuple&lt;&gt;</code></pre>
 <p><code>mp_transform&lt;F, L1&lt;T1&#8230;&#8203;&gt;, L2&lt;T2&#8230;&#8203;&gt;, &#8230;&#8203;, Ln&lt;Tn&#8230;&#8203;&gt;&gt;</code> applies <code>F</code> to each successive tuple of elements and returns <code>L1&lt;F&lt;T1, T2, &#8230;&#8203;, Tn&gt;&#8230;&#8203;&gt;</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 48. Using mp_transform to produce a list of pointers from a list of pointees</div>
+<div class="title">Code Example 49. Using mp_transform to produce a list of pointers from a list of pointees</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class T&gt; using add_pointer_t =
     typename std::add_pointer&lt;T&gt;::type;  // std::add_pointer_t in C++14
@@ -2171,7 +2194,7 @@ using R1 = mp_transform&lt;add_pointer_t, L1&gt;; // std::tuple&lt;void*, int*, 
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 49. Using mp_transform to compare the contents of two lists of types</div>
+<div class="title">Code Example 50. Using mp_transform to compare the contents of two lists of types</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;void, int, float&gt;;
 using L2 = mp_list&lt;void, int, float&gt;;
@@ -2180,7 +2203,7 @@ using R1 = mp_all&lt;mp_transform&lt;std::is_same, L1, L2&gt;&gt;; // mp_true</c
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 50. Using mp_transform to compare the contents of two lists of integral constants</div>
+<div class="title">Code Example 51. Using mp_transform to compare the contents of two lists of integral constants</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class T1, class T2&gt; using eq = mp_bool&lt;T1::value == T2::value&gt;;
 
@@ -2271,7 +2294,7 @@ using R1 = mp_all&lt;mp_transform&lt;eq, L1, L2&gt;&gt;; // mp_true</code></pre>
 <p>As <code>mp_transform</code>, but takes a quoted metafunction.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 51. Using mp_transform_q to count the occurences of <code>void</code> in a list</div>
+<div class="title">Code Example 52. Using mp_transform_q to count the occurences of <code>void</code> in a list</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;void, int, float, void, int&gt;;
 
@@ -2332,7 +2355,7 @@ using R1 = mp_apply&lt;mp_plus,
 <code>F&lt;T1, T2, &#8230;&#8203;, Tn&gt;</code>, and returns the result, where <code>Ti</code> are the corresponding elements of <code>Li</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 52. Using mp_transform_if to replace the occurences of 'void' in a list with the corresponding elements of a second list</div>
+<div class="title">Code Example 53. Using mp_transform_if to replace the occurences of 'void' in a list with the corresponding elements of a second list</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;void, int, float, void, int&gt;;
 using L2 = std::tuple&lt;char[1], char[2], char[3], char[4], char[5]&gt;;
@@ -2406,7 +2429,7 @@ using R1 = mp_transform_if&lt;first_is_void, second, L1, L2&gt;;
 <p>As <code>mp_transform_if</code>, but takes quoted metafunctions.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 53. Using mp_transform_if_q to replace the occurences of 'void' in a list with the corresponding elements of a second list</div>
+<div class="title">Code Example 54. Using mp_transform_if_q to replace the occurences of 'void' in a list with the corresponding elements of a second list</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;void, int, float, void, int&gt;;
 using L2 = std::tuple&lt;char[1], char[2], char[3], char[4], char[5]&gt;;
@@ -2476,14 +2499,14 @@ using R1 = mp_transform_if_q&lt;mp_bind&lt;std::is_same, _1, void&gt;, _2, L1, L
 <p><code>mp_fill&lt;L&lt;T&#8230;&#8203;&gt;, V&gt;</code> returns <code>L&lt;V, V, &#8230;&#8203;, V&gt;</code>, with the result having the same size as the input.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 54. Using mp_fill with std::tuple</div>
+<div class="title">Code Example 55. Using mp_fill with std::tuple</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::tuple&lt;void, int, float&gt;;
 using R1 = mp_fill&lt;L1, double&gt;; // std::tuple&lt;double, double, double&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 55. Using mp_fill with std::pair</div>
+<div class="title">Code Example 56. Using mp_fill with std::pair</div>
 <div class="content">
 <pre class="highlight"><code>using L1 = std::pair&lt;int, float&gt;;
 using R1 = mp_fill&lt;L1, void&gt;; // std::pair&lt;void, void&gt;</code></pre>
@@ -3128,7 +3151,7 @@ for the elements of <code>L&lt;U1&#8230;&#8203;&gt;</code> and <code>mp_false</c
 <p><code>mp_sort&lt;L, P&gt;</code> sorts the list <code>L</code> according to the strict weak ordering <code>mp_to_bool&lt;P&lt;T, U&gt;&gt;</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 56. Using mp_sort to sort a list of std::ratio values</div>
+<div class="title">Code Example 57. Using mp_sort to sort a list of std::ratio values</div>
 <div class="content">
 <pre>#include &lt;ratio&gt;
 
@@ -3213,7 +3236,7 @@ is <code>mp_size&lt;L&gt;</code>.</p>
 <p><code>mp_fold&lt;L&lt;T1, T2, &#8230;&#8203;, Tn&gt;, V, F&gt;</code> is <code>F&lt; F&lt; F&lt; F&lt;V, T1&gt;, T2&gt;, &#8230;&#8203;&gt;, Tn&gt;</code>, or <code>V</code>, if <code>L</code> is empty.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 57. Using mp_fold to add the contents of a list of std::ratio values</div>
+<div class="title">Code Example 58. Using mp_fold to add the contents of a list of std::ratio values</div>
 <div class="content">
 <pre>#include &lt;ratio&gt;
 
@@ -3295,7 +3318,7 @@ using R1 = mp_fold&lt;L1, std::ratio&lt;0,1&gt;, std::ratio_add&gt;; // std::rat
 <p>Returns <code>std::forward&lt;F&gt;(f)</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 58. Using mp_for_each and a C++14 lambda to print a tuple</div>
+<div class="title">Code Example 59. Using mp_for_each and a C++14 lambda to print a tuple</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class... T&gt; void print( std::tuple&lt;T...&gt; const &amp; tp )
 {
@@ -3336,7 +3359,7 @@ Only <code>constexpr</code> on C++14 and higher.</p>
 <p>Returns <code>mp_with_index&lt;N::value&gt;(i, f)</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 59. Using mp_with_index and a C++14 lambda to print the active element of a variant</div>
+<div class="title">Code Example 60. Using mp_with_index and a C++14 lambda to print the active element of a variant</div>
 <div class="content">
 <pre class="highlight"><code>template&lt;class... T&gt; void print( std::variant&lt;T...&gt; const&amp; v )
 {
@@ -3493,7 +3516,7 @@ returns <code>mp_false</code>. If the application causes a substitution failure,
 returns <code>mp_true</code>. <code>mp_and&lt;&gt;</code> is <code>mp_true</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 60. mp_and behavior</div>
+<div class="title">Code Example 61. mp_and behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_and&lt;mp_true, mp_true&gt;;   // mp_true
 
@@ -3519,7 +3542,7 @@ is an error because <code>void</code> does not have a nested <code>value</code>.
 mask substitution failures as <code>mp_and</code> does.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 61. mp_all behavior</div>
+<div class="title">Code Example 62. mp_all behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_all&lt;mp_true, mp_true&gt;;   // mp_true
 
@@ -3543,7 +3566,7 @@ using R4 = mp_all&lt;void, mp_true&gt;;      // compile-time error</code></pre>
 returns <code>mp_true</code>. If all results are <code>mp_false</code>, returns <code>mp_false</code>. <code>mp_or&lt;&gt;</code> is <code>mp_false</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 62. mp_or behavior</div>
+<div class="title">Code Example 63. mp_or behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_or&lt;mp_true, mp_false&gt;;   // mp_true
 
@@ -3567,7 +3590,7 @@ using R4 = mp_or&lt;void, mp_true&gt;;       // compile-time error</code></pre>
 <code>mp_or</code>, but does not perform short-circuit evaluation.</p>
 </div>
 <div class="listingblock">
-<div class="title">Code Example 63. mp_any behavior</div>
+<div class="title">Code Example 64. mp_any behavior</div>
 <div class="content">
 <pre class="highlight"><code>using R1 = mp_any&lt;mp_true, mp_false&gt;;  // mp_true
 

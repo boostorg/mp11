@@ -169,6 +169,22 @@ When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a ne
 using LQ = mp_list<mp_quote<std::is_const>, mp_quote<std::is_volatile>>;
 ```
 
+## mp_quote_trait<F>
+
+    template<template<class...> class F> struct mp_quote_trait
+    {
+        template<class... T> using fn = typename F<T...>::type;
+    };
+
+`mp_quote_trait<F>` transforms the C++03-style trait `F` into a quoted metafunction.
+
+.Using mp_quote_trait with std::add_pointer
+```
+using L1 = mp_list<int, void, float>;
+using R1 = mp_transform_q<mp_quote_trait<std::add_pointer>, L1>;
+  // mp_list<int*, void*, float*>
+```
+
 ## mp_invoke<Q, T...>
 
     template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
