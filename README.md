@@ -10,6 +10,8 @@ The library is intended to be placed in a subdirectory `libs/mp11` in a Boost di
 but can also be used standalone, although it does require Boost.Config. A single-header form
 is available in [include/boost/mp11_single.hpp](include/boost/mp11_single.hpp).
 
+The Mp11 documentation is included in the repository and [can be browsed here](https://rawgit.com/pdimov/mp11/master/doc/html/mp11.html).
+
 ## Supported compilers
 
 * g++ 4.7 or later
@@ -17,36 +19,6 @@ is available in [include/boost/mp11_single.hpp](include/boost/mp11_single.hpp).
 * Visual Studio 2013, 2015, 2017
 
 Tested on [Travis](https://travis-ci.org/pdimov/mp11/) and [Appveyor](https://ci.appveyor.com/project/pdimov/mp11/).
-
-## Documentation
-
-[Overview](doc/mp11/overview.adoc)
-
-[Definitions](doc/mp11/definitions.adoc)
-
-[Examples](doc/mp11/examples.adoc)
-
-[Reference](doc/mp11/reference.adoc)
-
-* [Integral Constants](doc/mp11/integral.adoc)
-
-* [List Operations](doc/mp11/list.adoc)
-
-* [Utility Components](doc/mp11/utility.adoc)
-
-* [Algorithms](doc/mp11/algorithm.adoc)
-
-* [Set Operations](doc/mp11/set.adoc)
-
-* [Map Operations](doc/mp11/map.adoc)
-
-* [Helper Metafunctions](doc/mp11/function.adoc)
-
-* [Bind](doc/mp11/bind.adoc)
-
-* [Integer Sequences](doc/mp11/integer_sequence.adoc)
-
-* [Tuple Operations](doc/mp11/tuple.adoc)
 
 ## License
 
