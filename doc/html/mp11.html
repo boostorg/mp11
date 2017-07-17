@@ -564,6 +564,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#mp_map_replace_m_t">mp_map_replace&lt;M, T&gt;</a></li>
 <li><a href="#mp_map_update_m_t_f">mp_map_update&lt;M, T, F&gt;</a></li>
 <li><a href="#mp_map_erase_m_k">mp_map_erase&lt;M, K&gt;</a></li>
+<li><a href="#mp_map_keys_m">mp_map_keys&lt;M&gt;</a></li>
 </ul>
 </li>
 <li><a href="#function">Helper Metafunctions, &lt;boost/mp11/function.hpp&gt;</a>
@@ -3506,6 +3507,17 @@ replaces the existing element <code>L&lt;X, Y&#8230;&#8203;&gt;</code> with <cod
 </div>
 <div class="paragraph">
 <p>If the map <code>M</code> contains an element with a key <code>K</code>, removes it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mp_map_keys_m">mp_map_keys&lt;M&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class M&gt; using mp_map_keys = mp_transform&lt;mp_first, M&gt;;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>mp_map_keys&lt;M&gt;</code> returns a list of the keys of <code>M</code>. When <code>M</code> is a valid map, the keys are unique, so the result is a set.</p>
 </div>
 </div>
 </div>

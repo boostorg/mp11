@@ -79,6 +79,9 @@ template<class M, class K> struct mp_map_erase_impl
 
 template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
 
+// mp_map_keys<M>
+template<class M> using mp_map_keys = mp_transform<mp_first, M>;
+
 } // namespace mp11
 } // namespace boost
 

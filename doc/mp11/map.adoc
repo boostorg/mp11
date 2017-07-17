@@ -54,3 +54,9 @@ replaces the existing element `L<X, Y...>` with `L<X, F<X, Y...>>`.
     template<class M, class K> using mp_map_erase = /*...*/;
 
 If the map `M` contains an element with a key `K`, removes it.
+
+## mp_map_keys<M>
+
+    template<class M> using mp_map_keys = mp_transform<mp_first, M>;
+
+`mp_map_keys<M>` returns a list of the keys of `M`. When `M` is a valid map, the keys are unique, so the result is a set.
