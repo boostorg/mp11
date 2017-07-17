@@ -13,6 +13,8 @@
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/function.hpp>
+#include <boost/mp11/set.hpp>
 #include <type_traits>
 
 namespace boost
@@ -81,6 +83,34 @@ template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_im
 
 // mp_map_keys<M>
 template<class M> using mp_map_keys = mp_transform<mp_first, M>;
+
+// mp_is_map<M>
+namespace detail
+{
+
+template<class L> struct mp_is_map_element: mp_false
+{
+};
+
+template<template<class...> class L, class T1, class... T> struct mp_is_map_element<L<T1, T...>>: mp_true
+{
+};
+
+template<class M> using mp_keys_are_set = mp_is_set<mp_map_keys<M>>;
+
+template<class M> struct mp_is_map_impl
+{
+    using type = mp_false;
+};
+
+template<template<class...> class M, class... T> struct mp_is_map_impl<M<T...>>
+{
+    using type = mp_eval_if<mp_not<mp_all<mp_is_map_element<T>...>>, mp_false, mp_keys_are_set, M<T...>>;
+};
+
+} // namespace detail
+
+template<class M> using mp_is_map = typename detail::mp_is_map_impl<M>::type;
 
 } // namespace mp11
 } // namespace boost

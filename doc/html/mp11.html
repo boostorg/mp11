@@ -558,6 +558,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#map">Map Operations, &lt;boost/mp11/map.hpp&gt;</a>
 <ul class="sectlevel3">
+<li><a href="#mp_is_map_m">mp_is_map&lt;M&gt;</a></li>
 <li><a href="#mp_map_find_m_k">mp_map_find&lt;M, K&gt;</a></li>
 <li><a href="#mp_map_contains_m_k">mp_map_contains&lt;M, K&gt;</a></li>
 <li><a href="#mp_map_insert_m_t">mp_map_insert&lt;M, T&gt;</a></li>
@@ -3438,6 +3439,17 @@ Only <code>constexpr</code> on C++14 and higher.</p>
 <h3 id="map">Map Operations, &lt;boost/mp11/map.hpp&gt;</h3>
 <div class="paragraph">
 <p>A map is a list of lists, the inner lists having at least one element (the key.) The keys of the map must be unique.</p>
+</div>
+<div class="sect3">
+<h4 id="mp_is_map_m">mp_is_map&lt;M&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class M&gt; using mp_is_map = /*...*/;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>mp_is_map&lt;M&gt;</code> is <code>mp_true</code> if <code>M</code> is a map, <code>mp_false</code> otherwise.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="mp_map_find_m_k">mp_map_find&lt;M, K&gt;</h4>

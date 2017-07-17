@@ -15,6 +15,12 @@ http://www.boost.org/LICENSE_1_0.txt
 
 A map is a list of lists, the inner lists having at least one element (the key.) The keys of the map must be unique.
 
+## mp_is_map<M>
+
+    template<class M> using mp_is_map = /*...*/;
+
+`mp_is_map<M>` is `mp_true` if `M` is a map, `mp_false` otherwise.
+
 ## mp_map_find<M, K>
 
     template<class M, class K> using mp_map_find = /*...*/;

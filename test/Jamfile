@@ -124,6 +124,7 @@ run mp_map_replace.cpp : : : $(REQ) ;
 run mp_map_erase.cpp : : : $(REQ) ;
 run mp_map_update.cpp : : : $(REQ) ;
 run mp_map_keys.cpp : : : $(REQ) ;
+run mp_is_map.cpp : : : $(REQ) ;
 
 # bind
 run mp_bind.cpp : : : $(REQ) ;
