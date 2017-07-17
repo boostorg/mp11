@@ -15,6 +15,12 @@ http://www.boost.org/LICENSE_1_0.txt
 
 A set is a list whose elements are unique.
 
+## mp_is_set<S>
+
+    template<class S> using mp_is_set = /*...*/;
+
+`mp_is_set<S>` is `mp_true` if `S` is a set, `mp_false` otherwise.
+
 ## mp_set_contains<S, V>
 
     template<class S, class V> using mp_set_contains = /*...*/;
