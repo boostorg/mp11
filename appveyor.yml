@@ -22,8 +22,10 @@ environment:
       TOOLSET: msvc-14.1
 
 install:
+  - set BOOST_BRANCH=develop
+  - if "%APPVEYOR_REPO_BRANCH%" == "master" set BOOST_BRANCH=master
   - cd ..
-  - git clone -b %APPVEYOR_REPO_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
+  - git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
   - git submodule update --init tools/build
   - git submodule update --init libs/config
