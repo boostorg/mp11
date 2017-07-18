@@ -10,6 +10,7 @@ branches:
   only:
     - master
     - develop
+    - /feature\/.*/
 
 environment:
   matrix:
