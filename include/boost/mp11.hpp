@@ -18,6 +18,5 @@
 #include <boost/mp11/bind.hpp>
 #include <boost/mp11/integer_sequence.hpp>
 #include <boost/mp11/tuple.hpp>
-#include <boost/mp11/mpl.hpp>
 
 #endif // #ifndef BOOST_MP11_HPP_INCLUDED
