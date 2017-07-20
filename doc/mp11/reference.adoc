@@ -37,4 +37,8 @@ include::integer_sequence.adoc[]
 
 include::tuple.adoc[]
 
+include::mp11.adoc[]
+
+include::mpl.adoc[]
+
 :leveloffset: -1
