@@ -607,6 +607,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tuple_for_each_tp_f">tuple_for_each(tp, f)</a></li>
 </ul>
 </li>
+<li><a href="#mp11">Convenience Header, &lt;boost/mp11.hpp&gt;</a></li>
+<li><a href="#mpl">MPL Support, &lt;boost/mp11/mpl.hpp&gt;</a></li>
 </ul>
 </li>
 <li><a href="#copyright_and_license">Appendix A: Copyright and License</a></li>
@@ -3878,6 +3880,33 @@ expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <co
 <div class="paragraph">
 <p>Returns <code>std::forward&lt;F&gt;(f)</code>.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mp11">Convenience Header, &lt;boost/mp11.hpp&gt;</h3>
+<div class="paragraph">
+<p>The convenience header <code>&lt;boost/mp11.hpp&gt;</code> includes all of the
+headers listed previously in this reference.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mpl">MPL Support, &lt;boost/mp11/mpl.hpp&gt;</h3>
+<div class="paragraph">
+<p>The header <code>&lt;boost/mp11/mpl.hpp&gt;</code>, when included, defines the
+necessary support infrastructure for <code>mp_list</code> and <code>std::tuple</code>
+to be valid <a href="../../../../libs/mpl">MPL</a> sequences.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<code>mpl.hpp</code> is not included by <code>&lt;boost/mp11.hpp&gt;</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
