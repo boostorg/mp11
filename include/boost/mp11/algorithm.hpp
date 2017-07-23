@@ -576,10 +576,29 @@ template<template<class...> class L, class V> struct mp_find_impl<L<>, V>
     using type = mp_size_t<0>;
 };
 
+#if !defined( BOOST_NO_CXX14_CONSTEXPR )
+
+constexpr std::size_t cx_find_index( bool const * first, bool const * last )
+{
+    std::size_t m = 0;
+
+    while( first != last && !*first )
+    {
+        ++m;
+        ++first;
+    }
+
+    return m;
+}
+
+#else
+
 constexpr std::size_t cx_find_index( bool const * first, bool const * last )
 {
     return first == last || *first? 0: 1 + cx_find_index( first + 1, last );
 }
+
+#endif
 
 template<template<class...> class L, class... T, class V> struct mp_find_impl<L<T...>, V>
 {
