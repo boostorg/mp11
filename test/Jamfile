@@ -9,128 +9,128 @@
 import testing ;
 import ../../config/checks/config : requires ;
 
-REQ = [ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
+project : requirements [ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_type_traits cxx11_hdr_tuple ] ;
 
 # include-only
-compile mp11.cpp : $(REQ) ;
+compile mp11.cpp ;
 
 # list
-run mp_size.cpp : : : $(REQ) ;
-run mp_empty.cpp : : : $(REQ) ;
-run mp_front.cpp : : : $(REQ) ;
-run mp_pop_front.cpp : : : $(REQ) ;
-run mp_second.cpp : : : $(REQ) ;
-run mp_third.cpp : : : $(REQ) ;
-run mp_push_front.cpp : : : $(REQ) ;
-run mp_push_back.cpp : : : $(REQ) ;
-run mp_rename.cpp : : : $(REQ) ;
-run mp_append.cpp : : : $(REQ) ;
-run mp_append_2.cpp : : : $(REQ) ;
-run mp_replace_front.cpp : : : $(REQ) ;
-run mp_replace_second.cpp : : : $(REQ) ;
-run mp_replace_third.cpp : : : $(REQ) ;
-run mp_apply_q.cpp : : : $(REQ) ;
+run mp_size.cpp ;
+run mp_empty.cpp ;
+run mp_front.cpp ;
+run mp_pop_front.cpp ;
+run mp_second.cpp ;
+run mp_third.cpp ;
+run mp_push_front.cpp ;
+run mp_push_back.cpp ;
+run mp_rename.cpp ;
+run mp_append.cpp ;
+run mp_append_2.cpp ;
+run mp_replace_front.cpp ;
+run mp_replace_second.cpp ;
+run mp_replace_third.cpp ;
+run mp_apply_q.cpp ;
 
 # algorithm
-run mp_assign.cpp : : : $(REQ) ;
-run mp_clear.cpp : : : $(REQ) ;
-run mp_transform.cpp : : : $(REQ) ;
-run mp_transform_q.cpp : : : $(REQ) ;
-run mp_transform_sf.cpp : : : $(REQ) ;
-run mp_transform_if.cpp : : : $(REQ) ;
-run mp_transform_if_q.cpp : : : $(REQ) ;
-run mp_fill.cpp : : : $(REQ) ;
-run mp_count.cpp : : : $(REQ) ;
-run mp_count_if.cpp : : : $(REQ) ;
-run mp_contains.cpp : : : $(REQ) ;
-run mp_repeat.cpp : : : $(REQ) ;
-run mp_product.cpp : : : $(REQ) ;
-run mp_drop.cpp : : : $(REQ) ;
-run mp_iota.cpp : : : $(REQ) ;
-run mp_at.cpp : : : $(REQ) ;
-run mp_at_sf.cpp : : : $(REQ) ;
-run mp_take.cpp : : : $(REQ) ;
-run mp_replace.cpp : : : $(REQ) ;
-run mp_replace_if.cpp : : : $(REQ) ;
-run mp_copy_if.cpp : : : $(REQ) ;
-run mp_remove.cpp : : : $(REQ) ;
-run mp_remove_if.cpp : : : $(REQ) ;
-run mp_partition.cpp : : : $(REQ) ;
-run mp_sort.cpp : : : $(REQ) ;
-run mp_find.cpp : : : $(REQ) ;
-run mp_find_if.cpp : : : $(REQ) ;
-run mp_reverse.cpp : : : $(REQ) ;
-run mp_fold.cpp : : : $(REQ) ;
-run mp_reverse_fold.cpp : : : $(REQ) ;
-run mp_unique.cpp : : : $(REQ) ;
-run mp_all_of.cpp : : : $(REQ) ;
-run mp_any_of.cpp : : : $(REQ) ;
-run mp_none_of.cpp : : : $(REQ) ;
-run mp_replace_at.cpp : : : $(REQ) ;
-run mp_replace_at_c.cpp : : : $(REQ) ;
-run mp_for_each.cpp : : : $(REQ) ;
-run mp_insert.cpp : : : $(REQ) ;
-run mp_erase.cpp : : : $(REQ) ;
-run mp_with_index.cpp : : : $(REQ) ;
-run mp_with_index_cx.cpp : : : $(REQ) ;
+run mp_assign.cpp ;
+run mp_clear.cpp ;
+run mp_transform.cpp ;
+run mp_transform_q.cpp ;
+run mp_transform_sf.cpp ;
+run mp_transform_if.cpp ;
+run mp_transform_if_q.cpp ;
+run mp_fill.cpp ;
+run mp_count.cpp ;
+run mp_count_if.cpp ;
+run mp_contains.cpp ;
+run mp_repeat.cpp ;
+run mp_product.cpp ;
+run mp_drop.cpp ;
+run mp_iota.cpp ;
+run mp_at.cpp ;
+run mp_at_sf.cpp ;
+run mp_take.cpp ;
+run mp_replace.cpp ;
+run mp_replace_if.cpp ;
+run mp_copy_if.cpp ;
+run mp_remove.cpp ;
+run mp_remove_if.cpp ;
+run mp_partition.cpp ;
+run mp_sort.cpp ;
+run mp_find.cpp ;
+run mp_find_if.cpp ;
+run mp_reverse.cpp ;
+run mp_fold.cpp ;
+run mp_reverse_fold.cpp ;
+run mp_unique.cpp ;
+run mp_all_of.cpp ;
+run mp_any_of.cpp ;
+run mp_none_of.cpp ;
+run mp_replace_at.cpp ;
+run mp_replace_at_c.cpp ;
+run mp_for_each.cpp ;
+run mp_insert.cpp ;
+run mp_erase.cpp ;
+run mp_with_index.cpp ;
+run mp_with_index_cx.cpp ;
 
 # integral
-run integral.cpp : : : $(REQ) ;
+run integral.cpp ;
 
 # utility
-run mp_identity.cpp : : : $(REQ) ;
-run mp_inherit.cpp : : : $(REQ) ;
-run mp_if.cpp : : : $(REQ) ;
-run mp_if_sf.cpp : : : $(REQ) ;
-run mp_eval_if.cpp : : : $(REQ) ;
-run mp_eval_if_sf.cpp : : : $(REQ) ;
-run mp_valid.cpp : : : $(REQ) ;
-run mp_defer.cpp : : : $(REQ) ;
-run mp_quote.cpp : : : $(REQ) ;
-run mp_invoke.cpp : : : $(REQ) ;
-run mp_invoke_sf.cpp : : : $(REQ) ;
-run mp_quote_trait.cpp : : : $(REQ) ;
+run mp_identity.cpp ;
+run mp_inherit.cpp ;
+run mp_if.cpp ;
+run mp_if_sf.cpp ;
+run mp_eval_if.cpp ;
+run mp_eval_if_sf.cpp ;
+run mp_valid.cpp ;
+run mp_defer.cpp ;
+run mp_quote.cpp ;
+run mp_invoke.cpp ;
+run mp_invoke_sf.cpp ;
+run mp_quote_trait.cpp ;
 
 # integer_sequence
-run integer_sequence.cpp : : : $(REQ) ;
+run integer_sequence.cpp ;
 
 # tuple
-run tuple_for_each.cpp : : : $(REQ) ;
-compile tuple_for_each_cx.cpp : $(REQ) ;
-run tuple_apply.cpp : : : $(REQ) ;
-compile tuple_apply_cx.cpp : $(REQ) ;
-run construct_from_tuple.cpp : : : $(REQ) ;
-compile construct_from_tuple_cx.cpp : $(REQ) ;
+run tuple_for_each.cpp ;
+compile tuple_for_each_cx.cpp ;
+run tuple_apply.cpp ;
+compile tuple_apply_cx.cpp ;
+run construct_from_tuple.cpp ;
+compile construct_from_tuple_cx.cpp ;
 
 # set
-run mp_set_contains.cpp : : : $(REQ) ;
-run mp_set_push_back.cpp : : : $(REQ) ;
-run mp_set_push_front.cpp : : : $(REQ) ;
-run mp_is_set.cpp : : : $(REQ) ;
+run mp_set_contains.cpp ;
+run mp_set_push_back.cpp ;
+run mp_set_push_front.cpp ;
+run mp_is_set.cpp ;
 
 # function
-run mp_all.cpp : : : $(REQ) ;
-run mp_and.cpp : : : $(REQ) ;
-run mp_any.cpp : : : $(REQ) ;
-run mp_or.cpp : : : $(REQ) ;
-run mp_same.cpp : : : $(REQ) ;
-run mp_plus.cpp : : : $(REQ) ;
+run mp_all.cpp ;
+run mp_and.cpp ;
+run mp_any.cpp ;
+run mp_or.cpp ;
+run mp_same.cpp ;
+run mp_plus.cpp ;
 
 # map
-run mp_map_find.cpp : : : $(REQ) ;
-run mp_map_contains.cpp : : : $(REQ) ;
-run mp_map_insert.cpp : : : $(REQ) ;
-run mp_map_replace.cpp : : : $(REQ) ;
-run mp_map_erase.cpp : : : $(REQ) ;
-run mp_map_update.cpp : : : $(REQ) ;
-run mp_map_keys.cpp : : : $(REQ) ;
-run mp_is_map.cpp : : : $(REQ) ;
+run mp_map_find.cpp ;
+run mp_map_contains.cpp ;
+run mp_map_insert.cpp ;
+run mp_map_replace.cpp ;
+run mp_map_erase.cpp ;
+run mp_map_update.cpp ;
+run mp_map_keys.cpp ;
+run mp_is_map.cpp ;
 
 # bind
-run mp_bind.cpp : : : $(REQ) ;
-run mp_bind_q.cpp : : : $(REQ) ;
-run mp_bind_front.cpp : : : $(REQ) ;
-run mp_bind_back.cpp : : : $(REQ) ;
+run mp_bind.cpp ;
+run mp_bind_q.cpp ;
+run mp_bind_front.cpp ;
+run mp_bind_back.cpp ;
 
 # mpl
-run mpl.cpp : : : $(REQ) ;
+run mpl.cpp ;
