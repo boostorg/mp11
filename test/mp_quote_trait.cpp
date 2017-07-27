@@ -28,6 +28,16 @@ int main()
     }
 
     {
+        using Q = mp_quote_trait<std::add_pointer>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<void>, void*>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<int[]>, int(*)[]>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, void*>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, int(*)[]>));
+    }
+
+    {
         using Q = mp_quote_trait<std::add_const>;
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<void>, void const>));
