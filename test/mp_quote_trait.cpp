@@ -43,8 +43,14 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<void>, void const>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<int[]>, int const[]>));
 
+#if !BOOST_WORKAROUND( BOOST_GCC, < 40900 )
+
+        // g++ 4.7, 4.8 have difficulties with preserving top-level const
+
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, void>, void const>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_invoke<Q, int[]>, int const[]>));
+
+#endif
     }
 
     return boost::report_errors();
