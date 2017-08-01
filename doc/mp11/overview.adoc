@@ -13,8 +13,8 @@ http://www.boost.org/LICENSE_1_0.txt
 Mp11 is a C++11 metaprogramming library for compile-time manipulation of data structures
 that contain types. It's based on template aliases and variadic templates and implements the
 approach outlined in the article
-http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html["Simple {cpp} metaprogramming"]
-and http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html[its sequel]. Reading these
+<<simple_cxx11_metaprogramming.adoc#,"Simple {cpp} metaprogramming">>
+and <<simple_cxx11_metaprogramming_2.adoc#,its sequel>>. Reading these
 articles before proceeding with this documentation is _highly_ recommended.
 
 The general principles upon which Mp11 is built are that algorithms and metafunctions are
