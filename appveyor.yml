@@ -30,7 +30,6 @@ install:
   - git submodule update --init tools/build
   - git submodule update --init libs/config
   - git submodule update --init tools/boostdep
-  - mkdir libs\mp11
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\mp11
   - python tools/boostdep/depinst/depinst.py mp11
   - cmd /c bootstrap
