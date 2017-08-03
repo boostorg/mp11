@@ -46,5 +46,5 @@ explicit pdf_ ;
 ###############################################################################
 alias boostdoc ;
 explicit boostdoc ;
-alias boostrelease ;
+alias boostrelease : html_ ;
 explicit boostrelease ;
