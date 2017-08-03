@@ -10,6 +10,9 @@ http://www.boost.org/LICENSE_1_0.txt
 # Simple {cpp}11 metaprogramming, part 2
 Peter Dimov
 2015-06-20
+:toc: left
+:idprefix:
+:docinfo: shared-footer
 
 [.lead]
 __Efficient algorithms for membership testing, random access, and retrieval by

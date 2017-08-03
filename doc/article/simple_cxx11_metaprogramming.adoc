@@ -10,6 +10,9 @@ http://www.boost.org/LICENSE_1_0.txt
 # Simple {cpp}11 metaprogramming
 Peter Dimov
 2015-05-26
+:toc: left
+:idprefix:
+:docinfo: shared-footer
 
 [.lead]
 __With variadic templates, parameter packs and template aliases__
@@ -93,7 +96,7 @@ These language improvements allow for {cpp}11 metaprogramming that is
 substantially different than its idomatic {cpp}03 equivalent. Boost.MPL is no
 longer good enough, and __something must be done__. But what?
 
-## Type lists and `mp_rename`
+## Type lists and mp_rename
 
 Let's start with the basics. Our basic data structure will be the type list:
 ```
@@ -291,7 +294,7 @@ readability.)
 template<template<class...> class F, class L> using mp_apply = mp_rename<L, F>;
 ```
 
-## `mp_transform`
+## mp_transform
 
 Let's revisit the example I gave earlier - someone hands us `std::tuple<X, Y,
 Z>` and we need to compute `std::tuple<X*, Y*, Z*>`. We already have
@@ -394,7 +397,7 @@ using result = mp_transform<add_pointer, input>;
 static_assert( std::is_same<result, expected>::value, "" );
 ```
 
-## `mp_transform`, part two
+## mp_transform, part two
 
 What if we had a pair of tuples as input, and had to produce the corresponding
 tuple of pairs? For example, given
