@@ -11,12 +11,36 @@ import asciidoctor ;
 
 html mp11.html : mp11.adoc ;
 
-install html_ : mp11.html : <location>html ;
+html simple_cxx11_metaprogramming.html :
+  article/simple_cxx11_metaprogramming.adoc ;
+
+html simple_cxx11_metaprogramming_2.html :
+  article/simple_cxx11_metaprogramming_2.adoc ;
+
+install html_ :
+  mp11.html
+  simple_cxx11_metaprogramming.html
+  simple_cxx11_metaprogramming_2.html :
+  <location>html ;
 
 pdf mp11.pdf : mp11.adoc ;
-explicit mp11.pdf ;
 
-install pdf_ : mp11.pdf : <location>pdf ;
+pdf simple_cxx11_metaprogramming.pdf :
+  article/simple_cxx11_metaprogramming.adoc ;
+
+pdf simple_cxx11_metaprogramming_2.pdf :
+  article/simple_cxx11_metaprogramming_2.adoc ;
+
+explicit mp11.pdf
+  simple_cxx11_metaprogramming.pdf
+  simple_cxx11_metaprogramming_2.pdf ;
+
+install pdf_ :
+  mp11.pdf
+  simple_cxx11_metaprogramming.pdf
+  simple_cxx11_metaprogramming_2.pdf :
+  <location>pdf ;
+
 explicit pdf_ ;
 
 ###############################################################################
