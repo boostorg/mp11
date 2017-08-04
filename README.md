@@ -5,7 +5,7 @@ It implements the approach outlined in the article
 ["Simple C++11 metaprogramming"](http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html)
 and [its sequel](http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html).
 
-As of 2017-08-02, Mp11 is part of Boost.
+As of 2017-08-02, Mp11 is part of Boost. It hasn't appeared in a release yet, but [a snapshot of the documentation is available](http://www.boost.org/doc/libs/develop/libs/mp11/).
 
 ## Supported compilers
 
