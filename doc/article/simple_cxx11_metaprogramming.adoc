@@ -20,7 +20,7 @@ __With variadic templates, parameter packs and template aliases__
 NOTE: I was motivated to write this after I read Eric Niebler's
 thought-provoking
 http://ericniebler.com/2014/11/13/tiny-metaprogramming-library/[Tiny
-Metaprogramming] Library article. Thanks Eric.
+Metaprogramming Library] article. Thanks Eric.
 
 ## {cpp}11 changes the playing field
 
