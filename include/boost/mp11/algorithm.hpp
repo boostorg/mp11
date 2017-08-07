@@ -608,32 +608,26 @@ template<template<class...> class L, class... T, class V> struct mp_find_impl<L<
 
 #else
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+template <class ... T> struct mp_find_impl_2;
 
-template<template<class...> class L, class... T, class V> struct mp_find_impl<L<T...>, V>
+template <> struct mp_find_impl_2<>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = mp_size_t<0>;
+    struct tag {};
+    static mp_size_t<0> get(const tag&, ...);
 };
 
-#else
-
-template<template<class...> class L, class V> struct mp_find_impl<L<>, V>
+template <class T, class... Rest> struct mp_find_impl_2<T, Rest...>: mp_find_impl_2<Rest...>
 {
-    using type = mp_size_t<0>;
+    using mp_find_impl_2<Rest...>::get;
+    struct tag : mp_find_impl_2<Rest...>::tag {};
+    static mp_size_t<1 + sizeof...(Rest)> get(const tag&, mp_identity<T>);
 };
 
-#endif
-
-template<template<class...> class L, class... T, class V> struct mp_find_impl<L<V, T...>, V>
+template <template <class ...> class L, class ... T, class V> struct mp_find_impl<L<T...>, V>
 {
-    using type = mp_size_t<0>;
-};
-
-template<template<class...> class L, class T1, class... T, class V> struct mp_find_impl<L<T1, T...>, V>
-{
-    using _r = typename mp_find_impl<mp_list<T...>, V>::type;
-    using type = mp_size_t<1 + _r::value>;
+    using U = mp_find_impl_2<T...>;
+    using R = decltype(U::get(typename U::tag(), mp_identity<V>()));
+    using type = mp_size_t<sizeof...(T) - R::value>;
 };
 
 #endif
@@ -671,32 +665,30 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 #else
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+template <class ... T> struct mp_find_if_impl_2;
 
-template<template<class...> class L, class... T, template<class...> class P> struct mp_find_if_impl<L<T...>, P>
+template <> struct mp_find_if_impl_2<>
 {
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = mp_size_t<0>;
+    struct tag {};
+
+    template <template<class...> class P> static mp_size_t<0> get(const tag&);
 };
 
-#else
-
-template<template<class...> class L, template<class...> class P> struct mp_find_if_impl<L<>, P>
+template <class T, class... Rest> struct mp_find_if_impl_2<T, Rest...>: mp_find_if_impl_2<Rest...>
 {
-    using type = mp_size_t<0>;
+    using Base = mp_find_if_impl_2<Rest...>;
+    using Base::get;
+    struct tag : Base::tag  {};
+
+    template <template<class...> class P, typename = mp_if<P<T>, void>>
+    static mp_size_t<1 + sizeof...(Rest)> get(const tag&);
 };
 
-#endif
-
-template<class L, template<class...> class P> struct mp_find_if_impl_2
+template <template <class...> class L, class... T, template<class...> class P> struct mp_find_if_impl<L<T...>, P>
 {
-    using _r = typename mp_find_if_impl<L, P>::type;
-    using type = mp_size_t<1 + _r::value>;
-};
-
-template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_find_if_impl<L<T1, T...>, P>
-{
-    using type = typename mp_if<P<T1>, mp_identity<mp_size_t<0>>, mp_find_if_impl_2<mp_list<T...>, P>>::type;
+    using U = mp_find_if_impl_2<T...>;
+    using R = decltype(U::get<P>(typename U::tag()));
+    using type = mp_size_t<sizeof...(T) - R::value>;
 };
 
 #endif
