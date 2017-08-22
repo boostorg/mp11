@@ -91,7 +91,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     template<class T> struct _f { using type = mp_to_bool<P<T>>; };
     using type = mp_size_t<mp_plus<typename _f<T>::type...>::value>;

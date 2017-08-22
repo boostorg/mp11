@@ -67,7 +67,7 @@ template<template<class...> class F, class... L> struct mp_transform_impl
 
 template<template<class...> class F, template<class...> class L, class... T> struct mp_transform_impl<F, L<T...>>
 {
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     template<class... U> struct f { using type = F<U...>; };
 
@@ -82,7 +82,7 @@ template<template<class...> class F, template<class...> class L, class... T> str
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_transform_impl<F, L1<T1...>, L2<T2...>>
 {
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     template<class... U> struct f { using type = F<U...>; };
 
@@ -97,7 +97,7 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>>
 {
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     template<class... U> struct f { using type = F<U...>; };
 
@@ -164,7 +164,7 @@ template<template<class...> class P, template<class...> class F, class... L> str
     using Qp = mp_quote<P>;
     using Qf = mp_quote<F>;
 
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
     template<class... U> using _f = typename _f_<U...>::type;
@@ -419,7 +419,7 @@ template<class L, template<class...> class P> struct mp_copy_if_impl;
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
     template<class U> struct _f { using type = mp_if<P<U>, mp_list<U>, mp_list<>>; };
     using type = mp_append<L<>, typename _f<T>::type...>;
 #else
@@ -440,7 +440,7 @@ template<class L, class V> struct mp_remove_impl;
 
 template<template<class...> class L, class... T, class V> struct mp_remove_impl<L<T...>, V>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
     template<class U> struct _f { using type = mp_if<std::is_same<U, V>, mp_list<>, mp_list<U>>; };
     using type = mp_append<L<>, typename _f<T>::type...>;
 #else
@@ -461,7 +461,7 @@ template<class L, template<class...> class P> struct mp_remove_if_impl;
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_remove_if_impl<L<T...>, P>
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
     template<class U> struct _f { using type = mp_if<P<U>, mp_list<>, mp_list<U>>; };
     using type = mp_append<L<>, typename _f<T>::type...>;
 #else

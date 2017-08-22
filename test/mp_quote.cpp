@@ -44,7 +44,7 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<R1, X<void, char, int>>));
 #endif
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1910 && BOOST_MSVC >= 1900 )
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 && BOOST_MSVC >= 1900 )
 #else
         using R2 = Z<Q, void, char, int>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R2, X<void, char, int>>));

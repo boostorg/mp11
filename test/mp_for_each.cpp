@@ -54,7 +54,7 @@ int main()
 
 #endif
 
-#if !defined( BOOST_NO_CXX14_CONSTEXPR ) && !BOOST_WORKAROUND( BOOST_MSVC, <= 1910 )
+#if !defined( BOOST_NO_CXX14_CONSTEXPR ) && !BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
 
     constexpr auto r1 = mp_for_each<mp_list<int, short, char>>( F{0} );
     static_assert( r1.s == 123, "r1.s == 123" );
