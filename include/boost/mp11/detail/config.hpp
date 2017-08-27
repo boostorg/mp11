@@ -9,7 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/config/workaround.hpp>
 
 #if defined( BOOST_NO_CXX11_CONSTEXPR )
 

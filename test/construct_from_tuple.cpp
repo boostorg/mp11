@@ -10,7 +10,7 @@
 #include <boost/mp11/tuple.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/config/workaround.hpp>
 #include <tuple>
 #include <memory>
 #include <utility>

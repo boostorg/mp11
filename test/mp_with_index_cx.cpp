@@ -17,7 +17,7 @@ int main() {}
 #include <boost/mp11/algorithm.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/config/workaround.hpp>
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_with_index;
