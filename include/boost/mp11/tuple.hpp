@@ -10,7 +10,7 @@
 
 #include <boost/mp11/integer_sequence.hpp>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/config/workaround.hpp>
 #include <tuple>
 #include <utility>
 #include <type_traits>
