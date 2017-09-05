@@ -134,3 +134,7 @@ run mp_bind_back.cpp ;
 
 # mpl
 run mpl.cpp ;
+
+# quick (for CI)
+alias quick : mp11 mp_size ;
+explicit quick ;
