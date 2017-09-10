@@ -10,7 +10,7 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
+#include <boost/detail/workaround.hpp>
 
 namespace boost
 {

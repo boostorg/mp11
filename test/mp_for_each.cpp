@@ -11,7 +11,7 @@
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
+#include <boost/detail/workaround.hpp>
 #include <tuple>
 
 #if !defined( BOOST_NO_CXX14_CONSTEXPR )
