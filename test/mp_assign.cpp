@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015, 2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -7,9 +7,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
-#include <boost/core/lightweight_test_trait.hpp>
-#include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 #include <tuple>
 #include <utility>

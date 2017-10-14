@@ -29,24 +29,6 @@ namespace boost
 namespace mp11
 {
 
-// mp_assign<L1, L2>
-namespace detail
-{
-
-template<class L1, class L2> struct mp_assign_impl;
-
-template<template<class...> class L1, class... T, template<class...> class L2, class... U> struct mp_assign_impl<L1<T...>, L2<U...>>
-{
-    using type = L1<U...>;
-};
-
-} // namespace detail
-
-template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L1, L2>::type;
-
-// mp_clear<L>
-template<class L> using mp_clear = mp_assign<L, mp_list<>>;
-
 // mp_fold<L, V, F> forward declaration
 namespace detail
 {
