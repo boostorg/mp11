@@ -22,7 +22,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 `mp_identity` is a simple _transformation type trait_ (as per the C++ standard)
 that just returns the same type. It's useful both as such, and as a type wrapper
-useful for passing types as values to functions.
+for passing types as values to functions.
 
 .Using mp_identity as a type trait
 ```
@@ -134,6 +134,27 @@ template<class L> using first_or_void = mp_eval_if<mp_empty<L>, void, mp_first, 
         mp_eval_if<C, T, Q::template fn, U...>;
 
 Like `mp_eval_if`, but takes a quoted metafunction.
+
+## mp_cond<C, T, R...>
+
+    template<class C, class T, class... R> using mp_cond = /*...*/;
+
+`mp_cond<C, T, R...>` is an alias for `T` when `static_cast<bool>(C::value)` is `true`.
+When `static_cast<bool>(C::value)` is `false`, it's an alias for `mp_cond<R...>`.
+
+(If `static_cast<bool>(C::value)` is a substitution failure, the result is too a substitution
+failure.)
+
+.Using mp_cond
+```
+template<int N> using unsigned_ = mp_cond<
+    mp_bool<N ==  8>, uint8_t,
+    mp_bool<N == 16>, uint16_t,
+    mp_bool<N == 32>, uint32_t,
+    mp_bool<N == 64>, uint64_t,
+    mp_true, unsigned // default case
+>;
+```
 
 ## mp_valid<F, T...>
 
