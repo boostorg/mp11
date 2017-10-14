@@ -297,6 +297,17 @@ As `mp_product`, but takes a quoted metafunction.
 
 Same as `mp_drop_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
 
+## mp_from_sequence<S>
+
+    template<class S> using mp_from_sequence = /*...*/
+
+`mp_from_sequence` transforms an integer sequence produced by `make_integer_sequence` into an `mp_list`
+of the corresponding `std::integral_constant` types. Given
+
+    template<class T, class... I> struct S;
+
+`mp_from_sequence<S<T, I...>>` is an alias for `mp_list<std::integral_constant<T, I>...>`.
+
 ## mp_iota_c<N>
 
     template<std::size_t N> using mp_iota_c = /*...*/;

@@ -31,6 +31,7 @@ run mp_replace_second.cpp ;
 run mp_replace_third.cpp ;
 run mp_apply_q.cpp ;
 run mp_is_list.cpp ;
+run mp_list_c.cpp ;
 
 # algorithm
 run mp_assign.cpp ;
@@ -74,6 +75,7 @@ run mp_insert.cpp ;
 run mp_erase.cpp ;
 run mp_with_index.cpp ;
 run mp_with_index_cx.cpp ;
+run mp_from_sequence.cpp ;
 
 # integral
 run integral.cpp ;

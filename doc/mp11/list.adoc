@@ -21,6 +21,18 @@ http://www.boost.org/LICENSE_1_0.txt
 such as `std::tuple` or `std::variant`. Even `std::pair` can be used if the transformation does not alter the number of the elements in
 the list.
 
+## mp_list_c<T, I...>
+
+    template<class T, T... I> using mp_list_c =
+        mp_list<std::integral_constant<T, I>...>;
+
+`mp_list_c` produces an `mp_list` of the `std::integral_constant` types corresponding to its integer template arguments.
+
+.Using mp_list_c
+```
+using L1 = mp_list_c<int, 2, 3>; // mp_list<mp_int<2>, mp_int<3>>
+```
+
 ## mp_is_list<L>
 
     template<class L> using mp_is_list = /*...*/;

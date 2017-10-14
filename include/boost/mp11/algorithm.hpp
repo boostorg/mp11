@@ -287,7 +287,7 @@ template<class L, std::size_t N> using mp_drop_c = typename detail::mp_drop_impl
 
 template<class L, class N> using mp_drop = typename detail::mp_drop_impl<L, mp_repeat<mp_list<void>, N>>::type;
 
-// mp_iota(_c)<N>
+// mp_from_sequence<S>
 namespace detail
 {
 
@@ -298,12 +298,13 @@ template<template<class T, T... I> class S, class U, U... J> struct mp_from_sequ
     using type = mp_list<std::integral_constant<U, J>...>;
 };
 
-template<class S> using mp_from_sequence = typename mp_from_sequence_impl<S>::type;
-
 } // namespace detail
 
-template<std::size_t N> using mp_iota_c = detail::mp_from_sequence<make_index_sequence<N>>;
-template<class N> using mp_iota = detail::mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>>;
+template<class S> using mp_from_sequence = typename detail::mp_from_sequence_impl<S>::type;
+
+// mp_iota(_c)<N>
+template<std::size_t N> using mp_iota_c = mp_from_sequence<make_index_sequence<N>>;
+template<class N> using mp_iota = mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>>;
 
 // mp_at(_c)<L, I>
 namespace detail

@@ -13,11 +13,15 @@
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <type_traits>
 
 namespace boost
 {
 namespace mp11
 {
+
+// mp_list_c<T, I...>
+template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
 
 // mp_is_list<L>
 namespace detail
