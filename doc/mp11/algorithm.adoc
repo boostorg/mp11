@@ -484,12 +484,26 @@ using L1 = mp_list<std::ratio<1,8>, std::ratio<1,4>, std::ratio<1,2>>;
 using R1 = mp_fold<L1, std::ratio<0,1>, std::ratio_add>; // std::ratio<7,8>
 ----
 
+## mp_fold_q<L, V, Q>
+
+    template<class L, class V, class Q> using mp_fold_q =
+        mp_fold<L, V, Q::template fn>;
+
+As `mp_fold`, but takes a quoted metafunction.
+
 ## mp_reverse_fold<L, V, F>
 
     template<class L, class V, template<class...> class F> using mp_reverse_fold =
         /*...*/;
 
 `mp_reverse_fold<L<T1, T2, ..., Tn>, V, F>` is `F<T1, F<T2, F<..., F<Tn, V>>>>`, or `V`, if `L` is empty.
+
+## mp_reverse_fold_q<L, V, Q>
+
+    template<class L, class V, class Q> using mp_reverse_fold_q =
+        mp_reverse_fold<L, V, Q::template fn>;
+
+As `mp_reverse_fold`, but takes a quoted metafunction.
 
 ## mp_unique<L>
 
