@@ -21,6 +21,12 @@ http://www.boost.org/LICENSE_1_0.txt
 such as `std::tuple` or `std::variant`. Even `std::pair` can be used if the transformation does not alter the number of the elements in
 the list.
 
+## mp_is_list<L>
+
+    template<class L> using mp_is_list = /*...*/;
+
+`mp_is_list<L>` is `mp_true` if `L` is a list (an instantiation of a class template whose template parameters are types), `mp_false` otherwise.
+
 ## mp_size<L>
 
     template<class L> using mp_size = /*...*/;

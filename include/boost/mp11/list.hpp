@@ -19,6 +19,24 @@ namespace boost
 namespace mp11
 {
 
+// mp_is_list<L>
+namespace detail
+{
+
+template<class L> struct mp_is_list_impl
+{
+    using type = mp_false;
+};
+
+template<template<class...> class L, class... T> struct mp_is_list_impl<L<T...>>
+{
+    using type = mp_true;
+};
+
+} // namespace detail
+
+template<class L> using mp_is_list = typename detail::mp_is_list_impl<L>::type;
+
 // mp_size<L>
 namespace detail
 {
