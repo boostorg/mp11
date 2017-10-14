@@ -922,6 +922,32 @@ template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp
 // mp_erase_c<L, I, J>
 template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
+// mp_min_element<L, P>
+namespace detail
+{
+
+template<template<class...> class P> struct select_min
+{
+    template<class T1, class T2> using fn = mp_if<P<T1, T2>, T1, T2>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_min_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_min<P>>;
+
+// mp_max_element<L, P>
+namespace detail
+{
+
+template<template<class...> class P> struct select_max
+{
+    template<class T1, class T2> using fn = mp_if<P<T2, T1>, T1, T2>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class P> using mp_max_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_max<P>>;
+
 } // namespace mp11
 } // namespace boost
 

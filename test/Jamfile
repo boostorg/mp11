@@ -78,6 +78,8 @@ run mp_erase.cpp ;
 run mp_with_index.cpp ;
 run mp_with_index_cx.cpp ;
 run mp_from_sequence.cpp ;
+run mp_min_element.cpp ;
+run mp_max_element.cpp ;
 
 # integral
 run integral.cpp ;

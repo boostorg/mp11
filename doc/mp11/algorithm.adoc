@@ -441,6 +441,22 @@ using L1 = mp_list<std::ratio<1,2>, std::ratio<1,4>>;
 using R1 = mp_sort<L1, std::ratio_less>; // mp_list<ratio<1,4>, ratio<1,2>>
 ----
 
+## mp_min_element<L, P>
+
+    template<class L, template<class...> class P> using mp_min_element = /*...*/;
+
+`mp_min_element<L, P>` returns the minimal element of the list `L` according to the ordering `mp_to_bool<P<T, U>>`.
+
+It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, Q>`, where `Q<T, U>` returns `mp_if<P<T, U>, T, U>`.
+
+## mp_max_element<L, P>
+
+    template<class L, template<class...> class P> using mp_max_element = /*...*/;
+
+`mp_max_element<L, P>` returns the maximal element of the list `L` according to the ordering `mp_to_bool<P<T, U>>`.
+
+It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, Q>`, where `Q<T, U>` returns `mp_if<P<U, T>, T, U>`.
+
 ## mp_find<L, V>
 
     template<class L, class V> using mp_find = /*...*/;
