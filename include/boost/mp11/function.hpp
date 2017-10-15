@@ -13,6 +13,7 @@
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_count.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
+#include <boost/mp11/detail/mp_min_element.hpp>
 #include <type_traits>
 
 namespace boost
@@ -161,6 +162,15 @@ template<class T1, class... T> struct mp_same_impl<T1, T...>
 } // namespace detail
 
 template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
+
+// mp_less<T1, T2>
+template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
+
+// mp_min<T...>
+template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
+
+// mp_max<T...>
+template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
 
 } // namespace mp11
 } // namespace boost

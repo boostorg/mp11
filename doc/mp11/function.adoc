@@ -106,3 +106,25 @@ using R4 = mp_any<void, mp_true>;      // compile-time error
 
 `mp_plus<T...>` is an integral constant type with a value that is the sum of `U::value` for all types `U` in `T...`.
 `mp_plus<>` is `mp_int<0>`.
+
+## mp_less<T1, T2>
+
+    template<class T1, class T2> using mp_less = /*...*/;
+
+`mp_less<T1, T2>` is `mp_true` when the numeric value of `T1::value` is less than the numeric value of `T2::value`,
+`mp_false` otherwise.
+
+(Note that this is not necessarily the same as `T1::value < T2::value` when comparing between signed and unsigned types;
+`-1 < 1u` is `false`, but `mp_less<mp_int\<-1>, mp_size_t<1>>` is `mp_true`.)
+
+## mp_min<T1, T...>
+
+    template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
+
+`mp_min<T...>` returns the type `U` in `T...` with the lowest `U::value`.
+
+## mp_max<T1, T...>
+
+    template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
+
+`mp_max<T...>` returns the type `U` in `T...` with the highest `U::value`.

@@ -124,6 +124,9 @@ run mp_any.cpp ;
 run mp_or.cpp ;
 run mp_same.cpp ;
 run mp_plus.cpp ;
+run mp_less.cpp ;
+run mp_min.cpp ;
+run mp_max.cpp ;
 
 # map
 run mp_map_find.cpp ;
