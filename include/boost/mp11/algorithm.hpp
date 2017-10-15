@@ -17,6 +17,7 @@
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/mp11/detail/mp_map_find.hpp>
 #include <boost/mp11/detail/mp_with_index.hpp>
+#include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/integer_sequence.hpp>
 #include <boost/config.hpp>
@@ -28,17 +29,6 @@ namespace boost
 {
 namespace mp11
 {
-
-// mp_fold<L, V, F> forward declaration
-namespace detail
-{
-
-template<class L, class V, template<class...> class F> struct mp_fold_impl;
-
-} // namespace detail
-
-template<class L, class V, template<class...> class F> using mp_fold = typename detail::mp_fold_impl<L, V, F>::type;
-template<class L, class V, class Q> using mp_fold_q = mp_fold<L, V, Q::template fn>;
 
 // mp_transform<F, L...>
 namespace detail
@@ -767,39 +757,7 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
 template<class L> using mp_reverse = typename detail::mp_reverse_impl<L>::type;
 
 // mp_fold<L, V, F>
-namespace detail
-{
-
-template<class L, class V, template<class...> class F> struct mp_fold_impl;
-
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
-template<template<class...> class L, class... T, class V, template<class...> class F> struct mp_fold_impl<L<T...>, V, F>
-{
-    static_assert( sizeof...(T) == 0, "T... must be empty" );
-    using type = V;
-};
-
-#else
-
-template<template<class...> class L, class V, template<class...> class F> struct mp_fold_impl<L<>, V, F>
-{
-    using type = V;
-};
-
-#endif
-
-template<template<class...> class L, class T1, class... T, class V, template<class...> class F> struct mp_fold_impl<L<T1, T...>, V, F>
-{
-    using type = typename mp_fold_impl<L<T...>, F<V, T1>, F>::type;
-};
-
-template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, class V, template<class...> class F> struct mp_fold_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, V, F>
-{
-    using type = typename mp_fold_impl<L<T...>, F<F<F<F<F<F<F<F<F<F<V, T1>, T2>, T3>, T4>, T5>, T6>, T7>, T8>, T9>, T10>, F>::type;
-};
-
-} // namespace detail
+//   in detail/mp_fold.hpp
 
 // mp_reverse_fold<L, V, F>
 namespace detail
