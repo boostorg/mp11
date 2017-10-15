@@ -441,6 +441,18 @@ using L1 = mp_list<std::ratio<1,2>, std::ratio<1,4>>;
 using R1 = mp_sort<L1, std::ratio_less>; // mp_list<ratio<1,4>, ratio<1,2>>
 ----
 
+## mp_nth_element_c<L, I, P>
+
+    template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = /*...*/;
+
+Returns the element at position `I` in `mp_sort<L, P>`.
+
+## mp_nth_element<L, I, P>
+
+    template<class L, class I, template<class...> class P> using mp_nth_element = /*...*/;
+
+Like `mp_nth_element_c`, but with a type argument `I`. `I::value` must be a nonnegative number.
+
 ## mp_min_element<L, P>
 
     template<class L, template<class...> class P> using mp_min_element = /*...*/;

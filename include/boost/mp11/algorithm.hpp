@@ -508,6 +508,45 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 
 template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
 
+// mp_nth_element(_c)<L, I, P>
+namespace detail
+{
+
+template<class L, std::size_t I, template<class...> class P> struct mp_nth_element_impl;
+
+template<template<class...> class L, class T1, std::size_t I, template<class...> class P> struct mp_nth_element_impl<L<T1>, I, P>
+{
+    static_assert( I == 0, "mp_nth_element index out of range" );
+    using type = T1;
+};
+
+template<template<class...> class L, class T1, class... T, std::size_t I, template<class...> class P> struct mp_nth_element_impl<L<T1, T...>, I, P>
+{
+    static_assert( I < 1 + sizeof...(T), "mp_nth_element index out of range" );
+
+    template<class U> using F = P<U, T1>;
+
+    using part = mp_partition<L<T...>, F>;
+
+    using L1 = mp_first<part>;
+    static std::size_t const N1 = mp_size<L1>::value;
+
+    using L2 = mp_second<part>;
+
+    using type = typename mp_cond<
+
+        mp_bool<(I < N1)>, mp_nth_element_impl<L1, I, P>,
+        mp_bool<(I == N1)>, mp_identity<T1>,
+        mp_true, mp_nth_element_impl<L2, I - N1 - 1, P>
+
+    >::type;
+};
+
+} // namespace detail
+
+template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = typename detail::mp_nth_element_impl<L, I, P>::type;
+template<class L, class I, template<class...> class P> using mp_nth_element = typename detail::mp_nth_element_impl<L, std::size_t{ I::value }, P>::type;
+
 // mp_find<L, V>
 namespace detail
 {
