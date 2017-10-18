@@ -9,22 +9,25 @@ import scanner ;
 import generators ;
 import boostbook ;
 
-# File type
-
-type.register ASCIIDOC : asciidoc adoc ;
-
-# Define dependency scanner
-
-class asciidoc-scanner : common-scanner
+if ! [ type.registered ASCIIDOC ]
 {
-    rule pattern ( )
+    # File type
+    
+    type.register ASCIIDOC : asciidoc adoc ;
+    
+    # Define dependency scanner
+    
+    class asciidoc-scanner : common-scanner
     {
-        return "include::([^[]+)\\[" ;
+        rule pattern ( )
+        {
+            return "include::([^[]+)\\[" ;
+        }
     }
+    
+    scanner.register asciidoc-scanner : include ;
+    type.set-scanner ASCIIDOC : asciidoc-scanner ;
 }
-
-scanner.register asciidoc-scanner : include ;
-type.set-scanner ASCIIDOC : asciidoc-scanner ;
 
 # Define generators
 
