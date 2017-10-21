@@ -472,6 +472,12 @@ using L1 = mp_list<std::ratio<1,2>, std::ratio<1,4>>;
 using R1 = mp_sort<L1, std::ratio_less>; // mp_list<ratio<1,4>, ratio<1,2>>
 ----
 
+## mp_sort_q<L, Q>
+
+    template<class L, class Q> using mp_sort_q = mp_sort<L, Q::template fn>;
+
+As `mp_sort`, but takes a quoted metafunction.
+
 ## mp_nth_element_c<L, I, P>
 
     template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = /*...*/;

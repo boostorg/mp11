@@ -516,6 +516,7 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 } // namespace detail
 
 template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
+template<class L, class Q> using mp_sort_q = mp_sort<L, Q::template fn>;
 
 // mp_nth_element(_c)<L, I, P>
 namespace detail

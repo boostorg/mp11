@@ -64,6 +64,7 @@ run mp_remove_if_q.cpp ;
 run mp_partition.cpp ;
 run mp_partition_q.cpp ;
 run mp_sort.cpp ;
+run mp_sort_q.cpp ;
 run mp_find.cpp ;
 run mp_find_if.cpp ;
 run mp_reverse.cpp ;
