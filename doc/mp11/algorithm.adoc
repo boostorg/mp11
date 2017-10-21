@@ -421,6 +421,12 @@ Same as `mp_replace_at_c`, but with a type argument `I`. `I::value` must be a no
 
 Copies the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` to a new list of the same type and returns it.
 
+## mp_copy_if_q<L, Q>
+
+    template<class L, class Q> using mp_copy_if_q = mp_copy_if<L, Q::template fn>;
+
+As `mp_copy_if`, but takes a quoted metafunction.
+
 ## mp_remove<L, V>
 
     template<class L, class V> using mp_remove = /*...*/;

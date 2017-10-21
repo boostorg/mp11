@@ -57,6 +57,7 @@ run mp_replace.cpp ;
 run mp_replace_if.cpp ;
 run mp_replace_if_q.cpp ;
 run mp_copy_if.cpp ;
+run mp_copy_if_q.cpp ;
 run mp_remove.cpp ;
 run mp_remove_if.cpp ;
 run mp_partition.cpp ;
