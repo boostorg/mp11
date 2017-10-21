@@ -455,6 +455,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 } // namespace detail
 
 template<class L, template<class...> class P> using mp_remove_if = typename detail::mp_remove_if_impl<L, P>::type;
+template<class L, class Q> using mp_remove_if_q = mp_remove_if<L, Q::template fn>;
 
 // mp_partition<L, P>
 namespace detail

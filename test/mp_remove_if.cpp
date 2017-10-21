@@ -51,10 +51,10 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_remove_if<L2, std::is_pointer>, std::tuple<X1, X1 const, X2 const>>));
     }
 
-	using boost::mp11::mp_iota_c;
-	using boost::mp11::mp_size_t;
+    using boost::mp11::mp_iota_c;
+    using boost::mp11::mp_size_t;
 
-	{
+    {
         int const N = 12;
         using L1 = mp_iota_c<N>;
 

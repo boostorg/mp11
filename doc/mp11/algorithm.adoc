@@ -439,6 +439,12 @@ Removes all `V` elements of `L` and returns the result.
 
 Removes all elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` and returns the result.
 
+## mp_remove_if_q<L, Q>
+
+    template<class L, class Q> using mp_remove_if_q = mp_remove_if<L, Q::template fn>;
+
+As `mp_remove_if`, but takes a quoted metafunction.
+
 ## mp_partition<L, P>
 
     template<class L, template<class...> class P> using mp_partition = /*...*/;
