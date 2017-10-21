@@ -556,6 +556,7 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
 
 template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = typename detail::mp_nth_element_impl<L, I, P>::type;
 template<class L, class I, template<class...> class P> using mp_nth_element = typename detail::mp_nth_element_impl<L, std::size_t{ I::value }, P>::type;
+template<class L, class I, class Q> using mp_nth_element_q = mp_nth_element<L, I, Q::template fn>;
 
 // mp_find<L, V>
 namespace detail

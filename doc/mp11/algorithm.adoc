@@ -480,7 +480,8 @@ As `mp_sort`, but takes a quoted metafunction.
 
 ## mp_nth_element_c<L, I, P>
 
-    template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = /*...*/;
+    template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c =
+        /*...*/;
 
 Returns the element at position `I` in `mp_sort<L, P>`.
 
@@ -489,6 +490,13 @@ Returns the element at position `I` in `mp_sort<L, P>`.
     template<class L, class I, template<class...> class P> using mp_nth_element = /*...*/;
 
 Like `mp_nth_element_c`, but with a type argument `I`. `I::value` must be a nonnegative number.
+
+## mp_nth_element_q<L, I, Q>
+
+    template<class L, class I, class Q> using mp_nth_element_q =
+        mp_nth_element<L, I, Q::template fn>;
+
+Like `mp_nth_element`, but takes a quoted metafunction.
 
 ## mp_min_element<L, P>
 
