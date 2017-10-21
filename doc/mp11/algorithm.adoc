@@ -187,6 +187,12 @@ using R1 = mp_fill<L1, void>; // std::pair<void, void>
 
 `mp_count_if<L, P>` returns `mp_size_t<N>`, where `N` is the number of elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true`.
 
+## mp_count_if_q<L, Q>
+
+    template<class L, class Q> using mp_count_if_q = mp_count_if<L, Q::template fn>;
+
+As `mp_count_if`, but takes a quoted metafunction.
+
 ## mp_contains<L, V>
 
     template<class L, class V> using mp_contains = mp_to_bool<mp_count<L, V>>;

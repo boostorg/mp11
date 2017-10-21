@@ -108,6 +108,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 } // namespace detail
 
 template<class L, template<class...> class P> using mp_count_if = typename detail::mp_count_if_impl<L, P>::type;
+template<class L, class Q> using mp_count_if_q = mp_count_if<L, Q::template fn>;
 
 } // namespace mp11
 } // namespace boost

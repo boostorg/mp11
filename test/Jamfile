@@ -44,6 +44,7 @@ run mp_transform_if_q.cpp ;
 run mp_fill.cpp ;
 run mp_count.cpp ;
 run mp_count_if.cpp ;
+run mp_count_if_q.cpp ;
 run mp_contains.cpp ;
 run mp_repeat.cpp ;
 run mp_product.cpp ;
