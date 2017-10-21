@@ -471,6 +471,7 @@ template<template<class...> class L, class... T, template<class...> class P> str
 } // namespace detail
 
 template<class L, template<class...> class P> using mp_partition = typename detail::mp_partition_impl<L, P>::type;
+template<class L, class Q> using mp_partition_q = mp_partition<L, Q::template fn>;
 
 // mp_sort<L, P>
 namespace detail

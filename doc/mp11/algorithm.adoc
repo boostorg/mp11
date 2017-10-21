@@ -452,6 +452,12 @@ As `mp_remove_if`, but takes a quoted metafunction.
 `mp_partition<L<T...>, P>` partitions `L` into two lists `L<U1...>` and `L<U2...>` such that `mp_to_bool<P<T>>` is `mp_true`
 for the elements of `L<U1...>` and `mp_false` for the elements of `L<U2...>`. Returns `L<L<U1...>, L<U2...>>`.
 
+## mp_partition_q<L, Q>
+
+    template<class L, class Q> using mp_partition_q = mp_partition<L, Q::template fn>;
+
+As `mp_partition`, but takes a quoted metafunction.
+
 ## mp_sort<L, P>
 
     template<class L, template<class...> class P> using mp_sort = /*...*/;
