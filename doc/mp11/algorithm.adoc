@@ -396,6 +396,13 @@ Replaces all `T` elements of `L` for which `mp_to_bool<P<T>>` is `mp_true` with 
 |*mp_replace_if<L1, P, W>*|A~1~|W|...|A~n~
 |===
 
+## mp_replace_if_q<L, Q, W>
+
+    template<class L, class Q, class W> using mp_replace_if_q =
+        mp_replace_if<L, Q::template fn, W>;
+
+As `mp_replace_if`, but takes a quoted metafunction.
+
 ## mp_replace_at_c<L, I, W>
 
     template<class L, std::size_t I, class W> using mp_replace_at_c = /*...*/;

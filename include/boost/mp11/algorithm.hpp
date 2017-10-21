@@ -378,13 +378,19 @@ template<class L, template<class...> class P, class W> struct mp_replace_if_impl
 
 template<template<class...> class L, class... T, template<class...> class P, class W> struct mp_replace_if_impl<L<T...>, P, W>
 {
+#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
+    template<class U> struct _f { using type = mp_if<P<U>, W, U>; };
+    using type = L<typename _f<T>::type...>;
+#else
     template<class U> using _f = mp_if<P<U>, W, U>;
     using type = L<_f<T>...>;
+#endif
 };
 
 } // namespace detail
 
 template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
+template<class L, class Q, class W> using mp_replace_if_q = mp_replace_if<L, Q::template fn, W>;
 
 // mp_copy_if<L, P>
 namespace detail
