@@ -729,6 +729,7 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 } // namespace detail
 
 template<class L, template<class...> class P> using mp_find_if = typename detail::mp_find_if_impl<L, P>::type;
+template<class L, class Q> using mp_find_if_q = mp_find_if<L, Q::template fn>;
 
 // mp_reverse<L>
 namespace detail
