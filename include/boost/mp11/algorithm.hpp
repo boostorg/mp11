@@ -868,12 +868,15 @@ template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
 // mp_all_of<L, P>
 template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+template<class L, class Q> using mp_all_of_q = mp_all_of<L, Q::template fn>;
 
 // mp_none_of<L, P>
 template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+template<class L, class Q> using mp_none_of_q = mp_none_of<L, Q::template fn>;
 
 // mp_any_of<L, P>
 template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+template<class L, class Q> using mp_any_of_q = mp_any_of<L, Q::template fn>;
 
 // mp_replace_at_c<L, I, W>
 namespace detail

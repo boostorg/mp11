@@ -609,6 +609,12 @@ As `mp_reverse_fold`, but takes a quoted metafunction.
 
 `mp_all_of<L, P>` is `mp_true` when `P` holds for all elements of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 
+## mp_all_of_q<L, Q>
+
+    template<class L, class Q> using mp_all_of_q = mp_all_of<L, Q::template fn>;
+
+As `mp_all_of`, but takes a quoted metafunction.
+
 ## mp_none_of<L, P>
 
     template<class L, template<class...> class P> using mp_none_of =
@@ -616,12 +622,24 @@ As `mp_reverse_fold`, but takes a quoted metafunction.
 
 `mp_none_of<L, P>` is `mp_true` when `P` holds for no element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_true`.
 
+## mp_none_of_q<L, Q>
+
+    template<class L, class Q> using mp_none_of_q = mp_none_of<L, Q::template fn>;
+
+As `mp_none_of`, but takes a quoted metafunction.
+
 ## mp_any_of<L, P>
 
     template<class L, template<class...> class P> using mp_any_of =
         mp_bool< mp_count_if<L, P>::value != 0 >;
 
 `mp_any_of<L, P>` is `mp_true` when `P` holds for at least one element of `L`, `mp_false` otherwise. When `L` is empty, the result is `mp_false`.
+
+## mp_any_of_q<L, Q>
+
+    template<class L, class Q> using mp_any_of_q = mp_any_of<L, Q::template fn>;
+
+As `mp_any_of`, but takes a quoted metafunction.
 
 ## mp_for_each<L>(f)
 
