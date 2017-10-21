@@ -504,7 +504,13 @@ Like `mp_nth_element`, but takes a quoted metafunction.
 
 `mp_min_element<L, P>` returns the minimal element of the list `L` according to the ordering `mp_to_bool<P<T, U>>`.
 
-It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, Q>`, where `Q<T, U>` returns `mp_if<P<T, U>, T, U>`.
+It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, F>`, where `F<T, U>` returns `mp_if<P<T, U>, T, U>`.
+
+## mp_min_element_q<L, Q>
+
+    template<class L, class Q> using mp_min_element_q = mp_min_element<L, Q::template fn>;
+
+As `mp_min_element`, but takes a quoted metafunction.
 
 ## mp_max_element<L, P>
 
@@ -512,7 +518,13 @@ It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, Q>`, where `Q<T, U>` return
 
 `mp_max_element<L, P>` returns the maximal element of the list `L` according to the ordering `mp_to_bool<P<T, U>>`.
 
-It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, Q>`, where `Q<T, U>` returns `mp_if<P<U, T>, T, U>`.
+It's equivalent to `mp_fold<mp_rest<L>, mp_first<L>, F>`, where `F<T, U>` returns `mp_if<P<U, T>, T, U>`.
+
+## mp_max_element_q<L, Q>
+
+    template<class L, class Q> using mp_max_element_q = mp_max_element<L, Q::template fn>;
+
+As `mp_max_element`, but takes a quoted metafunction.
 
 ## mp_find<L, V>
 
