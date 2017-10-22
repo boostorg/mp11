@@ -55,6 +55,26 @@ replaces the existing element with `T`.
 If the map `M` does not contain an element with a key `mp_first<T>`, inserts it (using `mp_push_back<M, T>`); otherwise,
 replaces the existing element `L<X, Y...>` with `L<X, F<X, Y...>>`.
 
+.Using mp_map_update to count the number of occurences of types in a list
+```
+template<class T, class U> using inc2nd = mp_int<U::value + 1>;
+
+template<class M, class T> using count_types =
+    mp_map_update<M, std::pair<T, mp_int<1>>, inc2nd>;
+
+using L1 = mp_list<float, char, float, float, float, float, char, float>;
+
+using R1 = mp_fold<L1, std::tuple<>, count_types>;
+// std::tuple<std::pair<float, mp_int<6>>, std::pair<char, mp_int<2>>>
+```
+
+## mp_map_update_q<M, T, Q>
+
+    template<class M, class T, class Q> using mp_map_update_q =
+        mp_map_update<M, T, Q::template fn>;
+
+As `mp_map_update`, but takes a quoted metafunction.
+
 ## mp_map_erase<M, K>
 
     template<class M, class K> using mp_map_erase = /*...*/;

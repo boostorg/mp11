@@ -66,6 +66,7 @@ template<class M, class T, template<class...> class F> struct mp_map_update_impl
 } // namespace detail
 
 template<class M, class T, template<class...> class F> using mp_map_update = typename detail::mp_map_update_impl<M, T, F>::type;
+template<class M, class T, class Q> using mp_map_update_q = mp_map_update<M, T, Q::template fn>;
 
 // mp_map_erase<M, K>
 namespace detail

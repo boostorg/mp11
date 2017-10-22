@@ -149,6 +149,7 @@ run mp_map_insert.cpp ;
 run mp_map_replace.cpp ;
 run mp_map_erase.cpp ;
 run mp_map_update.cpp ;
+run mp_map_update_q.cpp ;
 run mp_map_keys.cpp ;
 run mp_is_map.cpp ;
 
