@@ -93,7 +93,7 @@ template<template<class... T> class F> struct X
 X<add_pointer>; // works!
 ```
 These language improvements allow for {cpp}11 metaprogramming that is
-substantially different than its idomatic {cpp}03 equivalent. Boost.MPL is no
+substantially different than its idiomatic {cpp}03 equivalent. Boost.MPL is no
 longer good enough, and __something must be done__. But what?
 
 ## Type lists and mp_rename
@@ -222,7 +222,7 @@ difference between `mp_size` and `mp_rename`. Whereas I made a point of
 template<class... T> struct mp_size_impl<mp_list<T...>>
 ```
 Is this really necessary? Can we not use the same technique in the
-implementation of `mp_size` as we did in mp_rename?
+implementation of `mp_size` as we did in `mp_rename`?
 ```
 template<class L> struct mp_size_impl;
 
@@ -251,7 +251,8 @@ To illustrate it, let me introduce the primitive `mp_length`. It's similar to
 takes a variadic parameter pack and returns its length; or, stated differently,
 it returns its number of arguments:
 ```
-template<class... T> using mp_length = std::integral_constant<std::size_t, sizeof...(T)>;
+template<class... T> using mp_length =
+    std::integral_constant<std::size_t, sizeof...(T)>;
 ```
 How would we implement `mp_size` in terms of `mp_length`? One option is to just
 substitute the implementation of the latter into the former:
