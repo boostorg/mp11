@@ -7,7 +7,7 @@
     "maintainers": [
         "Peter Dimov <pdimov -at- pdimov.com>"
     ],
-    "description": "Simple C++11 metaprogramming library.",
+    "description": "A C++11 metaprogramming library.",
     "category": [
         "Metaprogramming"
     ]
