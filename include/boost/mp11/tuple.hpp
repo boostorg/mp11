@@ -69,14 +69,10 @@ template<class Tp, std::size_t... J, class F> BOOST_CONSTEXPR F tuple_for_each_i
     return (void)A{ ((void)f(std::get<J>(std::forward<Tp>(tp))), 0)... }, std::forward<F>(f);
 }
 
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-
-template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && tp, integer_sequence<std::size_t>, F && f )
+template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && /*tp*/, integer_sequence<std::size_t>, F && f )
 {
     return std::forward<F>(f);
 }
-
-#endif
 
 } // namespace detail
 
