@@ -20,9 +20,9 @@ using boost::mp11::mp_iota_c;
 
 struct F
 {
-    int i_;
+    std::size_t i_;
 
-    explicit F( int i ): i_( i ) {}
+    explicit F( std::size_t i ): i_( i ) {}
 
     template<std::size_t I> bool operator()( mp_size_t<I> ) const
     {
