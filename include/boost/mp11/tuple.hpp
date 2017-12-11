@@ -16,6 +16,11 @@
 #include <type_traits>
 #include <cstddef>
 
+#if defined(BOOST_MSVC)
+# pragma warning( push )
+# pragma warning( disable: 4100 ) // unreferenced formal parameter 'tp'
+#endif
+
 namespace boost
 {
 namespace mp11
@@ -84,5 +89,9 @@ template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 
 } // namespace mp11
 } // namespace boost
+
+#if defined(BOOST_MSVC)
+# pragma warning( pop )
+#endif
 
 #endif // #ifndef BOOST_TUPLE_HPP_INCLUDED
