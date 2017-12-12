@@ -8,10 +8,6 @@ sudo: false
 
 python: "2.7"
 
-os:
-  - linux
-  - osx
-
 branches:
   only:
     - master
@@ -30,7 +26,7 @@ matrix:
   include:
     - os: linux
       compiler: g++-4.7
-      env: TOOLSET=gcc COMPILER=g++-4.7 CXXSTD=c++11
+      env: TOOLSET=gcc COMPILER=g++-4.7 CXXSTD=11
       addons:
         apt:
           packages:
@@ -40,7 +36,7 @@ matrix:
 
     - os: linux
       compiler: g++-4.8
-      env: TOOLSET=gcc COMPILER=g++-4.8 CXXSTD=c++11
+      env: TOOLSET=gcc COMPILER=g++-4.8 CXXSTD=11
       addons:
         apt:
           packages:
@@ -50,7 +46,7 @@ matrix:
 
     - os: linux
       compiler: g++-4.9
-      env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=c++11
+      env: TOOLSET=gcc COMPILER=g++-4.9 CXXSTD=11
       addons:
         apt:
           packages:
@@ -60,27 +56,7 @@ matrix:
 
     - os: linux
       compiler: g++-5
-      env: TOOLSET=gcc COMPILER=g++-5 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - g++-5
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      compiler: g++-5
-      env: TOOLSET=gcc COMPILER=g++-5 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - g++-5
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      compiler: g++-5
-      env: TOOLSET=gcc COMPILER=g++-5 CXXSTD=c++1z
+      env: TOOLSET=gcc COMPILER=g++-5 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -90,7 +66,7 @@ matrix:
 
     - os: linux
       compiler: g++-6
-      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++11
+      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -99,51 +75,8 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      compiler: g++-6
-      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - g++-6
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      compiler: g++-6
-      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++1z
-      addons:
-        apt:
-          packages:
-            - g++-6
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      dist: trusty
       compiler: g++-7
-      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      dist: trusty
-      compiler: g++-7
-      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-
-    - os: linux
-      dist: trusty
-      compiler: g++-7
-      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=c++1z
+      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -153,7 +86,7 @@ matrix:
 
     - os: linux
       compiler: clang++-3.5
-      env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=c++11
+      env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -164,7 +97,7 @@ matrix:
 
     - os: linux
       compiler: clang++-3.6
-      env: TOOLSET=clang COMPILER=clang++-3.6 CXXSTD=c++11
+      env: TOOLSET=clang COMPILER=clang++-3.6 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -175,7 +108,7 @@ matrix:
 
     - os: linux
       compiler: clang++-3.7
-      env: TOOLSET=clang COMPILER=clang++-3.7 CXXSTD=c++11
+      env: TOOLSET=clang COMPILER=clang++-3.7 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -186,29 +119,7 @@ matrix:
 
     - os: linux
       compiler: clang++-3.8
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - clang-3.8
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-
-    - os: linux
-      compiler: clang++-3.8
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - clang-3.8
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-
-    - os: linux
-      compiler: clang++-3.8
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=c++1z
+      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -219,29 +130,7 @@ matrix:
 
     - os: linux
       compiler: clang++-3.9
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - clang-3.9
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
-
-    - os: linux
-      compiler: clang++-3.9
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - clang-3.9
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
-
-    - os: linux
-      compiler: clang++-3.9
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++1z
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -252,29 +141,7 @@ matrix:
 
     - os: linux
       compiler: clang++-4.0
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - clang-4.0
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-4.0
-
-    - os: linux
-      compiler: clang++-4.0
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - clang-4.0
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-4.0
-
-    - os: linux
-      compiler: clang++-4.0
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++1z
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -285,29 +152,7 @@ matrix:
 
     - os: linux
       compiler: clang++-5.0
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=c++11
-      addons:
-        apt:
-          packages:
-            - clang-5.0
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
-
-    - os: linux
-      compiler: clang++-5.0
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=c++14
-      addons:
-        apt:
-          packages:
-            - clang-5.0
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
-
-    - os: linux
-      compiler: clang++-5.0
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=c++1z
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=11,14,1z
       addons:
         apt:
           packages:
@@ -318,15 +163,7 @@ matrix:
 
     - os: osx
       compiler: clang++
-      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++11
-
-    - os: osx
-      compiler: clang++
-      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++14
-
-    - os: osx
-      compiler: clang++
-      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++1z
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
 
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
@@ -344,8 +181,8 @@ install:
 
 script:
   - |-
-    echo "using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ;" > ~/user-config.jam
-  - ./b2 libs/mp11/test toolset=$TOOLSET
+    echo "using $TOOLSET : : $COMPILER ;" > ~/user-config.jam
+  - ./b2 -j 3 libs/mp11/test toolset=$TOOLSET cxxstd=$CXXSTD
 
 notifications:
   email:
