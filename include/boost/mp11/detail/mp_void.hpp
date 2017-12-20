@@ -14,6 +14,9 @@ namespace mp11
 {
 
 // mp_void<T...>
+
+#if 0
+
 namespace detail
 {
 
@@ -25,6 +28,12 @@ template<class... T> struct mp_void_impl
 } // namespace detail
 
 template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
+
+#else
+
+template<class... T> using mp_void = void;
+
+#endif
 
 } // namespace mp11
 } // namespace boost
