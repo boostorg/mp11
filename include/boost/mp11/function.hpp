@@ -14,6 +14,7 @@
 #include <boost/mp11/detail/mp_count.hpp>
 #include <boost/mp11/detail/mp_plus.hpp>
 #include <boost/mp11/detail/mp_min_element.hpp>
+#include <boost/mp11/detail/mp_void.hpp>
 #include <type_traits>
 
 namespace boost
@@ -22,17 +23,7 @@ namespace mp11
 {
 
 // mp_void<T...>
-namespace detail
-{
-
-template<class... T> struct mp_void_impl
-{
-    using type = void;
-};
-
-} // namespace detail
-
-template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
+//   in detail/mp_void.hpp
 
 // mp_and<T...>
 #if BOOST_WORKAROUND( BOOST_MSVC, < 1910 )
