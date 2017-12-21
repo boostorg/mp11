@@ -25,6 +25,11 @@ template<class T> using add_pointer = T*;
 template<class T> using add_reference = T&;
 template<class T> using add_extents = T[];
 
+using boost::mp11::mp_quote;
+
+using QX = mp_quote<X>;
+using Q_add_pointer = mp_quote<add_pointer>;
+
 int main()
 {
     using boost::mp11::mp_valid;
@@ -39,6 +44,11 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<X, int>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<X, void, void>));
 
+    BOOST_TEST_TRAIT_FALSE((mp_valid<QX::fn>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid<QX::fn, void>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid<QX::fn, int>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid<QX::fn, void, void>));
+
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_pointer>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<add_pointer, void>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<add_pointer, int>));
@@ -47,6 +57,11 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_pointer, int&>));
 #endif
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_pointer, void, void>));
+
+    BOOST_TEST_TRAIT_FALSE((mp_valid<Q_add_pointer::fn>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid<Q_add_pointer::fn, void>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid<Q_add_pointer::fn, int>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid<Q_add_pointer::fn, void, void>));
 
 #if !defined( BOOST_GCC ) || !BOOST_WORKAROUND( BOOST_GCC, < 70000 )
     // g++ up to at least 6.3 doesn't like add_reference for some reason or other
