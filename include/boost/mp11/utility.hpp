@@ -10,7 +10,7 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/config/workaround.hpp>
 
 namespace boost
 {
@@ -53,6 +53,28 @@ template<bool C, class T, class... E> using mp_if_c = typename detail::mp_if_c_i
 template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E...>::type;
 
 // mp_valid
+
+#if BOOST_WORKAROUND(BOOST_INTEL, BOOST_TESTED_AT(1800))
+
+// contributed by Roland Schulz in https://github.com/boostorg/mp11/issues/17
+
+namespace detail
+{
+
+template<class...> using void_t = void;
+
+template<class, template<class...> class F, class... T>
+struct mp_valid_impl: mp_false {};
+
+template<template<class...> class F, class... T>
+struct mp_valid_impl<void_t<F<T...>>, F, T...>: mp_true {};
+
+} // namespace detail
+
+template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<void, F, T...>;
+
+#else
+
 // implementation by Bruno Dutra (by the name is_evaluable)
 namespace detail
 {
@@ -68,6 +90,8 @@ template<template<class...> class F, class... T> struct mp_valid_impl
 } // namespace detail
 
 template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<F, T...>::type;
+
+#endif
 
 // mp_defer
 namespace detail
