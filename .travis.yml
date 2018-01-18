@@ -85,6 +85,22 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
+      compiler: clang++
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11
+      addons:
+        apt:
+          packages:
+            - clang-3.3
+
+    - os: linux
+      compiler: clang++
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11
+      addons:
+        apt:
+          packages:
+            - clang-3.4
+
+    - os: linux
       compiler: clang++-3.5
       env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=11,14,1z
       addons:
