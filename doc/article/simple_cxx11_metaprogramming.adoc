@@ -133,7 +133,7 @@ To do that, we need to first convert `std::tuple<int, float, void*>` to
 `mp_list<int, float, void*>`, apply `add_pointer` to each element obtaining
 `mp_list<int*, float*, void$$**$$>`, then convert that back to `std::tuple`.
 
-These conversion steps are a quite common occurence, and we'll write a
+These conversion steps are a quite common occurrence, and we'll write a
 primitive that helps us perform them, called `mp_rename`. We want
 ```
 mp_rename<std::tuple<int, float, void*>, mp_list>
@@ -1097,7 +1097,7 @@ template<class T, class U> using sizeof_less = mp_bool<(sizeof(T) < sizeof(U))>;
 
 Finally, let me show the implementations of `mp_count` and `mp_count_if`, for
 no reason other than I find them interesting. `mp_count<L, V>` returns the
-number of occurences of the type `V` in the list `L`; `mp_count_if<L, P>`
+number of occurrences of the type `V` in the list `L`; `mp_count_if<L, P>`
 counts the number of types in `L` for which `P<T>` is `true`.
 
 As a first step, I'll implement `mp_plus`. `mp_plus` is a variadic (not just
@@ -1175,7 +1175,7 @@ whether the list `L` contains the type `V`:
 template<class L, class V> using mp_contains = mp_bool<mp_count<L, V>::value != 0>;
 ```
 At first sight, this implementation appears horribly naive and inefficient --
-why would we need to count all the occurences just to throw that away if we're
+why would we need to count all the occurrences just to throw that away if we're
 only interested in a boolean result -- but it's actually pretty competitive and
 perfectly usable. We just need to add one slight optimization to `mp_plus`, the
 engine behind `mp_count` and `mp_contains`:

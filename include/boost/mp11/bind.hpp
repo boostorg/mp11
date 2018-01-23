@@ -70,14 +70,14 @@ template<template<class...> class F, class... T> struct mp_bind_front
 private:
 #endif
 
-	template<class... U> struct _fn { using type = F<T..., U...>; };
+    template<class... U> struct _fn { using type = F<T..., U...>; };
 
 public:
 
-	// the indirection through _fn works around the language inability
-	// to expand U... into a fixed parameter list of an alias template
+    // the indirection through _fn works around the language inability
+    // to expand U... into a fixed parameter list of an alias template
 
-	template<class... U> using fn = typename _fn<U...>::type;
+    template<class... U> using fn = typename _fn<U...>::type;
 };
 
 template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template fn, T...>;
@@ -90,11 +90,11 @@ template<template<class...> class F, class... T> struct mp_bind_back
 private:
 #endif
 
-	template<class... U> struct _fn { using type = F<U..., T...>; };
+    template<class... U> struct _fn { using type = F<U..., T...>; };
 
 public:
 
-	template<class... U> using fn = typename _fn<U...>::type;
+    template<class... U> using fn = typename _fn<U...>::type;
 };
 
 template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn, T...>;

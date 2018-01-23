@@ -55,7 +55,7 @@ replaces the existing element with `T`.
 If the map `M` does not contain an element with a key `mp_first<T>`, inserts it (using `mp_push_back<M, T>`); otherwise,
 replaces the existing element `L<X, Y...>` with `L<X, F<X, Y...>>`.
 
-.Using mp_map_update to count the number of occurences of types in a list
+.Using mp_map_update to count the number of occurrences of types in a list
 ```
 template<class T, class U> using inc2nd = mp_int<U::value + 1>;
 
