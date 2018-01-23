@@ -156,7 +156,7 @@ That is, when our `common_tuple` causes a substitution failure instead of a hard
 and `common_type_t`, which is defined as `typename common_type<...>::type`, will also cause a substitution failure.
 
 As another example, consider the hypothetical type `expected<T, E...>` that represents either a successful return with a value of `T`,
-or an unsucessful return with an error code of some type in the list `E...`. The common type of `expected<T1, E1, E2, E3>` and
+or an unsuccessful return with an error code of some type in the list `E...`. The common type of `expected<T1, E1, E2, E3>` and
 `expected<T2, E1, E4, E5>` is `expected<common_type_t<T1, T2>, E1, E2, E3, E4, E5>`. That is, the possible return values are
 combined into their common type, and we take the union of the set of error types.
 

@@ -681,7 +681,7 @@ as the first argument are:
 
 |g$$++$$ 4.9.2, recursive |0.9 |4.7 |14.2 |32.4 |DNF |||
 |===
-To improve upon this apalling result, we'll again exploit pack expansion into a
+To improve upon this appalling result, we'll again exploit pack expansion into a
 function call, but in a novel way. Let's suppose that we need to access the
 fourth element (`I = 3`). We'll generate the function signature
 ```
@@ -838,7 +838,7 @@ one. We can pretty much tell who's going to win, and by how much.
 
 The final algorithm that I'll bring to your attention is `mp_find_index`.
 `mp_find_index<L, V>` returns an integral constant of type `size_t` with a
-value that is the index of the first occurence of `V` in `L`. If `V` is not in
+value that is the index of the first occurrence of `V` in `L`. If `V` is not in
 `L`, the return value is the size of `L`.
 
 We'll start with the recursive implementation, as usual:
@@ -974,7 +974,7 @@ needs to manipulate type lists of length 300.
 
 Note that once we have `mp_drop` and `mp_find_index`, we can derive the
 `mp_find<L, V>` algorithm, which returns the suffix of `L` starting with the
-first occurence of `V`, if any, and an empty list otherwise, by using
+first occurrence of `V`, if any, and an empty list otherwise, by using
 `mp_drop<L, mp_find_index<L, V>>`.
 
 ## Conclusion

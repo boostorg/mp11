@@ -71,7 +71,7 @@ using R1 = mp_all<mp_transform<eq, L1, L2>>; // mp_true
 
 As `mp_transform`, but takes a quoted metafunction.
 
-.Using mp_transform_q to count the occurences of `void` in a list
+.Using mp_transform_q to count the occurrences of `void` in a list
 ```
 using L1 = std::tuple<void, int, float, void, int>;
 
@@ -97,7 +97,7 @@ using R1 = mp_apply<mp_plus,
 `mp_transform_if<P, F, L1, L2, ..., Ln>` replaces the elements of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>` is `mp_true` with
 `F<T1, T2, ..., Tn>`, and returns the result, where `Ti` are the corresponding elements of `Li`.
 
-.Using mp_transform_if to replace the occurences of 'void' in a list with the corresponding elements of a second list
+.Using mp_transform_if to replace the occurrences of 'void' in a list with the corresponding elements of a second list
 ```
 using L1 = std::tuple<void, int, float, void, int>;
 using L2 = std::tuple<char[1], char[2], char[3], char[4], char[5]>;
@@ -128,7 +128,7 @@ using R1 = mp_transform_if<first_is_void, second, L1, L2>;
 
 As `mp_transform_if`, but takes quoted metafunctions.
 
-.Using mp_transform_if_q to replace the occurences of 'void' in a list with the corresponding elements of a second list
+.Using mp_transform_if_q to replace the occurrences of 'void' in a list with the corresponding elements of a second list
 ```
 using L1 = std::tuple<void, int, float, void, int>;
 using L2 = std::tuple<char[1], char[2], char[3], char[4], char[5]>;
@@ -531,7 +531,7 @@ As `mp_max_element`, but takes a quoted metafunction.
     template<class L, class V> using mp_find = /*...*/;
 
 `mp_find<L, V>` returns the index at which the type `V` is located in the list `L`. It's an alias for `mp_size_t<I>`,
-where `I` is the zero-based index of the first occurence of `V` in `L`. If `L` does not contain `V`, `mp_find<L, V>`
+where `I` is the zero-based index of the first occurrence of `V` in `L`. If `L` does not contain `V`, `mp_find<L, V>`
 is `mp_size<L>`.
 
 ## mp_find_if<L, P>
