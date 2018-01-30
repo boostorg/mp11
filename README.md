@@ -10,7 +10,7 @@ Mp11 is part of [Boost](http://boost.org/libs/mp11), starting with release 1.66.
 ## Supported compilers
 
 * g++ 4.7 or later
-* clang++ 3.5 or later
+* clang++ 3.3 or later
 * Visual Studio 2013, 2015, 2017
 
 Tested on [Travis](https://travis-ci.org/boostorg/mp11/) and [Appveyor](https://ci.appveyor.com/project/pdimov/mp11/).
