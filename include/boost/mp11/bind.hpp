@@ -9,6 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/utility.hpp>
 #include <cstddef>
 
 namespace boost
@@ -65,19 +66,10 @@ template<class Q, class... T> using mp_bind_q = mp_bind<Q::template fn, T...>;
 // mp_bind_front
 template<template<class...> class F, class... T> struct mp_bind_front
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 && BOOST_MSVC >= 1900 )
-#else
-private:
-#endif
-
-    template<class... U> struct _fn { using type = F<T..., U...>; };
-
-public:
-
-    // the indirection through _fn works around the language inability
+    // the indirection through mp_defer works around the language inability
     // to expand U... into a fixed parameter list of an alias template
 
-    template<class... U> using fn = typename _fn<U...>::type;
+    template<class... U> using fn = typename mp_defer<F, T..., U...>::type;
 };
 
 template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template fn, T...>;
@@ -85,16 +77,7 @@ template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template 
 // mp_bind_back
 template<template<class...> class F, class... T> struct mp_bind_back
 {
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1920 && BOOST_MSVC >= 1900 )
-#else
-private:
-#endif
-
-    template<class... U> struct _fn { using type = F<U..., T...>; };
-
-public:
-
-    template<class... U> using fn = typename _fn<U...>::type;
+    template<class... U> using fn = typename mp_defer<F, U..., T...>::type;
 };
 
 template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn, T...>;
