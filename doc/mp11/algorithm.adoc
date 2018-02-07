@@ -91,7 +91,7 @@ using R1 = mp_apply<mp_plus,
 
 ## mp_transform_if<P, F, L...>
 
-    template<template<class...> class P, template<class...> class F, class L...>
+    template<template<class...> class P, template<class...> class F, class... L>
         using mp_transform_if = /*...*/;
 
 `mp_transform_if<P, F, L1, L2, ..., Ln>` replaces the elements of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>` is `mp_true` with

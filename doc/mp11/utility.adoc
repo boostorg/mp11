@@ -80,7 +80,7 @@ otherwise. It's the same as `std::enable_if_t<I::value == 5>` in {cpp}14, or
 
 ## mp_if<C, T, E...>
 
-    template<class C, class T, class E...> using mp_if =
+    template<class C, class T, class... E> using mp_if =
         mp_if_c<static_cast<bool>(C::value), T, E...>;
 
 Like `mp_if_c`, but the first argument is a type.
