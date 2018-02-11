@@ -203,7 +203,22 @@ As `mp_count_if`, but takes a quoted metafunction.
 
     template<class L, std::size_t N> using mp_repeat_c = /*...*/;
 
-`mp_repeat_c<L, N>` returns a list of the same type as `L` that consists of `N` concatenated copies of `L`.
+`mp_repeat_c<L, N>` returns a list of the same form as `L` that consists of `N` concatenated copies of `L`.
+
+.Using mp_repeat_c
+```
+using L1 = tuple<int>;
+using R1 = mp_repeat_c<L1, 3>; // tuple<int, int, int>
+
+using L2 = pair<int, float>;
+using R2 = mp_repeat_c<L2, 1>; // pair<int, float>
+
+using L3 = mp_list<int, float>;
+using R3 = mp_repeat_c<L3, 2>; // mp_list<int, float, int, float>
+
+using L4 = mp_list<int, float, double>;
+using R4 = mp_repeat_c<L4, 0>; // mp_list<>
+```
 
 ## mp_repeat<L, N>
 
@@ -217,7 +232,7 @@ Same as `mp_repeat_c` but with a type argument `N`. The number of copies is `N::
 
 `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` evaluates `F<U1, U2, ..., Un>` for values `Ui` taken from
 the Cartesian product of the lists, as if the elements `Ui` are formed by `n` nested loops, each traversing `Li`.
-It returns a list of type `L1` containing the results of the application of `F`.
+It returns a list of the form `L1<V...>` containing the results of the application of `F`.
 
 .mp_product on two lists
 [cols="<.^4m,4*^.^1m",width=85%]
@@ -266,7 +281,7 @@ Same as `mp_drop_c`, but with a type argument `N`. `N::value` must be a nonnegat
 `mp_from_sequence` transforms an integer sequence produced by `make_integer_sequence` into an `mp_list`
 of the corresponding `std::integral_constant` types. Given
 
-    template<class T, class... I> struct S;
+    template<class T, T... I> struct S;
 
 `mp_from_sequence<S<T, I...>>` is an alias for `mp_list<std::integral_constant<T, I>...>`.
 
@@ -306,7 +321,7 @@ Same as `mp_at_c`, but with a type argument `I`. `I::value` must be a nonnegativ
 
     template<class L, std::size_t N> using mp_take_c = /*...*/;
 
-`mp_take_c<L, N>` returns a list of the same type as `L` containing the first `N` elements of `L`.
+`mp_take_c<L, N>` returns a list of the same form as `L` containing the first `N` elements of `L`.
 
 .mp_take_c
 [cols="<.^4m,6*^.^1m",width=85%]
@@ -419,7 +434,7 @@ Same as `mp_replace_at_c`, but with a type argument `I`. `I::value` must be a no
 
     template<class L, template<class...> class P> using mp_copy_if = /*...*/;
 
-Copies the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` to a new list of the same type and returns it.
+Copies the elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` to a new list of the same form and returns it.
 
 ## mp_copy_if_q<L, Q>
 
@@ -600,7 +615,7 @@ As `mp_reverse_fold`, but takes a quoted metafunction.
 
     template<class L> using mp_unique = /*...*/;
 
-`mp_unique<L>` returns a list of the same type as `L` with the duplicate elements removed.
+`mp_unique<L>` returns a list of the same form as `L` with the duplicate elements removed.
 
 ## mp_all_of<L, P>
 
