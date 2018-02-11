@@ -25,7 +25,7 @@ struct X7 {};
 struct X8 {};
 struct X9 {};
 
-template<class T> using add_pointer = typename std::add_pointer<T>::type;
+template<class T> using add_pointer = T*;
 
 int main()
 {
