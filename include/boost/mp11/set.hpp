@@ -25,7 +25,7 @@ template<class S, class V> struct mp_set_contains_impl;
 
 template<template<class...> class L, class... T, class V> struct mp_set_contains_impl<L<T...>, V>
 {
-    using type = mp_to_bool<std::is_base_of<mp_identity<V>, mp_inherit<mp_identity<T>...>>>;
+    using type = mp_to_bool<std::is_base_of<mp_identity<V>, mp_inherit<mp_identity<T>...> > >;
 };
 
 } // namespace detail
@@ -90,7 +90,7 @@ template<class S> struct mp_is_set_impl
 
 template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
 {
-    using type = mp_to_bool<std::is_same<mp_list<T...>, mp_set_push_back<mp_list<>, T...>>>;
+    using type = mp_to_bool<std::is_same<mp_list<T...>, mp_set_push_back<mp_list<>, T...> > >;
 };
 
 } // namespace detail
