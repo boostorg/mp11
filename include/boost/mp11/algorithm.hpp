@@ -297,8 +297,8 @@ template<template<class...> class L, class... T, std::size_t I> struct mp_at_c_i
 
 template<class L, std::size_t I> struct mp_at_c_impl
 {
-    using _map = mp_transform<mp_list, mp_iota<mp_size<L>>, L>;
-    using type = mp_second<mp_map_find<_map, mp_size_t<I>>>;
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L> >, L>;
+    using type = mp_second<mp_map_find<_map, mp_size_t<I> > >;
 };
 
 #endif
@@ -843,7 +843,7 @@ template<template<class...> class L, class T1, class... T, class V, template<cla
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, class V, template<class...> class F> struct mp_reverse_fold_impl<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, V, F>
 {
     using rest = typename mp_reverse_fold_impl<L<T...>, V, F>::type;
-    using type = F<T1, F<T2, F<T3, F<T4, F<T5, F<T6, F<T7, F<T8, F<T9, F<T10, rest>>>>>>>>>>;
+    using type = F<T1, F<T2, F<T3, F<T4, F<T5, F<T6, F<T7, F<T8, F<T9, F<T10, rest> > > > > > > > > >;
 };
 
 } // namespace detail
@@ -889,7 +889,7 @@ template<class L, class I, class W> struct mp_replace_at_impl
     template<class T1, class T2> using _p = std::is_same<T2, mp_size_t<I::value>>;
     template<class T1, class T2> using _f = W;
 
-    using type = mp_transform_if<_p, _f, L, mp_iota<mp_size<L>>>;
+    using type = mp_transform_if<_p, _f, L, mp_iota<mp_size<L> > >;
 };
 
 } // namespace detail
