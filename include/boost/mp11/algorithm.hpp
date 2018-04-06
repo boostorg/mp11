@@ -95,6 +95,15 @@ struct list_size_mismatch
 {
 };
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<template<class...> class F, class... L> struct mp_transform_cuda_workaround
+{
+    using type = mp_if<mp_same<mp_size<L>...>, detail::mp_transform_impl<F, L...>, detail::list_size_mismatch>;
+};
+
+#endif
+
 } // namespace detail
 
 #if BOOST_WORKAROUND( BOOST_MSVC, == 1900 ) || BOOST_WORKAROUND( BOOST_GCC, < 40800 )
@@ -103,7 +112,15 @@ template<template<class...> class F, class... L> using mp_transform = typename m
 
 #else
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_cuda_workaround< F, L...>::type::type;
+
+#else
+
 template<template<class...> class F, class... L> using mp_transform = typename mp_if<mp_same<mp_size<L>...>, detail::mp_transform_impl<F, L...>, detail::list_size_mismatch>::type;
+
+#endif
 
 #endif
 
@@ -303,9 +320,27 @@ template<class L, std::size_t I> struct mp_at_c_impl
 
 #endif
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<class L, std::size_t I> struct mp_at_c_cuda_workaround
+{
+    using type = mp_if_c<(I < mp_size<L>::value), detail::mp_at_c_impl<L, I>, void>;
+};
+
+#endif
+
 } // namespace detail
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_c_cuda_workaround< L, I >::type::type;
+
+#else
+
 template<class L, std::size_t I> using mp_at_c = typename mp_if_c<(I < mp_size<L>::value), detail::mp_at_c_impl<L, I>, void>::type;
+
+#endif
+
 template<class L, class I> using mp_at = mp_at_c<L, std::size_t{ I::value }>;
 
 // mp_take(_c)<L, N>
@@ -543,6 +578,25 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
 
     using L2 = mp_second<part>;
 
+    #if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+    struct detail
+    {
+        struct mp_nth_element_impl_cuda_workaround
+        {
+            using type = mp_cond<
+
+                mp_bool<(I < N1)>, mp_nth_element_impl<L1, I, P>,
+                mp_bool<(I == N1)>, mp_identity<T1>,
+                mp_true, mp_nth_element_impl<L2, I - N1 - 1, P>
+
+            >;
+        };
+    };
+    using type = typename detail::mp_nth_element_impl_cuda_workaround::type::type;
+
+    #else
+
     using type = typename mp_cond<
 
         mp_bool<(I < N1)>, mp_nth_element_impl<L1, I, P>,
@@ -550,6 +604,8 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
         mp_true, mp_nth_element_impl<L2, I - N1 - 1, P>
 
     >::type;
+
+    #endif
 };
 
 } // namespace detail

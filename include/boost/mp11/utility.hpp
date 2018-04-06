@@ -106,9 +106,26 @@ struct mp_no_type
 {
 };
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<template<class...> class F, class... T> struct mp_defer_cuda_workaround
+{
+    using type = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
+};
+
+#endif
+
 } // namespace detail
 
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+
+template<template<class...> class F, class... T> using mp_defer = typename detail::mp_defer_cuda_workaround< F, T...>::type;
+
+#else
+
 template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
+
+#endif
 
 // mp_eval_if, mp_eval_if_c
 namespace detail
