@@ -124,7 +124,7 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 } // namespace detail
 
 // mp_any<T...>
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_WORKAROUND( BOOST_GCC, < 70300 )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_WORKAROUND( BOOST_GCC, < 70400 )
 
 template<class... T> using mp_any = mp_bool<(static_cast<bool>(T::value) || ...)>;
 
