@@ -185,6 +185,17 @@ matrix:
           packages:
             - libc++-dev
 
+    - os: linux
+      compiler: clang++-5.0
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=11,14,1z CXXFLAGS="-x cuda -nocudainc -nocudalib"
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+
     - os: osx
       compiler: clang++
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
@@ -206,7 +217,7 @@ install:
 script:
   - |-
     echo "using $TOOLSET : : $COMPILER ;" > ~/user-config.jam
-  - ./b2 -j3 libs/mp11/test toolset=$TOOLSET cxxstd=$CXXSTD
+  - ./b2 -j3 libs/mp11/test toolset=$TOOLSET cxxstd=$CXXSTD cxxflags=$CXXFLAGS
 
 notifications:
   email:
