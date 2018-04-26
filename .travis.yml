@@ -186,8 +186,6 @@ matrix:
             - libc++-dev
 
     - os: linux
-      compiler: clang++-5.0
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=11,14,1z CXXFLAGS="-x cuda -nocudainc -nocudalib"
       addons:
         apt:
           packages:
@@ -195,6 +193,8 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
+      script:
+        - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib -std=c++11 libs/mp11/test/mp11.cpp
 
     - os: osx
       compiler: clang++
