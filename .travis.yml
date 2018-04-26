@@ -192,6 +192,8 @@ matrix:
         apt:
           packages:
             - clang-5.0
+            - nvidia-profiler
+            - nvidia-cuda-dev
             - nvidia-cuda-toolkit
           sources:
             - ubuntu-toolchain-r-test
