@@ -192,6 +192,7 @@ matrix:
         apt:
           packages:
             - clang-5.0
+            - nvidia-cuda-toolkit
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
