@@ -178,6 +178,22 @@ matrix:
             - llvm-toolchain-trusty-5.0
 
     - os: linux
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+      before_script:
+        - wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run
+        - sh cuda_8.0.61_375.26_linux-run --tar xf ./InstallUtils.pm
+        - export PERL5LIB=$(pwd):$PERL5LIB
+        - sh cuda_8.0.61_375.26_linux-run --silent --toolkit --override --toolkitpath=$HOME/lib/cuda-8.0.61
+      script:
+        - clang++-5.0 -I . -c -x cuda --cuda-path=$HOME/lib/cuda-8.0.61 -std=c++11 libs/mp11/test/mp11.cpp
+
+    - os: linux
       compiler: clang++-libc++
       env: TOOLSET=clang COMPILER=clang++-libc++ CXXSTD=11,14,1z
       addons:
