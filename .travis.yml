@@ -185,6 +185,24 @@ matrix:
           packages:
             - libc++-dev
 
+    - os: linux
+      compiler: clang++-5.0
+      env: CLANG_X_CUDA=1
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+            - nvidia-profiler
+            - nvidia-cuda-dev
+            - nvidia-cuda-toolkit
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+      script:
+        - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++11 libs/mp11/test/mp11.cpp
+        - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++14 libs/mp11/test/mp11.cpp
+        - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++1z libs/mp11/test/mp11.cpp
+
     - os: osx
       compiler: clang++
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
@@ -206,7 +224,7 @@ install:
 script:
   - |-
     echo "using $TOOLSET : : $COMPILER ;" > ~/user-config.jam
-  - ./b2 -j3 libs/mp11/test toolset=$TOOLSET cxxstd=$CXXSTD
+  - ./b2 -j3 libs/mp11/test toolset=$TOOLSET cxxstd=$CXXSTD ${CXXFLAGS:+cxxflags="$CXXFLAGS"}
 
 notifications:
   email:

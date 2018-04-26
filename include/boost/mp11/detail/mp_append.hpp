@@ -138,7 +138,7 @@ template<
 template<class... L>
 struct mp_append_impl_cuda_workaround
 {
-    using type = mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl>>>;
+    using type = mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl> > >;
 };
 
 template<class... L> struct mp_append_impl: mp_append_impl_cuda_workaround<L...>::type::template fn<L...>
@@ -147,7 +147,7 @@ template<class... L> struct mp_append_impl: mp_append_impl_cuda_workaround<L...>
 
 #else
 
-template<class... L> struct mp_append_impl: mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl>>>::template fn<L...>
+template<class... L> struct mp_append_impl: mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl> > >::template fn<L...>
 {
 };
 
