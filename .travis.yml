@@ -85,6 +85,15 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
+      compiler: g++
+      env: NVCC=1
+      before_script:
+        - wget https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux
+        - sh cuda_9.1.85_387.26_linux --silent --toolkit --override --toolkitpath=$HOME/lib/cuda-9.1.85
+      script:
+        - $HOME/lib/cuda-9.1.85/bin/nvcc -x cu -I . -c -std=c++11 libs/mp11/test/mp11.cpp
+
+    - os: linux
       compiler: /usr/bin/clang++
       env: TOOLSET=clang COMPILER=/usr/bin/clang++ CXXSTD=11
       addons:
