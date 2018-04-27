@@ -106,7 +106,7 @@ struct mp_no_type
 {
 };
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<template<class...> class F, class... T> struct mp_defer_cuda_workaround
 {
@@ -117,7 +117,7 @@ template<template<class...> class F, class... T> struct mp_defer_cuda_workaround
 
 } // namespace detail
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<template<class...> class F, class... T> using mp_defer = typename detail::mp_defer_cuda_workaround< F, T...>::type;
 

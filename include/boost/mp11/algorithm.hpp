@@ -95,7 +95,7 @@ struct list_size_mismatch
 {
 };
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<template<class...> class F, class... L> struct mp_transform_cuda_workaround
 {
@@ -112,7 +112,7 @@ template<template<class...> class F, class... L> using mp_transform = typename m
 
 #else
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<template<class...> class F, class... L> using mp_transform = typename detail::mp_transform_cuda_workaround< F, L...>::type::type;
 
@@ -320,7 +320,7 @@ template<class L, std::size_t I> struct mp_at_c_impl
 
 #endif
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<class L, std::size_t I> struct mp_at_c_cuda_workaround
 {
@@ -331,7 +331,7 @@ template<class L, std::size_t I> struct mp_at_c_cuda_workaround
 
 } // namespace detail
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_c_cuda_workaround< L, I >::type::type;
 
@@ -578,7 +578,7 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
 
     using L2 = mp_second<part>;
 
-    #if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+    #if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
     struct detail
     {
