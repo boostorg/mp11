@@ -133,7 +133,7 @@ template<
     using type = typename mp_append_impl<prefix, Lr...>::type;
 };
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, / 1000000 == 9 )
+#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
 
 template<class... L>
 struct mp_append_impl_cuda_workaround
