@@ -49,7 +49,7 @@
 
 #elif defined(__clang__)
 
-// clang++
+// Clang
 
 # undef BOOST_MP11_CLANG
 # define BOOST_MP11_CLANG (__clang_major__ * 100 + __clang_minor__)
@@ -59,6 +59,15 @@
 #   define BOOST_MP11_HAS_FOLD_EXPRESSIONS
 #  endif
 # endif
+
+#if BOOST_MP11_CLANG < 400 && __cplusplus >= 201402L \
+   && defined( __GLIBCXX__ ) && !__has_include(<shared_mutex>)
+
+// Clang pre-4 in C++14 mode, libstdc++ pre-4.9, ::gets is not defined,
+// but Clang tries to import it into std
+
+   extern "C" char *gets (char *__s);
+#endif
 
 #elif defined(__INTEL_COMPILER)
 
