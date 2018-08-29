@@ -11,8 +11,6 @@
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
 #include <type_traits>
 #include <tuple>
 

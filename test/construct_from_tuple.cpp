@@ -12,9 +12,8 @@
 #endif
 
 #include <boost/mp11/tuple.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
 #include <tuple>
 #include <memory>
 #include <utility>
@@ -33,7 +32,7 @@ struct T2
 
     T2( std::unique_ptr<int> x, std::unique_ptr<int> y, std::unique_ptr<int> z ): x(std::move(x)), y(std::move(y)), z(std::move(z)) {}
 
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
 
     T2( T2&& r ): x( std::move(r.x) ), y( std::move(r.y) ), z( std::move(r.z) ) {}
 

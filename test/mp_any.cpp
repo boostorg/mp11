@@ -9,6 +9,7 @@
 
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
@@ -20,7 +21,7 @@ template<class... T> using check2 = mp_any<mp_any<std::is_nothrow_copy_construct
 template<class... T> using check3 = mp_any<mp_all<std::is_nothrow_copy_constructible<T>...>, std::is_nothrow_default_constructible<T>...>;
 
 template<bool is_trivially_destructible, bool is_single_buffered, class... T> struct variant_base_impl {};
-#if BOOST_WORKAROUND( BOOST_GCC, < 40800 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40800 )
 template<class... T> using variant_base = variant_base_impl<mp_all<std::has_trivial_destructor<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;
 #else
 template<class... T> using variant_base = variant_base_impl<mp_all<std::is_trivially_destructible<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;

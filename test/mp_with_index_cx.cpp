@@ -6,9 +6,9 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/config.hpp>
+#include <boost/mp11/detail/config.hpp>
 
-#if defined( BOOST_NO_CXX14_CONSTEXPR )
+#if !defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 
 int main() {}
 
@@ -16,8 +16,6 @@ int main() {}
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_with_index;

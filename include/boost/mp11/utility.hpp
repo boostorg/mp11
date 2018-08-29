@@ -9,8 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
+#include <boost/mp11/detail/config.hpp>
 
 namespace boost
 {
@@ -54,7 +53,7 @@ template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_im
 
 // mp_valid
 
-#if BOOST_WORKAROUND(BOOST_INTEL, BOOST_TESTED_AT(1800))
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_INTEL, != 0 ) // tested at 1800
 
 // contributed by Roland Schulz in https://github.com/boostorg/mp11/issues/17
 
@@ -106,7 +105,7 @@ struct mp_no_type
 {
 };
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
 
 template<template<class...> class F, class... T> struct mp_defer_cuda_workaround
 {
@@ -117,7 +116,7 @@ template<template<class...> class F, class... T> struct mp_defer_cuda_workaround
 
 } // namespace detail
 
-#if BOOST_WORKAROUND( BOOST_CUDA_VERSION, >= 9000000 && BOOST_CUDA_VERSION < 10000000 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
 
 template<template<class...> class F, class... T> using mp_defer = typename detail::mp_defer_cuda_workaround< F, T...>::type;
 
@@ -189,7 +188,7 @@ template<template<class...> class F> struct mp_quote_trait
 };
 
 // mp_invoke
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
 namespace detail
 {
@@ -200,7 +199,7 @@ template<class Q, class... T> struct mp_invoke_impl: mp_defer<Q::template fn, T.
 
 template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
 
-#elif BOOST_WORKAROUND( BOOST_GCC, < 50000 )
+#elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 
 template<class Q, class... T> using mp_invoke = typename mp_defer<Q::template fn, T...>::type;
 

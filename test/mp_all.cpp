@@ -9,6 +9,7 @@
 
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
@@ -59,7 +60,7 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<check1<void, int, float>, mp_true>));
 
-#if !BOOST_WORKAROUND( BOOST_GCC, < 40900 )
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40900 )
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<check2<void, int, float>, mp_true>));
 

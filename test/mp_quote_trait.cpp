@@ -8,6 +8,7 @@
 
 
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
@@ -43,7 +44,7 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<void>, void const>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<Q::fn<int[]>, int const[]>));
 
-#if !BOOST_WORKAROUND( BOOST_GCC, < 40900 )
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40900 )
 
         // g++ 4.7, 4.8 have difficulties with preserving top-level const
 

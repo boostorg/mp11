@@ -9,12 +9,12 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
-#include <boost/config.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 #include <utility>
 #include <cassert>
 
-#if !defined( BOOST_NO_CXX14_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define BOOST_MP11_CONSTEXPR14 constexpr
 #else
 # define BOOST_MP11_CONSTEXPR14

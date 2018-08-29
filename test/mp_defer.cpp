@@ -9,6 +9,7 @@
 
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
@@ -47,12 +48,12 @@ int main()
     BOOST_TEST_TRAIT_FALSE((has_type<add_pointer_impl<>>));
     BOOST_TEST_TRAIT_FALSE((has_type<add_pointer_impl<void, void>>));
 
-#if !BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
     BOOST_TEST_TRAIT_TRUE((has_type<Q_add_pointer_impl<void>>));
 #endif
     BOOST_TEST_TRAIT_TRUE((std::is_same<Q_add_pointer_impl<void>::type, void*>));
 
-#if !BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
     BOOST_TEST_TRAIT_TRUE((has_type<Q_add_pointer_impl<int>>));
 #endif
     BOOST_TEST_TRAIT_TRUE((std::is_same<Q_add_pointer_impl<int>::type, int*>));

@@ -8,6 +8,7 @@
 
 
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 
@@ -33,8 +34,7 @@ int main()
 
     using Qt = mp_quote_trait<mp_identity>;
 
-#if defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
-#else
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_invoke, Qt>));
 #endif
     BOOST_TEST_TRAIT_TRUE((mp_valid<mp_invoke, Qt, void>));

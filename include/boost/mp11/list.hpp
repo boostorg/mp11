@@ -11,8 +11,7 @@
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 
 namespace boost

@@ -9,12 +9,11 @@
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
 #include <tuple>
 
-#if !defined( BOOST_NO_CXX14_CONSTEXPR )
+#if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define CONSTEXPR14 constexpr
 #else
 # define CONSTEXPR14
@@ -46,7 +45,7 @@ int main()
 
     BOOST_TEST_EQ( (mp_for_each<std::pair<int, short>>( F{0} ).s), 12 );
 
-#if defined( BOOST_NO_CXX11_CONSTEXPR ) || ( !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
+#if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
 #else
 
     static_assert( mp_for_each<mp_list<>>( 11 ) == 11, "mp_for_each<mp_list<>>( 11 ) == 11" );
@@ -54,7 +53,7 @@ int main()
 
 #endif
 
-#if !defined( BOOST_NO_CXX14_CONSTEXPR ) && !BOOST_WORKAROUND( BOOST_MSVC, < 1920 )
+#if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 
     constexpr auto r1 = mp_for_each<mp_list<int, short, char>>( F{0} );
     static_assert( r1.s == 123, "r1.s == 123" );

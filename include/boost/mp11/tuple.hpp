@@ -9,14 +9,13 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integer_sequence.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <tuple>
 #include <utility>
 #include <type_traits>
 #include <cstddef>
 
-#if defined(BOOST_MSVC)
+#if BOOST_MP11_MSVC
 # pragma warning( push )
 # pragma warning( disable: 4100 ) // unreferenced formal parameter 'tp'
 #endif
@@ -30,7 +29,7 @@ namespace mp11
 namespace detail
 {
 
-template<class F, class Tp, std::size_t... J> BOOST_CONSTEXPR auto tuple_apply_impl( F && f, Tp && tp, integer_sequence<std::size_t, J...> )
+template<class F, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR auto tuple_apply_impl( F && f, Tp && tp, integer_sequence<std::size_t, J...> )
     -> decltype( std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... ) )
 {
     return std::forward<F>(f)( std::get<J>(std::forward<Tp>(tp))... );
@@ -40,7 +39,7 @@ template<class F, class Tp, std::size_t... J> BOOST_CONSTEXPR auto tuple_apply_i
 
 template<class F, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
-BOOST_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
+BOOST_MP11_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
     -> decltype( detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() ) )
 {
     return detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() );
@@ -50,7 +49,7 @@ BOOST_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
 namespace detail
 {
 
-template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T construct_from_tuple_impl( Tp && tp, integer_sequence<std::size_t, J...> )
+template<class T, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR T construct_from_tuple_impl( Tp && tp, integer_sequence<std::size_t, J...> )
 {
     return T( std::get<J>(std::forward<Tp>(tp))... );
 }
@@ -59,7 +58,7 @@ template<class T, class Tp, std::size_t... J> BOOST_CONSTEXPR T construct_from_t
 
 template<class T, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
-BOOST_CONSTEXPR T construct_from_tuple( Tp && tp )
+BOOST_MP11_CONSTEXPR T construct_from_tuple( Tp && tp )
 {
     return detail::construct_from_tuple_impl<T>( std::forward<Tp>(tp), Seq() );
 }
@@ -68,20 +67,20 @@ BOOST_CONSTEXPR T construct_from_tuple( Tp && tp )
 namespace detail
 {
 
-template<class Tp, std::size_t... J, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && tp, integer_sequence<std::size_t, J...>, F && f )
+template<class Tp, std::size_t... J, class F> BOOST_MP11_CONSTEXPR F tuple_for_each_impl( Tp && tp, integer_sequence<std::size_t, J...>, F && f )
 {
     using A = int[sizeof...(J)];
     return (void)A{ ((void)f(std::get<J>(std::forward<Tp>(tp))), 0)... }, std::forward<F>(f);
 }
 
-template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each_impl( Tp && /*tp*/, integer_sequence<std::size_t>, F && f )
+template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each_impl( Tp && /*tp*/, integer_sequence<std::size_t>, F && f )
 {
     return std::forward<F>(f);
 }
 
 } // namespace detail
 
-template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
+template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 {
     using seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>;
     return detail::tuple_for_each_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
@@ -90,7 +89,7 @@ template<class Tp, class F> BOOST_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 } // namespace mp11
 } // namespace boost
 
-#if defined(BOOST_MSVC)
+#if BOOST_MP11_MSVC
 # pragma warning( pop )
 #endif
 

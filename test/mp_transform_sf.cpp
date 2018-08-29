@@ -10,6 +10,7 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/list.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 
 using boost::mp11::mp_transform;
@@ -29,7 +30,7 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<transform, void, void, void, void>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<transform, void, void, void, void, void>));
 
-#if !BOOST_WORKAROUND( BOOST_MSVC, <= 1800 )
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
     BOOST_TEST_TRAIT_TRUE((mp_valid<transform, mp_list<>>));
 #endif
 
