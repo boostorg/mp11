@@ -20,6 +20,9 @@ environment:
       TOOLSET: msvc-14.0
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      TOOLSET: msvc-14.1
+      CXXSTD: 17
 
 install:
   - set BOOST_BRANCH=develop
@@ -38,4 +41,5 @@ install:
 build: off
 
 test_script:
-  - b2 libs/mp11/test toolset=%TOOLSET%
+  - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
+  - b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD%
