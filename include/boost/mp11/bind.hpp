@@ -87,7 +87,20 @@ template<template<class...> class F, class... U, class... T> struct eval_bound_a
 
 template<template<class...> class F, class... T> struct mp_bind
 {
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, == 1915 )
+private:
+
+    template<class... U> struct _f { using type = F<typename detail::eval_bound_arg<T, U...>::type...>; };
+
+public:
+
+    template<class... U> using fn = typename _f<U...>::type;
+
+#else
+
     template<class... U> using fn = F<typename detail::eval_bound_arg<T, U...>::type...>;
+
+#endif
 };
 
 template<class Q, class... T> using mp_bind_q = mp_bind<Q::template fn, T...>;
