@@ -46,6 +46,8 @@ run mp_count.cpp ;
 run mp_count_if.cpp ;
 run mp_count_if_q.cpp ;
 run mp_contains.cpp ;
+run mp_starts_with.cpp ;
+run mp_starts_with_sf.cpp ;
 run mp_repeat.cpp ;
 run mp_product.cpp ;
 run mp_drop.cpp ;
