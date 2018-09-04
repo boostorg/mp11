@@ -199,6 +199,13 @@ As `mp_count_if`, but takes a quoted metafunction.
 
 `mp_contains<L, V>` is `mp_true` when `L` contains an element `V`, `mp_false` otherwise.
 
+## mp_starts_with<L1, L2>
+
+    template<class L1, class L2> using mp_starts_with = /*...*/;
+
+`mp_starts_with<L1, L2>` is `mp_true` when `L1` starts with `L2`, `mp_false`
+otherwise.
+
 ## mp_repeat_c<L, N>
 
     template<class L, std::size_t N> using mp_repeat_c = /*...*/;

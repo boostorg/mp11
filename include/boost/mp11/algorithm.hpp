@@ -987,6 +987,30 @@ template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp
 // mp_erase_c<L, I, J>
 template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
+// mp_starts_with<L1, L2>
+// contributed by Glen Joseph Fernandes (glenjofe@gmail.com)
+namespace detail {
+
+template<class L1, class L2>
+struct mp_starts_with_impl { };
+
+template<template<class...> class L1, class... T1, template<class...> class L2,
+    class... T2>
+struct mp_starts_with_impl<L1<T1...>, L2<T2...> > {
+    template<class L>
+    static mp_false check(L);
+
+    template<class... T>
+    static mp_true check(mp_list<T2..., T...>);
+
+    using type = decltype(check(mp_list<T1...>()));
+};
+
+} // namespace detail
+
+template<class L1, class L2>
+using mp_starts_with = typename detail::mp_starts_with_impl<L1, L2>::type;
+
 // mp_min_element<L, P>
 // mp_max_element<L, P>
 //   in detail/mp_min_element.hpp
