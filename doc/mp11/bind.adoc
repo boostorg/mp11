@@ -37,9 +37,11 @@ http://www.boost.org/LICENSE_1_0.txt
 
     template<template<class...> class F, class... T> struct mp_bind;
 
-`mp_bind<F, T...>` is a quoted metafunction that implements the type-based equivalent of `boost::bind`. Its nested
-template `fn<U...>` returns `F<V...>`, where `V...` is `T...` with the placeholders replaced by the corresponding element
-of `U...` and the `mp_bind` expressions replaced with their corresponding evaluations against `U...`.
+`mp_bind<F, T...>` is a quoted metafunction that implements the type-based
+equivalent of `boost::bind`. Its nested template `fn<U...>` returns `F<V...>`,
+where `V...` is `T...` with the placeholders replaced by the corresponding
+element of `U...` and the `mp_bind`, `mp_bind_front`, and `mp_bind_back`
+expressions replaced with their corresponding evaluations against `U...`.
 
 For example, `mp_bind<F, int, _2, mp_bind<G, _1>>::fn<float, void>` is `F<int, void, G<float>>`.
 
