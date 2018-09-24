@@ -1,8 +1,4 @@
-if(APPLE)
-    cmake_minimum_required(VERSION 3.5)
-else()
-    cmake_minimum_required(VERSION 3.2)
-endif()
+cmake_minimum_required(VERSION 3.2)
 
 project(BoostMp11 VERSION 1.66.0 LANGUAGES CXX)
 
@@ -21,10 +17,10 @@ target_include_directories(mp11 INTERFACE
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-file(GLOB TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.cpp)
-
 if (BUILD_TESTING)
     find_package(Boost 1.56 REQUIRED)  # 1.56+ for lightweight_test
+
+    file(GLOB TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.cpp)
 
     foreach(TEST_SRC ${TEST_SOURCES})
         get_filename_component(TEST_NAME ${TEST_SRC} NAME_WE)
@@ -33,7 +29,14 @@ if (BUILD_TESTING)
         message(STATUS "Add test: ${TEST_NAME}")
 
         add_executable(${TEST_NAME} ${TEST_SRC})
-        target_include_directories(${TEST_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+
+        # Note that local mp11 include path must be before the Boost one,
+        # otherwise mp11 headers bundled with Boost (if any) are included.
+        target_include_directories(${TEST_NAME} PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}/include"
+            ${Boost_INCLUDE_DIRS}
+        )
+
         target_link_libraries(${TEST_NAME} PRIVATE mp11 ${Boost_LIBRARIES})
 
         add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
