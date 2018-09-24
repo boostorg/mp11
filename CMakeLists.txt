@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.1)
 
 project(BoostMp11 VERSION 1.66.0 LANGUAGES CXX)
 
