@@ -9,12 +9,9 @@ project(BoostMp11 VERSION 1.66.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(CTest)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-
-enable_testing()
-
-find_package(Boost 1.56 REQUIRED)  # 1.56+ for lightweight_test
 
 add_library(mp11 INTERFACE)
 add_library(Boost::mp11 ALIAS mp11)
@@ -26,18 +23,22 @@ target_include_directories(mp11 INTERFACE
 
 file(GLOB TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.cpp)
 
-foreach(TEST_SRC ${TEST_SOURCES})
-    get_filename_component(TEST_NAME ${TEST_SRC} NAME_WE)
-    set(TEST_NAME "test-${TEST_NAME}")
+if (BUILD_TESTING)
+    find_package(Boost 1.56 REQUIRED)  # 1.56+ for lightweight_test
 
-    message(STATUS "Add test: ${TEST_NAME}")
+    foreach(TEST_SRC ${TEST_SOURCES})
+        get_filename_component(TEST_NAME ${TEST_SRC} NAME_WE)
+        set(TEST_NAME "test-${TEST_NAME}")
 
-    add_executable(${TEST_NAME} ${TEST_SRC})
-    target_include_directories(${TEST_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
-    target_link_libraries(${TEST_NAME} PRIVATE mp11 ${Boost_LIBRARIES})
+        message(STATUS "Add test: ${TEST_NAME}")
 
-    add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
-endforeach()
+        add_executable(${TEST_NAME} ${TEST_SRC})
+        target_include_directories(${TEST_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+        target_link_libraries(${TEST_NAME} PRIVATE mp11 ${Boost_LIBRARIES})
+
+        add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+    endforeach()
+endif()
 
 write_basic_package_version_file("${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}ConfigVersion.cmake" COMPATIBILITY AnyNewerVersion)
 
