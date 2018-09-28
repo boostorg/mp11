@@ -223,7 +223,8 @@ matrix:
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
 
     - os: linux
-      env: CMAKE=1 CC=clang CXX=clang++
+      compiler: clang
+      env: CMAKE=1
       install: true
       script:
       - mkdir __build__ && cd __build__
