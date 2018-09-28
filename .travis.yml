@@ -222,6 +222,14 @@ matrix:
       compiler: clang++
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
 
+    - os: linux
+      env: CMAKE=1 CC=clang CXX=clang++
+      install: true
+      script:
+      - mkdir __build__ && cd __build__
+      - cmake ..
+      - cmake --build . --target check
+
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
   - cd ..
