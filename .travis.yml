@@ -223,12 +223,22 @@ matrix:
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
 
     - os: linux
-      compiler: clang
+      compiler: clang++
       env: CMAKE=1
       install: true
       script:
       - mkdir __build__ && cd __build__
       - cmake ..
+      - cmake --build . --target check
+
+    - os: linux
+      compiler: clang++
+      env: CMAKE_SUBDIR_TEST=1
+      install: true
+      script:
+      - cd test/cmake_subir_test && mkdir __build__ && cd __build__
+      - cmake ..
+      - cmake --build .
       - cmake --build . --target check
 
 install:
