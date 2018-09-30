@@ -236,7 +236,7 @@ matrix:
       env: CMAKE_SUBDIR_TEST=1
       install: true
       script:
-      - cd test/cmake_subir_test && mkdir __build__ && cd __build__
+      - cd test/cmake_subdir_test && mkdir __build__ && cd __build__
       - cmake ..
       - cmake --build .
       - cmake --build . --target check
