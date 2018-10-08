@@ -22,19 +22,19 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     include(cmake/FetchContent.cmake)
 
     message(STATUS "Fetching pdimov/mincmake")
-    FetchContent_Populate(pdimov_mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master GIT_SHALLOW 1)
+    FetchContent_Populate(pdimov_mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master)
     include(${pdimov_mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
 
     message(STATUS "Fetching boostorg/assert")
-    FetchContent_Populate(boostorg_assert QUIET GIT_REPOSITORY https://github.com/boostorg/assert GIT_TAG develop GIT_SHALLOW 1)
+    FetchContent_Populate(boostorg_assert QUIET GIT_REPOSITORY https://github.com/boostorg/assert GIT_TAG develop)
     add_subdirectory(${boostorg_assert_SOURCE_DIR} ${boostorg_assert_BINARY_DIR})
 
     message(STATUS "Fetching boostorg/config")
-    FetchContent_Populate(boostorg_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop GIT_SHALLOW 1)
+    FetchContent_Populate(boostorg_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop)
     add_subdirectory(${boostorg_config_SOURCE_DIR} ${boostorg_config_BINARY_DIR})
 
     message(STATUS "Fetching boostorg/core")
-    FetchContent_Populate(boostorg_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop GIT_SHALLOW 1)
+    FetchContent_Populate(boostorg_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop)
     add_subdirectory(${boostorg_core_SOURCE_DIR} ${boostorg_core_BINARY_DIR})
 
     enable_testing()
