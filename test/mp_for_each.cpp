@@ -12,6 +12,7 @@
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <tuple>
+#include <cstdint>
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define CONSTEXPR14 constexpr
@@ -30,8 +31,8 @@ struct F
 
 struct G
 {
-    std::size_t s;
-    CONSTEXPR14 void operator()( std::size_t i ) { s += i; }
+    std::uint32_t s;
+    CONSTEXPR14 void operator()( std::uint32_t i ) { s = s * 3 + i; }
 };
 
 using boost::mp11::mp_list;
@@ -55,8 +56,8 @@ int main()
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
 #else
 
-    using L = mp_iota_c<1024>;
-    std::size_t const R = 523776;
+    using L = mp_iota_c<1089>;
+    std::uint32_t const R = 598075296;
 
     BOOST_TEST_EQ( (mp_for_each<L>( G{0} ).s), R );
 

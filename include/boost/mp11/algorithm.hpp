@@ -970,10 +970,33 @@ template<class F> BOOST_MP11_CONSTEXPR F mp_for_each_impl( mp_list<>, F && f )
 
 } // namespace detail
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, >= 1900 )
+
+// msvc has a limit of 1024
+
+template<class L, class F> BOOST_MP11_CONSTEXPR mp_if_c<mp_size<L>::value <= 1024, F> mp_for_each( F && f )
+{
+    return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
+}
+
+template<class L, class F> BOOST_MP11_CONSTEXPR mp_if_c<mp_size<L>::value >= 1025, F> mp_for_each( F && f )
+{
+    using L2 = mp_rename<L, mp_list>;
+
+    using L3 = mp_take_c<L2, 1024>;
+    using L4 = mp_drop_c<L2, 1024>;
+
+    return mp_for_each<L4>( mp_for_each<L3>( std::forward<F>(f) ) );
+}
+
+#else
+
 template<class L, class F> BOOST_MP11_CONSTEXPR F mp_for_each( F && f )
 {
     return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
 }
+
+#endif
 
 // mp_insert<L, I, T...>
 template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
