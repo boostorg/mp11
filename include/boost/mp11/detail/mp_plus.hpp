@@ -20,7 +20,7 @@ namespace mp11
 namespace detail
 {
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1915 )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
 
 template<class... T> struct mp_plus_impl
 {
