@@ -28,8 +28,15 @@ struct F
     CONSTEXPR14 void operator()( char ) { s = s * 10 + 3; }
 };
 
+struct G
+{
+    std::size_t s;
+    CONSTEXPR14 void operator()( std::size_t i ) { s += i; }
+};
+
 using boost::mp11::mp_list;
 using boost::mp11::mp_for_each;
+using boost::mp11::mp_iota_c;
 
 int main()
 {
@@ -44,6 +51,22 @@ int main()
     BOOST_TEST_EQ( (mp_for_each<std::tuple<int, short, char>>( F{0} ).s), 123 );
 
     BOOST_TEST_EQ( (mp_for_each<std::pair<int, short>>( F{0} ).s), 12 );
+
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
+#else
+
+    using L = mp_iota_c<1024>;
+    std::size_t const R = 523776;
+
+    BOOST_TEST_EQ( (mp_for_each<L>( G{0} ).s), R );
+
+    {
+        G g{0};
+        mp_for_each<L>( g );
+        BOOST_TEST_EQ( g.s, R );
+    }
+
+#endif
 
 #if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
 #else
@@ -63,6 +86,9 @@ int main()
 
     constexpr auto r3 = mp_for_each<std::pair<int, short>>( F{0} );
     static_assert( r3.s == 12, "r3.s == 12" );
+
+    constexpr auto r4 = mp_for_each<L>( G{0} );
+    static_assert( r4.s == R, "r4.s == R" );
 
 #endif
 
