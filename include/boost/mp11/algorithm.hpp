@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/list.hpp>
-#include <boost/mp11/set.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/function.hpp>
@@ -910,17 +909,34 @@ template<class L, class V, class Q> using mp_reverse_fold_q = mp_reverse_fold<L,
 // mp_unique<L>
 namespace detail
 {
+    template<class L, class... T>
+    struct mp_unique_impl;
 
-template<class L> struct mp_unique_impl;
+    template<template<class...> class L, class... U>
+    struct mp_unique_impl<L<U...>>
+    {
+        using type = L<U...>;
+    };
 
-template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
-{
-    using type = mp_set_push_back<L<>, T...>;
-};
+    template<template<class...> class L, class... U, class T1, class... T>
+    struct mp_unique_impl<L<U...>, T1, T...>
+    {
+        using S = mp_if<mp_contains<L<U...>, T1>, L<U...>, mp_push_back<L<U...>, T1>>;
+        using type = typename mp_unique_impl<S, T...>::type;
+    };
 
+    template<class L>
+    struct empty_list_t;
+
+    template<template<class...> class L, class... U>
+    struct empty_list_t<L<U...>>
+    {
+        using type = L<>;
+    };
 } // namespace detail
 
-template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
+template<class L>
+using mp_unique = mp_fold_q<L, typename detail::empty_list_t<L>::type, mp_quote_trait<detail::mp_unique_impl>>;
 
 // mp_all_of<L, P>
 template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
