@@ -925,18 +925,10 @@ struct mp_unique_impl<L<U...>, T1, T...>
     using type = typename mp_unique_impl<S, T...>::type;
 };
 
-template<class L>
-struct empty_list_t;
-
-template<template<class...> class L, class... U>
-struct empty_list_t<L<U...>>
-{
-    using type = L<>;
-};
 } // namespace detail
 
 template<class L>
-using mp_unique = mp_fold_q<L, typename detail::empty_list_t<L>::type, mp_quote_trait<detail::mp_unique_impl>>;
+using mp_unique = mp_fold_q<L, mp_clear<L>, mp_quote_trait<detail::mp_unique_impl>>;
 
 // mp_all_of<L, P>
 template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
