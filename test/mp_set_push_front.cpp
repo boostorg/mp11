@@ -28,6 +28,14 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int>, mp_list<void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int, char[]>, mp_list<void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int, void, int, void, int>, mp_list<void, int>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1>, L1>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, mp_list<void>>, mp_list<void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, mp_list<int>>, mp_list<int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, mp_list<void, int>>, mp_list<void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, mp_list<void, int, char[]>>, mp_list<void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, mp_list<void, int, void, int, void, int>>, mp_list<void, int>>));
     }
 
     {
@@ -39,6 +47,13 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, int>, mp_list<int, void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, void, int>, mp_list<int, void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, void, void, void, int, int, int>, mp_list<int, void>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2>, L2>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, mp_list<void>>, L2>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, mp_list<int>>, mp_list<int, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, mp_list<void, int>>, mp_list<int, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, mp_list<void, void, void, int, int, int>>, mp_list<int, void>>));
     }
 
     {
@@ -52,6 +67,15 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, void const>, mp_list<void const, void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, void const, int const>, mp_list<void const, int const, void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, int, char[], int, char[], void, char[], void, char[]>, mp_list<char[], void, int>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<void>>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<int>>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<int, int, int, void, void, void>>, L3>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<void const>>, mp_list<void const, void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<void const, int const>>, mp_list<void const, int const, void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, mp_list<int, char[], int, char[], void, char[], void, char[]>>, mp_list<char[], void, int>>));
     }
 
     {
@@ -66,6 +90,16 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void const>, mp_list<void const, void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void const, int const, char const[]>, mp_list<void const, int const, char const[], void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void, void const, int, int const, char[], char const[]>, mp_list<void const, int const, char const[], void, int, char[]>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<void>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<int>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<char[]>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<void, int, char[], void, int, char[]>>, L4>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<void const>>, mp_list<void const, void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<void const, int const, char const[]>>, mp_list<void const, int const, char const[], void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, mp_list<void, void const, int, int const, char[], char const[]>>, mp_list<void const, int const, char const[], void, int, char[]>>));
     }
 
     //
@@ -80,6 +114,14 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int>, std::tuple<void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int, char[]>, std::tuple<void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, void, int, void, int, void, int>, std::tuple<void, int>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1>, L1>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, std::tuple<void>>, std::tuple<void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, std::tuple<int>>, std::tuple<int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, std::tuple<void, int>>, std::tuple<void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, std::tuple<void, int, char[]>>, std::tuple<void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L1, std::tuple<void, int, void, int, void, int>>, std::tuple<void, int>>));
     }
 
     {
@@ -91,6 +133,13 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, int>, std::tuple<int, void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, void, int>, std::tuple<int, void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, void, void, void, int, int, int>, std::tuple<int, void>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2>, L2>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, std::tuple<void>>, L2>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, std::tuple<int>>, std::tuple<int, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, std::tuple<void, int>>, std::tuple<int, void>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L2, std::tuple<void, void, void, int, int, int>>, std::tuple<int, void>>));
     }
 
     {
@@ -104,6 +153,15 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, void const>, std::tuple<void const, void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, void const, int const>, std::tuple<void const, int const, void, int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, int, char[], int, char[], void, char[], void, char[]>, std::tuple<char[], void, int>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<void>>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<int>>, L3>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<int, int, int, void, void, void>>, L3>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<void const>>, std::tuple<void const, void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<void const, int const>>, std::tuple<void const, int const, void, int>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L3, std::tuple<int, char[], int, char[], void, char[], void, char[]>>, std::tuple<char[], void, int>>));
     }
 
     {
@@ -118,6 +176,16 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void const>, std::tuple<void const, void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void const, int const, char const[]>, std::tuple<void const, int const, char const[], void, int, char[]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, void, void const, int, int const, char[], char const[]>, std::tuple<void const, int const, char const[], void, int, char[]>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<void>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<int>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<char[]>>, L4>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<void, int, char[], void, int, char[]>>, L4>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<void const>>, std::tuple<void const, void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<void const, int const, char const[]>>, std::tuple<void const, int const, char const[], void, int, char[]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_push_front<L4, std::tuple<void, void const, int, int const, char[], char const[]>>, std::tuple<void const, int const, char const[], void, int, char[]>>));
     }
 
     return boost::report_errors();

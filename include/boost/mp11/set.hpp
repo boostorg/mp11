@@ -9,8 +9,9 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/utility.hpp>
-#include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/list.hpp>
 #include <type_traits>
+#include "algorithm.hpp"
 
 namespace boost
 {
@@ -43,6 +44,11 @@ template<template<class...> class L, class... U> struct mp_set_push_back_impl<L<
     using type = L<U...>;
 };
 
+template<template<class...> class L, class... U, template<class...> class L1, class... U1> struct mp_set_push_back_impl<L<U...>, L1<U1...>>
+{
+    using type = typename mp_set_push_back_impl<L<U...>, U1...>::type;
+};
+
 template<template<class...> class L, class... U, class T1, class... T> struct mp_set_push_back_impl<L<U...>, T1, T...>
 {
     using S = mp_if<mp_set_contains<L<U...>, T1>, L<U...>, L<U..., T1>>;
@@ -62,6 +68,11 @@ template<class S, class... T> struct mp_set_push_front_impl;
 template<template<class...> class L, class... U> struct mp_set_push_front_impl<L<U...>>
 {
     using type = L<U...>;
+};
+
+template<template<class...> class L, class... U, template<class...> class L1, class... U1> struct mp_set_push_front_impl<L<U...>, L1<U1...>>
+{
+    using type = typename mp_set_push_front_impl<L<U...>, U1...>::type;
 };
 
 template<template<class...> class L, class... U, class T1> struct mp_set_push_front_impl<L<U...>, T1>
