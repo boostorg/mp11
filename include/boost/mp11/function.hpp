@@ -124,6 +124,35 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 
 } // namespace detail
 
+// mp_xor<T...>
+namespace detail
+{
+template<class... T> struct mp_xor_impl;
+} // namespace detail
+
+template<class... T> using mp_xor = typename mp_to_bool< typename detail::mp_xor_impl<T...>::type >::type;
+
+namespace detail
+{
+
+template<> struct mp_xor_impl<>
+{
+    using type = mp_false;
+};
+
+template<class T> struct mp_xor_impl<T>
+{
+    using type = T;
+};
+
+template<class T1, class... T> struct mp_xor_impl<T1, T...>
+{
+    template<class B>
+    using _is_true = std::is_same<B, mp_true>;
+    using type = mp_eval_if<T1, mp_bool<mp_count_if<mp_list<T...>, _is_true>::value == 0>, mp_xor, T...>;
+};
+
+} // namespace detail
 // mp_any<T...>
 #if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 80200 )
 

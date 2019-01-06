@@ -909,30 +909,30 @@ template<class L, class V, class Q> using mp_reverse_fold_q = mp_reverse_fold<L,
 // mp_unique<L>
 namespace detail
 {
-    template<class L, class... T>
-    struct mp_unique_impl;
+template<class L, class... T>
+struct mp_unique_impl;
 
-    template<template<class...> class L, class... U>
-    struct mp_unique_impl<L<U...>>
-    {
-        using type = L<U...>;
-    };
+template<template<class...> class L, class... U>
+struct mp_unique_impl<L<U...>>
+{
+    using type = L<U...>;
+};
 
-    template<template<class...> class L, class... U, class T1, class... T>
-    struct mp_unique_impl<L<U...>, T1, T...>
-    {
-        using S = mp_if<mp_contains<L<U...>, T1>, L<U...>, mp_push_back<L<U...>, T1>>;
-        using type = typename mp_unique_impl<S, T...>::type;
-    };
+template<template<class...> class L, class... U, class T1, class... T>
+struct mp_unique_impl<L<U...>, T1, T...>
+{
+    using S = mp_if<mp_contains<L<U...>, T1>, L<U...>, mp_push_back<L<U...>, T1>>;
+    using type = typename mp_unique_impl<S, T...>::type;
+};
 
-    template<class L>
-    struct empty_list_t;
+template<class L>
+struct empty_list_t;
 
-    template<template<class...> class L, class... U>
-    struct empty_list_t<L<U...>>
-    {
-        using type = L<>;
-    };
+template<template<class...> class L, class... U>
+struct empty_list_t<L<U...>>
+{
+    using type = L<>;
+};
 } // namespace detail
 
 template<class L>

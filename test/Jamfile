@@ -138,6 +138,7 @@ run mp_all.cpp ;
 run mp_and.cpp ;
 run mp_any.cpp ;
 run mp_or.cpp ;
+run mp_xor.cpp ;
 run mp_same.cpp ;
 run mp_plus.cpp ;
 run mp_less.cpp ;
