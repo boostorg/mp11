@@ -35,6 +35,7 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_true>, mp_true>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_false>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_true, mp_true>, mp_false>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_int<0>, mp_int<0>>, mp_false>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_int<0>, mp_int<5>>, mp_true>));
@@ -53,7 +54,7 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_true, void, void>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_false, mp_true, void>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_false, mp_false, mp_true>, mp_true>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_false, mp_false, mp_false>, mp_false>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_false, mp_true, mp_false, mp_true>, mp_false>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_int<1>, void, void, void>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_xor<mp_int<0>, mp_int<2>, void, void, void>, mp_true>));
