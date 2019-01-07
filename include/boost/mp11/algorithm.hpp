@@ -155,12 +155,12 @@ template<template<class...> class P, template<class...> class F, class... L> str
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
 
-    template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
+    template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
     template<class... U> using _f = typename _f_<U...>::type;
 
 #else
 
-    template<class... U> using _f = mp_eval_if_q<mp_not<mp_invoke<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
+    template<class... U> using _f = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
 
 #endif
 

@@ -1,12 +1,12 @@
 #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED
 #define BOOST_MP11_UTILITY_HPP_INCLUDED
 
-//  Copyright 2015, 2017 Peter Dimov.
+// Copyright 2015, 2017, 2019 Peter Dimov.
 //
-//  Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 //
-//  See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -187,27 +187,30 @@ template<template<class...> class F> struct mp_quote_trait
     template<class... T> using fn = typename F<T...>::type;
 };
 
-// mp_invoke
+// mp_invoke_q
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
 namespace detail
 {
 
-template<class Q, class... T> struct mp_invoke_impl: mp_defer<Q::template fn, T...> {};
+template<class Q, class... T> struct mp_invoke_q_impl: mp_defer<Q::template fn, T...> {};
 
 } // namespace detail
 
-template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
+template<class Q, class... T> using mp_invoke_q = typename detail::mp_invoke_q_impl<Q, T...>::type;
 
 #elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 
-template<class Q, class... T> using mp_invoke = typename mp_defer<Q::template fn, T...>::type;
+template<class Q, class... T> using mp_invoke_q = typename mp_defer<Q::template fn, T...>::type;
 
 #else
 
-template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
+template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 
 #endif
+
+// old name for mp_invoke_q retained for compatibility, but deprecated
+template<class Q, class... T> using mp_invoke BOOST_MP11_DEPRECATED("please use mp_invoke_q") = mp_invoke_q<Q, T...>;
 
 } // namespace mp11
 } // namespace boost

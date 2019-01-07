@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //

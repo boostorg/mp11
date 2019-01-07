@@ -5,7 +5,10 @@ It implements the approach outlined in the article
 ["Simple C++11 metaprogramming"](http://pdimov.com/cpp2/simple_cxx11_metaprogramming.html)
 and [its sequel](http://pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html).
 
-Mp11 is part of [Boost](http://boost.org/libs/mp11), starting with release 1.66.0.
+Mp11 is part of [Boost](http://boost.org/libs/mp11), starting with release 1.66.0. It
+however has no Boost dependencies and can be used standalone, as a Git submodule, for
+instance. For CMake users, `add_subdirectory` is supported, as is installation and
+`find_package(BoostMp11)`.
 
 ## Supported compilers
 

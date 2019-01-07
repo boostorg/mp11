@@ -100,6 +100,28 @@ using R4 = mp_any<void, mp_true>;      // compile-time error
 
 `mp_same<T...>` is `mp_true` if all the types in `T...` are the same type, `mp_false` otherwise. `mp_same<>` is `mp_true`.
 
+## mp_similar<T...>
+
+    template<class... T> using mp_similar = /*...*/;
+
+`mp_similar<T...>` is `mp_true` if all the types in `T...` are the same type, or instantiations of the same class template
+whose parameters are all types, `mp_false` otherwise. `mp_similar<>` is `mp_true`.
+
+.mp_similar
+```
+using R1 = mp_similar<void>;                        // mp_true
+using R2 = mp_similar<void, void>;                  // mp_true
+using R3 = mp_similar<void, void, void>;            // mp_true
+using R4 = mp_similar<void, void, float>;           // mp_false
+
+template<class T> struct X;
+template<class... T> struct Y;
+
+using R5 = mp_similar<X<int>, X<void>, X<float>>;   // mp_true
+using R6 = mp_similar<Y<>, Y<void>, Y<void, void>>; // mp_true
+using R7 = mp_similar<X<void>, Y<void>>;            // mp_false
+```
+
 ## mp_plus<T...>
 
     template<class... T> using mp_plus = /*...*/;
