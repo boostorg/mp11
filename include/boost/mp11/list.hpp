@@ -10,6 +10,7 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/detail/mp_is_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <type_traits>
@@ -23,22 +24,7 @@ namespace mp11
 template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
 
 // mp_is_list<L>
-namespace detail
-{
-
-template<class L> struct mp_is_list_impl
-{
-    using type = mp_false;
-};
-
-template<template<class...> class L, class... T> struct mp_is_list_impl<L<T...>>
-{
-    using type = mp_true;
-};
-
-} // namespace detail
-
-template<class L> using mp_is_list = typename detail::mp_is_list_impl<L>::type;
+//   in detail/mp_is_list.hpp
 
 // mp_size<L>
 namespace detail
