@@ -143,6 +143,7 @@ run mp_plus.cpp ;
 run mp_less.cpp ;
 run mp_min.cpp ;
 run mp_max.cpp ;
+run mp_similar.cpp ;
 
 # map
 run mp_map_find.cpp ;
