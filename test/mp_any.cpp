@@ -1,5 +1,5 @@
 
-// Copyright 2015, 2016 Peter Dimov.
+// Copyright 2015, 2016, 2019 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -9,6 +9,7 @@
 
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/set.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
@@ -26,6 +27,10 @@ template<class... T> using variant_base = variant_base_impl<mp_all<std::has_triv
 #else
 template<class... T> using variant_base = variant_base_impl<mp_all<std::is_trivially_destructible<T>...>::value, mp_any<mp_all<std::is_nothrow_move_constructible<T>...>, std::is_nothrow_default_constructible<T>...>::value, T...>;
 #endif
+
+using boost::mp11::mp_set_contains;
+
+template<class T, class... S> using in_any_set = mp_any< mp_set_contains<S, T>... >;
 
 int main()
 {
@@ -77,6 +82,10 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<check3<void, int, float>, mp_true>));
 
     variant_base<void, int, float>();
+
+    using boost::mp11::mp_list;
+
+    BOOST_TEST_TRAIT_TRUE((std::is_same<in_any_set<void, mp_list<void>, mp_list<int>>, mp_true>));
 
     return boost::report_errors();
 }
