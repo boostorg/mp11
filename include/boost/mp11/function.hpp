@@ -1,12 +1,12 @@
 #ifndef BOOST_MP11_FUNCTION_HPP_INCLUDED
 #define BOOST_MP11_FUNCTION_HPP_INCLUDED
 
-//  Copyright 2015-2017 Peter Dimov.
+// Copyright 2015-2019 Peter Dimov.
 //
-//  Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 //
-//  See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
@@ -154,6 +154,46 @@ template<class T1, class... T> struct mp_same_impl<T1, T...>
 } // namespace detail
 
 template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
+
+// mp_similar<T...>
+namespace detail
+{
+
+template<class... T> struct mp_similar_impl;
+
+template<> struct mp_similar_impl<>
+{
+    using type = mp_true;
+};
+
+template<class T> struct mp_similar_impl<T>
+{
+    using type = mp_true;
+};
+
+template<class T> struct mp_similar_impl<T, T>
+{
+    using type = mp_true;
+};
+
+template<class T1, class T2> struct mp_similar_impl<T1, T2>
+{
+    using type = mp_false;
+};
+
+template<template<class...> class L, class... T1, class... T2> struct mp_similar_impl<L<T1...>, L<T2...>>
+{
+    using type = mp_true;
+};
+
+template<class T1, class T2, class T3, class... T> struct mp_similar_impl<T1, T2, T3, T...>
+{
+    using type = mp_all< typename mp_similar_impl<T1, T2>::type, typename mp_similar_impl<T1, T3>::type, typename mp_similar_impl<T1, T>::type... >;
+};
+
+} // namespace detail
+
+template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
 
 // mp_less<T1, T2>
 template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
