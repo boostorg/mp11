@@ -33,7 +33,7 @@ int main()
     {
         using L2 = mp_list<void>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2>, mp_list<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2>, mp_list<void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2, mp_list<>>, mp_list<>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2, mp_list<void>>, mp_list<void>>));
 
@@ -45,7 +45,7 @@ int main()
     {
         using L3 = mp_list<void, int>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3>, mp_list<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3>, L3>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, mp_list<>>, mp_list<>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, mp_list<void>>, mp_list<void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, mp_list<int>>, mp_list<int>>));
@@ -59,7 +59,7 @@ int main()
     {
         using L4 = mp_list<void, int, char[]>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4>, mp_list<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4>, L4>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, mp_list<>>, mp_list<>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, mp_list<void>>, mp_list<void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, mp_list<int>>, mp_list<int>>));
@@ -88,7 +88,7 @@ int main()
     {
         using L2 = std::tuple<void>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2>, std::tuple<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2>, L2>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2, std::tuple<void>>, std::tuple<void>>));
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L2, std::tuple<int>>, std::tuple<>>));
@@ -99,7 +99,7 @@ int main()
     {
         using L3 = std::tuple<void, int>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3>, std::tuple<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3>, L3>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, std::tuple<void>>, std::tuple<void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, std::tuple<int>>, std::tuple<int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L3, std::tuple<int, int, int, void, void, void>>, L3>));
@@ -112,7 +112,7 @@ int main()
     {
         using L4 = std::tuple<void, int, char[]>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4>, std::tuple<>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4>, L4>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, std::tuple<void>>, std::tuple<void>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, std::tuple<int>>, std::tuple<int>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_set_intersection<L4, std::tuple<char[]>>, std::tuple<char[]>>));

@@ -135,6 +135,12 @@ run mp_set_push_front.cpp ;
 run mp_is_set.cpp ;
 run mp_set_union.cpp ;
 run mp_set_union_sf.cpp ;
+run mp_set_difference.cpp ;
+run mp_set_difference_sf.cpp
+run mp_set_intersection.cpp ;
+run mp_set_intersection_sf.cpp ;
+run mp_set_symmetric_difference.cpp ;
+run mp_set_symmetric_difference_sf.cpp ;
 
 # function
 run mp_all.cpp ;
