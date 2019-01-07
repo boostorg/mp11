@@ -1,12 +1,12 @@
 #ifndef BOOST_MP11_DETAIL_CONFIG_HPP_INCLUDED
 #define BOOST_MP11_DETAIL_CONFIG_HPP_INCLUDED
 
-//  Copyright 2016, 2018 Peter Dimov.
+// Copyright 2016, 2018, 2019 Peter Dimov.
 //
-//  Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 //
-//  See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 
 // BOOST_MP11_WORKAROUND
 
@@ -119,6 +119,16 @@
 # if __has_builtin(__type_pack_element)
 #  define BOOST_MP11_HAS_TYPE_PACK_ELEMENT
 # endif
+#endif
+
+// BOOST_MP11_DEPRECATED(msg)
+
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+#  define BOOST_MP11_DEPRECATED(msg)
+#elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
+#  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#else
+#  define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
 #endif
 
 #endif // #ifndef BOOST_MP11_DETAIL_CONFIG_HPP_INCLUDED

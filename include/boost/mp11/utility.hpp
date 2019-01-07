@@ -1,12 +1,12 @@
 #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED
 #define BOOST_MP11_UTILITY_HPP_INCLUDED
 
-//  Copyright 2015, 2017 Peter Dimov.
+// Copyright 2015, 2017, 2019 Peter Dimov.
 //
-//  Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 //
-//  See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -208,6 +208,9 @@ template<class Q, class... T> using mp_invoke_q = typename mp_defer<Q::template 
 template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 
 #endif
+
+// old name for mp_invoke_q retained for compatibility, but deprecated
+template<class Q, class... T> using mp_invoke BOOST_MP11_DEPRECATED("please use mp_invoke_q") = mp_invoke_q<Q, T...>;
 
 } // namespace mp11
 } // namespace boost
