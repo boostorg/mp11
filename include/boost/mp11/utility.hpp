@@ -187,25 +187,25 @@ template<template<class...> class F> struct mp_quote_trait
     template<class... T> using fn = typename F<T...>::type;
 };
 
-// mp_invoke
+// mp_invoke_q
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
 namespace detail
 {
 
-template<class Q, class... T> struct mp_invoke_impl: mp_defer<Q::template fn, T...> {};
+template<class Q, class... T> struct mp_invoke_q_impl: mp_defer<Q::template fn, T...> {};
 
 } // namespace detail
 
-template<class Q, class... T> using mp_invoke = typename detail::mp_invoke_impl<Q, T...>::type;
+template<class Q, class... T> using mp_invoke_q = typename detail::mp_invoke_q_impl<Q, T...>::type;
 
 #elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 
-template<class Q, class... T> using mp_invoke = typename mp_defer<Q::template fn, T...>::type;
+template<class Q, class... T> using mp_invoke_q = typename mp_defer<Q::template fn, T...>::type;
 
 #else
 
-template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
+template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 
 #endif
 

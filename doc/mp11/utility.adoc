@@ -206,28 +206,28 @@ using R1 = mp_transform_q<mp_quote_trait<std::add_pointer>, L1>;
   // mp_list<int*, void*, float*>
 ```
 
-## mp_invoke<Q, T...>
+## mp_invoke_q<Q, T...>
 
-    template<class Q, class... T> using mp_invoke = typename Q::template fn<T...>;
+    template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 
-`mp_invoke<Q, T...>` evaluates the nested template `fn` of a quoted metafunction. `mp_invoke<mp_quote<F>, T...>` returns `F<T...>`.
+`mp_invoke_q<Q, T...>` evaluates the nested template `fn` of a quoted metafunction. `mp_invoke_q<mp_quote<F>, T...>` returns `F<T...>`.
 
-.Using mp_invoke to invoke a list of metafunctions, technique 1
+.Using mp_invoke_q to invoke a list of metafunctions, technique 1
 ```
 using LQ = mp_list<mp_quote<std::is_const>, mp_quote<std::is_volatile>>;
 
 template<class T> using is_const_and_volatile =
-    mp_all<mp_product<mp_invoke, LQ, mp_list<T>>>;
+    mp_all<mp_product<mp_invoke_q, LQ, mp_list<T>>>;
 ```
 
-.Using mp_invoke to invoke a list of metafunctions, technique 2
+.Using mp_invoke_q to invoke a list of metafunctions, technique 2
 ```
 template<class T> using is_const_and_volatile =
-    mp_all<mp_transform_q<mp_bind_back<mp_invoke, T>, LQ>>;
+    mp_all<mp_transform_q<mp_bind_back<mp_invoke_q, T>, LQ>>;
 ```
 
-.Using mp_invoke to invoke a list of metafunctions, technique 3
+.Using mp_invoke_q to invoke a list of metafunctions, technique 3
 ```
 template<class T> using is_const_and_volatile =
-    mp_all<mp_transform<mp_invoke, LQ, mp_fill<LQ, T>>>;
+    mp_all<mp_transform<mp_invoke_q, LQ, mp_fill<LQ, T>>>;
 ```
