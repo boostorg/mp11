@@ -19,9 +19,10 @@
 #include <boost/mp11/detail/mp_with_index.hpp>
 #include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/mp_min_element.hpp>
+#include <boost/mp11/detail/mp_copy_if.hpp>
+#include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/integer_sequence.hpp>
-#include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 #include <utility>
 
@@ -427,26 +428,7 @@ template<class L, template<class...> class P, class W> using mp_replace_if = typ
 template<class L, class Q, class W> using mp_replace_if_q = mp_replace_if<L, Q::template fn, W>;
 
 // mp_copy_if<L, P>
-namespace detail
-{
-
-template<class L, template<class...> class P> struct mp_copy_if_impl;
-
-template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
-{
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
-    template<class U> struct _f { using type = mp_if<P<U>, mp_list<U>, mp_list<>>; };
-    using type = mp_append<L<>, typename _f<T>::type...>;
-#else
-    template<class U> using _f = mp_if<P<U>, mp_list<U>, mp_list<>>;
-    using type = mp_append<L<>, _f<T>...>;
-#endif
-};
-
-} // namespace detail
-
-template<class L, template<class...> class P> using mp_copy_if = typename detail::mp_copy_if_impl<L, P>::type;
-template<class L, class Q> using mp_copy_if_q = mp_copy_if<L, Q::template fn>;
+//   in detail/mp_copy_if.hpp
 
 // mp_remove<L, V>
 namespace detail
@@ -470,26 +452,7 @@ template<template<class...> class L, class... T, class V> struct mp_remove_impl<
 template<class L, class V> using mp_remove = typename detail::mp_remove_impl<L, V>::type;
 
 // mp_remove_if<L, P>
-namespace detail
-{
-
-template<class L, template<class...> class P> struct mp_remove_if_impl;
-
-template<template<class...> class L, class... T, template<class...> class P> struct mp_remove_if_impl<L<T...>, P>
-{
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
-    template<class U> struct _f { using type = mp_if<P<U>, mp_list<>, mp_list<U>>; };
-    using type = mp_append<L<>, typename _f<T>::type...>;
-#else
-    template<class U> using _f = mp_if<P<U>, mp_list<>, mp_list<U>>;
-    using type = mp_append<L<>, _f<T>...>;
-#endif
-};
-
-} // namespace detail
-
-template<class L, template<class...> class P> using mp_remove_if = typename detail::mp_remove_if_impl<L, P>::type;
-template<class L, class Q> using mp_remove_if_q = mp_remove_if<L, Q::template fn>;
+//   in detail/mp_remove_if.hpp
 
 // mp_partition<L, P>
 namespace detail
