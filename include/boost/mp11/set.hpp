@@ -1,15 +1,16 @@
 #ifndef BOOST_MP11_SET_HPP_INCLUDED
 #define BOOST_MP11_SET_HPP_INCLUDED
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015, 2019 Peter Dimov.
 //
-//  Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 //
-//  See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt
+// See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/detail/mp_append.hpp>
 #include <type_traits>
 
 namespace boost
@@ -96,6 +97,39 @@ template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
 } // namespace detail
 
 template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
+
+// mp_set_union<L...>
+namespace detail
+{
+
+template<class... L> struct mp_set_union_impl
+{
+};
+
+template<> struct mp_set_union_impl<>
+{
+    using type = mp_list<>;
+};
+
+template<template<class...> class L, class... T> struct mp_set_union_impl<L<T...>>
+{
+    using type = L<T...>;
+};
+
+template<template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_set_union_impl<L1<T1...>, L2<T2...>>
+{
+    using type = mp_set_push_back<L1<T1...>, T2...>;
+};
+
+template<class L1, class... L> using mp_set_union_ = typename mp_set_union_impl<L1, mp_append<mp_list<>, L...>>::type;
+
+template<class L1, class L2, class L3, class... L> struct mp_set_union_impl<L1, L2, L3, L...>: mp_defer<mp_set_union_, L1, L2, L3, L...>
+{
+};
+
+} // namespace detail
+
+template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
 
 } // namespace mp11
 } // namespace boost
