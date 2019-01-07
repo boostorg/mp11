@@ -12,6 +12,7 @@
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
+#include <boost/mp11/detail/mp_copy_if.hpp>
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
 #include <type_traits>
@@ -133,6 +134,34 @@ template<class L1, class L2, class L3, class... L> struct mp_set_union_impl<L1, 
 } // namespace detail
 
 template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
+
+// mp_set_intersection<S...>
+namespace detail
+{
+
+template<class... S> struct in_all_sets
+{
+    template<class T> using fn = mp_all< mp_set_contains<S, T>... >;
+};
+
+template<class L, class... S> using mp_set_intersection_ = mp_copy_if_q<L, detail::in_all_sets<S...>>;
+
+template<class... S> struct mp_set_intersection_impl
+{
+};
+
+template<> struct mp_set_intersection_impl<>
+{
+    using type = mp_list<>;
+};
+
+template<class L, class... S> struct mp_set_intersection_impl<L, S...>: mp_defer<mp_set_intersection_, L, S...>
+{
+};
+
+} // namespace detail
+
+template<class... S> using mp_set_intersection = typename detail::mp_set_intersection_impl<S...>::type;
 
 // mp_set_difference<L, S...>
 namespace detail
