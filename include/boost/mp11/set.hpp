@@ -9,8 +9,10 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
+#include <boost/mp11/detail/mp_remove_if.hpp>
 #include <type_traits>
 
 namespace boost
@@ -130,6 +132,19 @@ template<class L1, class L2, class L3, class... L> struct mp_set_union_impl<L1, 
 } // namespace detail
 
 template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
+
+// mp_set_difference<L, S...>
+namespace detail
+{
+
+template<class... S> struct in_any_set
+{
+    template<class T> using fn = mp_any< mp_set_contains<S, T>... >;
+};
+
+} // namespace detail
+
+template<class L, class... S> using mp_set_difference = mp_remove_if_q<L, detail::in_any_set<S...>>;
 
 } // namespace mp11
 } // namespace boost
