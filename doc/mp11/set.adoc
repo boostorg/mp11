@@ -31,10 +31,17 @@ A set is a list whose elements are unique.
 
     template<class S, class... T> using mp_set_push_back = /*...*/;
 
-For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of `S` if it's not already an element of `S`.
+For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of the set `S` if it's not already an element of `S`.
 
 ## mp_set_push_front<S, T...>
 
     template<class S, class... T> using mp_set_push_front = /*...*/;
 
-`mp_set_push_front<S, T...>` inserts at the front of `S` those elements of `T...` for which `S` does not already contain the same type.
+`mp_set_push_front<S, T...>` inserts at the front of the set `S` those elements of `T...` for which `S` does not already contain the same type.
+
+## mp_set_union<L...>
+
+    template<class... L> using mp_set_union = /*...*/;
+
+`mp_set_union<S, L...>` is `mp_set_push_back<S, T...>`, where `T...` are the elements of `mp_append<mp_list<>, L...>`.
+`mp_set_union<>` is `mp_list<>`.
