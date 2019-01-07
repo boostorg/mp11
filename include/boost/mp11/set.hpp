@@ -232,7 +232,7 @@ template<> struct mp_set_symmetric_difference_impl<>
 
 template<template<class...> class L, class... T> struct mp_set_symmetric_difference_impl<L<T...>>
 {
-    using type = L<>;
+    using type = mp_clear<L<T...>>;
 };
 
 
