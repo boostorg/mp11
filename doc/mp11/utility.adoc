@@ -231,3 +231,20 @@ template<class T> using is_const_and_volatile =
 template<class T> using is_const_and_volatile =
     mp_all<mp_transform<mp_invoke_q, LQ, mp_fill<LQ, T>>>;
 ```
+
+## mp_not_fn<P>
+
+    template<template<class...> class P> struct mp_not_fn
+    {
+        template<class... T> using fn = mp_not<P<T...>>;
+    };
+
+`mp_not_fn<P>` returns a quoted metafunction `Q` such that `Q::fn<T...>` returns `mp_not<P<T...>>`.
+
+That is, it negates the result of `P`.
+
+## mp_not_fn_q<Q>
+
+    template<class Q> using mp_not_fn_q = mp_not_fn<Q::template fn>;
+
+As `mp_not_fn`, but takes a quoted metafunction.

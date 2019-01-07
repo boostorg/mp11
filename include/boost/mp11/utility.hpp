@@ -212,6 +212,14 @@ template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 // old name for mp_invoke_q retained for compatibility, but deprecated
 template<class Q, class... T> using mp_invoke BOOST_MP11_DEPRECATED("please use mp_invoke_q") = mp_invoke_q<Q, T...>;
 
+// mp_not_fn<P>
+template<template<class...> class P> struct mp_not_fn
+{
+    template<class... T> using fn = mp_not< mp_invoke_q<mp_quote<P>, T...> >;
+};
+
+template<class Q> using mp_not_fn_q = mp_not_fn<Q::template fn>;
+
 } // namespace mp11
 } // namespace boost
 
