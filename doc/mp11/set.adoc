@@ -38,3 +38,23 @@ For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of 
     template<class S, class... T> using mp_set_push_front = /*...*/;
 
 `mp_set_push_front<S, T...>` inserts at the front of `S` those elements of `T...` for which `S` does not already contain the same type.
+
+## mp_set_union<S, T...>
+    template<class S, class... T> using mp_set_union = mp_set_push_back<S, T...>;
+
+`mp_set_union<S, T...>` returns the union of all sets in [`S`,`T...`].
+
+## mp_set_intersection<S, T...>
+    template<class S, class... T> using mp_set_intersection = /*...*/;
+
+`mp_set_intersection<S, T...>` returns the intersection of all sets in [`S`,`T...`] using the relative difference of `S` and the relative difference of `S` and `T...`.
+
+## mp_set_symmetric_difference<S, T...>
+    template<class S, class... T> using mp_set_symmetric_difference = /*...*/;
+
+`mp_set_symmetric_difference<S, T...>` returns the symmetric difference of all sets in [`S`,`T...`] using the union of forward relative difference of [`S`,`T...`] and the backward relative difference of [`S`,`T...`].
+
+## mp_set_difference<S, T...>
+    template<class S, class... T> using mp_set_difference = /*...*/;
+
+`mp_set_difference<S, T...>` returns the forward relative difference of all sets in [`S`, `T...`].

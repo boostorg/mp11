@@ -128,3 +128,10 @@ using R4 = mp_any<void, mp_true>;      // compile-time error
     template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
 
 `mp_max<T...>` returns the type `U` in `T...` with the highest `U::value`.
+
+## mp_xor<T...>
+    template<class... T> using mp_xor = /*...*/;
+
+`mp_xor<T...>` returns `mp_true` if `mp_to_bool<T...>` is `mp_true` iff one type in `T...` is `mp_true`, `mp_false` otherwise.
+
+
