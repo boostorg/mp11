@@ -13,6 +13,7 @@
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/mp_remove_if.hpp>
+#include <boost/mp11/detail/mp_is_list.hpp>
 #include <type_traits>
 
 namespace boost
@@ -144,7 +145,7 @@ template<class... S> struct in_any_set
 
 } // namespace detail
 
-template<class L, class... S> using mp_set_difference = mp_remove_if_q<L, detail::in_any_set<S...>>;
+template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list<S>...>, mp_remove_if_q<L, detail::in_any_set<S...>> >;
 
 } // namespace mp11
 } // namespace boost
