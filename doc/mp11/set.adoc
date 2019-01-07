@@ -64,6 +64,6 @@ For each `T1` in `T...`, `mp_set_push_back<S, T...>` appends `T1` to the end of 
 
     template<class... L> using mp_set_symmetric_difference = /*...*/;
 
-`mp_set_symmetric_difference<S, T...>` is `mp_set_union<mp_set_difference<S, L>, mp_set_difference<L, S>>` for `L` in `T...`, where `T...` are the elements of `mp_append<mp_list<>, L...>`.
+`mp_set_symmetric_difference<S, T...>` is `mp_copy_if<mp_set_union<S, L>, mp_xor<mp_contains<S, V>, mp_contains<L, V>>>` for `V` in `mp_set_union<S, L>`, for `L` in `T...`, where `T...` are the elements of `mp_append<mp_list<>, L...>`.
 `mp_set_intersection<>` is `mp_list<>`.
 

@@ -162,11 +162,12 @@ template<template<class...> class L, class... T> struct mp_set_difference_impl<L
 };
 
 
+
 template<template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_set_difference_impl<L1<T1...>, L2<T2...>>
 {
     template<class V>
-    using predicate_t = mp_contains<L2<T2...>, V>;
-    using type = mp_remove_if<L1<T1...>, predicate_t>;
+    using predicate_t = mp_not<mp_contains<L2<T2...>, V>>;
+    using type = mp_copy_if<L1<T1...>, predicate_t>;
 };
 
 
@@ -206,7 +207,6 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
     using type = mp_copy_if<L1<T1...>, predicate_t>;
 };
 
-
 template<class L1, class... L> using mp_set_intersection_ = typename mp_set_intersection_impl<L1, mp_append<mp_list<>, L...>>::type;
 
 template<class L1, class... L> struct mp_set_intersection_impl<L1, L...> : mp_defer<mp_set_intersection_, L1, L...>
@@ -238,7 +238,10 @@ template<template<class...> class L, class... T> struct mp_set_symmetric_differe
 
 template<template<class...> class L1, class... T1, template<class...> class L2, class... T2> struct mp_set_symmetric_difference_impl<L1<T1...>, L2<T2...>>
 {
-    using type = mp_set_union<mp_set_difference<L1<T1...>, L2<T2...>>, mp_set_difference<L2<T2...>, L1<T1...>>>;
+    template<typename V>
+    using predicate_t = mp_xor<mp_contains<L1<T1...>, V>, mp_contains<L2<T2...>, V>>;
+    using union_t = mp_set_union<L1<T1...>, L2<T2...>>;
+    using type = mp_copy_if<union_t, predicate_t>;
 };
 
 
