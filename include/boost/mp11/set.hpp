@@ -150,7 +150,7 @@ template<class... S> struct in_all_sets
     template<class T> using fn = mp_all< mp_set_contains<S, T>... >;
 };
 
-template<class L, class... S> using mp_set_intersection_ = mp_if< mp_all<mp_is_list<L>, mp_is_list<S>...>, mp_copy_if_q<L, detail::in_all_sets<S...>> >;
+template<class L, class... S> using mp_set_intersection_ = mp_if< mp_all<mp_is_list<S>...>, mp_copy_if_q<L, detail::in_all_sets<S...>> >;
 
 template<class... S> struct mp_set_intersection_impl
 {
