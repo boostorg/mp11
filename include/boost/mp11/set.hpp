@@ -173,7 +173,7 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 
 template<class L1, class... L> using mp_set_difference_ = typename mp_set_difference_impl<L1, mp_append<mp_list<>, L...>>::type;
 
-template<class L1, class... L> struct mp_set_difference_impl<L1, L...> : mp_defer<mp_set_difference_, L1, L...>
+template<class L1, class L2, class L3, class... L> struct mp_set_difference_impl<L1, L2, L3, L...> : mp_defer<mp_set_difference_, L1, L2, L3, L...>
 {
 };
 
@@ -209,7 +209,7 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 
 template<class L1, class... L> using mp_set_intersection_ = typename mp_set_intersection_impl<L1, mp_append<mp_list<>, L...>>::type;
 
-template<class L1, class... L> struct mp_set_intersection_impl<L1, L...> : mp_defer<mp_set_intersection_, L1, L...>
+template<class L1, class L2, class L3, class... L> struct mp_set_intersection_impl<L1, L2, L3, L...> : mp_defer<mp_set_intersection_, L1, L2, L3, L...>
 {
 };
 
@@ -247,7 +247,7 @@ template<template<class...> class L1, class... T1, template<class...> class L2, 
 
 template<class L1, class... L> using mp_set_symmetric_difference_ = typename mp_set_symmetric_difference_impl<L1, mp_append<mp_list<>, L...>>::type;
 
-template<class L1, class... L> struct mp_set_symmetric_difference_impl<L1, L...> : mp_defer<mp_set_symmetric_difference_, L1, L...>
+template<class L1, class L2, class L3, class... L> struct mp_set_symmetric_difference_impl<L1, L2, L3, L...> : mp_defer<mp_set_symmetric_difference_, L1, L2, L3, L...>
 {
 };
 
