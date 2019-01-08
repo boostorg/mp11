@@ -116,6 +116,7 @@ run mp_invoke_q_sf.cpp ;
 run mp_quote_trait.cpp ;
 run mp_cond.cpp ;
 run mp_cond_sf.cpp ;
+run mp_not_fn.cpp ;
 
 # integer_sequence
 run integer_sequence.cpp ;
