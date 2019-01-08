@@ -22,7 +22,9 @@ namespace mp11
 namespace detail
 {
 
-template<class L, template<class...> class P> struct mp_copy_if_impl;
+template<class L, template<class...> class P> struct mp_copy_if_impl
+{
+};
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_copy_if_impl<L<T...>, P>
 {

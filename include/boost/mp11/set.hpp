@@ -26,7 +26,9 @@ namespace mp11
 namespace detail
 {
 
-template<class S, class V> struct mp_set_contains_impl;
+template<class S, class V> struct mp_set_contains_impl
+{
+};
 
 template<template<class...> class L, class... T, class V> struct mp_set_contains_impl<L<T...>, V>
 {
@@ -41,7 +43,9 @@ template<class S, class V> using mp_set_contains = typename detail::mp_set_conta
 namespace detail
 {
 
-template<class S, class... T> struct mp_set_push_back_impl;
+template<class S, class... T> struct mp_set_push_back_impl
+{
+};
 
 template<template<class...> class L, class... U> struct mp_set_push_back_impl<L<U...>>
 {
@@ -62,7 +66,9 @@ template<class S, class... T> using mp_set_push_back = typename detail::mp_set_p
 namespace detail
 {
 
-template<class S, class... T> struct mp_set_push_front_impl;
+template<class S, class... T> struct mp_set_push_front_impl
+{
+};
 
 template<template<class...> class L, class... U> struct mp_set_push_front_impl<L<U...>>
 {
