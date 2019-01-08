@@ -385,3 +385,59 @@ using R1 = mp_replace_third<L1, void>; // std::tuple<float, double, void>
 using L2 = mp_list<char[1], char[2], char[3], char[4]>;
 using R2 = mp_replace_third<L2, void>; // mp_list<char[1], char[2], void, char[4]>;
 ```
+
+## mp_transform_front<L, F>
+
+    template<class L, template<class...> class F> using mp_transform_front =
+        /*...*/;
+
+`mp_transform_front<L, F>` replaces the first element `T1` of the list `L` with `F<T1>`.
+
+## mp_transform_front_q<L, Q>
+
+    template<class L, class Q> using mp_transform_front_q =
+        mp_transform_front<L, Q::template fn>;
+
+As `mp_transform_front`, but takes a quoted metafunction.
+
+## mp_transform_first<L, F>
+
+    template<class L, template<class...> class F> using mp_transform_first =
+        mp_transform_front<L, F>;
+
+`mp_transform_first` is another name for `mp_transform_front`.
+
+## mp_transform_first_q<L, Q>
+
+    template<class L, class Q> using mp_transform_first_q =
+        mp_transform_first<L, Q::template fn>;
+
+As `mp_transform_first`, but takes a quoted metafunction.
+
+## mp_transform_second<L, F>
+
+    template<class L, template<class...> class F> using mp_transform_second =
+        /*...*/;
+
+`mp_transform_second<L, F>` replaces the second element `T2` of the list `L` with `F<T2>`.
+
+## mp_transform_second_q<L, Q>
+
+    template<class L, class Q> using mp_transform_second_q =
+        mp_transform_second<L, Q::template fn>;
+
+As `mp_transform_second`, but takes a quoted metafunction.
+
+## mp_transform_third<L, F>
+
+    template<class L, template<class...> class F> using mp_transform_third =
+        /*...*/;
+
+`mp_transform_third<L, F>` replaces the third element `T3` of the list `L` with `F<T3>`.
+
+## mp_transform_third_q<L, Q>
+
+    template<class L, class Q> using mp_transform_third_q =
+        mp_transform_third<L, Q::template fn>;
+
+As `mp_transform_third`, but takes a quoted metafunction.

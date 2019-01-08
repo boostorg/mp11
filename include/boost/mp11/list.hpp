@@ -265,6 +265,70 @@ template<template<class...> class L, class U1, class U2, class U3, class... U, c
 
 template<class L, class T> using mp_replace_third = typename detail::mp_replace_third_impl<L, T>::type;
 
+// mp_transform_front<L, F>
+namespace detail
+{
+
+template<class L, template<class...> class F> struct mp_transform_front_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_transform_front
+// is either not a list, or is an empty list
+};
+
+template<template<class...> class L, class U1, class... U, template<class...> class F> struct mp_transform_front_impl<L<U1, U...>, F>
+{
+    using type = L<F<U1>, U...>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class F> using mp_transform_front = typename detail::mp_transform_front_impl<L, F>::type;
+template<class L, class Q> using mp_transform_front_q = mp_transform_front<L, Q::template fn>;
+
+// mp_transform_first<L, F>
+template<class L, template<class...> class F> using mp_transform_first = typename detail::mp_transform_front_impl<L, F>::type;
+template<class L, class Q> using mp_transform_first_q = mp_transform_first<L, Q::template fn>;
+
+// mp_transform_second<L, F>
+namespace detail
+{
+
+template<class L, template<class...> class F> struct mp_transform_second_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_transform_second
+// is either not a list, or has fewer than two elements
+};
+
+template<template<class...> class L, class U1, class U2, class... U, template<class...> class F> struct mp_transform_second_impl<L<U1, U2, U...>, F>
+{
+    using type = L<U1, F<U2>, U...>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class F> using mp_transform_second = typename detail::mp_transform_second_impl<L, F>::type;
+template<class L, class Q> using mp_transform_second_q = mp_transform_second<L, Q::template fn>;
+
+// mp_transform_third<L, F>
+namespace detail
+{
+
+template<class L, template<class...> class F> struct mp_transform_third_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_transform_third
+// is either not a list, or has fewer than three elements
+};
+
+template<template<class...> class L, class U1, class U2, class U3, class... U, template<class...> class F> struct mp_transform_third_impl<L<U1, U2, U3, U...>, F>
+{
+    using type = L<U1, U2, F<U3>, U...>;
+};
+
+} // namespace detail
+
+template<class L, template<class...> class F> using mp_transform_third = typename detail::mp_transform_third_impl<L, F>::type;
+template<class L, class Q> using mp_transform_third_q = mp_transform_third<L, Q::template fn>;
+
 } // namespace mp11
 } // namespace boost
 
