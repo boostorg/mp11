@@ -24,7 +24,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
         message(STATUS "Fetching ${name}")
 
         file(DOWNLOAD
-            "https://raw.githubusercontent.com/pdimov/mincmake/master/${name}"
+            "https://raw.githubusercontent.com/boostorg/mincmake/master/${name}"
             "${CMAKE_BINARY_DIR}/fetch_and_include/${name}"
         )
 
