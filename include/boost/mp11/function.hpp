@@ -195,8 +195,17 @@ template<class T1, class T2, class T3, class... T> struct mp_similar_impl<T1, T2
 
 template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
 
+#if BOOST_MP11_GCC
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
+
 // mp_less<T1, T2>
 template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
+
+#if BOOST_MP11_GCC
+# pragma GCC diagnostic pop
+#endif
 
 // mp_min<T...>
 template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
