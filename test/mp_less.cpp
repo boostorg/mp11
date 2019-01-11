@@ -6,6 +6,11 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40800 )
+# pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
 
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/integral.hpp>
