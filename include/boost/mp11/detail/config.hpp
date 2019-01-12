@@ -123,10 +123,16 @@
 
 // BOOST_MP11_DEPRECATED(msg)
 
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_CLANG, < 304 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 #  define BOOST_MP11_DEPRECATED(msg)
-#elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_CLANG, < 309 )
+#elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 #  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#elif defined(__has_cpp_attribute)
+# if __has_cpp_attribute(deprecated)
+#  define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
+# else
+#  define BOOST_MP11_DEPRECATED(msg)
+# endif
 #else
 #  define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
 #endif
