@@ -127,10 +127,17 @@
 #  define BOOST_MP11_DEPRECATED(msg)
 #elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 #  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
-#elif defined(__has_cpp_attribute)
-# if __has_cpp_attribute(deprecated)
-#  define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
-# else
+#elif BOOST_MP11_CLANG
+# if defined(__has_cpp_attribute)
+// 3.8 warns about [[deprecated]] when in C++11 mode
+// so we only use it on 3.9 and above, detected via [[fallthrough]]
+// can't version check because Apple
+#  if __has_cpp_attribute(deprecated) && __has_cpp_attribute(fallthrough)
+#   define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
+#  else
+#   define BOOST_MP11_DEPRECATED(msg)
+#  endif
+# else // defined(__has_cpp_attribute)
 #  define BOOST_MP11_DEPRECATED(msg)
 # endif
 #else
