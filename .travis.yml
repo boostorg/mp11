@@ -228,6 +228,22 @@ matrix:
         - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++1z libs/mp11/test/mp11.cpp
 
     - os: osx
+      osx_image: xcode7.3
+      compiler: clang++
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang++
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
+
+    - os: osx
+      osx_image: xcode9.4
+      compiler: clang++
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
+
+    - os: osx
+      osx_image: xcode10.1
       compiler: clang++
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=11,14,1z
 
