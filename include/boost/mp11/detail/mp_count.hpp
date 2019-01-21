@@ -72,7 +72,7 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_count_if_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
