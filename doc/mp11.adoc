@@ -24,6 +24,8 @@ include::mp11/definitions.adoc[]
 
 include::mp11/examples.adoc[]
 
+include::mp11/changelog.adoc[]
+
 include::mp11/reference.adoc[]
 
 :leveloffset: -1
