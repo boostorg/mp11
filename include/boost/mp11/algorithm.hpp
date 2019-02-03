@@ -174,6 +174,27 @@ template<template<class...> class P, template<class...> class F, class... L> str
 template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L...>::type;
 template<class Qp, class Qf, class... L> using mp_transform_if_q = typename detail::mp_transform_if_impl<Qp::template fn, Qf::template fn, L...>::type;
 
+// mp_filter<P, L...>
+namespace detail
+{
+
+template<template<class...> class P, class L1, class... L> struct mp_filter_impl
+{
+    using Qp = mp_quote<P>;
+
+    template<class T1, class... T> using _f = mp_if< mp_invoke_q<Qp, T1, T...>, mp_list<T1>, mp_list<> >;
+
+    using _t1 = mp_transform<_f, L1, L...>;
+    using _t2 = mp_apply<mp_append, _t1>;
+
+    using type = mp_assign<L1, _t2>;
+};
+
+} // namespace detail
+
+template<template<class...> class P, class... L> using mp_filter = typename detail::mp_filter_impl<P, L...>::type;
+template<class Q, class... L> using mp_filter_q = typename detail::mp_filter_impl<Q::template fn, L...>::type;
+
 // mp_fill<L, V>
 namespace detail
 {
