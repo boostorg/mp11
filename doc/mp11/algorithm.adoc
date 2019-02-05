@@ -149,6 +149,29 @@ using R1 = mp_transform_if_q<mp_bind<std::is_same, _1, void>, _2, L1, L2>;
 |*mp_transform_if_q<Qp, _2, L1, L2>*|A~1~|B~2~|...|A~n~
 |===
 
+## mp_filter<P, L...>
+
+    template<template<class...> class P, class... L> using mp_filter = /*...*/;
+
+`mp_filter<P, L1, L2, ..., Ln>` removes the elements of the list `L1` for which `mp_to_bool<P<T1, T2, ..., Tn>>`
+is `mp_false` and returns the result, where `Ti` are the corresponding elements of `Li`.
+
+See also `mp_copy_if` and `mp_remove_if`, less general variants of `mp_filter` that only take a single list.
+
+## mp_filter_q<Qp, L...>
+
+    template<class Qp, class... L> using mp_filter_q =
+        mp_filter<Qp::template fn, L...>;
+
+As `mp_filter`, but takes quoted metafunctions.
+
+.Using mp_filter_q to pick elements of a list based on a mask in another list
+```
+using L1 = std::tuple<void, int, float>;
+using L2 = mp_list<mp_true, mp_false, mp_true>;
+using R1 = mp_filter_q<_2, L1, L2>; // std::tuple<void, float>
+```
+
 ## mp_fill<L, V>
 
     template<class L, class V> using mp_fill = /*...*/;

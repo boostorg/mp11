@@ -17,6 +17,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Add `mp_set_union`, `mp_set_intersection`, `mp_set_difference`
 * Add `mp_not_fn`
 * Add `mp_transform_first`, `mp_transform_second`, `mp_transform_third`
+* Add `mp_filter`
 
 ## Changes in 1.69.0
 
