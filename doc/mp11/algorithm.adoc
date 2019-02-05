@@ -114,9 +114,9 @@ using R1 = mp_transform_if<first_is_void, second, L1, L2>;
 |===
 |*L1*|A~1~|A~2~|...|A~n~
 5+|
-|*P<A~i~>*|mp_false|mp_true|...|mp_false
-5+|
 |*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*P<A~i~, B~i~>*|mp_false|mp_true|...|mp_false
 5+|
 |*mp_transform_if<P, F, L1, L2>*|A~1~|F<A~2~,B~2~>|...|A~n~
 |===
@@ -142,9 +142,9 @@ using R1 = mp_transform_if_q<mp_bind<std::is_same, _1, void>, _2, L1, L2>;
 |===
 |*L1*|A~1~|A~2~|...|A~n~
 5+|
-|*Qp::fn<A~i~>*|mp_false|mp_true|...|mp_false
-5+|
 |*L2*|B~1~|B~2~|...|B~n~
+5+|
+|*Qp::fn<A~i~, B~i~>*|mp_false|mp_true|...|mp_false
 5+|
 |*mp_transform_if_q<Qp, _2, L1, L2>*|A~1~|B~2~|...|A~n~
 |===
@@ -163,7 +163,7 @@ See also `mp_copy_if` and `mp_remove_if`, less general variants of `mp_filter` t
     template<class Qp, class... L> using mp_filter_q =
         mp_filter<Qp::template fn, L...>;
 
-As `mp_filter`, but takes quoted metafunctions.
+As `mp_filter`, but takes a quoted metafunction.
 
 .Using mp_filter_q to pick elements of a list based on a mask in another list
 ```
