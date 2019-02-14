@@ -92,6 +92,8 @@ template<template<class...> class F, class... T> using mp_valid = typename detai
 
 #endif
 
+template<class Q, class... T> using mp_valid_q = mp_valid<Q::template fn, T...>;
+
 // mp_defer
 namespace detail
 {

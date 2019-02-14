@@ -34,6 +34,7 @@ using Q_add_pointer = mp_quote<add_pointer>;
 int main()
 {
     using boost::mp11::mp_valid;
+    using boost::mp11::mp_valid_q;
     using boost::mp11::mp_identity;
 
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_identity>));
@@ -50,6 +51,11 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<QX::fn, int>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<QX::fn, void, void>));
 
+    BOOST_TEST_TRAIT_FALSE((mp_valid_q<QX>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid_q<QX, void>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid_q<QX, int>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid_q<QX, void, void>));
+
     BOOST_TEST_TRAIT_FALSE((mp_valid<add_pointer>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<add_pointer, void>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<add_pointer, int>));
@@ -63,6 +69,11 @@ int main()
     BOOST_TEST_TRAIT_TRUE((mp_valid<Q_add_pointer::fn, void>));
     BOOST_TEST_TRAIT_TRUE((mp_valid<Q_add_pointer::fn, int>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<Q_add_pointer::fn, void, void>));
+
+    BOOST_TEST_TRAIT_FALSE((mp_valid_q<Q_add_pointer>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid_q<Q_add_pointer, void>));
+    BOOST_TEST_TRAIT_TRUE((mp_valid_q<Q_add_pointer, int>));
+    BOOST_TEST_TRAIT_FALSE((mp_valid_q<Q_add_pointer, void, void>));
 
 #if !BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 70000 )
     // g++ up to at least 6.3 doesn't like add_reference for some reason or other
