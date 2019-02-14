@@ -124,6 +124,7 @@ run mp_quote_trait.cpp ;
 run mp_cond.cpp ;
 run mp_cond_sf.cpp ;
 run mp_not_fn.cpp ;
+run mp_eval_if_not.cpp ;
 
 # integer_sequence
 run integer_sequence.cpp ;
