@@ -1,5 +1,5 @@
 ////
-Copyright 2017 Peter Dimov
+Copyright 2017, 2019 Peter Dimov
 
 Distributed under the Boost Software License, Version 1.0.
 
@@ -135,6 +135,53 @@ template<class L> using first_or_void = mp_eval_if<mp_empty<L>, void, mp_first, 
 
 Like `mp_eval_if`, but takes a quoted metafunction.
 
+## mp_eval_if_not<C, T, F, U...>
+
+    template<class C, class T, template<class...> class F, class... U>
+        using mp_eval_if_not = mp_eval_if<mp_not<C>, T, F, U...>;
+
+Same as `mp_eval_if`, but the condition is reversed.
+
+## mp_eval_if_not_q<C, T, Q, U...>
+
+    template<class C, class T, class Q, class... U> using mp_eval_if_not_q =
+        mp_eval_if_not<C, T, Q::template fn, U...>;
+
+Same as `mp_eval_if_not`, but takes a quoted metafunction.
+
+## mp_valid<F, T...>
+
+    template<template<class...> class F, class... T> using mp_valid = /*...*/;
+
+`mp_valid<F, T...>` is an alias for `mp_true` when `F<T...>` is a valid expression, for `mp_false` otherwise.
+
+.Using mp_valid to write a metafunction that checks for the existence of a nested type
+```
+template<class T> using get_nested_type = typename T::type;
+
+template<class T> struct has_nested_type: mp_valid<get_nested_type, T> {};
+```
+
+## mp_valid_q<Q, T...>
+
+    template<class Q, class... T> using mp_valid_q = mp_valid<Q::template fn, T...>;
+
+Like `mp_valid`, but takes a quoted metafunction.
+
+## mp_eval_or<T, F, U...>
+
+    template<class T, template<class...> class F, class... U> using mp_eval_or =
+        mp_eval_if_not<mp_valid<F, U...>, T, F, U...>;
+
+`mp_eval_or<T, F, U...>` is an alias for `F<U...>` when this expression is valid, for `T` otherwise.
+
+## mp_eval_or_q<T, Q, U...>
+
+    template<class T, class Q, class... U> using mp_eval_or_q =
+        mp_eval_or<T, Q::template fn, U...>;
+
+Like `mp_eval_or`, but takes a quoted metafunction.
+
 ## mp_cond<C, T, R...>
 
     template<class C, class T, class... R> using mp_cond = /*...*/;
@@ -156,19 +203,6 @@ template<int N> using unsigned_ = mp_cond<
 >;
 ```
 
-## mp_valid<F, T...>
-
-    template<template<class...> class F, class... T> using mp_valid = /*...*/;
-
-`mp_valid<F, T...>` is an alias for `mp_true` when `F<T...>` is a valid expression, for `mp_false` otherwise.
-
-.Using mp_valid to write a metafunction that checks for the existence of a nested type
-```
-template<class T> using get_nested_type = typename T::type;
-
-template<class T> struct has_nested_type: mp_valid<get_nested_type, T> {};
-```
-
 ## mp_defer<F, T...>
 
     template<template<class...> class F, class... T> using mp_defer = /*...*/;
@@ -183,7 +217,7 @@ When `mp_valid<F, T...>` is `mp_true`, `mp_defer<F, T...>` is a struct with a ne
         template<class... T> using fn = F<T...>;
     };
 
-`mp_quote<F>` transforms the template `F` into a type with a nested template `fn` such that `fn<T...>` returns `F<T...>`.
+`mp_quote<F>` transforms the template `F` into a _quoted metafunction_, a type with a nested template `fn` such that `fn<T...>` returns `F<T...>`.
 
 .Using mp_quote to make a list of metafunctions
 ```

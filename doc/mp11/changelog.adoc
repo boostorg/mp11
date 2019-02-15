@@ -18,6 +18,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Add `mp_not_fn`
 * Add `mp_transform_first`, `mp_transform_second`, `mp_transform_third`
 * Add `mp_filter`
+* Add `mp_eval_if_not`, `mp_eval_or`, `mp_valid_q`
 
 ## Changes in 1.69.0
 
