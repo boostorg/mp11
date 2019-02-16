@@ -1,5 +1,5 @@
 ////
-Copyright 2017 Peter Dimov
+Copyright 2017-2019 Peter Dimov
 
 Distributed under the Boost Software License, Version 1.0.
 
@@ -366,6 +366,18 @@ Same as `mp_at_c`, but with a type argument `I`. `I::value` must be a nonnegativ
     template<class L, class N> using mp_take = /*...*/;
 
 Same as `mp_take_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
+
+## mp_back<L>
+
+    template<class L> using mp_back = mp_at_c<L, mp_size<L>::value - 1>;
+
+`mp_back<L>` returns the last element of the list `L`.
+
+## mp_pop_back<L>
+
+    template<class L> using mp_pop_back = mp_take_c<L, mp_size<L>::value - 1>;
+
+`mp_pop_back<L>` removes the last element of the list `L` and returns the result.
 
 ## mp_insert_c<L, I, T...>
 

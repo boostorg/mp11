@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED
 #define BOOST_MP11_ALGORITHM_HPP_INCLUDED
 
-//  Copyright 2015-2017 Peter Dimov.
+//  Copyright 2015-2019 Peter Dimov
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
