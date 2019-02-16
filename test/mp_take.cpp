@@ -52,8 +52,19 @@ int main()
 
         using L3 = mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1, X2, X3, X4, X5>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3, 8>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t<9>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3,  6>, mp_list<X1, X2, X3, X4, X5, X1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3,  7>, mp_list<X1, X2, X3, X4, X5, X1, X2>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3,  8>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3,  9>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3, 10>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take_c<L3, 11>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1>>));
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t< 6>>, mp_list<X1, X2, X3, X4, X5, X1>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t< 7>>, mp_list<X1, X2, X3, X4, X5, X1, X2>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t< 8>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t< 9>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t<10>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_take<L3, mp_size_t<11>>, mp_list<X1, X2, X3, X4, X5, X1, X2, X3, X4, X5, X1>>));
     }
 
     {

@@ -368,42 +368,80 @@ template<class L, class I> using mp_at = mp_at_c<L, std::size_t{ I::value }>;
 namespace detail
 {
 
-template<class L, std::size_t N, class E = void> struct mp_take_c_impl;
+template<std::size_t N, class L, class E = void> struct mp_take_c_impl
+{
+};
 
-template<template<class...> class L, class... T> struct mp_take_c_impl<L<T...>, 0>
+template<template<class...> class L, class... T>
+struct mp_take_c_impl<0, L<T...>>
 {
     using type = L<>;
 };
 
-template<template<class...> class L, class T1, class... T> struct mp_take_c_impl<L<T1, T...>, 1>
+template<template<class...> class L, class T1, class... T>
+struct mp_take_c_impl<1, L<T1, T...>>
 {
     using type = L<T1>;
 };
 
-template<template<class...> class L, class T1, class T2, class... T> struct mp_take_c_impl<L<T1, T2, T...>, 2>
+template<template<class...> class L, class T1, class T2, class... T>
+struct mp_take_c_impl<2, L<T1, T2, T...>>
 {
     using type = L<T1, T2>;
 };
 
-template<template<class...> class L, class T1, class T2, class T3, class... T> struct mp_take_c_impl<L<T1, T2, T3, T...>, 3>
+template<template<class...> class L, class T1, class T2, class T3, class... T>
+struct mp_take_c_impl<3, L<T1, T2, T3, T...>>
 {
     using type = L<T1, T2, T3>;
 };
 
-template<template<class...> class L, class T1, class T2, class T3, class T4, class... T> struct mp_take_c_impl<L<T1, T2, T3, T4, T...>, 4>
+template<template<class...> class L, class T1, class T2, class T3, class T4, class... T>
+struct mp_take_c_impl<4, L<T1, T2, T3, T4, T...>>
 {
     using type = L<T1, T2, T3, T4>;
 };
 
-template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class... T, std::size_t N> struct mp_take_c_impl<L<T1, T2, T3, T4, T5, T...>, N, typename std::enable_if<N >= 5>::type>
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class... T>
+struct mp_take_c_impl<5, L<T1, T2, T3, T4, T5, T...>>
 {
-    using type = mp_append<L<T1, T2, T3, T4, T5>, typename mp_take_c_impl<L<T...>, N-5>::type>;
+	using type = L<T1, T2, T3, T4, T5>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class... T>
+struct mp_take_c_impl<6, L<T1, T2, T3, T4, T5, T6, T...>>
+{
+	using type = L<T1, T2, T3, T4, T5, T6>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class... T>
+struct mp_take_c_impl<7, L<T1, T2, T3, T4, T5, T6, T7, T...>>
+{
+	using type = L<T1, T2, T3, T4, T5, T6, T7>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class... T>
+struct mp_take_c_impl<8, L<T1, T2, T3, T4, T5, T6, T7, T8, T...>>
+{
+	using type = L<T1, T2, T3, T4, T5, T6, T7, T8>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class... T>
+struct mp_take_c_impl<9, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T...>>
+{
+	using type = L<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
+};
+
+template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, std::size_t N>
+struct mp_take_c_impl<N, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, typename std::enable_if<N >= 10>::type>
+{
+    using type = mp_append<L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>, typename mp_take_c_impl<N-10, L<T...>>::type>;
 };
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<L, N>::type;
-template<class L, class N> using mp_take = typename detail::mp_take_c_impl<L, std::size_t{ N::value }>::type;
+template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<N, L>::type;
+template<class L, class N> using mp_take = typename detail::mp_take_c_impl<std::size_t{ N::value }, L>::type;
 
 // mp_replace<L, V, W>
 namespace detail
