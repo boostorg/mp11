@@ -443,6 +443,12 @@ struct mp_take_c_impl<N, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, typen
 template<class L, std::size_t N> using mp_take_c = typename detail::mp_take_c_impl<N, L>::type;
 template<class L, class N> using mp_take = typename detail::mp_take_c_impl<std::size_t{ N::value }, L>::type;
 
+// mp_back<L>
+template<class L> using mp_back = mp_at_c<L, mp_size<L>::value - 1>;
+
+// mp_pop_back<L>
+template<class L> using mp_pop_back = mp_take_c<L, mp_size<L>::value - 1>;
+
 // mp_replace<L, V, W>
 namespace detail
 {
