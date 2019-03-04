@@ -192,6 +192,21 @@ run mp_bind_back.cpp ;
 # mpl
 run mpl.cpp : ;
 
+# version
+run version.cpp ;
+run mp11_version.cpp ;
+run list_version.cpp ;
+run algorithm_version.cpp ;
+run integral_version.cpp ;
+run utility_version.cpp ;
+run function_version.cpp ;
+run map_version.cpp ;
+run set_version.cpp ;
+run bind_version.cpp ;
+run integer_sequence_version.cpp ;
+run tuple_version.cpp ;
+run mpl_version.cpp ;
+
 # quick (for CI)
 alias quick : mp11 mp_size ;
 explicit quick ;
