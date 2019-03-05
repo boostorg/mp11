@@ -12,18 +12,18 @@ http://www.boost.org/LICENSE_1_0.txt
 
 ## Changes in 1.70.0
 
-* Rename `mp_invoke` to `mp_invoke_q`
-* Add `mp_similar`
-* Add `mp_set_union`, `mp_set_intersection`, `mp_set_difference`
-* Add `mp_not_fn`
-* Add `mp_transform_first`, `mp_transform_second`, `mp_transform_third`
-* Add `mp_filter`
-* Add `mp_eval_if_not`, `mp_eval_or`, `mp_valid_q`
-* Add `mp_back`, `mp_pop_back`
+* Renamed `mp_invoke` to `mp_invoke_q`
+* Added `mp_similar`
+* Added `mp_set_union`, `mp_set_intersection`, `mp_set_difference`
+* Added `mp_not_fn`
+* Added `mp_transform_first`, `mp_transform_second`, `mp_transform_third`
+* Added `mp_filter`
+* Added `mp_eval_if_not`, `mp_eval_or`, `mp_valid_q`
+* Added `mp_back`, `mp_pop_back`
 
 ## Changes in 1.69.0
 
-* Remove dependency on Boost.Config; Mp11 is now standalone
-* Improve code generation for `mp_with_index`
-* Add `mp_starts_with` (contributed by Glen Fernandes)
-* Add CMake support
+* Removed dependency on Boost.Config; Mp11 is now standalone
+* Improved code generation for `mp_with_index`
+* Added `mp_starts_with` (contributed by Glen Fernandes)
+* Added CMake support
