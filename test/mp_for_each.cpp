@@ -10,6 +10,7 @@
 
 #if BOOST_MP11_MSVC
 # pragma warning( disable: 4503 ) // decorated name length exceeded
+# pragma warning( disable: 4307 ) // '*': integral constant overflow
 #endif
 
 #include <boost/mp11/algorithm.hpp>
