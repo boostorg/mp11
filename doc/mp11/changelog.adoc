@@ -20,6 +20,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `mp_filter`
 * Added `mp_eval_if_not`, `mp_eval_or`, `mp_valid_q`
 * Added `mp_back`, `mp_pop_back`
+* Added `BOOST_MP11_VERSION`
 
 ## Changes in 1.69.0
 
