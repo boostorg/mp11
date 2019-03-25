@@ -5,8 +5,6 @@
 # See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt
 
-project doc/mp11 ;
-
 import asciidoctor ;
 
 html mp11.html : mp11.adoc ;
