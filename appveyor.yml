@@ -1,4 +1,4 @@
-# Copyright 2016, 2017 Peter Dimov
+# Copyright 2016-2019 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -14,15 +14,11 @@ branches:
 
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      TOOLSET: msvc-12.0
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      TOOLSET: msvc-14.0
+      TOOLSET: msvc-12.0,msvc-14.0
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      TOOLSET: msvc-14.1
-      CXXSTD: 17
+      CXXSTD: 14,17
 
 install:
   - set BOOST_BRANCH=develop
@@ -34,7 +30,7 @@ install:
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\mp11\
   - python tools/boostdep/depinst/depinst.py mp11
   - cmd /c bootstrap
-  - b2 headers
+  - b2 -d0 headers
 
 build: off
 
