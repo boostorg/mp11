@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project(BoostMp11 VERSION 1.70.0 LANGUAGES CXX)
+project(BoostMp11 VERSION 1.71.0 LANGUAGES CXX)
 
 add_library(boost_mp11 INTERFACE)
 set_property(TARGET boost_mp11 PROPERTY EXPORT_NAME mp11)
