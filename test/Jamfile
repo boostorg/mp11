@@ -171,6 +171,7 @@ run mp_less.cpp ;
 run mp_min.cpp ;
 run mp_max.cpp ;
 run mp_similar.cpp ;
+run mp_eval_and.cpp ;
 
 # map
 run mp_map_find.cpp ;
