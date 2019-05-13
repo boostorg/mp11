@@ -218,24 +218,24 @@ template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, 
 namespace detail
 {
 
-template<class T, class... F> struct mp_eval_and_impl;
+template<class T, template<class>class... F> struct mp_eval_and_impl;
 
 } // namespace detail
 
 // mp_eval_and<T, F...>
-template<class T, class... F> using mp_eval_and = typename detail::mp_eval_and_impl<T, F...>::type;
+template<class T, template<class>class... F> using mp_eval_and = typename detail::mp_eval_and_impl<T, F...>::type;
 
 namespace detail
 {
 
-template<class T, class... F> struct mp_eval_and_impl;
+template<class T, template<class> class... F> struct mp_eval_and_impl;
 
 template<class T> struct mp_eval_and_impl<T>
 {
     using type = mp_true;
 };
 
-template<class T, class F1, class... F> struct mp_eval_and_impl<T, F1, F...>
+template<class T, template<class>class F1, template<class>class... F> struct mp_eval_and_impl<T, F1, F...>
 {
     using type = mp_and<mp_eval_or<mp_false, F1, T>, mp_eval_and<T, F...>>;
 };
