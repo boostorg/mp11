@@ -127,6 +127,8 @@
 #  define BOOST_MP11_DEPRECATED(msg)
 #elif BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 50000 )
 #  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#elif BOOST_MP11_WORKAROUND( BOOST_MP11_CLANG, < 304 )
+#  define BOOST_MP11_DEPRECATED(msg)
 #elif BOOST_MP11_CLANG
 // -pedantic warns about [[deprecated]] when in C++11 mode
 #  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
