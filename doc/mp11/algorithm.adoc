@@ -743,7 +743,7 @@ template<class... T> void print( std::variant<T...> const& v )
 {
     mp_with_index<sizeof...(T)>( v.index(), [&]( auto I ) {
 
-        // I is mp_size_t<v.index()> here
+        // I is mp_size_t<v.index()>{} here
 
         std::cout << std::get<I>( v ) << std::endl;
 
