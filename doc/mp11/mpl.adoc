@@ -18,3 +18,9 @@ necessary support infrastructure for `mp_list` and `std::tuple`
 to be valid link:../../../../libs/mpl[MPL] sequences.
 
 NOTE: `mpl.hpp` is not included by `<boost/mp11.hpp>`.
+
+It's also possible to only enable support for `mp_list` by
+including `<boost/mp11/mpl_list.hpp>`, and for `std::tuple`
+by including `<boost/mp11/mpl_tuple.hpp>`. This may be required
+because some libraries, such as Boost.Fusion, contain their own MPL
+support for `std::tuple`, which conflicts with Mp11's one.
