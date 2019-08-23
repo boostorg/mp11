@@ -191,6 +191,7 @@ run mp_bind_back.cpp ;
 
 # mpl
 run mpl.cpp : ;
+run mpl_list.cpp : ;
 
 # version
 run version.cpp ;
