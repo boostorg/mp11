@@ -950,6 +950,22 @@ template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
 
 template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
+namespace detail {
+template <template<class...> class P> struct mp_unique_if_push_back {
+  template<class...> struct impl;
+  template <template<class...> class L, class... Ts, class T>
+  struct impl<L<Ts...>, T> {
+    using type = mp_if<mp_any<P<Ts, T>...>, L<Ts...>, L<Ts..., T>>;
+  };
+  template <class... T> using fn = typename impl<T...>::type;
+};
+} // namespace detail
+
+// mp_unique_if<L, P>
+template <class L, template<class...> class P>
+using mp_unique_if = mp_fold_q<L, mp_clear<L>, detail::mp_unique_if_push_back<P>>;
+template<class L, class Q> using mp_unique_if_q = mp_unique_if<L, Q::template fn>;
+
 // mp_all_of<L, P>
 template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
 template<class L, class Q> using mp_all_of_q = mp_all_of<L, Q::template fn>;

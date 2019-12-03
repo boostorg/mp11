@@ -659,6 +659,18 @@ As `mp_reverse_fold`, but takes a quoted metafunction.
 
 `mp_unique<L>` returns a list of the same form as `L` with the duplicate elements removed.
 
+## mp_unique_if<L, P>
+
+    template<class L> using mp_unique_if = /*...*/;
+
+`mp_unique_if<L, P>` returns a list of the same form as `L` with the duplicate elements removed for which `mp_to_bool<P<T>>` is `mp_true`.
+
+## mp_unique_if<L, Q>
+
+    template<class L, class Q> using mp_unique_if = mp_unique_if<L, Q::template fn>;
+
+As `mp_unique_if`, but takes a quoted metafunction.
+
 ## mp_all_of<L, P>
 
     template<class L, template<class...> class P> using mp_all_of =
