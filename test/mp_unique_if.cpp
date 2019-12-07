@@ -15,6 +15,10 @@
 #include <tuple>
 #include <cstddef>
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40800 )
+# pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
+
 using boost::mp11::mp_bool;
 
 #if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
