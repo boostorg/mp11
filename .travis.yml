@@ -225,6 +225,19 @@ matrix:
             - llvm-toolchain-trusty-8
 
     - os: linux
+      dist: xenial
+      compiler: clang++-9
+      env: TOOLSET=clang COMPILER=clang++-9 CXXSTD=11,14,17,2a
+      addons:
+        apt:
+          packages:
+            - clang-9
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+
+    - os: linux
       compiler: clang++-libc++
       env: TOOLSET=clang COMPILER=clang++-libc++ CXXSTD=11,14,1z
       addons:
