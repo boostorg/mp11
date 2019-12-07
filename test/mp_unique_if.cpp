@@ -17,8 +17,17 @@
 
 using boost::mp11::mp_bool;
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
+
 template<class T, class U> using Eq1 = mp_bool< T::value == U::value >;
 template<class T, class U> using Eq2 = mp_bool< sizeof(T) == sizeof(U) >;
+
+#else
+
+template<class T, class U> struct Eq1: mp_bool< T::value == U::value > {};
+template<class T, class U> struct Eq2: mp_bool< sizeof(T) == sizeof(U) > {};
+
+#endif
 
 int main()
 {
@@ -66,15 +75,11 @@ int main()
         using R1 = mp_unique_if<L1, std::is_same>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R1, L1>));
 
-#if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
-
         using R2 = mp_unique_if<L1, Eq1>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R2, L1>));
 
         using R3 = mp_unique_if<L1, Eq2>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R3, mp_list<mp_size_t<0>>>));
-
-#endif
     }
 
     {
@@ -87,21 +92,13 @@ int main()
         using L2 = mp_list_c<int, 1, 2, 3, 4>;
         using L3 = mp_list_c<long, 2, 3, 4, 5>;
 
-#if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
-
         using R1 = mp_unique_if<mp_append<L1, L2, L3>, Eq1>;
         BOOST_TEST_TRAIT_TRUE((std::is_same<R1, mp_push_back<L1, mp_int<4>, std::integral_constant<long, 5>>>));
-
-#endif
     }
 
     {
-#if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
-
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if<std::tuple<char[1], char[2], char[1], char[2], char[2], char[1], char[2], char[2], char[2]>, Eq2>, std::tuple<char[1], char[2]>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if<std::tuple<char[1], char[2], char[3], char[1], char[2], char[3], char[1], char[2], char[3]>, Eq2>, std::tuple<char[1], char[2], char[3]>>));
-
-#endif
     }
 
     return boost::report_errors();
