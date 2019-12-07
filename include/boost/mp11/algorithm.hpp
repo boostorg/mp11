@@ -405,31 +405,31 @@ struct mp_take_c_impl<4, L<T1, T2, T3, T4, T...>>
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class... T>
 struct mp_take_c_impl<5, L<T1, T2, T3, T4, T5, T...>>
 {
-	using type = L<T1, T2, T3, T4, T5>;
+    using type = L<T1, T2, T3, T4, T5>;
 };
 
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class... T>
 struct mp_take_c_impl<6, L<T1, T2, T3, T4, T5, T6, T...>>
 {
-	using type = L<T1, T2, T3, T4, T5, T6>;
+    using type = L<T1, T2, T3, T4, T5, T6>;
 };
 
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class... T>
 struct mp_take_c_impl<7, L<T1, T2, T3, T4, T5, T6, T7, T...>>
 {
-	using type = L<T1, T2, T3, T4, T5, T6, T7>;
+    using type = L<T1, T2, T3, T4, T5, T6, T7>;
 };
 
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class... T>
 struct mp_take_c_impl<8, L<T1, T2, T3, T4, T5, T6, T7, T8, T...>>
 {
-	using type = L<T1, T2, T3, T4, T5, T6, T7, T8>;
+    using type = L<T1, T2, T3, T4, T5, T6, T7, T8>;
 };
 
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class... T>
 struct mp_take_c_impl<9, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T...>>
 {
-	using type = L<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
+    using type = L<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
 };
 
 template<template<class...> class L, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class... T, std::size_t N>
@@ -950,20 +950,30 @@ template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
 
 template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
-namespace detail {
-template <template<class...> class P> struct mp_unique_if_push_back {
-  template<class...> struct impl;
-  template <template<class...> class L, class... Ts, class T>
-  struct impl<L<Ts...>, T> {
-    using type = mp_if<mp_any<P<Ts, T>...>, L<Ts...>, L<Ts..., T>>;
-  };
-  template <class... T> using fn = typename impl<T...>::type;
+// mp_unique_if<L, P>
+namespace detail
+{
+
+template<template<class...> class P> struct mp_unique_if_push_back
+{
+    template<class...> struct impl
+    {
+    };
+
+    template<template<class...> class L, class... Ts, class T>
+    struct impl<L<Ts...>, T>
+    {
+        using type = mp_if<mp_any<P<Ts, T>...>, L<Ts...>, L<Ts..., T>>;
+    };
+
+    template<class... T> using fn = typename impl<T...>::type;
 };
+
 } // namespace detail
 
-// mp_unique_if<L, P>
-template <class L, template<class...> class P>
+template<class L, template<class...> class P>
 using mp_unique_if = mp_fold_q<L, mp_clear<L>, detail::mp_unique_if_push_back<P>>;
+
 template<class L, class Q> using mp_unique_if_q = mp_unique_if<L, Q::template fn>;
 
 // mp_all_of<L, P>
