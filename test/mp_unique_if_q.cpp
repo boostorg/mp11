@@ -1,5 +1,5 @@
-//  Copyright 2015 Peter Dimov.
-//  Copyright 2019 Kris Jusiak.
+// Copyright 2015 Peter Dimov.
+// Copyright 2019 Kris Jusiak.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -9,42 +9,79 @@
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
+#include <boost/mp11/integral.hpp>
+#include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <type_traits>
 #include <tuple>
 
-struct is_same_size
+using boost::mp11::mp_bool;
+
+#if !BOOST_MP11_WORKAROUND( BOOST_MSVC, < 1910 )
+
+struct Q1
 {
-    template<class TLhs, class TRhs>
-    struct impl : boost::mp11::mp_bool<sizeof(TLhs) == sizeof(TRhs)> {};
-    template<class TLhs, class TRhs> using fn = typename impl<TLhs, TRhs>::type;
+    template<class T, class U> using fn = mp_bool< T::value == U::value >;
 };
+
+struct Q2
+{
+    template<class T, class U> using fn = mp_bool< sizeof(T) == sizeof(U) >;
+};
+
+#else
+
+struct Q1
+{
+    template<class T, class U> struct fn: mp_bool< T::value == U::value > {};
+};
+
+struct Q2
+{
+    template<class T, class U> struct fn: mp_bool< sizeof(T) == sizeof(U) > {};
+};
+
+#endif
 
 int main()
 {
     using boost::mp11::mp_list;
     using boost::mp11::mp_unique_if_q;
+    using boost::mp11::mp_quote_trait;
 
     {
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<>, is_same_size>, mp_list<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<int>, is_same_size>, mp_list<int>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<int, int>, is_same_size>, mp_list<int>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<char, bool>, is_same_size>, mp_list<char>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<bool, char>, is_same_size>, mp_list<bool>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<bool, char, bool>, is_same_size>, mp_list<bool>>));
-        struct foo{};
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<mp_list<char, bool, int, foo>, is_same_size>, mp_list<char, int>>));
+        using boost::mp11::mp_iota_c;
+        using boost::mp11::mp_size_t;
+
+        using L1 = mp_iota_c<32>;
+
+        using R1 = mp_unique_if_q<L1, mp_quote_trait<std::is_same>>;
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R1, L1>));
+
+        using R2 = mp_unique_if_q<L1, Q1>;
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R2, L1>));
+
+        using R3 = mp_unique_if_q<L1, Q2>;
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R3, mp_list<mp_size_t<0>>>));
     }
 
     {
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<>, is_same_size>, std::tuple<>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<int>, is_same_size>, std::tuple<int>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<int, int>, is_same_size>, std::tuple<int>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<char, bool>, is_same_size>, std::tuple<char>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<bool, char>, is_same_size>, std::tuple<bool>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<bool, char, bool>, is_same_size>, std::tuple<bool>>));
-        struct foo{};
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<char, bool, int, foo>, is_same_size>, std::tuple<char, int>>));
+        using boost::mp11::mp_list_c;
+        using boost::mp11::mp_append;
+        using boost::mp11::mp_push_back;
+        using boost::mp11::mp_int;
+
+        using L1 = mp_list_c<std::size_t, 0, 1, 2, 3>;
+        using L2 = mp_list_c<int, 1, 2, 3, 4>;
+        using L3 = mp_list_c<long, 2, 3, 4, 5>;
+
+        using R1 = mp_unique_if_q<mp_append<L1, L2, L3>, Q1>;
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R1, mp_push_back<L1, mp_int<4>, std::integral_constant<long, 5>>>));
+    }
+
+    {
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<char[1], char[2], char[1], char[2], char[2], char[1], char[2], char[2], char[2]>, Q2>, std::tuple<char[1], char[2]>>));
+        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_unique_if_q<std::tuple<char[1], char[2], char[3], char[1], char[2], char[3], char[1], char[2], char[3]>, Q2>, std::tuple<char[1], char[2], char[3]>>));
     }
 
     return boost::report_errors();
