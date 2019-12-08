@@ -13,6 +13,7 @@ http://www.boost.org/LICENSE_1_0.txt
 ## Changes in 1.73.0
 
 * Added `mp_unique_if` (contributed by Kris Jusiak)
+* Added `mp_flatten`
 
 ## Changes in 1.70.0
 
