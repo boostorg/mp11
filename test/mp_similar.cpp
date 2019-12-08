@@ -33,12 +33,17 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<void, void, void, void, int>, mp_false>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<X<void>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<X<void>, X<void>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<X<void>, X<int>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<X<void>, X<void>, X<void>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<X<void>, X<int>, X<float>>, mp_true>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<void>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<>, Y<>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<void>, Y<void, void>>, mp_true>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<>, Y<>, Y<>>, mp_true>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_similar<Y<>, Y<void>, Y<void, void>, Y<void, void, void>>, mp_true>));
 
     return boost::report_errors();
