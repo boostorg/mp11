@@ -519,6 +519,19 @@ template<class L, class V> using mp_remove = typename detail::mp_remove_impl<L, 
 // mp_remove_if<L, P>
 //   in detail/mp_remove_if.hpp
 
+// mp_flatten<L, L2 = mp_clear<L>>
+namespace detail
+{
+
+template<class L2> struct mp_flatten_impl
+{
+    template<class T> using fn = mp_if<mp_similar<L2, T>, T, mp_list<T>>;
+};
+
+} // namespace detail
+
+template<class L, class L2 = mp_clear<L>> using mp_flatten = mp_apply<mp_append, mp_push_front<mp_transform_q<detail::mp_flatten_impl<L2>, L>, mp_clear<L>>>;
+
 // mp_partition<L, P>
 namespace detail
 {

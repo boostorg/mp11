@@ -116,6 +116,7 @@ run mp_nth_element.cpp ;
 run mp_nth_element_q.cpp ;
 run mp_back.cpp ;
 run mp_pop_back.cpp ;
+run mp_flatten.cpp ;
 
 # integral
 run integral.cpp ;
