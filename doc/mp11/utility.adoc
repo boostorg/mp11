@@ -113,7 +113,7 @@ is to avoid evaluating `F<U...>` when the condition is `true` as it may not be v
 .Using mp_eval_if_c to select the first pack element, or void
 ```
 template<class... T> using first_or_void =
-    mp_eval_if_c<sizeof...(T) == 0, void, mp_apply, mp_first, mp_list<T...>>;
+    mp_eval_if_c<sizeof...(T) == 0, void, mp_first, mp_list<T...>>;
 ```
 
 ## mp_eval_if<C, T, F, U...>
@@ -174,6 +174,12 @@ Like `mp_valid`, but takes a quoted metafunction.
         mp_eval_if_not<mp_valid<F, U...>, T, F, U...>;
 
 `mp_eval_or<T, F, U...>` is an alias for `F<U...>` when this expression is valid, for `T` otherwise.
+
+.Using mp_eval_or to select the first pack element, or void
+```
+template<class... T> using first_or_void =
+    mp_eval_or<void, mp_first, mp_list<T...>>;
+```
 
 ## mp_eval_or_q<T, Q, U...>
 
