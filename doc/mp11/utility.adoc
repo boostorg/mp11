@@ -257,19 +257,19 @@ using R1 = mp_transform_q<mp_quote_trait<std::add_pointer>, L1>;
 using LQ = mp_list<mp_quote<std::is_const>, mp_quote<std::is_volatile>>;
 
 template<class T> using is_const_and_volatile =
-    mp_all<mp_product<mp_invoke_q, LQ, mp_list<T>>>;
+    mp_apply<mp_all, mp_product<mp_invoke_q, LQ, mp_list<T>>>;
 ```
 
 .Using mp_invoke_q to invoke a list of metafunctions, technique 2
 ```
 template<class T> using is_const_and_volatile =
-    mp_all<mp_transform_q<mp_bind_back<mp_invoke_q, T>, LQ>>;
+    mp_apply<mp_all, mp_transform_q<mp_bind_back<mp_invoke_q, T>, LQ>>;
 ```
 
 .Using mp_invoke_q to invoke a list of metafunctions, technique 3
 ```
 template<class T> using is_const_and_volatile =
-    mp_all<mp_transform<mp_invoke_q, LQ, mp_fill<LQ, T>>>;
+    mp_apply<mp_all, mp_transform<mp_invoke_q, LQ, mp_fill<LQ, T>>>;
 ```
 
 ## mp_not_fn<P>
