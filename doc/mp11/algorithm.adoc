@@ -502,6 +502,26 @@ Removes all elements `T` of `L` for which `mp_to_bool<P<T>>` is `mp_true` and re
 
 As `mp_remove_if`, but takes a quoted metafunction.
 
+## mp_flatten<L>
+
+    template<class L, class L2 = mp_clear<L>> using mp_flatten = /*...*/;
+
+Replaces all elements `T` of `L` that are lists of the same form as `L2` (that is, those for which
+`mp_similar<T, L2>` is `mp_true`) with their elements and returns the result.
+
+.Using mp_flatten
+```
+using L1 = tuple<int, tuple<>, void, tuple<float, double>>;
+using R1 = mp_flatten<L1>; // tuple<int, void, float, double>
+
+using L2 = mp_list<int, mp_list<float>, tuple<void>>;
+using R2a = mp_flatten<L2>; // mp_list<int, float, tuple<void>>
+using R2b = mp_flatten<L2, tuple<>>; // mp_list<int, mp_list<float>, void>
+
+using L3 = mp_list<mp_list<float>, mp_list<mp_list<void>>>;
+using R3 = mp_flatten<L3>; // mp_list<float, mp_list<void>>
+```
+
 ## mp_partition<L, P>
 
     template<class L, template<class...> class P> using mp_partition = /*...*/;
