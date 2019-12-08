@@ -33,7 +33,7 @@ using R1 = mp_transform<add_pointer_t, L1>; // std::tuple<void*, int*, float*>
 using L1 = std::tuple<void, int, float>;
 using L2 = mp_list<void, int, float>;
 
-using R1 = mp_all<mp_transform<std::is_same, L1, L2>>; // mp_true
+using R1 = mp_apply<mp_all, mp_transform<std::is_same, L1, L2>>; // mp_true
 ```
 
 .Using mp_transform to compare the contents of two lists of integral constants
@@ -43,7 +43,7 @@ template<class T1, class T2> using eq = mp_bool<T1::value == T2::value>;
 using L1 = std::tuple<mp_int<1>, mp_int<2>, mp_int<3>>;
 using L2 = mp_list<mp_size_t<1>, mp_size_t<2>, mp_size_t<3>>;
 
-using R1 = mp_all<mp_transform<eq, L1, L2>>; // mp_true
+using R1 = mp_apply<mp_all, mp_transform<eq, L1, L2>>; // mp_true
 ```
 
 .mp_transform on one list
