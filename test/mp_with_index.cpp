@@ -1,11 +1,17 @@
 
-//  Copyright 2017 Peter Dimov.
+// Copyright 2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_MSVC
+# pragma warning( disable: 4503 ) // decorated name length exceeded
+#endif
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/detail/config.hpp>

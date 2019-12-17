@@ -1,5 +1,5 @@
 
-//  Copyright 2017 Peter Dimov.
+// Copyright 2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -11,6 +11,8 @@
 #if BOOST_MP11_MSVC
 # pragma warning( disable: 4503 ) // decorated name length exceeded
 # pragma warning( disable: 4307 ) // '*': integral constant overflow
+# pragma warning( disable: 4244 ) // conversion from size_t to uint32_t
+# pragma warning( disable: 4267 ) // conversion from size_t to uint32_t
 #endif
 
 #include <boost/mp11/algorithm.hpp>
