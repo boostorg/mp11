@@ -20,28 +20,18 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     # Testing
 
-    # `function` confuses FetchContent, sees empty CMAKE_CURRENT_LIST_DIR
-    macro(fetch_and_include name)
-
-        message(STATUS "Fetching ${name}")
-
-        file(DOWNLOAD
-            "https://raw.githubusercontent.com/boostorg/mincmake/master/${name}"
-            "${CMAKE_BINARY_DIR}/fetch_and_include/${name}"
-        )
-
-        include("${CMAKE_BINARY_DIR}/fetch_and_include/${name}")
-
-    endmacro()
-
-    fetch_and_include(cmake/boost_fetch.cmake)
-
-    boost_fetch(boostorg/assert TAG develop)
-    boost_fetch(boostorg/config TAG develop)
-    boost_fetch(boostorg/core TAG develop)
-
     include(CTest)
     add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
+
+    include(BoostFetch)
+
+    set(BUILD_TESTING OFF)
+
+    boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
+
+    unset(BUILD_TESTING)
 
     # Installation
 
