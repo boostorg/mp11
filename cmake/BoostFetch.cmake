@@ -30,7 +30,7 @@ endif()
 
 function(boost_fetch)
 
-    cmake_parse_arguments(_ "" "TAG" "" ${ARGN})
+    cmake_parse_arguments(_ "EXCLUDE_FROM_ALL" "TAG" "" ${ARGN})
 
     if(NOT __UNPARSED_ARGUMENTS)
 
@@ -73,7 +73,16 @@ function(boost_fetch)
         message(STATUS "Fetching ${REPO}:${__TAG}")
 
         FetchContent_Populate(${NAME})
-        add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR})
+
+        if(__EXCLUDE_FROM_ALL)
+
+          add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR} EXCLUDE_FROM_ALL)
+
+        else()
+
+          add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR})
+
+        endif()
 
     endif()
 
