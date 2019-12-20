@@ -315,6 +315,14 @@ matrix:
       - cmake --build .
       - cmake --build . --target check
 
+    - os: linux
+      compiler: clang++
+      env: BOOST_CMAKE=1
+      script:
+        - mkdir __build__ && cd __build__
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+        - ctest --output-on-failure -R boost_mp11
+
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
   - cd ..
