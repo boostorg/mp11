@@ -24,10 +24,13 @@ environment:
       CXXSTD: 14,17
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       CMAKE: 1
+      CONFIG: Debug
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CMAKE: 1
+      CONFIG: Release
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CMAKE: 1
+      CONFIG: MinSizeRel
 
 install:
   - set BOOST_BRANCH=develop
@@ -49,4 +52,4 @@ test_script:
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
-  - if not "%CMAKE%" == ""  for %%c in (Debug Release MinSizeRel RelWithDebInfo) do cmake --build . --config %%c && ctest --output-on-failure -R boost_mp11 -C %%c
+  - if not "%CMAKE%" == ""  cmake --build . --config %CONFIG% && ctest --output-on-failure -R boost_mp11 -C %CONFIG%
