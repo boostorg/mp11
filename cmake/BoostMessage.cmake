@@ -8,8 +8,16 @@ endif()
 
 function(boost_message type)
 
-  if(type STREQUAL "VERBOSE" OR type STREQUAL "DEBUG")
-    if(Boost_${type})
+  if(type STREQUAL "VERBOSE")
+    if(Boost_VERBOSE OR Boost_DEBUG)
+      set(type STATUS)
+    elseif(CMAKE_VERSION VERSION_LESS 3.15)
+      return()
+    endif()
+  endif()
+
+  if(type STREQUAL "DEBUG")
+    if(Boost_DEBUG)
       set(type STATUS)
     elseif(CMAKE_VERSION VERSION_LESS 3.15)
       return()
