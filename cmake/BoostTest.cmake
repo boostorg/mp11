@@ -2,6 +2,10 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt
 
+if(NOT CMAKE_VERSION VERSION_LESS 3.10)
+  include_guard()
+endif()
+
 function(boost_test)
 
     cmake_parse_arguments(_ "" "TYPE;PREFIX;NAME" "SOURCES;LIBRARIES;ARGUMENTS" ${ARGN})
