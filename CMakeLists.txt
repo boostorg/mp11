@@ -49,6 +49,8 @@ include(BoostInstall OPTIONAL RESULT_VARIABLE HAVE_BOOST_INSTALL)
 
 if(HAVE_BOOST_INSTALL)
 
+    install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
     boost_install(boost_mp11)
 
 endif()
