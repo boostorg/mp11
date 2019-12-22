@@ -52,4 +52,4 @@ test_script:
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
-  - if not "%CMAKE%" == ""  cmake --build . --config %CONFIG% && ctest --output-on-failure -R boost_mp11 -C %CONFIG%
+  - if not "%CMAKE%" == ""  cmake --build . --config %CONFIG% && ctest -j3 --output-on-failure -R boost_mp11 -C %CONFIG%
