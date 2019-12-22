@@ -20,7 +20,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/BoostFetch.cmake")
 
-    boost_fetch(boostorg/cmake TAG "feature/boost-install" NO_ADD_SUBDIR)
+    boost_fetch(boostorg/cmake TAG develop NO_ADD_SUBDIR)
 
     FetchContent_GetProperties(boostorg_cmake)
 
