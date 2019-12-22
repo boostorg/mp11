@@ -16,45 +16,40 @@ target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_te
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
-    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+    # Fetch support files
 
-    # Testing
+    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/BoostFetch.cmake")
+
+    boost_fetch(boostorg/cmake TAG "feature/boost-install" NO_ADD_SUBDIR)
+
+    FetchContent_GetProperties(boostorg_cmake)
+
+    list(APPEND CMAKE_MODULE_PATH ${boostorg_cmake_SOURCE_DIR}/include)
+
+    # Enable testing
 
     include(CTest)
     add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
 
-    include(BoostFetch)
+    if(BUILD_TESTING)
 
-    set(BUILD_TESTING OFF)
+        set(BUILD_TESTING OFF) # hide cache variable
 
-    boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
+        boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
+        boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
+        boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
 
-    unset(BUILD_TESTING)
+        unset(BUILD_TESTING)
 
-    # Installation
+    endif()
 
-    include(GNUInstallDirs)
-    include(CMakePackageConfigHelpers)
+endif()
 
-    set(LIB boost_mp11)
-    set(CONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/${LIB}-${PROJECT_VERSION})
+include(BoostInstall OPTIONAL RESULT_VARIABLE HAVE_BOOST_INSTALL)
 
-    install(TARGETS ${LIB} EXPORT ${LIB}-targets)
-    install(EXPORT ${LIB}-targets DESTINATION ${CONFIG_INSTALL_DIR} NAMESPACE Boost:: FILE ${LIB}-config.cmake)
+if(HAVE_BOOST_INSTALL)
 
-    install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-    # Mp11 is independent of 32/64, so this hack makes BoostMp11ConfigVersion.cmake skip the check
-    set(OLD_CMAKE_SIZEOF_VOID_P ${CMAKE_SIZEOF_VOID_P})
-    unset(CMAKE_SIZEOF_VOID_P)
-    write_basic_package_version_file("${PROJECT_BINARY_DIR}/${LIB}-config-version.cmake" COMPATIBILITY AnyNewerVersion)
-    set(CMAKE_SIZEOF_VOID_P ${OLD_CMAKE_SIZEOF_VOID_P})
-
-    install(FILES "${PROJECT_BINARY_DIR}/${LIB}-config-version.cmake" DESTINATION ${CONFIG_INSTALL_DIR})
-
-    #export(EXPORT ${PROJECT_NAME}Targets NAMESPACE Boost:: FILE ${PROJECT_NAME}Config.cmake)
+    boost_install(boost_mp11)
 
 endif()
 

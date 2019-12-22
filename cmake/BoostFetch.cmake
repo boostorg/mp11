@@ -1,4 +1,4 @@
-# Copyright 2018 Peter Dimov
+# Copyright 2018, 2019 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt
 
@@ -34,7 +34,7 @@ endif()
 
 function(boost_fetch)
 
-    cmake_parse_arguments(_ "EXCLUDE_FROM_ALL" "TAG" "" ${ARGN})
+    cmake_parse_arguments(_ "EXCLUDE_FROM_ALL;NO_ADD_SUBDIR" "TAG" "" ${ARGN})
 
     if(NOT __UNPARSED_ARGUMENTS)
 
@@ -78,7 +78,11 @@ function(boost_fetch)
 
         FetchContent_Populate(${NAME})
 
-        if(__EXCLUDE_FROM_ALL)
+        if(__NO_ADD_SUBDIR)
+
+          # Skip add_subdirectory
+
+        elseif(__EXCLUDE_FROM_ALL)
 
           add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR} EXCLUDE_FROM_ALL)
 
