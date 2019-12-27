@@ -6,7 +6,7 @@ language: cpp
 
 sudo: false
 
-dist: trusty
+dist: xenial
 
 branches:
   only:
@@ -114,6 +114,7 @@ matrix:
         - $HOME/lib/cuda-9.1.85/bin/nvcc -x cu -I . -c -std=c++11 libs/mp11/test/mp11.cpp
 
     - os: linux
+      dist: trusty
       compiler: /usr/bin/clang++
       env: TOOLSET=clang COMPILER=/usr/bin/clang++ CXXSTD=11
       addons:
@@ -122,6 +123,7 @@ matrix:
             - clang-3.3
 
     - os: linux
+      dist: trusty
       compiler: /usr/bin/clang++
       env: TOOLSET=clang COMPILER=/usr/bin/clang++ CXXSTD=11
       addons:
@@ -146,6 +148,16 @@ matrix:
         apt:
           packages:
             - clang-3.6
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - os: linux
+      compiler: clang++-3.7
+      env: TOOLSET=clang COMPILER=clang++-3.7 CXXSTD=11,14,1z
+      addons:
+        apt:
+          packages:
+            - clang-3.7
           sources:
             - ubuntu-toolchain-r-test
 
@@ -178,7 +190,6 @@ matrix:
             - clang-4.0
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-4.0
 
     - os: linux
       compiler: clang++-5.0
@@ -189,7 +200,6 @@ matrix:
             - clang-5.0
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
 
     - os: linux
       compiler: clang++-6.0
@@ -200,7 +210,6 @@ matrix:
             - clang-6.0
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
 
     - os: linux
       compiler: clang++-7
@@ -211,7 +220,7 @@ matrix:
             - clang-7
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-7
+            - llvm-toolchain-xenial-7
 
     - os: linux
       compiler: clang++-8
@@ -222,7 +231,7 @@ matrix:
             - clang-8
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-8
+            - llvm-toolchain-xenial-8
 
     - os: linux
       dist: xenial
@@ -257,7 +266,6 @@ matrix:
             - nvidia-cuda-toolkit
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
       script:
         - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++11 libs/mp11/test/mp11.cpp
         - clang++-5.0 -I . -c -x cuda -nocudainc -nocudalib --cuda-gpu-arch=sm_30 -D__device__="__attribute__((device))" -std=c++14 libs/mp11/test/mp11.cpp
