@@ -7,48 +7,46 @@ cmake_minimum_required(VERSION 3.5...3.16)
 project(boost_mp11 VERSION 1.73.0 LANGUAGES CXX)
 
 add_library(boost_mp11 INTERFACE)
-set_property(TARGET boost_mp11 PROPERTY EXPORT_NAME mp11)
-
 add_library(Boost::mp11 ALIAS boost_mp11)
 
-target_include_directories(boost_mp11 INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+target_include_directories(boost_mp11 INTERFACE include)
 target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_templates cxx_decltype)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
-    # Fetch support files
+  # Fetch support files
 
-    message(STATUS "Fetching BoostFetch.cmake")
+  message(STATUS "Fetching BoostFetch.cmake")
 
-    file(DOWNLOAD
-      "https://raw.githubusercontent.com/boostorg/cmake/develop/include/BoostFetch.cmake"
-      "${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake"
-    )
+  file(DOWNLOAD
+    "https://raw.githubusercontent.com/boostorg/cmake/develop/include/BoostFetch.cmake"
+    "${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake"
+  )
 
-    include("${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake")
+  include("${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake")
 
-    boost_fetch(boostorg/cmake TAG develop NO_ADD_SUBDIR)
+  boost_fetch(boostorg/cmake TAG develop NO_ADD_SUBDIR)
 
-    FetchContent_GetProperties(boostorg_cmake)
+  FetchContent_GetProperties(boostorg_cmake)
 
-    list(APPEND CMAKE_MODULE_PATH ${boostorg_cmake_SOURCE_DIR}/include)
+  list(APPEND CMAKE_MODULE_PATH ${boostorg_cmake_SOURCE_DIR}/include)
 
-    # Enable testing
+  # Enable testing
 
-    include(CTest)
-    add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
+  include(CTest)
+  add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
 
-    if(BUILD_TESTING)
+  if(BUILD_TESTING)
 
-        set(BUILD_TESTING OFF) # hide cache variable
+    set(BUILD_TESTING OFF) # hide cache variable
 
-        boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
-        boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
-        boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
 
-        unset(BUILD_TESTING)
+    unset(BUILD_TESTING)
 
-    endif()
+  endif()
 
 endif()
 
@@ -56,14 +54,12 @@ include(BoostInstall OPTIONAL RESULT_VARIABLE HAVE_BOOST_INSTALL)
 
 if(HAVE_BOOST_INSTALL)
 
-    install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-
-    boost_install(boost_mp11)
+  boost_install(TARGETS boost_mp11 HEADER_DIRECTORY include/)
 
 endif()
 
 if(BUILD_TESTING)
 
-    add_subdirectory(test)
+  add_subdirectory(test)
 
 endif()
