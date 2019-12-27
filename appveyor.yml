@@ -31,6 +31,10 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CMAKE: 1
       CONFIG: MinSizeRel
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE_SUBDIR: 1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE_INSTALL: 1
 
 install:
   - set BOOST_BRANCH=develop
@@ -48,8 +52,22 @@ build: off
 
 test_script:
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - if "%CMAKE%" == ""  b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD% address-model=32,64 variant=debug,release
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD% address-model=32,64 variant=debug,release
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
   - if not "%CMAKE%" == ""  cmake --build . --config %CONFIG% && ctest --output-on-failure -R boost_mp11 -C %CONFIG%
+
+  - if not "%CMAKE_SUBDIR%" == ""  cd libs/mp11/test/cmake_subdir_test && mkdir __build__ && cd __build__
+  - if not "%CMAKE_SUBDIR%" == ""  cmake ..
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Debug && cmake --build . --target check --config Debug
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Release && cmake --build . --target check --config Release
+
+  - if not "%CMAKE_INSTALL%" == ""  cd libs/mp11 && mkdir __build__ && cd __build__
+  - if not "%CMAKE_INSTALL%" == ""  cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix ..
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --target install --config Debug
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --target install --config Release
+  - if not "%CMAKE_INSTALL%" == ""  cd ../test/cmake_install_test && mkdir __build__ && cd __build__
+  - if not "%CMAKE_INSTALL%" == ""  cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix ..
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --config Debug && cmake --build . --target check --config Debug
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --config Release && cmake --build . --target check --config Release
