@@ -18,7 +18,14 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     # Fetch support files
 
-    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/BoostFetch.cmake")
+    message(STATUS "Fetching BoostFetch.cmake")
+
+    file(DOWNLOAD
+      "https://raw.githubusercontent.com/boostorg/cmake/develop/include/BoostFetch.cmake"
+      "${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake"
+    )
+
+    include("${CMAKE_BINARY_DIR}/fetch_and_include/BoostFetch.cmake")
 
     boost_fetch(boostorg/cmake TAG develop NO_ADD_SUBDIR)
 
