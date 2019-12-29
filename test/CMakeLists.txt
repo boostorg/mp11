@@ -6,7 +6,7 @@ include(BoostTestJamfile OPTIONAL RESULT_VARIABLE HAVE_BOOST_TEST)
 
 if(HAVE_BOOST_TEST)
 
-boost_test_jamfile(FILE Jamfile LIBRARIES Boost::mp11 Boost::core)
-boost_test(SOURCES check_cmake_version.cpp ARGUMENTS ${PROJECT_VERSION} LIBRARIES Boost::core Boost::config)
+boost_test_jamfile(FILE Jamfile LINK_LIBRARIES Boost::mp11 Boost::core)
+boost_test(SOURCES check_cmake_version.cpp ARGUMENTS ${PROJECT_VERSION} LINK_LIBRARIES Boost::core Boost::config)
 
 endif()
