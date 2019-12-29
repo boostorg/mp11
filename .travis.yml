@@ -328,7 +328,7 @@ matrix:
       env: BOOST_CMAKE=1
       script:
         - mkdir __build__ && cd __build__
-        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=mp11 ..
         - ctest --output-on-failure -R boost_mp11
 
 install:
