@@ -293,7 +293,7 @@ matrix:
 
     - os: linux
       compiler: clang++
-      env: CMAKE=1
+      env: CMAKE_STANDALONE_TEST=1
       install: true
       script:
       - mkdir __build__ && cd __build__
@@ -325,7 +325,7 @@ matrix:
 
     - os: linux
       compiler: clang++
-      env: BOOST_CMAKE=1
+      env: BOOST_CMAKE_TEST=1
       script:
         - mkdir __build__ && cd __build__
         - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=mp11 ..
