@@ -472,6 +472,32 @@ Replaces the element of `L` at zero-based index `I` with `W` and returns the res
 
 Same as `mp_replace_at_c`, but with a type argument `I`. `I::value` must be a nonnegative number.
 
+## mp_rotate_left_c<L, N>
+
+    template<class L, std::size_t N> using mp_rotate_left_c = /*...*/;
+
+Moves the `N % M` initial elements of the list `L` to the back, where `M` is the size of `L`. Empty
+lists are unchanged.
+
+## mp_rotate_left<L, N>
+
+    template<class L, class N> using mp_rotate_left = /*...*/;
+
+Same as `mp_rotate_left_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
+
+## mp_rotate_right_c<L, N>
+
+    template<class L, std::size_t N> using mp_rotate_right_c = /*...*/;
+
+Moves the `N % M` trailing elements of the list `L` to the front, where `M` is the size of `L`. Empty
+lists are unchanged.
+
+## mp_rotate_right<L, N>
+
+    template<class L, class N> using mp_rotate_right = /*...*/;
+
+Same as `mp_rotate_right_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
+
 ## mp_copy_if<L, P>
 
     template<class L, template<class...> class P> using mp_copy_if = /*...*/;
