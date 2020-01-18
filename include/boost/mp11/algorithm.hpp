@@ -1105,22 +1105,13 @@ using mp_starts_with = typename detail::mp_starts_with_impl<L1, L2>::type;
 namespace detail
 {
 
-template<class L, std::size_t N> struct canonical_rotation
-{
-    // provide a default rotation so that "no type named 'type'" errors appear in mp_rotate_impl instead of here
-    using type = mp_size_t<0>;
-};
+// limit divisor to 1 to avoid division by 0 and give a rotation of 0 for lists containing 0 or 1 elements
+template<std::size_t Ln, std::size_t N> using canonical_left_rotation = mp_size_t<N % (Ln == 0? 1: Ln)>;
 
-template<template<class...> class L, class... T, std::size_t N> struct canonical_rotation<L<T...>, N>
-{
-    // limit divisor to 1 to avoid division by 0 and give a rotation of 0 for lists containing 0 or 1 elements
-    using type = mp_size_t<N % (sizeof...(T) == 0 ? 1 : sizeof...(T))>;
-};
-
-template<class L, std::size_t N> using canonical_rotation_t = typename canonical_rotation<L, N>::type;
+// perform right rotation as a left rotation by inverting the number of elements to rotate
+template<std::size_t Ln, std::size_t N> using canonical_right_rotation = mp_size_t<Ln - N % (Ln == 0? 1: Ln)>;
 
 struct left_rotation;
-struct right_rotation;
 
 template<class L, class N, class D> struct mp_rotate_impl
 {
@@ -1139,19 +1130,13 @@ template<template<class...> class L, class... T, std::size_t N> struct mp_rotate
     using type = mp_rename<mp_append<mp_drop_c<mp_list<T...>, N>, mp_take_c<mp_list<T...>, N>>, L>;
 };
 
-template<template<class...> class L, class... T, std::size_t N> struct mp_rotate_impl<L<T...>, mp_size_t<N>, right_rotation>
-{
-    // perform right rotation as a left rotation by inverting the number of elements to rotate
-    using type = typename mp_rotate_impl<L<T...>, canonical_rotation_t<L<T...>, sizeof...(T) - N>, left_rotation>::type;
-};
-
 } // namespace detail
 
-template<class L, std::size_t N> using mp_rotate_left_c = typename detail::mp_rotate_impl<L, detail::canonical_rotation_t<L, N>, detail::left_rotation>::type;
+template<class L, std::size_t N> using mp_rotate_left_c = typename detail::mp_rotate_impl<L, detail::canonical_left_rotation<mp_size<L>::value, N>, detail::left_rotation>::type;
 template<class L, class N> using mp_rotate_left = mp_rotate_left_c<L, std::size_t{ N::value }>;
 
 // mp_rotate_right(_c)<L, N>
-template<class L, std::size_t N> using mp_rotate_right_c = typename detail::mp_rotate_impl<L, detail::canonical_rotation_t<L, N>, detail::right_rotation>::type;
+template<class L, std::size_t N> using mp_rotate_right_c = mp_rotate_left<L, detail::canonical_right_rotation<mp_size<L>::value, N>>;
 template<class L, class N> using mp_rotate_right = mp_rotate_right_c<L, std::size_t{ N::value }>;
 
 // mp_min_element<L, P>
