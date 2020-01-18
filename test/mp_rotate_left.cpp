@@ -1,5 +1,5 @@
 
-//  Copyright 2015 Peter Dimov.
+// Copyright 2015 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -31,9 +31,6 @@ int main()
     {
         using L1 = mp_list<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1>, L1>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L1>, L1>));
-
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 0>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 1>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 2>, L1>));
@@ -47,9 +44,6 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L1, mp_size_t<4>>, L1>));
 
         using L2 = mp_list<X1, X2, X3, X4, X5>;
-
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2>, mp_list<X2, X3, X4, X5, X1>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L2>, mp_list<X2, X3, X4, X5, X1>>));
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2, 0>, mp_list<X1, X2, X3, X4, X5>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2, 1>, mp_list<X2, X3, X4, X5, X1>>));
@@ -79,9 +73,6 @@ int main()
     {
         using L1 = std::tuple<>;
 
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1>, L1>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L1>, L1>));
-
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 0>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 1>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 2>, L1>));
@@ -95,9 +86,6 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L1, mp_size_t<4>>, L1>));
 
         using L2 = std::tuple<X1, X2, X3, X4, X5>;
-
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2>, std::tuple<X2, X3, X4, X5, X1>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L2>, std::tuple<X2, X3, X4, X5, X1>>));
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2, 0>, std::tuple<X1, X2, X3, X4, X5>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L2, 1>, std::tuple<X2, X3, X4, X5, X1>>));
@@ -126,9 +114,6 @@ int main()
 
     {
         using L1 = std::pair<X1, X2>;
-
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1>, std::pair<X2, X1>>));
-        BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left<L1>, std::pair<X2, X1>>));
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 0>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_rotate_left_c<L1, 2>, L1>));
