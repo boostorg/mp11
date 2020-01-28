@@ -132,6 +132,8 @@
 #elif BOOST_MP11_CLANG
 // -pedantic warns about [[deprecated]] when in C++11 mode
 #  define BOOST_MP11_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#elif __SUNPRO_CC
+#  define BOOST_MP11_DEPRECATED(msg)
 #else
 #  define BOOST_MP11_DEPRECATED(msg) [[deprecated(msg)]]
 #endif
