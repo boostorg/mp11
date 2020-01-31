@@ -14,6 +14,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 * Added `mp_unique_if` (contributed by Kris Jusiak)
 * Added `mp_flatten`
+* Added `mp_rotate_left`, `mp_rotate_right` (contributed by Duncan Barber)
 
 ## Changes in 1.70.0
 
