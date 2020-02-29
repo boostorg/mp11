@@ -20,10 +20,12 @@
 # define BOOST_MP11_CONSTEXPR14
 #endif
 
-#if defined( _MSC_VER ) && !defined( __clang__ )
-# define BOOST_MP11_UNREACHABLE() __assume(false)
+#if defined( __GNUC__ ) || defined( __clang__ )
+# define BOOST_MP11_UNREACHABLE_DEFAULT default: __builtin_unreachable();
+#elif defined( _MSC_VER )
+# define BOOST_MP11_UNREACHABLE_DEFAULT default: __assume(false);
 #else
-# define BOOST_MP11_UNREACHABLE() __builtin_unreachable()
+# define BOOST_MP11_UNREACHABLE_DEFAULT
 #endif
 
 namespace boost
@@ -80,7 +82,7 @@ template<> struct mp_with_index_impl_<2>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         }
@@ -93,7 +95,7 @@ template<> struct mp_with_index_impl_<3>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -107,7 +109,7 @@ template<> struct mp_with_index_impl_<4>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -122,7 +124,7 @@ template<> struct mp_with_index_impl_<5>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -138,7 +140,7 @@ template<> struct mp_with_index_impl_<6>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -155,7 +157,7 @@ template<> struct mp_with_index_impl_<7>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -173,7 +175,7 @@ template<> struct mp_with_index_impl_<8>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -192,7 +194,7 @@ template<> struct mp_with_index_impl_<9>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -212,7 +214,7 @@ template<> struct mp_with_index_impl_<10>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -233,7 +235,7 @@ template<> struct mp_with_index_impl_<11>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -255,7 +257,7 @@ template<> struct mp_with_index_impl_<12>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -278,7 +280,7 @@ template<> struct mp_with_index_impl_<13>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -302,7 +304,7 @@ template<> struct mp_with_index_impl_<14>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -327,7 +329,7 @@ template<> struct mp_with_index_impl_<15>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -353,7 +355,7 @@ template<> struct mp_with_index_impl_<16>
     {
         switch( i )
         {
-        default: BOOST_MP11_UNREACHABLE();
+        BOOST_MP11_UNREACHABLE_DEFAULT
         case 0: return std::forward<F>(f)( mp_size_t<K+0>() );
         case 1: return std::forward<F>(f)( mp_size_t<K+1>() );
         case 2: return std::forward<F>(f)( mp_size_t<K+2>() );
@@ -388,7 +390,7 @@ template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F
 }
 
 #undef BOOST_MP11_CONSTEXPR14
-#undef BOOST_MP11_UNREACHABLE
+#undef BOOST_MP11_UNREACHABLE_DEFAULT
 
 } // namespace mp11
 } // namespace boost
