@@ -1,5 +1,5 @@
 ////
-Copyright 2019 Peter Dimov
+Copyright 2019-2020 Peter Dimov
 
 Distributed under the Boost Software License, Version 1.0.
 
@@ -15,6 +15,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `mp_unique_if` (contributed by Kris Jusiak)
 * Added `mp_flatten`
 * Added `mp_rotate_left`, `mp_rotate_right` (contributed by Duncan Barber)
+* Added `mp_compose`
 
 ## Changes in 1.70.0
 

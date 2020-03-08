@@ -1,5 +1,5 @@
 ////
-Copyright 2017, 2019 Peter Dimov
+Copyright 2017-2020 Peter Dimov
 
 Distributed under the Boost Software License, Version 1.0.
 
@@ -288,3 +288,17 @@ That is, it negates the result of `P`.
     template<class Q> using mp_not_fn_q = mp_not_fn<Q::template fn>;
 
 As `mp_not_fn`, but takes a quoted metafunction.
+
+## mp_compose<F...>
+
+    template<template<class...> class... F> struct mp_compose;
+
+`mp_compose<F1, F2, ..., Fn>` is a quoted metafunction that applies
+`F1`, `F2`, ..., `Fn` to its argument, in sequence. That is,
+`mp_compose<F1, F2, ..., Fn>::fn<T>` is `Fn<...F2<F1<T>>...>`.
+
+## mp_compose_q<Q...>
+
+    template<class... Q> using mp_compose_q = mp_compose<Q::template fn...>;
+
+As `mp_compose`, but takes quoted metafunctions.
