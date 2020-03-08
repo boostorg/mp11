@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED
 #define BOOST_MP11_UTILITY_HPP_INCLUDED
 
-// Copyright 2015, 2017, 2019 Peter Dimov.
+// Copyright 2015-2020 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -9,6 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/config.hpp>
 
 namespace boost
@@ -229,6 +231,32 @@ template<template<class...> class P> struct mp_not_fn
 };
 
 template<class Q> using mp_not_fn_q = mp_not_fn<Q::template fn>;
+
+// mp_compose
+namespace detail
+{
+
+template<class T, class Q> using mp_reverse_invoke_q = mp_invoke_q<Q, T>;
+
+} // namespace detail
+
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
+template<template<class...> class... F> struct mp_compose
+{
+    template<class T> using fn = mp_fold<mp_list<mp_quote<F>...>, T, detail::mp_reverse_invoke_q>;
+};
+
+template<class... Q> using mp_compose_q = mp_compose<Q::template fn...>;
+
+#else
+
+template<class... Q> struct mp_compose_q
+{
+    template<class T> using fn = mp_fold<mp_list<Q...>, T, detail::mp_reverse_invoke_q>;
+};
+
+#endif
 
 } // namespace mp11
 } // namespace boost
