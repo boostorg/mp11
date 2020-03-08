@@ -299,6 +299,6 @@ As `mp_not_fn`, but takes a quoted metafunction.
 
 ## mp_compose_q<Q...>
 
-    template<class... Q> using mp_compose_q = mp_compose<Q::template fn...>;
+    template<class... Q> struct mp_compose_q;
 
 As `mp_compose`, but takes quoted metafunctions.
