@@ -247,16 +247,12 @@ template<template<class...> class... F> struct mp_compose
     template<class T> using fn = mp_fold<mp_list<mp_quote<F>...>, T, detail::mp_reverse_invoke_q>;
 };
 
-template<class... Q> using mp_compose_q = mp_compose<Q::template fn...>;
-
-#else
+#endif
 
 template<class... Q> struct mp_compose_q
 {
     template<class T> using fn = mp_fold<mp_list<Q...>, T, detail::mp_reverse_invoke_q>;
 };
-
-#endif
 
 } // namespace mp11
 } // namespace boost
