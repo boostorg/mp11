@@ -1,4 +1,4 @@
-# Copyright 2016-2019 Peter Dimov
+# Copyright 2016-2020 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -22,15 +22,47 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: msvc-14.2
       CXXSTD: 14,17
+
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE: 1
+      CONFIG: Debug
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE: 1
+      CONFIG: Release
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE: 1
+      CONFIG: MinSizeRel
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CMAKE: 1
       CONFIG: Debug
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CMAKE: 1
       CONFIG: Release
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      CMAKE: 1
+      CONFIG: MinSizeRel
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE: 1
+      CONFIG: Debug
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE: 1
+      CONFIG: Release
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CMAKE: 1
       CONFIG: MinSizeRel
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE_SUBDIR: 1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CMAKE_INSTALL: 1
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      CMAKE_SUBDIR: 1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      CMAKE_INSTALL: 1
+
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CMAKE_SUBDIR: 1
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
