@@ -1176,7 +1176,15 @@ namespace detail
 
 template<template<class...> class F> struct mp_partial_sum_impl_f
 {
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1900 )
+
+    template<class V, class T> using fn = mp_list<F<mp_first<V>, T>, mp_push_back<mp_second<V>, F<mp_first<V>, T>> >;
+
+#else
+
     template<class V, class T, class N = F<mp_first<V>, T>> using fn = mp_list<N, mp_push_back<mp_second<V>, N>>;
+
+#endif
 };
 
 } // namespace detail
