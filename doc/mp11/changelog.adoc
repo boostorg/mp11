@@ -17,6 +17,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `mp_rotate_left`, `mp_rotate_right` (contributed by Duncan Barber)
 * Added `mp_compose`
 * Added `mp_power_set`
+* Added `mp_partial_sum`
 
 ## Changes in 1.70.0
 

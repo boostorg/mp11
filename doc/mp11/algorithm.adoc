@@ -713,6 +713,32 @@ As `mp_fold`, but takes a quoted metafunction.
 
 As `mp_reverse_fold`, but takes a quoted metafunction.
 
+## mp_partial_sum<L, V, F>
+
+    template<class L, class V, template<class...> class F> using mp_partial_sum = /*...*/;
+
+`mp_partial_sum<L, V, F>` is similar to `mp_fold<L, V, F>`, but instead of its final result, it returns
+a list (of the same form as `L`) holding the intermediate results of the fold. The last element of the
+result of `mp_partial_sum` is the same as the result of `mp_fold`.
+
+For example, `mp_fold<mp_list<X1, X2, X3>, V, F>` is `F<F<F<V, X1>, X2>, X3>`, but
+`mp_partial_sum<mp_list<X1, X2, X3>, V, F>` is `mp_list<F<V, X1>, F<F<V, X1>, X2>, F<F<F<V, X1>, X2>, X3>>`.
+
+It's common for `F` to be `mp_plus`, in which case the result contains the partial sums of `L`.
+
+.Using mp_partial_sum
+----
+using L1 = mp_list_c<int, 1, 2, 3, 4>;
+using R1 = mp_partial_sum<L1, mp_int<0>, mp_plus>; // mp_list_c<int, 1, 3, 6, 10>
+----
+
+## mp_partial_sum_q<L, V, Q>
+
+    template<class L, class V, class Q> using mp_partial_sum_q =
+        mp_partial_sum<L, V, Q::template fn>;
+
+As `mp_partial_sum`, but takes a quoted metafunction.
+
 ## mp_unique<L>
 
     template<class L> using mp_unique = /*...*/;
