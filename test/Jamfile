@@ -119,6 +119,7 @@ run mp_pop_back.cpp ;
 run mp_flatten.cpp ;
 run mp_rotate_left.cpp ;
 run mp_rotate_right.cpp ;
+run mp_power_set.cpp ;
 
 # integral
 run integral.cpp ;

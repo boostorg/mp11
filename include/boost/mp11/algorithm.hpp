@@ -1127,6 +1127,37 @@ template<class L, class N> using mp_rotate_right = mp_rotate_right_c<L, std::siz
 // mp_max_element<L, P>
 //   in detail/mp_min_element.hpp
 
+// mp_power_set<L>
+namespace detail
+{
+
+template<class L> struct mp_power_set_impl;
+
+} // namespace detail
+
+template<class L> using mp_power_set = typename detail::mp_power_set_impl<L>::type;
+
+namespace detail
+{
+
+template<template<class...> class L> struct mp_power_set_impl< L<> >
+{
+    using type = L< L<> >;
+};
+
+template<template<class...> class L, class T1, class... T> struct mp_power_set_impl< L<T1, T...> >
+{
+    using S1 = mp_power_set< L<T...> >;
+
+    template<class L2> using _f = mp_push_front<L2, T1>;
+
+    using S2 = mp_transform<_f, S1>;
+
+    using type = mp_append< S1, S2 >;
+};
+
+} // namespace detail
+
 } // namespace mp11
 } // namespace boost
 
