@@ -1170,6 +1170,20 @@ template<template<class...> class L, class T1, class... T> struct mp_power_set_i
 
 } // namespace detail
 
+// mp_partial_sum<L, V, F>
+namespace detail
+{
+
+template<template<class...> class F> struct mp_partial_sum_impl_f
+{
+    template<class V, class T, class N = F<mp_first<V>, T>> using fn = mp_list<N, mp_push_back<mp_second<V>, N>>;
+};
+
+} // namespace detail
+
+template<class L, class V, template<class...> class F> using mp_partial_sum = mp_second<mp_fold_q<L, mp_list<V, mp_clear<L>>, detail::mp_partial_sum_impl_f<F>> >;
+template<class L, class V, class Q> using mp_partial_sum_q = mp_partial_sum<L, V, Q::template fn>;
+
 } // namespace mp11
 } // namespace boost
 
