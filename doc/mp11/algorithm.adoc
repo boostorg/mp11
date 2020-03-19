@@ -284,6 +284,20 @@ It returns a list of the form `L1<V...>` containing the results of the applicati
 
 As `mp_product`, but takes a quoted metafunction.
 
+## mp_power_set<L>
+
+    template<class L> using mp_power_set = /*...*/;
+
+`mp_power_set<L>` returns a list (of the same form as `L`) of all possible 2^n^ subsets of `L` (where `n` is the length of `L`.)
+
+`mp_power_set<L<>>` returns `L<L<>>`.
+
+`mp_power_set<L<T1>>` returns `L<L<>, L<T1>>`.
+
+`mp_power_set<L<T1, T2>>` returns `L<L<>, L<T2>, L<T1>, L<T1, T2>>`.
+
+`mp_power_set<L<T1, T...>>` returns the concatenation of `mp_power_set<L<T...>>` and that same list with `T1` prepended to each element.
+
 ## mp_drop_c<L, N>
 
     template<class L, std::size_t N> using mp_drop_c = /*...*/;
