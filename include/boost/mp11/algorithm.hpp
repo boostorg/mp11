@@ -1140,10 +1140,22 @@ template<class L> using mp_power_set = typename detail::mp_power_set_impl<L>::ty
 namespace detail
 {
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
+
+template<template<class...> class L, class... T> struct mp_power_set_impl< L<T...> >
+{
+    static_assert( sizeof...(T) == 0, "T... must be empty" );
+    using type = L< L<> >;
+};
+
+#else
+
 template<template<class...> class L> struct mp_power_set_impl< L<> >
 {
     using type = L< L<> >;
 };
+
+#endif
 
 template<template<class...> class L, class T1, class... T> struct mp_power_set_impl< L<T1, T...> >
 {
