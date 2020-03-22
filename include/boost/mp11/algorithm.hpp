@@ -1192,6 +1192,34 @@ template<template<class...> class F> struct mp_partial_sum_impl_f
 template<class L, class V, template<class...> class F> using mp_partial_sum = mp_second<mp_fold_q<L, mp_list<V, mp_clear<L>>, detail::mp_partial_sum_impl_f<F>> >;
 template<class L, class V, class Q> using mp_partial_sum_q = mp_partial_sum<L, V, Q::template fn>;
 
+// mp_iterate<V, F, R>
+namespace detail
+{
+
+template<class V, template<class...> class F, template<class...> class R, class N> struct mp_iterate_impl;
+
+} // namespace detail
+
+template<class V, template<class...> class F, template<class...> class R> using mp_iterate = typename detail::mp_iterate_impl<V, F, R, mp_valid<R, V>>::type;
+
+namespace detail
+{
+
+template<class V, template<class...> class F, template<class...> class R> struct mp_iterate_impl<V, F, R, mp_false>
+{
+    template<class X> using _f = mp_list<F<X>>;
+    using type = mp_eval_or<mp_list<>, _f, V>;
+};
+
+template<class V, template<class...> class F, template<class...> class R> struct mp_iterate_impl<V, F, R, mp_true>
+{
+    using type = mp_push_front<mp_iterate<R<V>, F, R>, F<V>>;
+};
+
+} // namespace detail
+
+template<class V, class Qf, class Qr> using mp_iterate_q = mp_iterate<V, Qf::template fn, Qr::template fn>;
+
 } // namespace mp11
 } // namespace boost
 
