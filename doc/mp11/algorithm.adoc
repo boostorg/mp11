@@ -739,6 +739,60 @@ using R1 = mp_partial_sum<L1, mp_int<0>, mp_plus>; // mp_list_c<int, 1, 3, 6, 10
 
 As `mp_partial_sum`, but takes a quoted metafunction.
 
+## mp_iterate<V, F, R>
+
+    template<class V, template<class...> class F, template<class...> class R>
+        using mp_iterate = /*...*/;
+
+`mp_iterate<V, F, R>` applies `R` to `V` successively until that's no longer possible,
+yielding the sequence `V`, `R<V>`, `R<R<V>>`, `R<R<R<V>>>`...
+
+It then returns an `mp_list` whose elements are formed by applying `F` to the above
+sequence of values. That is, it returns `mp_list<F<V>, F<R<V>>, F<R<R<V>>>, ...>`.
+
+`mp_iterate` is in a way the reverse operation of `mp_reverse_fold`. Given
+
+    template<class T, class U> struct cons {};
+    struct nil {};
+
+`mp_reverse_fold<mp_list<X1, X2, X3>, nil, cons>` produces `cons<X1, cons<X2, cons<X3, nil>>>`,
+which when passed as `V` to `mp_iterate<V, mp_first, mp_second>` recovers the original
+`mp_list<X1, X2, X3>`.
+
+.Using mp_iterate
+----
+struct X1 {};
+struct X2 {};
+struct X3 {};
+
+using L1 = mp_list<X1, X2, X3>;
+using R1 = mp_iterate<L1, mp_first, mp_rest>; // L1
+
+template<class T, class U> struct cons {};
+struct nil {};
+
+using V2 = mp_reverse_fold<L1, nil, cons>; // cons<X1, cons<X2, cons<X3, nil>>>
+using R2 = mp_iterate<V2, mp_first, mp_second>; // L1
+
+struct Y1 {};
+struct Y2 { using value_type = double; using next_type = Y1; };
+struct Y3 { using value_type = float; using next_type = Y2; };
+struct Y4 { using value_type = int; using next_type = Y3; };
+
+template<class T> using value_type = typename T::value_type;
+template<class T> using next_type = typename T::next_type;
+
+using R3 = mp_iterate<Y4, mp_identity_t, next_type>; // mp_list<Y4, Y3, Y2, Y1>
+using R4 = mp_iterate<Y4, value_type, next_type>; // mp_list<int, float, double>
+----
+
+## mp_iterate_q<V, Qf, Qr>
+
+    template<class V, class Qf, class Qr> using mp_iterate_q =
+        mp_iterate<V, Qf::template fn, Qr::template fn>;
+
+As `mp_iterate`, but takes quoted metafunctions.
+
 ## mp_unique<L>
 
     template<class L> using mp_unique = /*...*/;

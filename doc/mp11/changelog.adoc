@@ -18,6 +18,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `mp_compose`
 * Added `mp_power_set`
 * Added `mp_partial_sum`
+* Added `mp_iterate`
 
 ## Changes in 1.70.0
 
