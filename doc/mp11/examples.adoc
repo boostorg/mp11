@@ -410,21 +410,28 @@ We'll first define a helper quoted metafunction `Qret<F>` that returns the resul
             decltype( std::declval<F>()( std::declval<T>()... ) );
     };
 
-(Unfortunately, we can't just define this metafunction inside `rvisit`; the language prohibits defining template aliases inside functions.)
+Unfortunately, we can't just define this metafunction inside `rvisit`; the language prohibits defining template aliases inside functions.
+But we can make use of another C++17 feature for an alternative which can be defined inside and simplifies the implementation further:
+
+    using Qret_F = mp_bind_front<std::invoke_result_t, F>;
 
 With `Qret` in hand, a `variant` of the possible return types is just a matter of applying it over the possible combinations of the variant values:
 
-    using R = mp_product_q<Qret<F>, std::remove_reference_t<V>...>;
+    using R = mp_product_q<Qret<F>, std::decay_t<V>...>;
+    // or
+    using R = mp_product_q<Qret_F, std::decay_t<V>...>;
 
 Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
 possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`. (`mp_product_q` is
-the same as `mp_product`, but for quoted metafunctions such as our `Qret<F>`.)
+the same as `mp_product`, but for quoted metafunctions such as our `Qret<F>` or `Qret_F`.)   We needed to use `std::decay_t` for precisely the
+same reason as in the link:#fixing-tuple_cat[Fixing tuple_cat example], where `std::decay_t` is an equivalent alternative to `remove_cv_ref`.
+
 
 One more step remains. Suppose that, as above, we're passing two variants of type `std::variant<short, int, float>` and `F` is
 `[]( auto const& x, auto const& y ){ return x + y; }`. This will generate `R` of length 9, one per each combination, but many of those
 elements will be the same, either `int` or `float`, and we need to filter out the duplicates. So, we pass the result to `mp_unique`:
 
-    using R = mp_unique<mp_product_q<Qret<F>, std::remove_reference_t<V>...>>;
+    using R = mp_unique<mp_product_q<Qret_F, std::decay_t<V>...>>;
 
 and we're done:
 
@@ -438,15 +445,11 @@ and we're done:
 
 using namespace boost::mp11;
 
-template<class F> struct Qret
-{
-    template<class... T> using fn =
-        decltype( std::declval<F>()( std::declval<T>()... ) );
-};
 
 template<class F, class... V> auto rvisit( F&& f, V&&... v )
 {
-    using R = mp_unique<mp_product_q<Qret<F>, std::remove_reference_t<V>...>>;
+    using Qret_F = mp_bind_front<std::invoke_result_t, F>;
+    using R = mp_unique<mp_product_q<Qret_F, std::decay_t<V>...>>;
 
     return std::visit( [&]( auto&&... x )
         { return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); },
