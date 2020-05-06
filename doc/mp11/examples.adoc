@@ -264,6 +264,7 @@ Long story short, we need `std::move(tp)` in `tuple_cat_` to make `tp` an rvalue
         return R{ std::get<Ks::value>(std::get<Is::value>(std::move(tp)))... };
     }
 
+[[fixing-tuple-cat-const-issue]]
 Next, `const`-qualified tuples. The issue here is that we're stripping references from the input tuples, but not
 `const`. As a result, we're trying to manipulate types such as `tuple<int> const` with Mp11 algorithms, and these
 types do not fit the list concept. We just need to strip qualifiers as well, by defining the useful `remove_cv_ref`
@@ -424,7 +425,7 @@ With `Qret` in hand, a `variant` of the possible return types is just a matter o
 Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
 possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`. (`mp_product_q` is
 the same as `mp_product`, but for quoted metafunctions such as our `Qret<F>` or `Qret_F`.)   We needed to use `std::decay_t` for precisely the
-same reason as in the link:#fixing-tuple_cat[Fixing tuple_cat example], where `std::decay_t` is an equivalent alternative to `remove_cv_ref`.
+same reason as in the <<fixing-tuple-cat-const-issue,Fixing tuple_cat example>>, where `std::decay_t` is an equivalent alternative to `remove_cv_ref`.
 
 
 One more step remains. Suppose that, as above, we're passing two variants of type `std::variant<short, int, float>` and `F` is
