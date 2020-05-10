@@ -10,6 +10,10 @@ http://www.boost.org/LICENSE_1_0.txt
 [#changelog]
 # Revision History
 
+## Changes in 1.74.0
+
+* Improve compilation performance of `mp_with_index<N>` for large `N`
+
 ## Changes in 1.73.0
 
 * Added `mp_unique_if` (contributed by Kris Jusiak)
