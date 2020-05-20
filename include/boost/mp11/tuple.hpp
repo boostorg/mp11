@@ -86,6 +86,31 @@ template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F &
     return detail::tuple_for_each_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
 }
 
+// tuple_transform
+namespace detail
+{
+
+template<template<class...>class Tp, class... Ts, std::size_t... J, class F> BOOST_MP11_CONSTEXPR F tuple_transform_impl( Tp<Ts...> && tp, integer_sequence<std::size_t, J...>, F && f )
+{
+    // warning: evaluation order is platform-dependent
+    return Tp<
+      typename std::decay<decltype(f(std::declval<Ts>()))>::type...
+    >(f(std::get<J>(std::forward<Tp<Ts...>>(tp)))...);
+}
+
+template<class Tp, class F> BOOST_MP11_CONSTEXPR std::tuple<> tuple_transform_impl( Tp && /*tp*/, integer_sequence<std::size_t>, F && f )
+{
+    return {};
+}
+
+} // namespace detail
+
+template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_transform( Tp && tp, F && f )
+{
+    using seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>;
+    return detail::tuple_transform_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
+}
+
 } // namespace mp11
 } // namespace boost
 
