@@ -90,25 +90,74 @@ template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F &
 namespace detail
 {
 
-template<template<class...>class Tp, class... Ts, std::size_t... J, class F> BOOST_MP11_CONSTEXPR F tuple_transform_impl( Tp<Ts...> && tp, integer_sequence<std::size_t, J...>, F && f )
+template<
+  template <class...> class Tp,
+  class... Ts,
+  std::size_t... J,
+  class F,
+  class R = Tp<
+    typename std::decay<
+      decltype(
+        std::declval<F>()(std::declval<Ts>())
+      )
+    >::type...
+  >
+>
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> && tp, integer_sequence<std::size_t, J...>, F && f )
 {
-    // warning: evaluation order is platform-dependent
-    return Tp<
-      typename std::decay<decltype(f(std::declval<Ts>()))>::type...
-    >(f(std::get<J>(std::forward<Tp<Ts...>>(tp)))...);
+    return R(f(std::get<J>(std::move(tp)))...);
 }
 
-template<class Tp, class F> BOOST_MP11_CONSTEXPR std::tuple<> tuple_transform_impl( Tp && /*tp*/, integer_sequence<std::size_t>, F && f )
+template<
+  template <class...> class Tp,
+  class... Ts,
+  std::size_t... J,
+  class F,
+  class R = Tp<
+    typename std::decay<
+      decltype(
+        std::declval<F>()(std::declval<Ts&>())
+      )
+    >::type...
+  >
+>
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> & tp, integer_sequence<std::size_t, J...>, F && f )
 {
-    return {};
+    return R(f(std::get<J>(tp))...);
+}
+
+template<
+  template <class...> class Tp,
+  class... Ts,
+  std::size_t... J,
+  class F,
+  class R = Tp<
+    typename std::decay<
+      decltype(
+        std::declval<F>()(std::declval<Ts const&>())
+      )
+    >::type...
+  >
+>
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const& tp, integer_sequence<std::size_t, J...>, F && f )
+{
+    return R(f(std::get<J>(tp))...);
 }
 
 } // namespace detail
 
-template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_transform( Tp && tp, F && f )
+// warning: evaluation order is platform-dependent
+template<
+  class Tp,
+  class F,
+  class Seq = make_index_sequence<
+    std::tuple_size<typename std::remove_reference<Tp>::type>::value
+  >
+>
+BOOST_MP11_CONSTEXPR auto tuple_transform( Tp && tp, F && f )
+  -> decltype(detail::tuple_transform_impl( std::forward<Tp>(tp), Seq(), std::forward<F>(f) ))
 {
-    using seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>;
-    return detail::tuple_transform_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
+    return detail::tuple_transform_impl( std::forward<Tp>(tp), Seq(), std::forward<F>(f) );
 }
 
 } // namespace mp11
