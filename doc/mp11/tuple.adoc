@@ -36,3 +36,9 @@ The name of the function doesn't match the {cpp}17 one to avoid ambiguities when
 expression `f(std::get<J>(std::forward<Tp>(tp)))` for `J` in 0..`N-1`, where `N` is `std::tuple_size<typename std::remove_reference<Tp>::type>::value`.
 
 Returns `std::forward<F>(f)`.
+
+## tuple_transform(tp, f)
+
+    template<class Tp, class F> constexpr /*...*/ tuple_transform(Tp&& tp, F&& f);
+
+`tuple_transform(tp, f)` applies the function object `f` to each element of `tp` by evaluating the expression `f(std::get<J>(std::forward<Tp>(tp)))` for `J` in 0..`N-1`, where `N` is `std::tuple_size<typename std::remove_reference<Tp>::type>::value` and constructs a new tuple that holds the results of these evaluations. `tuple_transform` also accepts `std::pair`. Warning: The evaluation order of the function object `f` is undefined.

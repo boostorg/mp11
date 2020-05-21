@@ -10,9 +10,7 @@
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
-#include <memory>
 #include <utility>
-#include <array>
 #include <iosfwd>
 
 // family of test types with state
@@ -28,22 +26,34 @@ std::ostream& operator<<( std::ostream& os, T<N> const& t )
     return os;
 }
 
-// function changes type and value
+// test function changes type and value
 struct F {
+    template <int N> T<N+1> operator()( T<N> & t) const
+    {
+        T<N+1> r;
+        r.value += 1;
+        return r;
+    }
+
+    template <int N> T<N+1> operator()( T<N> && t) const
+    {
+        T<N+1> r;
+        r.value += 2;
+        return r;
+    }
+
     template <int N> T<N+1> operator()( T<N> const& t) const
     {
         T<N+1> r;
-        ++r.value;
+        r.value += 3;
         return r;
     }
-};
 
-struct ostreamer {
-    std::ostream& os_;
-    ostreamer(std::ostream& os) : os_(os) {}
-    template <class T> void operator()( T const& t ) const
+    template <int N> T<N+1> operator()( T<N> const&& t) const
     {
-        os_ << t << " ";
+        T<N+1> r;
+        r.value += 4;
+        return r;
     }
 };
 
@@ -62,8 +72,8 @@ int main()
 
         {
             std::tuple<T<2>, T<3>> s = tuple_transform( std::move(tp), F{} );
-            BOOST_TEST_EQ( std::get<0>(s).value, 3 );
-            BOOST_TEST_EQ( std::get<1>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<0>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 5 );
         }
     }
 
@@ -72,14 +82,14 @@ int main()
 
         {
             std::tuple<T<2>, T<3>> s = tuple_transform( tp , F{} );
-            BOOST_TEST_EQ( std::get<0>(s).value, 3 );
-            BOOST_TEST_EQ( std::get<1>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<0>(s).value, 5 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 6 );
         }
 
         {
             std::tuple<T<2>, T<3>> s = tuple_transform( std::move(tp) , F{} );
-            BOOST_TEST_EQ( std::get<0>(s).value, 3 );
-            BOOST_TEST_EQ( std::get<1>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<0>(s).value, 6 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
     }
 
@@ -93,9 +103,25 @@ int main()
         }
 
         {
+            std::pair<T<2>, T<3>> s = tuple_transform( std::move(tp), F{} );
+            BOOST_TEST_EQ( std::get<0>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 5 );
+        }
+    }
+
+    {
+        std::pair<T<1>, T<2>> const tp;
+
+        {
             std::pair<T<2>, T<3>> s = tuple_transform( tp, F{} );
-            BOOST_TEST_EQ( std::get<0>(s).value, 3 );
-            BOOST_TEST_EQ( std::get<1>(s).value, 4 );
+            BOOST_TEST_EQ( std::get<0>(s).value, 5 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 6 );
+        }
+
+        {
+            std::pair<T<2>, T<3>> s = tuple_transform( std::move(tp), F{} );
+            BOOST_TEST_EQ( std::get<0>(s).value, 6 );
+            BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
     }
 

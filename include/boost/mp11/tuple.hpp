@@ -96,11 +96,7 @@ template<
   std::size_t... J,
   class F,
   class R = Tp<
-    typename std::decay<
-      decltype(
-        std::declval<F>()(std::declval<Ts>())
-      )
-    >::type...
+    decltype(std::declval<F>()(std::declval<Ts>()))...
   >
 >
 BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> && tp, integer_sequence<std::size_t, J...>, F && f )
@@ -114,11 +110,7 @@ template<
   std::size_t... J,
   class F,
   class R = Tp<
-    typename std::decay<
-      decltype(
-        std::declval<F>()(std::declval<Ts&>())
-      )
-    >::type...
+    decltype(std::declval<F>()(std::declval<Ts&>()))...
   >
 >
 BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> & tp, integer_sequence<std::size_t, J...>, F && f )
@@ -132,16 +124,26 @@ template<
   std::size_t... J,
   class F,
   class R = Tp<
-    typename std::decay<
-      decltype(
-        std::declval<F>()(std::declval<Ts const&>())
-      )
-    >::type...
+    decltype(std::declval<F>()(std::declval<Ts const&>()))...
   >
 >
 BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const& tp, integer_sequence<std::size_t, J...>, F && f )
 {
     return R(f(std::get<J>(tp))...);
+}
+
+template<
+  template <class...> class Tp,
+  class... Ts,
+  std::size_t... J,
+  class F,
+  class R = Tp<
+    decltype(std::declval<F>()(std::declval<Ts const>()))...
+  >
+>
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const&& tp, integer_sequence<std::size_t, J...>, F && f )
+{
+    return R(f(std::get<J>(std::move(tp)))...);
 }
 
 } // namespace detail
@@ -155,9 +157,13 @@ template<
   >
 >
 BOOST_MP11_CONSTEXPR auto tuple_transform( Tp && tp, F && f )
-  -> decltype(detail::tuple_transform_impl( std::forward<Tp>(tp), Seq(), std::forward<F>(f) ))
+  -> decltype(detail::tuple_transform_impl(
+       std::forward<Tp>(tp), Seq(), std::forward<F>(f)
+     ))
 {
-    return detail::tuple_transform_impl( std::forward<Tp>(tp), Seq(), std::forward<F>(f) );
+    return detail::tuple_transform_impl(
+      std::forward<Tp>(tp), Seq(), std::forward<F>(f)
+    );
 }
 
 } // namespace mp11

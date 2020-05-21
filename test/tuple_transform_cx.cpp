@@ -1,15 +1,10 @@
 
-// Copyright 2015 Peter Dimov.
+// Copyright 2020 Hans Dembinski.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
-
-
-#if defined(_MSC_VER)
-#pragma warning( disable: 4244 ) // 'initializing': conversion from 'int' to 'char', possible loss of data
-#endif
 
 #include <boost/mp11/tuple.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -25,21 +20,21 @@ int main() {}
 #include <tuple>
 #include <type_traits>
 
-struct assert_is_integral
+struct F
 {
     template<class T> constexpr bool operator()( T ) const
     {
-        static_assert( std::is_integral<T>::value, "T must be an integral type" );
-        return true;
+        return std::is_integral<T>::value;
     }
 };
 
 int main()
 {
     {
-        constexpr std::tuple<int, short, char> tp{ 1, 2, 3 };
-        constexpr auto r = boost::mp11::tuple_for_each( tp, assert_is_integral() );
-        (void)r;
+        constexpr std::tuple<int, float> tp;
+        constexpr std::tuple<bool, bool> r = boost::mp11::tuple_transform( tp, F{} );
+        static_assert(std::get<0>(r).value == true, "get<0>(r).value == true" );
+        static_assert(std::get<1>(r).value == false, "get<1>(r).value == false" );
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
@@ -48,8 +43,8 @@ int main()
 
     {
         constexpr std::tuple<> tp;
-        constexpr auto r = boost::mp11::tuple_for_each( tp, 11 );
-        static_assert( r == 11, "r == 11" );
+        constexpr std::tuple<> r = boost::mp11::tuple_transform( tp, F{} );
+        void(r);
     }
 
 #endif
