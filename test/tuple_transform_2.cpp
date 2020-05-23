@@ -63,8 +63,6 @@ int main()
         BOOST_TEST_EQ( std::get<0>( r ), 2 );
     }
 
-#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
-
     {
         std::tuple<int> r = tuple_transform( g, ::make_array( 1 ), std::make_tuple( 2 ) );
 
@@ -76,8 +74,6 @@ int main()
 
         BOOST_TEST_EQ( std::get<0>( r ), 6 );
     }
-
-#endif
 
     //
 
@@ -102,8 +98,6 @@ int main()
         BOOST_TEST_EQ( std::get<1>( r ), 3 );
     }
 
-#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
-
     {
         std::tuple<int, int> r = tuple_transform( g, ::make_array( 1, 2 ), std::make_pair( 3, 4 ) );
 
@@ -117,8 +111,6 @@ int main()
         BOOST_TEST_EQ( std::get<0>( r ), 9 );
         BOOST_TEST_EQ( std::get<1>( r ), 12 );
     }
-
-#endif
 
     //
 
@@ -138,8 +130,6 @@ int main()
         BOOST_TEST_EQ( std::get<2>( r ), 4 );
     }
 
-#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
-
     {
         std::tuple<int, int, int> r = tuple_transform( g, ::make_array( 1, 2, 3 ), std::make_tuple( 4, 5, 6 ) );
 
@@ -155,8 +145,6 @@ int main()
         BOOST_TEST_EQ( std::get<1>( r ), 15 );
         BOOST_TEST_EQ( std::get<2>( r ), 18 );
     }
-
-#endif
 
 #if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
