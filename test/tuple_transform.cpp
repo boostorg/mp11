@@ -115,25 +115,25 @@ int main()
         std::pair<T<3>, T<4>> tp2;
 
         {
-            std::pair<T<2>, T<3>> s = tuple_transform( F{}, tp );
+            std::tuple<T<2>, T<3>> s = tuple_transform( F{}, tp );
             BOOST_TEST_EQ( std::get<0>(s).value, 3 );
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
         {
-            std::pair<T<2>, T<3>> s = tuple_transform( F{}, std::move(tp) );
+            std::tuple<T<2>, T<3>> s = tuple_transform( F{}, std::move(tp) );
             BOOST_TEST_EQ( std::get<0>(s).value, 3 );
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
         {
-            std::pair<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
+            std::tuple<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
             BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
 
         {
-            std::pair<T<4>, T<6>> s = tuple_transform(
+            std::tuple<T<4>, T<6>> s = tuple_transform(
                 F{}, std::move(tp), std::move(tp2)
             );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
@@ -146,25 +146,25 @@ int main()
         std::pair<T<3>, T<4>> const tp2;
 
         {
-            std::pair<T<2>, T<3>> s = tuple_transform( F{}, tp );
+            std::tuple<T<2>, T<3>> s = tuple_transform( F{}, tp );
             BOOST_TEST_EQ( std::get<0>(s).value, 3 );
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
         {
-            std::pair<T<2>, T<3>> s = tuple_transform( F{}, std::move(tp) );
+            std::tuple<T<2>, T<3>> s = tuple_transform( F{}, std::move(tp) );
             BOOST_TEST_EQ( std::get<0>(s).value, 3 );
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
         {
-            std::pair<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
+            std::tuple<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
             BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
 
         {
-            std::pair<T<4>, T<6>> s = tuple_transform(
+            std::tuple<T<4>, T<6>> s = tuple_transform(
                 F{}, std::move(tp), std::move(tp2)
             );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
