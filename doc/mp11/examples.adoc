@@ -370,7 +370,7 @@ template<class... Tp,
 
 ## Computing Return Types
 
-C++17 has a standard variant type, called `std::variant`. It also defines a function template
+{cpp}17 has a standard variant type, called `std::variant`. It also defines a function template
 `std::visit` that can be used to apply a function to the contained value of one or more variants.
 So for instance, if the variant `v1` contains `1`, and the variant `v2` contains `2.0f`,
 `std::visit(f, v1, v2)` will call `f(1, 2.0f)`.
@@ -410,21 +410,31 @@ We'll first define a helper quoted metafunction `Qret<F>` that returns the resul
             decltype( std::declval<F>()( std::declval<T>()... ) );
     };
 
-(Unfortunately, we can't just define this metafunction inside `rvisit`; the language prohibits defining template aliases inside functions.)
+It turns out that {cpp}17 already contains a metafunction that returns the result of the application of a function `F` to arguments
+of type `T...`: `std::invoke_result_t<F, T...>`. We can make use of it to simplify our `Qret` to
+
+    template<class F> struct Qret
+    {
+        template<class... T> using fn = std::invoke_result_t<F, T...>;
+    };
+
+which in Mp11 can be expressed more concisely as
+
+    using Qret = mp_bind_front<std::invoke_result_t, F>;
 
 With `Qret` in hand, a `variant` of the possible return types is just a matter of applying it over the possible combinations of the variant values:
 
-    using R = mp_product_q<Qret<F>, std::remove_reference_t<V>...>;
+    using R = mp_product_q<Qret, remove_cv_ref<V>...>;
 
 Why does this work? `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` returns `L1<F<U1, U2, ..., Un>, ...>`, where `Ui` traverse all
 possible combinations of list values. Since in our case all `Li` are `std::variant`, the result will also be `std::variant`. (`mp_product_q` is
-the same as `mp_product`, but for quoted metafunctions such as our `Qret<F>`.)
+the same as `mp_product`, but for quoted metafunctions such as our `Qret`.)
 
 One more step remains. Suppose that, as above, we're passing two variants of type `std::variant<short, int, float>` and `F` is
 `[]( auto const& x, auto const& y ){ return x + y; }`. This will generate `R` of length 9, one per each combination, but many of those
 elements will be the same, either `int` or `float`, and we need to filter out the duplicates. So, we pass the result to `mp_unique`:
 
-    using R = mp_unique<mp_product_q<Qret<F>, std::remove_reference_t<V>...>>;
+    using R = mp_unique<mp_product_q<Qret, remove_cv_ref<V>...>>;
 
 and we're done:
 
@@ -438,15 +448,14 @@ and we're done:
 
 using namespace boost::mp11;
 
-template<class F> struct Qret
-{
-    template<class... T> using fn =
-        decltype( std::declval<F>()( std::declval<T>()... ) );
-};
+template<class T> using remove_cv_ref = typename std::remove_cv<
+    typename std::remove_reference<T>::type>::type;
 
 template<class F, class... V> auto rvisit( F&& f, V&&... v )
 {
-    using R = mp_unique<mp_product_q<Qret<F>, std::remove_reference_t<V>...>>;
+    using Qret = mp_bind_front<std::invoke_result_t, F>;
+
+    using R = mp_unique<mp_product_q<Qret, remove_cv_ref<V>...>>;
 
     return std::visit( [&]( auto&&... x )
         { return R( std::forward<F>(f)( std::forward<decltype(x)>(x)... ) ); },
@@ -472,7 +481,7 @@ int main()
 
     print_variant( "v1", v1 );
 
-    std::variant<short, int, double> v2( 3.14 );
+    std::variant<short, int, double> const v2( 3.14 );
 
     print_variant( "v2", v2 );
 
