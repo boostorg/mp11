@@ -58,6 +58,8 @@ int main()
             BOOST_TEST_EQ( std::get<2>(s).value, 5 );
         }
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
         {
             std::tuple<T<5>, T<7>, T<9>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 6 );
@@ -73,6 +75,8 @@ int main()
             BOOST_TEST_EQ( std::get<1>(s).value, 8 );
             BOOST_TEST_EQ( std::get<2>(s).value, 10 );
         }
+#endif
+
     }
 
     {
@@ -93,6 +97,8 @@ int main()
             BOOST_TEST_EQ( std::get<2>(s).value, 5 );
         }
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
         {
             std::tuple<T<5>, T<7>, T<9>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 6 );
@@ -108,6 +114,8 @@ int main()
             BOOST_TEST_EQ( std::get<1>(s).value, 8 );
             BOOST_TEST_EQ( std::get<2>(s).value, 10 );
         }
+#endif
+
     }
 
     {
@@ -126,6 +134,8 @@ int main()
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
         {
             std::tuple<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
@@ -139,6 +149,9 @@ int main()
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
             BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
+
+#endif
+
     }
 
     {
@@ -157,6 +170,8 @@ int main()
             BOOST_TEST_EQ( std::get<1>(s).value, 4 );
         }
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
         {
             std::tuple<T<4>, T<6>> s = tuple_transform( F{}, tp, tp2 );
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
@@ -170,7 +185,10 @@ int main()
             BOOST_TEST_EQ( std::get<0>(s).value, 5 );
             BOOST_TEST_EQ( std::get<1>(s).value, 7 );
         }
-    }
+
+#endif
+
+	}
 
     {
         std::tuple<> tp;
