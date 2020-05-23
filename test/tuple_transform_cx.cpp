@@ -1,10 +1,8 @@
-
-// Copyright 2020 Hans Dembinski.
+// Copyright 2015, 2020 Peter Dimov
+// Copyright 2020 Hans Dembinski
 //
 // Distributed under the Boost Software License, Version 1.0.
-//
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
+// https://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/tuple.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -18,45 +16,37 @@ int main() {}
 #else
 
 #include <tuple>
-#include <type_traits>
+#include <utility>
 
-// family of test types with state
-template <int N>
-struct T {
-    int value;
-    constexpr T() : value{N} {};
-    constexpr explicit T(int n) : value{n} {}
-};
-
-struct F
+constexpr int f( int x )
 {
-    template<int N, int M=1> constexpr T<N+M> operator()( T<N> a, T<M> b={} ) const
-    {
-        return T<N+M>{a.value + b.value + 1};
-    }
-};
+    return x + 1;
+}
+
+constexpr int g( int x, int y )
+{
+    return x + y + 1;
+}
+
+#define STATIC_ASSERT(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
 
 int main()
 {
     {
-        constexpr std::tuple<T<1>, T<2>> tp;
-        constexpr std::tuple<T<3>, T<4>> tp2;
+        constexpr std::tuple<int, int, int> tp( 1, 2, 3 );
 
-        {
-            constexpr std::tuple<T<2>, T<3>> r = boost::mp11::tuple_transform(
-                F{}, tp
-            );
-            static_assert(std::get<0>(r).value == 3, "get<0>(r).value == 3" );
-            static_assert(std::get<1>(r).value == 4, "get<1>(r).value == 4" );
-        }
+        constexpr auto r = boost::mp11::tuple_transform( f, tp );
 
-        {
-            constexpr std::tuple<T<4>, T<6>> r = boost::mp11::tuple_transform(
-                F{}, tp, tp2
-            );
-            static_assert(std::get<0>(r).value == 5, "get<0>(r).value == 5" );
-            static_assert(std::get<1>(r).value == 7, "get<1>(r).value == 7" );
-        }
+        STATIC_ASSERT( r == std::make_tuple( 2, 3, 4 ) );
+    }
+
+    {
+        constexpr std::tuple<int, int> tp1( 1, 2 );
+        constexpr std::pair<int, int> tp2( 3, 4 );
+
+        constexpr auto r = boost::mp11::tuple_transform( g, tp1, tp2 );
+
+        STATIC_ASSERT( r == std::make_tuple( 5, 7 ) );
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
@@ -65,7 +55,7 @@ int main()
 
     {
         constexpr std::tuple<> tp;
-        constexpr std::tuple<> r = boost::mp11::tuple_transform( F{}, tp );
+        constexpr std::tuple<> r = boost::mp11::tuple_transform( f, tp );
         (void)r;
     }
 
