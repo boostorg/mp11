@@ -36,3 +36,15 @@ The name of the function doesn't match the {cpp}17 one to avoid ambiguities when
 expression `f(std::get<J>(std::forward<Tp>(tp)))` for `J` in 0..`N-1`, where `N` is `std::tuple_size<typename std::remove_reference<Tp>::type>::value`.
 
 Returns `std::forward<F>(f)`.
+
+## tuple_transform(f, tp)
+
+    template<class F, class... Tps> constexpr /*...*/ tuple_transform(F const& f, Tps const&... tps);
+
+`tuple_transform(f, tps...)` accepts a function object `f` followed by one or more tuples of equal length
+(`std::pair` is also accepted). The callable `f` must accept as many arguments as there are tuples. The
+function object is called with the first elements of each tuple, then with the second element of each tuple,
+and so on, by evaluating the expression `f(std::get<J>(tps)...)` for `J` in 0..`N-1`, where `N` is
+`std::tuple_size<Tp>::value` for the first tuple `Tp`. The results are returned as a `Tp<Ts...>` with `Ts...`
+deduced from the return values of `f`. Warning: The order in which the elements of the tuples are processed
+is undefined. Calling `f` should not have side-effects.

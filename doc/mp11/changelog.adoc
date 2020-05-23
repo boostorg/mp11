@@ -13,6 +13,7 @@ http://www.boost.org/LICENSE_1_0.txt
 ## Changes in 1.74.0
 
 * Improve compilation performance of `mp_with_index<N>` for large `N`
+* Added `tuple_transform` (contributed by Hans Dembinski)
 
 ## Changes in 1.73.0
 

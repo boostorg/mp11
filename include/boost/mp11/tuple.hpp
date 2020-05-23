@@ -86,6 +86,83 @@ template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F &
     return detail::tuple_for_each_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
 }
 
+// tuple_transform
+namespace detail
+{
+
+template <class Tp, class F, class... Tps>
+struct tuple_transform_caller {
+    F const& f_;
+    std::tuple<Tp const&, Tps const&...> const tps_;
+
+    BOOST_MP11_CONSTEXPR tuple_transform_caller( Tp const& tp, F const& f, Tps const&... tps )
+        : f_{f}, tps_{tp, tps...} {}
+
+    template <std::size_t J, std::size_t... I>
+    BOOST_MP11_CONSTEXPR auto operator()(
+        std::integral_constant<std::size_t, J>,
+        integer_sequence<std::size_t, I...>) const
+        -> decltype(f_(std::get<J>(std::get<I>(tps_))...))
+    {
+        return f_(std::get<J>(std::get<I>(tps_))...);
+    }
+};
+
+template <class Tp, class F>
+struct tuple_transform_caller<Tp, F> {
+    F const& f_;
+    Tp const& tp_;
+
+    BOOST_MP11_CONSTEXPR tuple_transform_caller( Tp const& tp, F const& f )
+        : f_{f}, tp_{tp} {}
+
+    template <std::size_t J>
+    BOOST_MP11_CONSTEXPR auto operator()(
+        std::integral_constant<std::size_t, J>,
+        integer_sequence<std::size_t, 0>
+    ) const
+        -> decltype(f_(std::get<J>(tp_)))
+    {
+        return f_(std::get<J>(tp_));
+    }
+};
+
+template<
+    template <class...> class Tp,
+    class... Ts,
+    class... Us,
+    std::size_t... J,
+    class Seq = make_index_sequence<sizeof...(Us)>, // tuple sequence
+    class R = Tp<decltype(std::declval<tuple_transform_caller<Tp<Ts...>, Us...>>()(
+        std::integral_constant<std::size_t, J>{}, Seq{}
+    ))...>
+>
+BOOST_MP11_CONSTEXPR R tuple_transform_impl(
+    tuple_transform_caller<Tp<Ts...>, Us...> c,
+    integer_sequence<std::size_t, J...>)
+{
+    return R( c(std::integral_constant<std::size_t, J>{}, Seq{})... );
+}
+
+} // namespace detail
+
+// warning: evaluation order is undefined
+template<
+  class F,
+  class Tp,
+  class... Tps,
+  class Seq = make_index_sequence<std::tuple_size<Tp>::value> // element sequence
+>
+BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp const& tp, Tps const&... tps )
+  -> decltype(detail::tuple_transform_impl(
+        std::declval<detail::tuple_transform_caller<Tp, F, Tps...>>(), Seq{}
+    ))
+{
+    return detail::tuple_transform_impl(
+        detail::tuple_transform_caller<Tp, F, Tps...>{ tp, f, tps... }, Seq{}
+    );
+}
+
 } // namespace mp11
 } // namespace boost
 
