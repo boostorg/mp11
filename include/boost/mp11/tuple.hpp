@@ -9,6 +9,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integer_sequence.hpp>
+#include <boost/mp11/list.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <tuple>
 #include <utility>
@@ -111,6 +113,8 @@ BOOST_MP11_CONSTEXPR auto tuple_transform_impl( integer_sequence<std::size_t, J.
 
 } // namespace detail
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1910 )
+
 template<class F, class Tp1, class... Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp1>::type>::value>>
 BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
@@ -118,6 +122,20 @@ BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
 {
     return detail::tuple_transform_impl( Seq(), f, std::forward<Tp1>(tp1), std::forward<Tp>(tp)... );
 }
+
+#else
+
+template<class F, class... Tp,
+    class Z = mp_list<mp_size_t<std::tuple_size<typename std::remove_reference<Tp>::type>::value>...>,
+    class E = mp_if<mp_apply<mp_same, Z>, mp_front<Z>>,
+    class Seq = make_index_sequence<E::value>>
+BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp&&... tp )
+    -> decltype( detail::tuple_transform_impl( Seq(), f, std::forward<Tp>(tp)... ) )
+{
+    return detail::tuple_transform_impl( Seq(), f, std::forward<Tp>(tp)... );
+}
+
+#endif
 
 } // namespace mp11
 } // namespace boost
