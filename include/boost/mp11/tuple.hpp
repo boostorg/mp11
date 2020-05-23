@@ -91,57 +91,61 @@ namespace detail
 {
 
 template<
+  class F,
   template <class...> class Tp,
   class... Ts,
   std::size_t... J,
-  class F,
   class R = Tp<
     decltype(std::declval<F>()(std::declval<Ts>()))...
   >
 >
-BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> && tp, integer_sequence<std::size_t, J...>, F && f )
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( F && f,
+  integer_sequence<std::size_t, J...>, Tp<Ts...> && tp )
 {
     return R(f(std::get<J>(std::move(tp)))...);
 }
 
 template<
+  class F,
   template <class...> class Tp,
   class... Ts,
   std::size_t... J,
-  class F,
   class R = Tp<
     decltype(std::declval<F>()(std::declval<Ts&>()))...
   >
 >
-BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> & tp, integer_sequence<std::size_t, J...>, F && f )
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( F && f,
+  integer_sequence<std::size_t, J...>, Tp<Ts...> & tp )
 {
     return R(f(std::get<J>(tp))...);
 }
 
 template<
+  class F,
   template <class...> class Tp,
   class... Ts,
   std::size_t... J,
-  class F,
   class R = Tp<
     decltype(std::declval<F>()(std::declval<Ts const&>()))...
   >
 >
-BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const& tp, integer_sequence<std::size_t, J...>, F && f )
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( F && f,
+  integer_sequence<std::size_t, J...>, Tp<Ts...> const& tp )
 {
     return R(f(std::get<J>(tp))...);
 }
 
 template<
+  class F,
   template <class...> class Tp,
   class... Ts,
   std::size_t... J,
-  class F,
   class R = Tp<
     decltype(std::declval<F>()(std::declval<Ts const>()))...
   >
 >
-BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const&& tp, integer_sequence<std::size_t, J...>, F && f )
+BOOST_MP11_CONSTEXPR R tuple_transform_impl( F && f,
+  integer_sequence<std::size_t, J...>, Tp<Ts...> const&& tp )
 {
     return R(f(std::get<J>(std::move(tp)))...);
 }
@@ -150,19 +154,20 @@ BOOST_MP11_CONSTEXPR R tuple_transform_impl( Tp<Ts...> const&& tp, integer_seque
 
 // warning: evaluation order is platform-dependent
 template<
-  class Tp,
   class F,
+  class Tp,
+  class... Tps,
   class Seq = make_index_sequence<
     std::tuple_size<typename std::remove_reference<Tp>::type>::value
   >
 >
-BOOST_MP11_CONSTEXPR auto tuple_transform( Tp && tp, F && f )
+BOOST_MP11_CONSTEXPR auto tuple_transform( F && f, Tp && tp, Tps &&... tps )
   -> decltype(detail::tuple_transform_impl(
-       std::forward<Tp>(tp), Seq(), std::forward<F>(f)
+       std::forward<F>(f), Seq(), std::forward<Tp>(tp), std::forward<Tps>(tps)...
      ))
 {
     return detail::tuple_transform_impl(
-      std::forward<Tp>(tp), Seq(), std::forward<F>(f)
+      std::forward<F>(f), Seq(), std::forward<Tp>(tp), std::forward<Tps>(tps)...
     );
 }
 

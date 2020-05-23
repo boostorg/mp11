@@ -20,21 +20,29 @@ int main() {}
 #include <tuple>
 #include <type_traits>
 
+// family of test types with state
+template <int N>
+struct T {
+    int value;
+    constexpr T() : value{N} {};
+    constexpr explicit T(int n) : value{n} {}
+};
+
 struct F
 {
-    template<class T> constexpr bool operator()( T ) const
+    template<int N> constexpr T<N+1> operator()( T<N> t ) const
     {
-        return std::is_integral<T>::value;
+        return T<N+1>{t.value + 2};
     }
 };
 
 int main()
 {
     {
-        constexpr std::tuple<int, float> tp;
-        constexpr std::tuple<bool, bool> r = boost::mp11::tuple_transform( tp, F{} );
-        static_assert(std::get<0>(r).value == true, "get<0>(r).value == true" );
-        static_assert(std::get<1>(r).value == false, "get<1>(r).value == false" );
+        constexpr std::tuple<T<1>, T<2>> tp;
+        constexpr std::tuple<T<2>, T<3>> r = boost::mp11::tuple_transform( F{}, tp );
+        static_assert(std::get<0>(r).value == 3, "get<0>(r).value == 3" );
+        static_assert(std::get<1>(r).value == 4, "get<1>(r).value == 4" );
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
@@ -43,8 +51,8 @@ int main()
 
     {
         constexpr std::tuple<> tp;
-        constexpr std::tuple<> r = boost::mp11::tuple_transform( tp, F{} );
-        void(r);
+        constexpr std::tuple<> r = boost::mp11::tuple_transform( F{}, tp );
+        (void)r;
     }
 
 #endif
