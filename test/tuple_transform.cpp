@@ -30,12 +30,7 @@ std::ostream& operator<<( std::ostream& os, T<N> const& t )
 
 // test function changes type and value
 struct F {
-    template <int N> T<N+1> operator()( T<N> t ) const
-    {
-        return T<N+1>{t.value + 2};
-    }
-
-    template <int N, int M> T<N+M> operator()( T<N> a, T<M> b ) const
+    template<int N, int M=1> T<N+M> operator()( T<N> a, T<M> b={} ) const
     {
         return T<N+M>{a.value + b.value + 1};
     }

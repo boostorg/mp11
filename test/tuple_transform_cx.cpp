@@ -30,9 +30,9 @@ struct T {
 
 struct F
 {
-    template<int N> constexpr T<N+1> operator()( T<N> t ) const
+    template<int N, int M=1> constexpr T<N+M> operator()( T<N> a, T<M> b={} ) const
     {
-        return T<N+1>{t.value + 2};
+        return T<N+M>{a.value + b.value + 1};
     }
 };
 
@@ -40,9 +40,23 @@ int main()
 {
     {
         constexpr std::tuple<T<1>, T<2>> tp;
-        constexpr std::tuple<T<2>, T<3>> r = boost::mp11::tuple_transform( F{}, tp );
-        static_assert(std::get<0>(r).value == 3, "get<0>(r).value == 3" );
-        static_assert(std::get<1>(r).value == 4, "get<1>(r).value == 4" );
+        constexpr std::tuple<T<3>, T<4>> tp2;
+
+        {
+            constexpr std::tuple<T<2>, T<3>> r = boost::mp11::tuple_transform(
+                F{}, tp
+            );
+            static_assert(std::get<0>(r).value == 3, "get<0>(r).value == 3" );
+            static_assert(std::get<1>(r).value == 4, "get<1>(r).value == 4" );
+        }
+
+        {
+            constexpr std::tuple<T<4>, T<6>> r = boost::mp11::tuple_transform(
+                F{}, tp, tp2
+            );
+            static_assert(std::get<0>(r).value == 5, "get<0>(r).value == 5" );
+            static_assert(std::get<1>(r).value == 7, "get<1>(r).value == 7" );
+        }
     }
 
 #if defined( __clang_major__ ) && __clang_major__ == 3 && __clang_minor__ < 9
