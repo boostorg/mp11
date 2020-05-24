@@ -76,7 +76,7 @@ int main()
 
 #endif
 
-#if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
+#if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined(_MSC_VER) && !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
 #else
 
     static_assert( mp_for_each<mp_list<>>( 11 ) == 11, "mp_for_each<mp_list<>>( 11 ) == 11" );

@@ -16,7 +16,7 @@
 
 // Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
 
-#if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
+#if defined( BOOST_MP11_NO_CONSTEXPR ) || ( !defined(_MSC_VER) && !defined( __GLIBCXX__ ) && __cplusplus < 201400L )
 
 int main() {}
 
