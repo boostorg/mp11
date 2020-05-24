@@ -151,7 +151,7 @@ int main()
     {
         using namespace boost::mp11;
 
-        int const N = 32;
+        int const N = 12;
 
         using Tp = mp_rename<mp_iota< mp_int<N> >, std::tuple>;
 
