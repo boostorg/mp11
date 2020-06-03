@@ -254,7 +254,9 @@ template<class L, class N> using mp_repeat = typename detail::mp_repeat_c_impl<L
 namespace detail
 {
 
-template<template<class...> class F, class P, class... L> struct mp_product_impl_2;
+template<template<class...> class F, class P, class... L> struct mp_product_impl_2
+{
+};
 
 template<template<class...> class F, class P> struct mp_product_impl_2<F, P>
 {
@@ -266,7 +268,14 @@ template<template<class...> class F, class P, template<class...> class L1, class
     using type = mp_append<typename mp_product_impl_2<F, mp_push_back<P, T1>, L...>::type...>;
 };
 
-template<template<class...> class F, class... L> struct mp_product_impl;
+template<template<class...> class F, class... L> struct mp_product_impl
+{
+};
+
+template<template<class...> class F> struct mp_product_impl<F>
+{
+    using type = mp_list< F<> >;
+};
 
 template<template<class...> class F, class L1, class... L> struct mp_product_impl<F, L1, L...>
 {

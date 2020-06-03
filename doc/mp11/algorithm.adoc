@@ -262,7 +262,8 @@ Same as `mp_repeat_c` but with a type argument `N`. The number of copies is `N::
 
 `mp_product<F, L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` evaluates `F<U1, U2, ..., Un>` for values `Ui` taken from
 the Cartesian product of the lists, as if the elements `Ui` are formed by `n` nested loops, each traversing `Li`.
-It returns a list of the form `L1<V...>` containing the results of the application of `F`.
+It returns a list of the form `L1<V...>` containing the results of the application of `F`. The degenerate case
+of zero lists, `mp_product<F>`, returns `mp_list<F<>>`.
 
 .mp_product on two lists
 [cols="<.^4m,4*^.^1m",width=85%]
