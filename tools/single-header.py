@@ -23,11 +23,11 @@ def scan_header( prefix, dir, fn ):
 	included.append( path )
 
 	with open( path, 'r' ) as header:
-	
+
 		for line in header:
-		
+
 			m = re.match( '[ \t]*#[ \t]*include[ \t]*(["<])([^">]*)[">]', line )
-			
+
 			r = False
 
 			if m:
