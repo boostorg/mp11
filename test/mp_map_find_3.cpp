@@ -6,10 +6,11 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+// Same as mp_map_find_2.cpp, but with includes reversed
 
+#include <tuple>
 #include <boost/mp11/map.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <tuple>
 
 struct X {};
 struct Y {};
