@@ -2,8 +2,8 @@
 
 Mp11 is a C++11 metaprogramming library based on template aliases and variadic templates.
 It implements the approach outlined in the article
-["Simple C++11 metaprogramming"](https://www.boost.org/doc/libs/1_74_0/libs/mp11/doc/html/simple_cxx11_metaprogramming.html)
-and [its sequel](https://www.boost.org/doc/libs/1_74_0/libs/mp11/doc/html/simple_cxx11_metaprogramming_2.html).
+["Simple C++11 metaprogramming"](https://www.boost.org/libs/mp11/doc/html/simple_cxx11_metaprogramming.html)
+and [its sequel](https://www.boost.org/libs/mp11/doc/html/simple_cxx11_metaprogramming_2.html).
 
 Mp11 is part of [Boost](http://boost.org/libs/mp11), starting with release 1.66.0. It
 however has no Boost dependencies and can be used standalone, as a Git submodule, for
