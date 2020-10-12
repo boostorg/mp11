@@ -1229,6 +1229,17 @@ template<class V, template<class...> class F, template<class...> class R> struct
 
 template<class V, class Qf, class Qr> using mp_iterate_q = mp_iterate<V, Qf::template fn, Qr::template fn>;
 
+// mp_pairwise_fold<L, F>
+namespace detail
+{
+
+template<class L, class Q> using mp_pairwise_fold_impl = mp_transform_q<Q, mp_pop_back<L>, mp_pop_front<L>>;
+
+} // namespace detail
+
+template<class L, class Q> using mp_pairwise_fold_q = mp_eval_if<mp_empty<L>, mp_clear<L>, detail::mp_pairwise_fold_impl, L, Q>;
+template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwise_fold_q<L, mp_quote<F>>;
+
 } // namespace mp11
 } // namespace boost
 

@@ -122,6 +122,8 @@ run mp_rotate_right.cpp ;
 run mp_power_set.cpp ;
 run mp_partial_sum.cpp ;
 run mp_iterate.cpp ;
+run mp_pairwise_fold.cpp ;
+run mp_pairwise_fold_q.cpp ;
 
 # integral
 run integral.cpp ;
