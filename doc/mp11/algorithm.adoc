@@ -740,6 +740,37 @@ using R1 = mp_partial_sum<L1, mp_int<0>, mp_plus>; // mp_list_c<int, 1, 3, 6, 10
 
 As `mp_partial_sum`, but takes a quoted metafunction.
 
+## mp_pairwise_fold<L, F>
+
+    template<class L, template<class...> class F> using mp_pairwise_fold = /*...*/;
+
+`mp_pairwise_fold<L, F>` returns a list of the same form as `L` whose elements are
+the result of the application of the binary metafunction `F` to each pair of adjacent
+elements of `L`. That is, `mp_pairwise_fold<L<T1, T2, T3>, F>` is
+`L<F<T1, T2>, F<T2, T3>>`.
+
+The result has one fewer element than the original. If `L` has only one element, the
+result is an empty list. If `L` is an empty list, the result is also an empty list.
+
+.Using mp_pairwise_fold
+----
+template<class L> using is_increasing = mp_all_of<
+    mp_pairwise_fold<L, mp_less>, mp_to_bool>;
+----
+
+## mp_pairwise_fold_q<L, Q>
+
+    template<class L, class Q> using mp_pairwise_fold_q =
+        mp_pairwise_fold<L, Q::template fn>;
+
+As `mp_pairwise_fold`, but takes a quoted metafunction.
+
+.Using mp_pairwise_fold_q
+----
+template<class L> using is_nondecreasing = mp_none_of<
+    mp_pairwise_fold_q<L, mp_bind<mp_less, _2, _1>>, mp_to_bool>;
+----
+
 ## mp_iterate<V, F, R>
 
     template<class V, template<class...> class F, template<class...> class R>
