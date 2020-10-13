@@ -61,7 +61,7 @@ build: off
 
 test_script:
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD% address-model=32,64 variant=debug,release
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD% address-model=32,64 variant=debug,release embed-manifest-via=linker
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=mp11 ..
