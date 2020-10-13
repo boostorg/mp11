@@ -10,6 +10,10 @@ http://www.boost.org/LICENSE_1_0.txt
 [#changelog]
 # Revision History
 
+## Changes in 1.75.0
+
+* Added `mp_pairwise_fold` (suggested by Barry Revzin)
+
 ## Changes in 1.74.0
 
 * Improved compilation performance of `mp_with_index<N>` for large `N`
