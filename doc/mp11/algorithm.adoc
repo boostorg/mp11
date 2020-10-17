@@ -767,8 +767,8 @@ As `mp_pairwise_fold`, but takes a quoted metafunction.
 
 .Using mp_pairwise_fold_q
 ----
-template<class L> using is_nondecreasing = mp_none_of<
-    mp_pairwise_fold_q<L, mp_bind<mp_less, _2, _1>>, mp_to_bool>;
+template<class L, template<class...> class P> using is_sorted =
+    mp_none_of<mp_pairwise_fold_q<L, mp_bind<P, _2, _1>>, mp_to_bool>;
 ----
 
 ## mp_iterate<V, F, R>
