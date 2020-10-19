@@ -13,6 +13,7 @@ http://www.boost.org/LICENSE_1_0.txt
 ## Changes in 1.75.0
 
 * Added `mp_pairwise_fold` (suggested by Barry Revzin)
+* Removed `mp_invoke` (use `mp_invoke_q`)
 
 ## Changes in 1.74.0
 
