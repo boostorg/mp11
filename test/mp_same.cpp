@@ -40,7 +40,7 @@ int main()
     using boost::mp11::mp_list;
     using boost::mp11::mp_apply;
 
-    int const N = 1024;
+    int const N = 1089;
 
     using L = mp_repeat_c<mp_list<void>, N>;
     using R = mp_apply<mp_same, L>;
