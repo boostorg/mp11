@@ -7,6 +7,12 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_MSVC
+# pragma warning( disable: 4503 ) // decorated name length exceeded
+#endif
+
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
@@ -57,6 +63,17 @@ int main()
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_count<L5, void>, mp_size_t<0>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_count<L5, X1>, mp_size_t<1>>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_count<L5, X2>, mp_size_t<1>>));
+    }
+
+    {
+        using boost::mp11::mp_repeat_c;
+
+        int const N = 1089;
+
+        using L = mp_repeat_c<mp_list<void>, N>;
+        using R = mp_count<L, void>;
+
+        BOOST_TEST_TRAIT_TRUE((std::is_same<R, mp_size_t<N>>));
     }
 
     return boost::report_errors();
