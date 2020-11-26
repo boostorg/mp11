@@ -51,27 +51,27 @@ jobs:
             os: ubuntu-18.04
           - toolset: clang
             compiler: clang++-3.5
-            cxxstd: "11,14,1z"
+            cxxstd: "11,14"
             os: ubuntu-16.04
             install: clang-3.5
           - toolset: clang
             compiler: clang++-3.6
-            cxxstd: "11,14,1z"
+            cxxstd: "11,14"
             os: ubuntu-16.04
             install: clang-3.6
           - toolset: clang
             compiler: clang++-3.7
-            cxxstd: "11,14,1z"
+            cxxstd: "11,14"
             os: ubuntu-16.04
             install: clang-3.7
           - toolset: clang
             compiler: clang++-3.8
-            cxxstd: "11,14,1z"
+            cxxstd: "11,14"
             os: ubuntu-16.04
             install: clang-3.8
           - toolset: clang
             compiler: clang++-3.9
-            cxxstd: "11,14,1z"
+            cxxstd: "11,14"
             os: ubuntu-16.04
             install: clang-3.9
           - toolset: clang
