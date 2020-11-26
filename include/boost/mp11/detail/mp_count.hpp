@@ -43,7 +43,7 @@ constexpr std::size_t cx_plus(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T
 
 template<class L, class V> struct mp_count_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
+#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1930 )
 
 template<template<class...> class L, class... T, class V> struct mp_count_impl<L<T...>, V>
 {
