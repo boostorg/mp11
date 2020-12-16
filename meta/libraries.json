@@ -10,5 +10,6 @@
     "description": "A C++11 metaprogramming library.",
     "category": [
         "Metaprogramming"
-    ]
+    ],
+    "cxxstd": "11"
 }
