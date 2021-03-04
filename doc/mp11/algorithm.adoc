@@ -907,7 +907,9 @@ template<class... T> void print( std::tuple<T...> const & tp )
 }
 ```
 
-In case the elements of the list `L` are not default-constructible, you can use `mp_for_each<mp_transform<mp_identity, L>>`.
+In case the elements of the list `L` are not default-constructible, you can use
+`mp_for_each<mp_transform<mp_identity, L>>`, which would call `f` with `mp_identity<T>()`
+instead of `T()`.
 
 ## mp_with_index<N>(i, f)
 
