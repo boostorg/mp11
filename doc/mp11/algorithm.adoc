@@ -584,6 +584,20 @@ is `L<L<T...>>`. `mp_split<L<T1..., S, T2..., S, T3...>, S>` is `L<L<T1...>, L<T
 
 The segments may be empty; `mp_split<L<S, X, Y, S, S>, S>` is `L<L<>, L<X, Y>, L<>, L<>>`.
 
+## mp_join<L, S>
+
+    template<class L, class S> using mp_join = /*...*/;
+
+`mp_join` is the reverse operation of `mp_split`; it takes a list of segments `L` and joins
+them into a single list, inserting the separator `S` between them.
+
+`mp_join<mp_split<L, S>, S>` yields back the original list `L`.
+
+For example, `mp_split<L<X1, X2, S, X3>, S>` gives `L<L<X1, X2>, L<X3>>`, and
+`mp_join<L<L<X1, X2>, L<X3>>, S>` results in `L<X1, X2, S, X3>`.
+
+`mp_join<L, S>` is equivalent to (and is implemented as) `mp_apply<mp_append, mp_intersperse<L, mp_list<S>>>`.
+
 ## mp_partition<L, P>
 
     template<class L, template<class...> class P> using mp_partition = /*...*/;
