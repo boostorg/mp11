@@ -202,6 +202,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
+      dist: bionic
       compiler: clang++-5.0
       env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=11,14,1z
       addons:
@@ -212,6 +213,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
+      dist: bionic
       compiler: clang++-6.0
       env: TOOLSET=clang COMPILER=clang++-6.0 CXXSTD=11,14,17
       addons:
@@ -222,6 +224,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
+      dist: bionic
       compiler: clang++-7
       env: TOOLSET=clang COMPILER=clang++-7 CXXSTD=11,14,17,2a
       addons:
@@ -230,9 +233,10 @@ matrix:
             - clang-7
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-xenial-7
+            - llvm-toolchain-bionic-7
 
     - os: linux
+      dist: bionic
       compiler: clang++-8
       env: TOOLSET=clang COMPILER=clang++-8 CXXSTD=11,14,17,2a
       addons:
@@ -241,10 +245,10 @@ matrix:
             - clang-8
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-xenial-8
+            - llvm-toolchain-bionic-8
 
     - os: linux
-      dist: xenial
+      dist: bionic
       compiler: clang++-9
       env: TOOLSET=clang COMPILER=clang++-9 CXXSTD=11,14,17,2a
       addons:
@@ -253,11 +257,11 @@ matrix:
             - clang-9
           sources:
             - ubuntu-toolchain-r-test
-            - sourceline: 'deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main'
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
               key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
 
     - os: linux
-      dist: xenial
+      dist: bionic
       compiler: clang++-10
       env: TOOLSET=clang COMPILER=clang++-10 CXXSTD=11,14,17,2a
       addons:
@@ -266,7 +270,33 @@ matrix:
             - clang-10
           sources:
             - ubuntu-toolchain-r-test
-            - sourceline: 'deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-10 main'
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+
+    - os: linux
+      dist: bionic
+      compiler: clang++-11
+      env: TOOLSET=clang COMPILER=clang++-11 CXXSTD=11,14,17,2a
+      addons:
+        apt:
+          packages:
+            - clang-11
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+
+    - os: linux
+      dist: bionic
+      compiler: clang++-12
+      env: TOOLSET=clang COMPILER=clang++-12 CXXSTD=11,14,17,2a
+      addons:
+        apt:
+          packages:
+            - clang-12
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main'
               key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
 
     - os: linux
@@ -278,6 +308,7 @@ matrix:
             - libc++-dev
 
     - os: linux
+      dist: bionic
       compiler: clang++-5.0
       env: CLANG_X_CUDA=1
       addons:
