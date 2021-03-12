@@ -126,6 +126,7 @@ run mp_pairwise_fold.cpp ;
 run mp_pairwise_fold_q.cpp ;
 run mp_intersperse.cpp ;
 run mp_split.cpp ;
+run mp_join.cpp ;
 
 # integral
 run integral.cpp ;

@@ -1296,6 +1296,10 @@ template<class L, class S, class J> struct mp_split_impl
 
 } // namespace detail
 
+// mp_join<L, S>
+
+template<class L, class S> using mp_join = mp_apply<mp_append, mp_intersperse<L, mp_list<S>>>;
+
 } // namespace mp11
 } // namespace boost
 
