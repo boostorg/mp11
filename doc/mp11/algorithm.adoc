@@ -567,10 +567,22 @@ using R3 = mp_flatten<L3>; // mp_list<float, mp_list<void>>
 
     template<class L, class S> using mp_intersperse = /*...*/;
 
-Inserts the separator `S` between the elements of `L`.
+Inserts the separator `S` between the elements of the list `L`.
 
 `mp_intersperse<L<>, S>` is `L<>`. `mp_intersperse<L<T1>, S>` is `L<T1>`.
 `mp_intersperse<L<T1, T2, T3, ..., Tn-1, Tn>, S>` is `L<T1, S, T2, S, T3, S, ..., Tn-1, S, Tn>`.
+
+## mp_split<L, S>
+
+    template<class L, class S> using mp_split = /*...*/;
+
+Splits the list `L` into segments at each separator `S` and returns a list of
+the segments.
+
+`mp_split<L<>, S>` is `L<L<>>`. `mp_split<L<T...>, S>`, where `S` does not occur in `T...`,
+is `L<L<T...>>`. `mp_split<L<T1..., S, T2..., S, T3...>, S>` is `L<L<T1...>, L<T2...>, L<T3...>>`.
+
+The segments may be empty; `mp_split<L<S, X, Y, S, S>, S>` is `L<L<>, L<X, Y>, L<>, L<>>`.
 
 ## mp_partition<L, P>
 
