@@ -1240,6 +1240,27 @@ template<class L, class Q> using mp_pairwise_fold_impl = mp_transform_q<Q, mp_po
 template<class L, class Q> using mp_pairwise_fold_q = mp_eval_if<mp_empty<L>, mp_clear<L>, detail::mp_pairwise_fold_impl, L, Q>;
 template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwise_fold_q<L, mp_quote<F>>;
 
+namespace detail
+{
+
+template<class L, class S> struct mp_intersperse_impl
+{
+};
+
+template<template<class...> class L, class S> struct mp_intersperse_impl<L<>, S>
+{
+    using type = L<>;
+};
+
+template<template<class...> class L, class T1, class... T, class S> struct mp_intersperse_impl<L<T1, T...>, S>
+{
+    using type = mp_append<L<T1>, L<S, T>...>;
+};
+
+} // namespace detail
+
+template<class L, class S> using mp_intersperse = typename detail::mp_intersperse_impl<L, S>::type;
+
 } // namespace mp11
 } // namespace boost
 
