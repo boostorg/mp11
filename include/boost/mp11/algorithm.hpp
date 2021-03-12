@@ -1250,7 +1250,7 @@ template<class L, class S> struct mp_intersperse_impl
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
 
-template<template<class...> class L, class... T> struct mp_intersperse_impl<L<T...>, S>
+template<template<class...> class L, class... T, class S> struct mp_intersperse_impl<L<T...>, S>
 {
     static_assert( sizeof...(T) == 0, "T... must be empty" );
     using type = L<>;
