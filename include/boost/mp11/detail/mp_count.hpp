@@ -90,11 +90,25 @@ namespace detail
 
 template<class L, template<class...> class P> struct mp_count_if_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1930 )
+#if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1930 )
+
+template<template<class...> class P, class... T> constexpr std::size_t cx_count_if()
+{
+    constexpr bool a[] = { false, static_cast<bool>( P<T>::value )... };
+
+    std::size_t r = 0;
+
+    for( std::size_t i = 0; i < sizeof...(T); ++i )
+    {
+        r += a[ i+1 ];
+    }
+
+    return r;
+}
 
 template<template<class...> class L, class... T, template<class...> class P> struct mp_count_if_impl<L<T...>, P>
 {
-    using type = mp_size_t<(mp_to_bool<P<T>>::value + ... + 0)>;
+    using type = mp_size_t<cx_count_if<P, T...>()>;
 };
 
 #elif !defined( BOOST_MP11_NO_CONSTEXPR )
