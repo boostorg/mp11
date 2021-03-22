@@ -43,11 +43,25 @@ constexpr std::size_t cx_plus(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T
 
 template<class L, class V> struct mp_count_impl;
 
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1930 )
+#if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
+
+template<class V, class... T> constexpr std::size_t cx_count()
+{
+    constexpr bool a[] = { false, std::is_same<T, V>::value... };
+
+    std::size_t r = 0;
+
+    for( std::size_t i = 0; i < sizeof...(T); ++i )
+    {
+        r += a[ i+1 ];
+    }
+
+    return r;
+}
 
 template<template<class...> class L, class... T, class V> struct mp_count_impl<L<T...>, V>
 {
-    using type = mp_size_t<(std::is_same<T, V>::value + ... + 0)>;
+    using type = mp_size_t<cx_count<V, T...>()>;
 };
 
 #elif !defined( BOOST_MP11_NO_CONSTEXPR )
