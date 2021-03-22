@@ -179,6 +179,7 @@ run mp_set_intersection_sf.cpp ;
 
 # function
 run mp_all.cpp ;
+run mp_all_2.cpp ;
 run mp_and.cpp ;
 run mp_any.cpp ;
 run mp_or.cpp ;
