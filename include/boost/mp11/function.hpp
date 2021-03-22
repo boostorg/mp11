@@ -150,7 +150,7 @@ template<> struct mp_same_impl<>
 
 template<class T1, class... T> struct mp_same_impl<T1, T...>
 {
-    using type = mp_all<std::is_same<T1, T>...>;
+    using type = mp_bool< mp_count<mp_list<T...>, T1>::value == sizeof...(T) >;
 };
 
 } // namespace detail
