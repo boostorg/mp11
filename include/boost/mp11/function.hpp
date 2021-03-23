@@ -123,13 +123,13 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 
 // mp_any<T...>
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86356
-#if defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, != 0 ) && !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, != 0 )
 
-template<class... T> using mp_any = mp_bool<(static_cast<bool>(T::value) || ...)>;
+template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value != 0 >;
 
 #else
 
-template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value != 0 >;
+template<class... T> using mp_any = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_true >::value != 0 >;
 
 #endif
 
