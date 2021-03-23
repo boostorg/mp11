@@ -85,13 +85,9 @@ template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>:
 
 template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_not >::value == 0 >;
 
-#elif defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
-
-template<class... T> using mp_all = mp_bool<(static_cast<bool>(T::value) && ...)>;
-
 #else
 
-template<class... T> using mp_all = mp_and<mp_to_bool<T>...>;
+template<class... T> using mp_all = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_false >::value == 0 >;
 
 #endif
 
