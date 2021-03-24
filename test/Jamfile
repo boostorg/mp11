@@ -14,11 +14,10 @@ project
 
     [ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_tuple ]
 
-    <toolset>msvc:<warnings>all # /W4
+    <warnings>extra
+
     <toolset>msvc:<warnings-as-errors>on
-
     <toolset>gcc:<warnings-as-errors>on
-
     <toolset>clang:<warnings-as-errors>on
   ;
 
