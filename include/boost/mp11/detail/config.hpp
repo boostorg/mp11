@@ -113,6 +113,18 @@
 #  define BOOST_MP11_HAS_FOLD_EXPRESSIONS
 #endif
 
+// BOOST_MP11_HAS_NONTYPE_TEMPLATE_ARGS
+
+#if !defined(BOOST_MP11_HAS_NONTYPE_TEMPLATE_ARGS) && defined(__cpp_nontype_template_args) && __cpp_nontype_template_args >= 201911
+#  define BOOST_MP11_HAS_NONTYPE_TEMPLATE_ARGS
+#endif
+
+// BOOST_MP11_HAS_NONTYPE_TEMPLATE_PARAMETER_AUTO
+
+#if !defined(BOOST_MP11_HAS_NONTYPE_TEMPLATE_PARAMETER_AUTO) && defined(__cpp_nontype_template_parameter_auto) && __cpp_nontype_template_parameter_auto >= 201606
+#  define BOOST_MP11_HAS_NONTYPE_TEMPLATE_PARAMETER_AUTO
+#endif
+
 // BOOST_MP11_HAS_TYPE_PACK_ELEMENT
 
 #if defined(__has_builtin)
