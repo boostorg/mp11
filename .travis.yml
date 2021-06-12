@@ -362,7 +362,8 @@ matrix:
       script:
       - mkdir __build__ && cd __build__
       - cmake ..
-      - cmake --build . --target check
+      - cmake --build . --target tests
+      - ctest --output-on-failure
 
     - os: linux
       compiler: clang++
@@ -392,8 +393,9 @@ matrix:
       env: BOOST_CMAKE_TEST=1
       script:
         - mkdir __build__ && cd __build__
-        - cmake -DBOOST_ENABLE_CMAKE=1 -DBUILD_TESTING=ON -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=mp11 ..
-        - ctest --output-on-failure -R boost_mp11
+        - cmake -DBUILD_TESTING=ON -DBOOST_INCLUDE_LIBRARIES=mp11 ..
+        - cmake --build . --target tests
+        - ctest --output-on-failure
 
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
