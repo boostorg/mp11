@@ -71,8 +71,9 @@ test_script:
   - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j3 libs/mp11/test toolset=%TOOLSET% %CXXSTD% address-model=32,64 variant=debug,release embed-manifest-via=linker
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
-  - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBUILD_TESTING=ON -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=mp11 ..
-  - if not "%CMAKE%" == ""  cmake --build . --config %CONFIG% && ctest --output-on-failure -R boost_mp11 -C %CONFIG%
+  - if not "%CMAKE%" == ""  cmake -DBUILD_TESTING=ON -DBOOST_INCLUDE_LIBRARIES=mp11 ..
+  - if not "%CMAKE%" == ""  cmake --build . --target tests --config %CONFIG%
+  - if not "%CMAKE%" == ""  ctest --output-on-failure --no-tests=error -C %CONFIG%
 
   - if not "%CMAKE_SUBDIR%" == ""  cd libs/mp11/test/cmake_subdir_test && mkdir __build__ && cd __build__
   - if not "%CMAKE_SUBDIR%" == ""  cmake ..
