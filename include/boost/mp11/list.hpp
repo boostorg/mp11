@@ -12,6 +12,7 @@
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
+#include <boost/mp11/detail/mp_front.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 
@@ -66,23 +67,7 @@ template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L
 template<class L> using mp_clear = mp_assign<L, mp_list<>>;
 
 // mp_front<L>
-namespace detail
-{
-
-template<class L> struct mp_front_impl
-{
-// An error "no type named 'type'" here means that the argument to mp_front
-// is either not a list, or is an empty list
-};
-
-template<template<class...> class L, class T1, class... T> struct mp_front_impl<L<T1, T...>>
-{
-    using type = T1;
-};
-
-} // namespace detail
-
-template<class L> using mp_front = typename detail::mp_front_impl<L>::type;
+//   in detail/mp_front.hpp
 
 // mp_pop_front<L>
 namespace detail
