@@ -13,6 +13,7 @@
 #include <boost/mp11/detail/mp_is_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/mp_front.hpp>
+#include <boost/mp11/detail/mp_rename.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 
@@ -169,26 +170,9 @@ template<template<class...> class L, class... U, class... T> struct mp_push_back
 template<class L, class... T> using mp_push_back = typename detail::mp_push_back_impl<L, T...>::type;
 
 // mp_rename<L, B>
-namespace detail
-{
-
-template<class A, template<class...> class B> struct mp_rename_impl
-{
-// An error "no type named 'type'" here means that the first argument to mp_rename is not a list
-};
-
-template<template<class...> class A, class... T, template<class...> class B> struct mp_rename_impl<A<T...>, B>
-{
-    using type = B<T...>;
-};
-
-} // namespace detail
-
-template<class A, template<class...> class B> using mp_rename = typename detail::mp_rename_impl<A, B>::type;
-
-template<template<class...> class F, class L> using mp_apply = typename detail::mp_rename_impl<L, F>::type;
-
-template<class Q, class L> using mp_apply_q = typename detail::mp_rename_impl<L, Q::template fn>::type;
+// mp_apply<F, L>
+// mp_apply_q<Q, L>
+//   in detail/mp_rename.hpp
 
 // mp_replace_front<L, T>
 namespace detail
