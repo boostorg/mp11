@@ -100,7 +100,7 @@ jobs:
             install: clang-7
           - toolset: clang
             compiler: clang++-8
-            cxxstd: "03,11,14,17,2a"
+            cxxstd: "03,11,14,17"
             os: ubuntu-20.04
             install: clang-8
           - toolset: clang
