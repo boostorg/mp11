@@ -295,7 +295,7 @@ As `mp_not_fn`, but takes a quoted metafunction.
 
 `mp_compose<F1, F2, ..., Fn>` is a quoted metafunction that applies
 `F1`, `F2`, ..., `Fn` to its argument, in sequence. That is,
-`mp_compose<F1, F2, ..., Fn>::fn<T>` is `Fn<...F2<F1<T>>...>`.
+`mp_compose<F1, F2, ..., Fn>::fn<T...>` is `Fn<...F2<F1<T...>>...>`.
 
 ## mp_compose_q<Q...>
 
