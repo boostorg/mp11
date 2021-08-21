@@ -3,8 +3,6 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-
-#include <boost/mp11/list.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 
