@@ -24,3 +24,8 @@ including `<boost/mp11/mpl_list.hpp>`, and for `std::tuple`
 by including `<boost/mp11/mpl_tuple.hpp>`. This may be required
 because some libraries, such as Boost.Fusion, contain their own MPL
 support for `std::tuple`, which conflicts with Mp11's one.
+
+.Converting an existing MPL Sequence into an `mp_list`:
+```
+using L = mpl::copy<Sequence, mpl::back_inserter<mp11::mp_list<>>>::type;
+```
