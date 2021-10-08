@@ -31,10 +31,10 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
   list(APPEND CMAKE_MODULE_PATH ${boostorg_cmake_SOURCE_DIR}/include)
 
-  # Enable testing
+  # Testing (off by default)
 
+  option(BUILD_TESTING "Build the tests." OFF)
   include(CTest)
-  add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
 
   if(BUILD_TESTING)
 
