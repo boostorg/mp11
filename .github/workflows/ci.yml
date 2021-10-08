@@ -393,7 +393,7 @@ jobs:
       - name: Configure
         run: |
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DCMAKE_INSTALL_PREFIX=~/.local ..
+          cmake -DCMAKE_INSTALL_PREFIX=~/.local ..
 
       - name: Install
         run: |
@@ -428,7 +428,7 @@ jobs:
       - name: Configure
         run: |
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DBUILD_TESTING=ON ..
+          cmake -DBUILD_TESTING=ON ..
 
       - name: Build tests
         run: |
