@@ -1,4 +1,4 @@
-# Copyright 2016-2020 Peter Dimov
+# Copyright 2016-2021 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -22,12 +22,12 @@ environment:
       TOOLSET: msvc-14.0
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      TOOLSET: msvc-14.1,clang-win
+      TOOLSET: msvc-14.1
       CXXSTD: 14,17
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: msvc-14.2
-      CXXSTD: 14,17,latest
+      CXXSTD: latest
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: clang-win
