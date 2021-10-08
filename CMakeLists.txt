@@ -51,11 +51,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   # Do not use the default BoostInstall versioned layout on Windows when standalone
   set(BOOST_INSTALL_LAYOUT "system" CACHE STRING "Installation layout (versioned, tagged, or system)")
 
-endif()
-
-include(BoostInstall OPTIONAL RESULT_VARIABLE HAVE_BOOST_INSTALL)
-
-if(HAVE_BOOST_INSTALL)
+  include(BoostInstall)
 
   boost_install(TARGETS boost_mp11 HEADER_DIRECTORY include/)
 
