@@ -152,6 +152,10 @@ jobs:
             cxxstd: "14,17,latest"
             addrmd: 32,64
             os: windows-2019
+          - toolset: msvc-14.3
+            cxxstd: "14,17,latest"
+            addrmd: 32,64
+            os: windows-2022
           - toolset: gcc
             cxxstd: "03,11,14,17,2a"
             addrmd: 64
