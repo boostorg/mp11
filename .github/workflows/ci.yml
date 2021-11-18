@@ -451,9 +451,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: Jimver/cuda-toolkit@v0.2.4
-
       - run: |
           nvcc -x cu -I ./include -c test/mp11.cpp
+          nvcc -x cu -I ./include -c test/mp_all.cpp
+          nvcc -x cu -I ./include -c test/mp_any.cpp
+          nvcc -x cu -I ./include -c test/mp_count.cpp
+          nvcc -x cu -I ./include -c test/mp_count_if.cpp
 
   cuda-windows:
 
@@ -462,6 +465,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: Jimver/cuda-toolkit@v0.2.4
-
+      - uses: ilammy/msvc-dev-cmd@v1
       - run: |
           nvcc -x cu -I ./include -c test/mp11.cpp
+          nvcc -x cu -I ./include -c test/mp_all.cpp
+          nvcc -x cu -I ./include -c test/mp_any.cpp
+          nvcc -x cu -I ./include -c test/mp_count.cpp
+          nvcc -x cu -I ./include -c test/mp_count_if.cpp
