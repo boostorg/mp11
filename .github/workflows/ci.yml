@@ -444,31 +444,31 @@ jobs:
           cd __build__
           ctest --output-on-failure --no-tests=error
 
-  cuda-linux:
+  cuda:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-20.04
+          - os: windows-2019
 
-    runs-on: ubuntu-20.04
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: Jimver/cuda-toolkit@v0.2.4
-      - run: |
-          nvcc -x cu -I ./include -c test/mp11.cpp
-          nvcc -x cu -I ./include -c test/mp_all.cpp
-          nvcc -x cu -I ./include -c test/mp_any.cpp
-          nvcc -x cu -I ./include -c test/mp_count.cpp
-          nvcc -x cu -I ./include -c test/mp_count_if.cpp
-
-  cuda-windows:
-
-    runs-on: windows-2019
+    runs-on: ${{matrix.os}}
 
     steps:
       - uses: actions/checkout@v2
       - uses: Jimver/cuda-toolkit@v0.2.4
       - uses: ilammy/msvc-dev-cmd@v1
-      - run: |
-          nvcc -x cu -I ./include -c test/mp11.cpp
-          nvcc -x cu -I ./include -c test/mp_all.cpp
-          nvcc -x cu -I ./include -c test/mp_any.cpp
-          nvcc -x cu -I ./include -c test/mp_count.cpp
-          nvcc -x cu -I ./include -c test/mp_count_if.cpp
+
+      - name: Setup Boost
+        run: |
+          git checkout https://github.com/boostorg/assert ../assert
+          git checkout https://github.com/boostorg/config ../config
+          git checkout https://github.com/boostorg/core ../core
+
+      - name: Run Tests
+        run: |
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -c test/mp11.cpp
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -c test/mp_all.cpp
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -c test/mp_any.cpp
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -c test/mp_count.cpp
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -c test/mp_count_if.cpp
