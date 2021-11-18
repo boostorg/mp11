@@ -443,3 +443,25 @@ jobs:
         run: |
           cd __build__
           ctest --output-on-failure --no-tests=error
+
+  cuda-linux:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Jimver/cuda-toolkit@v0.2.4
+
+      - run: |
+          nvcc -x cu -I ./include -c test/mp11.cpp
+
+  cuda-windows:
+
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Jimver/cuda-toolkit@v0.2.4
+
+      - run: |
+          nvcc -x cu -I ./include -c test/mp11.cpp
