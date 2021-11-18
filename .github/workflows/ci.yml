@@ -461,17 +461,10 @@ jobs:
 
       - name: Setup Boost
         run: |
-          echo GITHUB_BASE_REF: $GITHUB_BASE_REF
-          echo GITHUB_REF: $GITHUB_REF
-          REF=${GITHUB_BASE_REF:-$GITHUB_REF}
-          REF=${REF#refs/heads/}
-          echo REF: $REF
-          BOOST_BRANCH=develop && [ "$REF" == "master" ] && BOOST_BRANCH=master || true
-          echo BOOST_BRANCH: $BOOST_BRANCH
           cd ..
-          git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/assert
-          git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/config
-          git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/core
+          git clone --depth 1 https://github.com/boostorg/assert
+          git clone --depth 1 https://github.com/boostorg/config
+          git clone --depth 1 https://github.com/boostorg/core
 
       - name: Run Tests
         run: |
