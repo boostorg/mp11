@@ -444,20 +444,12 @@ jobs:
           cd __build__
           ctest --output-on-failure --no-tests=error
 
-  cuda:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-20.04
-          - os: windows-2019
-
-    runs-on: ${{matrix.os}}
+  cuda-linux:
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
       - uses: Jimver/cuda-toolkit@v0.2.4
-      - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Setup Boost
         run: |
@@ -483,3 +475,37 @@ jobs:
           nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp_count_if.cpp
           nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp_count_if.cpp
           nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp_count_if.cpp
+
+  cuda-windows:
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Jimver/cuda-toolkit@v0.2.4
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Setup Boost
+        run: |
+          cd ..
+          git clone --depth 1 https://github.com/boostorg/assert
+          git clone --depth 1 https://github.com/boostorg/config
+          git clone --depth 1 https://github.com/boostorg/core
+
+      - name: Run Tests
+        shell: cmd
+        run: |
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp11.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp11.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp11.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp_all.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp_all.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp_all.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp_any.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp_any.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp_any.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp_count.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp_count.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp_count.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++11 -c test/mp_count_if.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++14 -c test/mp_count_if.cpp || exit /b
+          nvcc -x cu -I ./include -I ../assert/include -I ../config/include -I ../core/include -std=c++17 -c test/mp_count_if.cpp || exit /b
