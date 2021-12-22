@@ -23,11 +23,7 @@ environment:
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1
-      CXXSTD: 14,17
-
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      TOOLSET: msvc-14.2
-      CXXSTD: latest
+      CXXSTD: 14,17,latest
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: clang-win
