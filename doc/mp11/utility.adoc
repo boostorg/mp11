@@ -188,6 +188,20 @@ template<class... T> using first_or_void =
 
 Like `mp_eval_or`, but takes a quoted metafunction.
 
+## mp_valid_and_true<F, T...>
+
+    template<template<class...> class F, class... T> using mp_valid_and_true =
+        mp_eval_or<mp_false, F, T...>;
+
+`mp_valid_and_true<F, T...>` is an alias for `F<T...>` when this expression is valid, for `mp_false` otherwise.
+
+## mp_valid_and_true_q<Q, T...>
+
+    template<class Q, class... T> using mp_valid_and_true_q =
+        mp_valid_and_true<Q::template fn, T...>;
+
+Like `mp_valid_and_true`, but takes a quoted metafunction.
+
 ## mp_cond<C, T, R...>
 
     template<class C, class T, class... R> using mp_cond = /*...*/;

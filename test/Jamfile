@@ -149,6 +149,7 @@ run mp_not_fn.cpp ;
 run mp_eval_if_not.cpp ;
 run mp_eval_or.cpp ;
 run mp_compose.cpp ;
+run mp_valid_and_true.cpp ;
 
 # integer_sequence
 run integer_sequence.cpp ;
