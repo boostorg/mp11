@@ -161,6 +161,10 @@ template<class C, class T, class Q, class... U> using mp_eval_if_not_q = mp_eval
 template<class T, template<class...> class F, class... U> using mp_eval_or = mp_eval_if_not<mp_valid<F, U...>, T, F, U...>;
 template<class T, class Q, class... U> using mp_eval_or_q = mp_eval_or<T, Q::template fn, U...>;
 
+// mp_valid_and_true
+template<template<class...> class F, class... T> using mp_valid_and_true = mp_eval_or<mp_false, F, T...>;
+template<class Q, class... T> using mp_valid_and_true_q = mp_valid_and_true<Q::template fn, T...>;
+
 // mp_cond
 
 // so elegant; so doesn't work
