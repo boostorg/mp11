@@ -148,13 +148,13 @@ jobs:
           - toolset: msvc-14.1
             cxxstd: "14,17,latest"
             addrmd: 32,64
-            os: windows-2016
+            os: windows-2019
           - toolset: msvc-14.2
-            cxxstd: "14,17,latest"
+            cxxstd: "14,17,20,latest"
             addrmd: 32,64
             os: windows-2019
           - toolset: msvc-14.3
-            cxxstd: "14,17,latest"
+            cxxstd: "14,17,20,latest"
             addrmd: 32,64
             os: windows-2022
           - toolset: gcc
@@ -166,6 +166,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install Visual Studio 2017
+        if: matrix.toolset == 'msvc-14.1'
+        run: |
+          choco install visualstudio2017community
+          choco install visualstudio2017-workload-universal
 
       - name: Setup Boost
         shell: cmd
