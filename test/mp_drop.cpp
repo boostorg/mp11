@@ -27,6 +27,7 @@ int main()
     using boost::mp11::mp_drop;
     using boost::mp11::mp_drop_c;
     using boost::mp11::mp_size_t;
+    using boost::mp11::mp_valid;
 
     {
         using L1 = mp_list<>;
@@ -79,6 +80,15 @@ int main()
 
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_drop_c<L1, 0>, L1>));
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_drop<L1, mp_size_t<0>>, L1>));
+    }
+
+    {
+        BOOST_TEST_TRAIT_TRUE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<0>>));
+        BOOST_TEST_TRAIT_TRUE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<1>>));
+        BOOST_TEST_TRAIT_TRUE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<2>>));
+        BOOST_TEST_TRAIT_TRUE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<3>>));
+        BOOST_TEST_TRAIT_FALSE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<4>>));
+        BOOST_TEST_TRAIT_FALSE((mp_valid<mp_drop, mp_list<X1, X2, X3>, mp_size_t<5>>));
     }
 
     return boost::report_errors();
