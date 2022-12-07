@@ -457,7 +457,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: Jimver/cuda-toolkit@v0.2.4
+      - uses: Jimver/cuda-toolkit@v0.2.8
 
       - name: Setup Boost
         run: |
@@ -489,7 +489,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: Jimver/cuda-toolkit@v0.2.4
+      - uses: Jimver/cuda-toolkit@v0.2.8
       - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Setup Boost
