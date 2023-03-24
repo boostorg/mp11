@@ -41,6 +41,7 @@ run mp_replace_front.cpp ;
 run mp_replace_second.cpp ;
 run mp_replace_third.cpp ;
 run mp_apply_q.cpp ;
+run mp_apply_q_sf.cpp ;
 run mp_is_list.cpp ;
 run mp_list_c.cpp ;
 run mp_transform_front.cpp ;

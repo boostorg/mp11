@@ -8,6 +8,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/mp11/detail/mp_defer.hpp>
+
 namespace boost
 {
 namespace mp11
@@ -22,9 +24,8 @@ template<class A, template<class...> class B> struct mp_rename_impl
 // An error "no type named 'type'" here means that the first argument to mp_rename is not a list
 };
 
-template<template<class...> class A, class... T, template<class...> class B> struct mp_rename_impl<A<T...>, B>
+template<template<class...> class A, class... T, template<class...> class B> struct mp_rename_impl<A<T...>, B>: mp_defer<B, T...>
 {
-    using type = B<T...>;
 };
 
 } // namespace detail
