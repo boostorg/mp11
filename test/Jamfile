@@ -88,6 +88,7 @@ run mp_find_if_q.cpp ;
 run mp_reverse.cpp ;
 run mp_fold.cpp ;
 run mp_fold_q.cpp ;
+run mp_fold_q_sf.cpp ;
 run mp_reverse_fold.cpp ;
 run mp_reverse_fold_q.cpp ;
 run mp_unique.cpp ;
