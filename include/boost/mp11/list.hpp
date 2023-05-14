@@ -25,6 +25,13 @@ namespace mp11
 // mp_list_c<T, I...>
 template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
 
+// mp_list_v<A...>
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<auto... A> struct mp_list_v {};
+
+#endif
+
 // mp_is_list<L>
 //   in detail/mp_is_list.hpp
 
