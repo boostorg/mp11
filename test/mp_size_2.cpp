@@ -15,7 +15,7 @@ int main() {}
 #include <boost/core/lightweight_test_trait.hpp>
 
 template<auto... A> struct L1 {};
-template<int... A> struct L2 {};
+template<int... I> struct L2 {};
 
 int main()
 {
