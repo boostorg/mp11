@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_LIST_HPP_INCLUDED
 #define BOOST_MP11_LIST_HPP_INCLUDED
 
-//  Copyright 2015-2017 Peter Dimov.
+//  Copyright 2015-2023 Peter Dimov.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -189,6 +189,33 @@ template<class L, class... T> using mp_push_back = typename detail::mp_push_back
 // mp_apply<F, L>
 // mp_apply_q<Q, L>
 //   in detail/mp_rename.hpp
+
+// mp_rename_v<L, B>
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+namespace detail
+{
+
+template<class L, template<auto...> class B> struct mp_rename_v_impl
+{
+// An error "no type named 'type'" here means that the first argument to mp_rename_v is not a list
+};
+
+template<template<class...> class L, class... T, template<auto...> class B> struct mp_rename_v_impl<L<T...>, B>
+{
+    using type = B<T::value...>;
+};
+
+template<template<auto...> class L, auto... A, template<auto...> class B> struct mp_rename_v_impl<L<A...>, B>
+{
+    using type = B<A...>;
+};
+
+} // namespace detail
+
+template<class L, template<auto...> class B> using mp_rename_v = typename detail::mp_rename_v_impl<L, B>::type;
+
+#endif
 
 // mp_replace_front<L, T>
 namespace detail
