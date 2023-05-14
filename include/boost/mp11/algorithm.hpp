@@ -323,9 +323,9 @@ template<template<class T, T... I> class S, class U, U... J, class F> struct mp_
 
 template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F>::type;
 
-// mp_iota(_c)<N>
-template<std::size_t N> using mp_iota_c = mp_from_sequence<make_index_sequence<N>>;
-template<class N> using mp_iota = mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>>;
+// mp_iota(_c)<N, F>
+template<std::size_t N, std::size_t F = 0> using mp_iota_c = mp_from_sequence<make_index_sequence<N>, mp_size_t<F>>;
+template<class N, class F = mp_int<0>> using mp_iota = mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>, F>;
 
 // mp_at(_c)<L, I>
 namespace detail
