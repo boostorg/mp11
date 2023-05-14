@@ -34,6 +34,7 @@ run mp_third.cpp ;
 run mp_push_front.cpp ;
 run mp_push_back.cpp ;
 run mp_rename.cpp ;
+run mp_rename_2.cpp ;
 run mp_append.cpp ;
 run mp_append_2.cpp ;
 run mp_append_sf.cpp ;
@@ -133,6 +134,7 @@ run mp_join.cpp ;
 
 # integral
 run integral.cpp ;
+run mp_value.cpp ;
 
 # utility
 run mp_identity.cpp ;
