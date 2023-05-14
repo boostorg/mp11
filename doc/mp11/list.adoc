@@ -33,6 +33,12 @@ the list.
 using L1 = mp_list_c<int, 2, 3>; // mp_list<mp_int<2>, mp_int<3>>
 ```
 
+## mp_list_v<A...>
+
+    template<auto... A> struct mp_list_v {};
+
+The standard value list type of Mp11. Requires {cpp}17.
+
 ## mp_is_list<L>
 
     template<class L> using mp_is_list = /*...*/;
@@ -45,6 +51,8 @@ using L1 = mp_list_c<int, 2, 3>; // mp_list<mp_int<2>, mp_int<3>>
 
 `mp_size<L>` returns the number of elements in the list `L`, as a `mp_size_t`. In other words, `mp_size<L<T...>>` is an alias for
 `mp_size_t<sizeof...(T)>`.
+
+Supports value lists as `L` under {cpp}17.
 
 .Using mp_size with mp_list
 ```
@@ -64,11 +72,19 @@ using L3 = std::tuple<float>;
 using R3 = mp_size<L3>; // mp_size_t\<1>
 ```
 
+.Using mp_size with mp_list_v
+```
+using L4 = mp_list_v<1, false, 8ull>;
+using R4 = mp_size<L4>; // mp_size_t\<3>
+```
+
 ## mp_empty<L>
 
     template<class L> using mp_empty = mp_bool<mp_size<L>::value == 0>;
 
 `mp_empty<L>` is an alias for `mp_true` if the list `L` is empty, for `mp_false` otherwise.
+
+Supports value lists as `L` under {cpp}17.
 
 .Using mp_empty with std::tuple
 ```
@@ -253,6 +269,8 @@ using R2 = mp_push_back<L2, char[1], char[2]>; // mp_list<void, char[1], char[2]
 
 `mp_rename<L, Y>` changes the type of the list `L` to `Y`. That is, `mp_rename<L<T...>, Y>` is an alias for `Y<T...>`.
 
+Supports value lists as `L` under {cpp}17. In that case, `mp_rename<L<A...>, Y>` is `Y<mp_value<A>...>`.
+
 .Using mp_rename to rename std::pair to std::tuple
 ```
 using L1 = std::pair<double, long double>;
@@ -263,6 +281,12 @@ using R1 = mp_rename<L1, std::tuple>; // std::tuple<double, long double>
 ```
 using L2 = std::tuple<void>;
 using R2 = mp_rename<L2, mp_list>; // mp_list<void>
+```
+
+.Using mp_rename to convert a value list to a type list
+```
+using L3 = mp_list_v<false, 7>;
+using R3 = mp_rename<L3, mp_list>; // mp_list<mp_false, mp_int<7>>
 ```
 
 ## mp_apply<F, L>
@@ -291,6 +315,22 @@ using L2 = mp_list<int, long>;
 
 using R1 = mp_apply_q<mp_bind_front<mp_push_back, L1>, L2>;
   // R1 is std::tuple<double, long double, int, long>
+```
+
+## mp_rename_v<L, Y>
+
+    template<class L, template<auto...> class Y> using mp_rename_v = /*...*/;
+
+Requires {cpp}17.
+
+For a value list `L`, `mp_rename_v<L<A...>, Y>` is `Y<A...>`.
+
+For a type list `L`, `mp_rename_v<L<T...>, Y>` is an alias for `Y<T::value...>`.
+
+.Using mp_rename_v to convert a type list to a value list
+```
+using L1 = mp_list<mp_false, mp_int<7>>;
+using R1 = mp_rename_v<L1, mp_list_v>; // mp_list_v<false, 7>;
 ```
 
 ## mp_append<L...>
@@ -361,7 +401,7 @@ using L2 = std::tuple<float, double, long double>;
 using R2 = mp_replace_second<L2, void>; // std::tuple<float, void, long double>
 ```
 
-.Using mp_replace_front with mp_list
+.Using mp_replace_second with mp_list
 ```
 using L3 = mp_list<char[1], char[2], char[3], char[4]>;
 using R3 = mp_replace_second<L3, void>; // mp_list<char[1], void, char[3], char[4]>;

@@ -51,3 +51,10 @@ using M1 = std::tuple<std::pair<int, int*>, std::pair<float, float*>,
 using M2 = mp_list<mp_list<int, int*>, mp_list<float>,
     mp_list<char, char[1], char[2]>>;
 ```
+
+A _value list_ is a template class whose parameters are all values (non-type template parameters.) Value lists
+match `template<auto...> class L`, and require {cpp}17 (because `auto` template parameters are a {cpp}17 feature.)
+
+Value lists are only supported by a handful of the primitives. Mp11's primary focus is on type manipulation. For
+working with lists of values, the usual approach is to convert the value list to a type list using `mp_rename`,
+manipulate the type list, then convert back to a value list using `mp_rename_v`.
