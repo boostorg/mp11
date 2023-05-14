@@ -319,35 +319,46 @@ As `mp_product`, but takes a quoted metafunction.
 
 Same as `mp_drop_c`, but with a type argument `N`. `N::value` must be a nonnegative number.
 
-## mp_from_sequence<S>
+## mp_from_sequence<S, F>
 
-    template<class S> using mp_from_sequence = /*...*/
+    template<class S, class F = mp_int<0>> using mp_from_sequence = /*...*/
 
 `mp_from_sequence` transforms an integer sequence produced by `make_integer_sequence` into an `mp_list`
-of the corresponding `std::integral_constant` types. Given
+of the corresponding `std::integral_constant` types. If the optional second parameter `F` is supplied,
+an offset of `F::value` is added to all values.
+
+Given
 
     template<class T, T... I> struct S;
 
-`mp_from_sequence<S<T, I...>>` is an alias for `mp_list<std::integral_constant<T, I>...>`.
+`mp_from_sequence<S<T, I...>, F>` is an alias for `mp_list<std::integral_constant<T, I + F::value>...>`.
 
-## mp_iota_c<N>
+## mp_iota_c<N, F>
 
-    template<std::size_t N> using mp_iota_c = /*...*/;
+    template<std::size_t N, std::size_t F = 0> using mp_iota_c = /*...*/;
 
-`mp_iota_c<N>` is an alias for `mp_list<mp_size_t<0>, mp_size_t<1>, ..., mp_size_t<N-1>>`.
+`mp_iota_c<N, F>` is an alias for `mp_list<mp_size_t<F+0>, mp_size_t<F+1>, ..., mp_size_t<F+N-1>>`.
 
-## mp_iota<N>
+.mp_iota_c
+[cols="<.^4m,4*^.^1m",width=85%]
+|===
+|*mp_iota_c<4>*|mp_size_t<0>|mp_size_t<1>|mp_size_t<2>|mp_size_t<3>
+|*mp_iota_c<4, 2>*|mp_size_t<2>|mp_size_t<3>|mp_size_t<4>|mp_size_t<5>
+|===
 
-    template<class N> using mp_iota = /*...*/;
+## mp_iota<N, F>
 
-Same as `mp_iota_c`, but with a type argument `N`. `N::value` must be a nonnegative number. Returns
-`mp_list<std::integral_constant<T, 0>, std::integral_constant<T, 1>, ..., std::integral_constant<T, N::value-1>>`
+    template<class N, class F = mp_int<0>> using mp_iota = /*...*/;
+
+Same as `mp_iota_c`, but with a type arguments `N` and `F`. `N::value` must be a nonnegative number. Returns
+`mp_list<std::integral_constant<T, F::value+0>, std::integral_constant<T, F::value+1>, ..., std::integral_constant<T, F::value+N::value-1>>`
 where `T` is the type of `N::value`.
 
 .mp_iota
 [cols="<.^4m,4*^.^1m",width=85%]
 |===
-|*mp_iota<mp_int<4>>*|mp_int<0>|mp_int<1>|mp_int<2>|mp_int<3>
+|*mp_iota<mp_size_t<4>>*|mp_size_t<0>|mp_size_t<1>|mp_size_t<2>|mp_size_t<3>
+|*mp_iota<mp_int<4>, mp_int\<-2>>*|mp_int\<-2>|mp_int\<-1>|mp_int<0>|mp_int<+1>
 |===
 
 ## mp_at_c<L, I>
