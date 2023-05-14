@@ -10,6 +10,18 @@ http://www.boost.org/LICENSE_1_0.txt
 [#changelog]
 # Revision History
 
+## Changes in 1.83.0
+
+* Added an offset/from parameter to `mp_from_sequence`, `mp_iota`, `mp_iota_c`.
+
+## Changes in 1.79.0
+
+* Added `mp_valid_and_true` (contributed by Dmitry Arkhipov)
+
+## Changes in 1.78.0
+
+* Added support for n-ary functions to `mp_compose` (contributed by Dmitry Arkhipov)
+
 ## Changes in 1.77.0
 
 * Added `mp_intersperse`, `mp_split`, `mp_join`
