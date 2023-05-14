@@ -26,6 +26,7 @@ compile mp11.cpp ;
 
 # list
 run mp_size.cpp ;
+run mp_size_2.cpp ;
 run mp_empty.cpp ;
 run mp_front.cpp ;
 run mp_pop_front.cpp ;

@@ -42,6 +42,15 @@ template<template<class...> class L, class... T> struct mp_size_impl<L<T...>>
     using type = mp_size_t<sizeof...(T)>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto... A> struct mp_size_impl<L<A...>>
+{
+    using type = mp_size_t<sizeof...(A)>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L> using mp_size = typename detail::mp_size_impl<L>::type;
