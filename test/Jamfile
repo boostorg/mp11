@@ -42,6 +42,7 @@ run mp_second_2.cpp ;
 run mp_third.cpp ;
 run mp_third_2.cpp ;
 run mp_push_front.cpp ;
+run mp_push_front_2.cpp ;
 run mp_push_back.cpp ;
 run mp_rename.cpp ;
 run mp_rename_2.cpp ;
