@@ -49,6 +49,7 @@ run mp_rename.cpp ;
 run mp_rename_2.cpp ;
 run mp_append.cpp ;
 run mp_append_2.cpp ;
+run mp_append_3.cpp ;
 run mp_append_sf.cpp ;
 run mp_replace_front.cpp ;
 run mp_replace_front_2.cpp ;

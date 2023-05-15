@@ -8,6 +8,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/mp11/detail/mp_count.hpp>
+#include <boost/mp11/detail/mp_is_value_list.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -153,6 +155,44 @@ template<
     using type = typename mp_append_impl<prefix, Lr...>::type;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<class... L> struct append_value_impl
+{
+};
+
+template<template<auto...> class L, auto... A>
+struct append_value_impl<L<A...>>
+{
+    using type = L<A...>;
+};
+
+template<template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2>
+struct append_value_impl<L1<A1...>, L2<A2...>>
+{
+    using type = L1<A1..., A2...>;
+};
+
+template<template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2, template<auto...> class L3, auto... A3>
+struct append_value_impl<L1<A1...>, L2<A2...>, L3<A3...>>
+{
+    using type = L1<A1..., A2..., A3...>;
+};
+
+template<template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2, template<auto...> class L3, auto... A3, template<auto...> class L4, auto... A4>
+struct append_value_impl<L1<A1...>, L2<A2...>, L3<A3...>, L4<A4...>>
+{
+    using type = L1<A1..., A2..., A3..., A4...>;
+};
+
+template<template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2, template<auto...> class L3, auto... A3, template<auto...> class L4, auto... A4, template<auto...> class L5, auto... A5, class... Lr>
+struct append_value_impl<L1<A1...>, L2<A2...>, L3<A3...>, L4<A4...>, L5<A5...>, Lr...>
+{
+    using type = typename append_value_impl<L1<A1..., A2..., A3..., A4..., A5...>, Lr...>::type;
+};
+
+#endif
+
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
 
 template<class... L>
@@ -167,7 +207,15 @@ template<class... L> struct mp_append_impl: mp_append_impl_cuda_workaround<L...>
 
 #else
 
-template<class... L> struct mp_append_impl: mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl> > >::template fn<L...>
+template<class... L> struct mp_append_impl:
+    mp_cond<
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+        mp_bool<(sizeof...(L) > 0 && sizeof...(L) == mp_count_if<mp_list<L...>, mp_is_value_list>::value)>, mp_quote<append_value_impl>,
+#endif
+        mp_bool<(sizeof...(L) > 111)>, mp_quote<append_inf_impl>,
+        mp_bool<(sizeof...(L) > 11)>, mp_quote<append_111_impl>,
+        mp_true, mp_quote<append_11_impl>
+    >::template fn<L...>
 {
 };
 
