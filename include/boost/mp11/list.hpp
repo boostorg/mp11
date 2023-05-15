@@ -157,6 +157,15 @@ template<template<class...> class L, class T1, class T2, class... T> struct mp_s
     using type = T2;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto... A> struct mp_second_impl<L<A1, A2, A...>>
+{
+    using type = mp_value<A2>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L> using mp_second = typename detail::mp_second_impl<L>::type;
@@ -175,6 +184,15 @@ template<template<class...> class L, class T1, class T2, class T3, class... T> s
 {
     using type = T3;
 };
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A> struct mp_third_impl<L<A1, A2, A3, A...>>
+{
+    using type = mp_value<A3>;
+};
+
+#endif
 
 } // namespace detail
 
