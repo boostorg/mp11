@@ -69,12 +69,34 @@ template<class L> using mp_empty = mp_bool< mp_size<L>::value == 0 >;
 namespace detail
 {
 
-template<class L1, class L2> struct mp_assign_impl;
+template<class L1, class L2> struct mp_assign_impl
+{
+// An error "no type named 'type'" here means that the arguments to mp_assign aren't lists
+};
 
 template<template<class...> class L1, class... T, template<class...> class L2, class... U> struct mp_assign_impl<L1<T...>, L2<U...>>
 {
     using type = L1<U...>;
 };
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L1, auto... A, template<class...> class L2, class... U> struct mp_assign_impl<L1<A...>, L2<U...>>
+{
+    using type = L1<U::value...>;
+};
+
+template<template<class...> class L1, class... T, template<auto...> class L2, auto... B> struct mp_assign_impl<L1<T...>, L2<B...>>
+{
+    using type = L1<mp_value<B>...>;
+};
+
+template<template<auto...> class L1, auto... A, template<auto...> class L2, auto... B> struct mp_assign_impl<L1<A...>, L2<B...>>
+{
+    using type = L1<B...>;
+};
+
+#endif
 
 } // namespace detail
 
