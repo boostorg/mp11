@@ -239,6 +239,15 @@ template<template<class...> class L, class... U, class... T> struct mp_push_back
     using type = L<U..., T...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto... A, class... T> struct mp_push_back_impl<L<A...>, T...>
+{
+    using type = L<A..., T::value...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L, class... T> using mp_push_back = typename detail::mp_push_back_impl<L, T...>::type;
