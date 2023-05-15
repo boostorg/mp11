@@ -34,6 +34,7 @@ run mp_assign_2.cpp ;
 run mp_clear.cpp ;
 run mp_clear_2.cpp ;
 run mp_front.cpp ;
+run mp_front_2.cpp ;
 run mp_pop_front.cpp ;
 run mp_second.cpp ;
 run mp_third.cpp ;
