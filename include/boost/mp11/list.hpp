@@ -299,6 +299,15 @@ template<template<class...> class L, class U1, class... U, class T> struct mp_re
     using type = L<T, U...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto... A, class T> struct mp_replace_front_impl<L<A1, A...>, T>
+{
+    using type = L<T::value, A...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L, class T> using mp_replace_front = typename detail::mp_replace_front_impl<L, T>::type;
@@ -321,6 +330,15 @@ template<template<class...> class L, class U1, class U2, class... U, class T> st
     using type = L<U1, T, U...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto... A, class T> struct mp_replace_second_impl<L<A1, A2, A...>, T>
+{
+    using type = L<A1, T::value, A...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L, class T> using mp_replace_second = typename detail::mp_replace_second_impl<L, T>::type;
@@ -339,6 +357,15 @@ template<template<class...> class L, class U1, class U2, class U3, class... U, c
 {
     using type = L<U1, U2, T, U...>;
 };
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A, class T> struct mp_replace_third_impl<L<A1, A2, A3, A...>, T>
+{
+    using type = L<A1, A2, T::value, A...>;
+};
+
+#endif
 
 } // namespace detail
 
