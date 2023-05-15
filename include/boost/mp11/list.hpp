@@ -123,6 +123,15 @@ template<template<class...> class L, class T1, class... T> struct mp_pop_front_i
     using type = L<T...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto... A> struct mp_pop_front_impl<L<A1, A...>>
+{
+    using type = L<A...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L> using mp_pop_front = typename detail::mp_pop_front_impl<L>::type;
