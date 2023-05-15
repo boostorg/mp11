@@ -386,6 +386,15 @@ template<template<class...> class L, class U1, class... U, template<class...> cl
     using type = L<F<U1>, U...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto... A, template<class...> class F> struct mp_transform_front_impl<L<A1, A...>, F>
+{
+    using type = L<F<mp_value<A1>>::value, A...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L, template<class...> class F> using mp_transform_front = typename detail::mp_transform_front_impl<L, F>::type;
@@ -410,6 +419,15 @@ template<template<class...> class L, class U1, class U2, class... U, template<cl
     using type = L<U1, F<U2>, U...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto... A, template<class...> class F> struct mp_transform_second_impl<L<A1, A2, A...>, F>
+{
+    using type = L<A1, F<mp_value<A2>>::value, A...>;
+};
+
+#endif
+
 } // namespace detail
 
 template<class L, template<class...> class F> using mp_transform_second = typename detail::mp_transform_second_impl<L, F>::type;
@@ -429,6 +447,15 @@ template<template<class...> class L, class U1, class U2, class U3, class... U, t
 {
     using type = L<U1, U2, F<U3>, U...>;
 };
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A, template<class...> class F> struct mp_transform_third_impl<L<A1, A2, A3, A...>, F>
+{
+    using type = L<A1, A2, F<mp_value<A3>>::value, A...>;
+};
+
+#endif
 
 } // namespace detail
 

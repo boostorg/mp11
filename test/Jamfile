@@ -61,8 +61,11 @@ run mp_apply_q_sf.cpp ;
 run mp_is_list.cpp ;
 run mp_list_c.cpp ;
 run mp_transform_front.cpp ;
+run mp_transform_front_2.cpp ;
 run mp_transform_second.cpp ;
+run mp_transform_second_2.cpp ;
 run mp_transform_third.cpp ;
+run mp_transform_third_2.cpp ;
 run mp_list_v.cpp ;
 run mp_rename_v.cpp ;
 
