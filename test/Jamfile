@@ -79,6 +79,7 @@ run mp_transform_if.cpp ;
 run mp_transform_if_q.cpp ;
 run mp_filter.cpp ;
 run mp_fill.cpp ;
+run mp_fill_2.cpp ;
 run mp_count.cpp ;
 run mp_count_if.cpp ;
 run mp_count_if_q.cpp ;

@@ -199,7 +199,10 @@ template<class Q, class... L> using mp_filter_q = typename detail::mp_filter_imp
 namespace detail
 {
 
-template<class L, class V> struct mp_fill_impl;
+template<class L, class V> struct mp_fill_impl
+{
+// An error "no type named 'type'" here means that the L argument of mp_fill is not a list
+};
 
 template<template<class...> class L, class... T, class V> struct mp_fill_impl<L<T...>, V>
 {
@@ -215,6 +218,15 @@ template<template<class...> class L, class... T, class V> struct mp_fill_impl<L<
 
 #endif
 };
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto... A, class V> struct mp_fill_impl<L<A...>, V>
+{
+    using type = L<((void)A, V::value)...>;
+};
+
+#endif
 
 } // namespace detail
 
