@@ -86,6 +86,7 @@ run mp_starts_with.cpp ;
 run mp_starts_with_sf.cpp ;
 run mp_repeat.cpp ;
 run mp_repeat_2.cpp ;
+run mp_repeat_3.cpp ;
 run mp_product.cpp ;
 run mp_drop.cpp ;
 run mp_iota.cpp ;
