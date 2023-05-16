@@ -15,7 +15,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added an offset/from parameter to `mp_from_sequence`, `mp_iota`, `mp_iota_c`.
 * Added `mp_value`, `mp_list_v`, `mp_rename_v`, `mp_is_value_list`.
 * Added value list support to the primitives in `<boost/mp11/list.hpp>`.
-* Added value list support to `mp_repeat`, `mp_fill`, `mp_at`, `mp_back`, `mp_take`, `mp_pop_back`, `mp_drop`.
+* Added value list support to `mp_repeat`, `mp_fill`, `mp_at`, `mp_back`, `mp_take`, `mp_pop_back`, `mp_drop`, `mp_erase`.
 
 ## Changes in 1.79.0
 

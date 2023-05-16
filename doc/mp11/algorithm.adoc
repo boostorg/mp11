@@ -459,6 +459,8 @@ Same as `mp_insert_c`, but with a type argument `I`.
 
 Removes from the list `L` the elements with indices from `I` (inclusive) to `J` (exclusive).
 
+Supports a value list as `L` under {cpp}17.
+
 .mp_erase_c
 [cols="<.^4m,9*^.^1m",width=85%]
 |===
