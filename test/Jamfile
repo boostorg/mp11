@@ -69,6 +69,7 @@ run mp_transform_third.cpp ;
 run mp_transform_third_2.cpp ;
 run mp_list_v.cpp ;
 run mp_rename_v.cpp ;
+run mp_is_value_list.cpp ;
 
 # algorithm
 run mp_transform.cpp ;

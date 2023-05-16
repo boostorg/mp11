@@ -12,9 +12,10 @@
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_list_v.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
-#include <boost/mp11/detail/mp_append.hpp>
+#include <boost/mp11/detail/mp_is_value_list.hpp>
 #include <boost/mp11/detail/mp_front.hpp>
 #include <boost/mp11/detail/mp_rename.hpp>
+#include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <type_traits>
 
@@ -34,6 +35,9 @@ template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>
 
 // mp_is_list<L>
 //   in detail/mp_is_list.hpp
+
+// mp_is_value_list<L>
+//   in detail/mp_is_value_list.hpp
 
 // mp_size<L>
 namespace detail

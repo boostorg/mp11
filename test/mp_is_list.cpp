@@ -13,6 +13,8 @@
 #include <tuple>
 #include <utility>
 
+template<int... I> struct V2 {};
+
 int main()
 {
     using boost::mp11::mp_list;
@@ -45,6 +47,28 @@ int main()
     {
         BOOST_TEST_TRAIT_TRUE((std::is_same<mp_is_list<std::pair<void, void>>, mp_true>));
     }
+
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+    using boost::mp11::mp_list_v;
+
+    {
+        BOOST_TEST_TRAIT_SAME(mp_is_list<mp_list_v<>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<mp_list_v<false>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<mp_list_v<false, 0>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<mp_list_v<false, 0, true>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<mp_list_v<false, 0, true, 1>>, mp_false);
+    }
+
+    {
+        BOOST_TEST_TRAIT_SAME(mp_is_list<V2<>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<V2<0>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<V2<0, 1>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<V2<0, 1, 2>>, mp_false);
+        BOOST_TEST_TRAIT_SAME(mp_is_list<V2<0, 1, 2, 3>>, mp_false);
+    }
+
+#endif
 
     return boost::report_errors();
 }
