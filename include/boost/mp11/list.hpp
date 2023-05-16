@@ -10,6 +10,7 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/detail/mp_list_v.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/mp_front.hpp>
@@ -22,15 +23,14 @@ namespace boost
 namespace mp11
 {
 
+// mp_list<T...>
+//   in detail/mp_list.hpp
+
 // mp_list_c<T, I...>
 template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
 
 // mp_list_v<A...>
-#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
-
-template<auto... A> struct mp_list_v {};
-
-#endif
+//   in detail/mp_list_v.hpp
 
 // mp_is_list<L>
 //   in detail/mp_is_list.hpp
