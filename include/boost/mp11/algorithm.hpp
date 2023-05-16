@@ -316,7 +316,7 @@ template<template<class...> class L, class... T, template<class...> class L2, cl
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_drop_c = typename detail::mp_drop_impl<L, mp_repeat_c<mp_list<void>, N>, mp_bool<N <= mp_size<L>::value>>::type;
+template<class L, std::size_t N> using mp_drop_c = mp_assign<L, typename detail::mp_drop_impl<mp_rename<L, mp_list>, mp_repeat_c<mp_list<void>, N>, mp_bool<N <= mp_size<L>::value>>::type>;
 
 template<class L, class N> using mp_drop = mp_drop_c<L, std::size_t{ N::value }>;
 

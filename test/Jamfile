@@ -91,6 +91,7 @@ run mp_repeat_2.cpp ;
 run mp_repeat_3.cpp ;
 run mp_product.cpp ;
 run mp_drop.cpp ;
+run mp_drop_2.cpp ;
 run mp_iota.cpp ;
 run mp_iota_2.cpp ;
 run mp_at.cpp ;
