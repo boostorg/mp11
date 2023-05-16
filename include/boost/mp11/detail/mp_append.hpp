@@ -24,6 +24,8 @@ namespace mp11
 namespace detail
 {
 
+// append_type_lists
+
 template<class... L> struct mp_append_impl;
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
@@ -155,6 +157,40 @@ template<
     using type = typename mp_append_impl<prefix, Lr...>::type;
 };
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
+
+template<class... L>
+struct mp_append_impl_cuda_workaround
+{
+    using type = mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl> > >;
+};
+
+template<class... L> struct mp_append_impl: mp_append_impl_cuda_workaround<L...>::type::template fn<L...>
+{
+};
+
+#else
+
+template<class... L> struct mp_append_impl:
+    mp_cond<
+        mp_bool<(sizeof...(L) > 111)>, mp_quote<append_inf_impl>,
+        mp_bool<(sizeof...(L) > 11)>, mp_quote<append_111_impl>,
+        mp_true, mp_quote<append_11_impl>
+    >::template fn<L...>
+{
+};
+
+#endif // #if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
+
+#endif // #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
+
+struct append_type_lists
+{
+    template<class... L> using fn = typename mp_append_impl<L...>::type;
+};
+
+// append_value_lists
+
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
 template<class... L> struct append_value_impl
@@ -191,41 +227,24 @@ struct append_value_impl<L1<A1...>, L2<A2...>, L3<A3...>, L4<A4...>, L5<A5...>, 
     using type = typename append_value_impl<L1<A1..., A2..., A3..., A4..., A5...>, Lr...>::type;
 };
 
-#endif
-
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_CUDA, >= 9000000 && BOOST_MP11_CUDA < 10000000 )
-
-template<class... L>
-struct mp_append_impl_cuda_workaround
+struct append_value_lists
 {
-    using type = mp_if_c<(sizeof...(L) > 111), mp_quote<append_inf_impl>, mp_if_c<(sizeof...(L) > 11), mp_quote<append_111_impl>, mp_quote<append_11_impl> > >;
+    template<class... L> using fn = typename append_value_impl<L...>::type;
 };
 
-template<class... L> struct mp_append_impl: mp_append_impl_cuda_workaround<L...>::type::template fn<L...>
-{
-};
-
-#else
-
-template<class... L> struct mp_append_impl:
-    mp_cond<
-#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
-        mp_bool<(sizeof...(L) > 0 && sizeof...(L) == mp_count_if<mp_list<L...>, mp_is_value_list>::value)>, mp_quote<append_value_impl>,
-#endif
-        mp_bool<(sizeof...(L) > 111)>, mp_quote<append_inf_impl>,
-        mp_bool<(sizeof...(L) > 11)>, mp_quote<append_111_impl>,
-        mp_true, mp_quote<append_11_impl>
-    >::template fn<L...>
-{
-};
-
-#endif
-
-#endif
+#endif // #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
 } // namespace detail
 
-template<class... L> using mp_append = typename detail::mp_append_impl<L...>::type;
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<class... L> using mp_append = typename mp_if_c<(sizeof...(L) > 0 && sizeof...(L) == mp_count_if<mp_list<L...>, mp_is_value_list>::value), detail::append_value_lists, detail::append_type_lists>::template fn<L...>;
+
+#else
+
+template<class... L> using mp_append = detail::append_type_lists::fn<L...>;
+
+#endif
 
 } // namespace mp11
 } // namespace boost
