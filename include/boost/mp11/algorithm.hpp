@@ -352,11 +352,20 @@ template<template<class...> class L, class... T, std::size_t I> struct mp_at_c_i
     using type = __type_pack_element<I, T...>;
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<auto...> class L, auto... A, std::size_t I> struct mp_at_c_impl<L<A...>, I>
+{
+    using type = __type_pack_element<I, mp_value<A>...>;
+};
+
+#endif
+
 #else
 
 template<class L, std::size_t I> struct mp_at_c_impl
 {
-    using _map = mp_transform<mp_list, mp_iota<mp_size<L> >, L>;
+    using _map = mp_transform<mp_list, mp_iota<mp_size<L> >, mp_rename<L, mp_list>>;
     using type = mp_second<mp_map_find<_map, mp_size_t<I> > >;
 };
 
