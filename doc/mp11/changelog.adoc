@@ -13,8 +13,9 @@ http://www.boost.org/LICENSE_1_0.txt
 ## Changes in 1.83.0
 
 * Added an offset/from parameter to `mp_from_sequence`, `mp_iota`, `mp_iota_c`.
-* Added `mp_value`, `mp_list_v`, `mp_rename_v`.
-* Added value list support to list primitives.
+* Added `mp_value`, `mp_list_v`, `mp_rename_v`, `mp_is_value_list`.
+* Added value list support to the primitives in `<boost/mp11/list.hpp>`.
+* Added value list support to `mp_repeat`.
 
 ## Changes in 1.79.0
 

@@ -45,6 +45,12 @@ The standard value list type of Mp11. Requires {cpp}17.
 
 `mp_is_list<L>` is `mp_true` if `L` is a list (an instantiation of a class template whose template parameters are types), `mp_false` otherwise.
 
+## mp_is_value_list<L>
+
+    template<class L> using mp_is_value_list = /*...*/;
+
+`mp_is_value_list<L>` is `mp_true` under {cpp}17 if `L` is a value list (an instantiation of a class template whose template parameters are all values), `mp_false` otherwise.
+
 ## mp_size<L>
 
     template<class L> using mp_size = /*...*/;
@@ -407,6 +413,8 @@ using R1 = mp_rename_v<L1, mp_list_v>; // mp_list_v<false, 7>;
 `mp_append<L...>` concatenates the lists in `L...` into a single list that has the same type as the first list. `mp_append<>`
 is an alias for `mp_list<>`. `mp_append<L1<T1...>, L2<T2...>, ..., Ln<Tn...>>` is an alias for `L1<T1..., T2..., ..., Tn...>`.
 
+Supports value lists under {cpp}17, but mixing type lists and value lists in the same `mp_append` is not supported.
+
 .Using mp_append with lists of various types
 ```
 using L1 = std::tuple<double, long double>;
@@ -416,6 +424,14 @@ using L4 = mp_list<>;
 
 using R1 = mp_append<L1, L2, L3, L4>;
   // std::tuple<double, long double, int, short, long>
+```
+
+.Using mp_append with value lists
+```
+using L1 = mp_list_v<true, false>;
+using L2 = mp_list_v<0, 1, 2, 3>;
+
+using R1 = mp_append<L1, L2>; // mp_list_v<true, false, 0, 1, 2, 3>
 ```
 
 ## mp_replace_front<L, T>
