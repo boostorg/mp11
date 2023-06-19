@@ -335,11 +335,14 @@ namespace detail
 
 template<class L, class L2, class En> struct mp_drop_impl;
 
-template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>, mp_true>
+template<template<class...> class L, class... U> struct mp_drop_impl_f
 {
     template<class... W> static mp_identity<L<W...>> f( U*..., mp_identity<W>*... );
+};
 
-    using R = decltype( f( static_cast<mp_identity<T>*>(0) ... ) );
+template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>, mp_true>
+{
+    using R = decltype( mp_drop_impl_f<L, U...>::f( static_cast<mp_identity<T>*>(0) ... ) );
 
     using type = typename R::type;
 };
