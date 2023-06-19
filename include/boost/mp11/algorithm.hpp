@@ -648,11 +648,14 @@ template<template<class...> class L, class T1, template<class...> class P> struc
     using type = L<T1>;
 };
 
+template<class T1, template<class...> class P> struct mp_sort_impl_f
+{
+    template<class U> using f = P<U, T1>;
+};
+
 template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_sort_impl<L<T1, T...>, P>
 {
-    template<class U> using F = P<U, T1>;
-
-    using part = mp_partition<L<T...>, F>;
+    using part = mp_partition<L<T...>, mp_sort_impl_f<T1, P>::template f>;
 
     using S1 = typename mp_sort_impl<mp_first<part>, P>::type;
     using S2 = typename mp_sort_impl<mp_second<part>, P>::type;
