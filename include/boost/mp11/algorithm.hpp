@@ -1202,13 +1202,16 @@ template<template<class...> class L> struct mp_power_set_impl< L<> >
 
 #endif
 
+template<class T1> struct mp_power_set_impl_f
+{
+    template<class L2> using _f = mp_push_front<L2, T1>;
+};
+
 template<template<class...> class L, class T1, class... T> struct mp_power_set_impl< L<T1, T...> >
 {
     using S1 = mp_power_set< L<T...> >;
 
-    template<class L2> using _f = mp_push_front<L2, T1>;
-
-    using S2 = mp_transform<_f, S1>;
+    using S2 = mp_transform<mp_power_set_impl_f<T1>::template _f, S1>;
 
     using type = mp_append< S1, S2 >;
 };
