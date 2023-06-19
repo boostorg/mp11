@@ -205,13 +205,16 @@ template<class Qp, class Qf, class... L> using mp_transform_if_q = typename deta
 namespace detail
 {
 
-template<template<class...> class P, class L1, class... L> struct mp_filter_impl
+template<template<class...> class P> struct mp_filter_impl_f
 {
     using Qp = mp_quote<P>;
 
     template<class T1, class... T> using _f = mp_if< mp_invoke_q<Qp, T1, T...>, mp_list<T1>, mp_list<> >;
+};
 
-    using _t1 = mp_transform<_f, L1, L...>;
+template<template<class...> class P, class L1, class... L> struct mp_filter_impl
+{
+    using _t1 = mp_transform<mp_filter_impl_f<P>::template _f, L1, L...>;
     using _t2 = mp_apply<mp_append, _t1>;
 
     using type = mp_assign<L1, _t2>;
