@@ -78,10 +78,14 @@ template<class M, class T, class Q> using mp_map_update_q = mp_map_update<M, T, 
 namespace detail
 {
 
-template<class M, class K> struct mp_map_erase_impl
+template<class K> struct mp_map_erase_impl_f
 {
     template<class T> using _f = std::is_same<mp_first<T>, K>;
-    using type = mp_remove_if<M, _f>;
+};
+
+template<class M, class K> struct mp_map_erase_impl
+{
+    using type = mp_remove_if<M, mp_map_erase_impl_f<K>::template _f>;
 };
 
 } // namespace detail
