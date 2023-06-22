@@ -61,6 +61,8 @@ template<class M, class T> using mp_map_replace = typename detail::mp_map_replac
 namespace detail
 {
 
+#if ! BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
 template<class T> struct mp_map_update_impl_f
 {
     template<class U> using _f = std::is_same<mp_first<T>, mp_first<U>>;
@@ -72,9 +74,24 @@ template<template<class...> class F> struct mp_map_update_impl_f3
     template<class L> using _f3 = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F> > >;
 };
 
+#endif
+
 template<class M, class T, template<class...> class F> struct mp_map_update_impl
 {
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
+    template<class U> using _f = std::is_same<mp_first<T>, mp_first<U>>;
+
+    // _f3<L<X, Y...>> -> L<X, F<X, Y...>>
+    template<class L> using _f3 = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F> > >;
+
+    using type = mp_if< mp_map_contains<M, mp_first<T>>, mp_transform_if<_f, _f3, M>, mp_push_back<M, T> >;
+
+#else
+
     using type = mp_if< mp_map_contains<M, mp_first<T>>, mp_transform_if<mp_map_update_impl_f<T>::template _f, mp_map_update_impl_f3<F>::template _f3, M>, mp_push_back<M, T> >;
+
+#endif
 };
 
 } // namespace detail
