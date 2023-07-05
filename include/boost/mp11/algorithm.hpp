@@ -1060,7 +1060,7 @@ template<class L, class I, class W> struct mp_replace_at_impl
 {
     static_assert( I::value >= 0, "mp_replace_at<L, I, W>: I must not be negative" );
 
-#if ! BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
     template<class T1, class T2> using _p = std::is_same<T2, mp_size_t<I::value>>;
     template<class T1, class T2> using _f = W;
