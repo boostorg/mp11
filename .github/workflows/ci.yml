@@ -520,6 +520,7 @@ jobs:
       - uses: Jimver/cuda-toolkit@v0.2.10
         with:
           cuda: '11.7.1'
+          linux-local-args: '["--toolkit"]'
 
       - name: Setup Boost
         run: |
