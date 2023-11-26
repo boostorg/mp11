@@ -846,6 +846,39 @@ template<class L, template<class...> class P> using is_sorted =
     mp_none_of<mp_pairwise_fold_q<L, mp_bind<P, _2, _1>>, mp_to_bool>;
 ----
 
+## mp_sliding_fold<L, N, F>
+
+    template<class L, class N, template<class...> class F> using mp_sliding_fold = /*...*/;
+
+`mp_sliding_fold<L, N, F>` returns a list of the same form as `L` whose elements are
+the result of the application of the n-ary metafunction `F` to each n-tuple of adjacent
+elements of `L`. That is, `mp_sliding_fold<L<T1, T2, T3, T4>, mp_size_t<3>, F>` is
+`L<F<T1, T2, T3>, F<T2, T3, T4>>`.
+
+The result has `N-1` fewer elements than the original.
+If `L` has fewer than `N::value` elements, the result is an empty list.
+
+.Using mp_sliding_fold
+----
+template<class L, class N> using local_maximum =
+    mp_sliding_fold<L, N, mp_max>;
+----
+
+## mp_sliding_fold_q<L, N, Q>
+
+    template<class L, class N, class Q> using mp_sliding_fold_q =
+        mp_sliding_fold<L, N, Q::template fn>;
+
+As `mp_sliding_fold`, but takes a quoted metafunction.
+
+.Using mp_sliding_fold_q
+----
+struct average { template<class... C> using fn = mp_int<mp_plus<C...>::value / sizeof...(C)>; };
+
+template<class L, class N> using moving_average =
+    mp_sliding_fold_q<L, N, average>;
+----
+
 ## mp_iterate<V, F, R>
 
     template<class V, template<class...> class F, template<class...> class R>

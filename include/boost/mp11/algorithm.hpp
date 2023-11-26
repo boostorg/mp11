@@ -1261,6 +1261,27 @@ template<class L, class Q> using mp_pairwise_fold_impl = mp_transform_q<Q, mp_po
 template<class L, class Q> using mp_pairwise_fold_q = mp_eval_if<mp_empty<L>, mp_clear<L>, detail::mp_pairwise_fold_impl, L, Q>;
 template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwise_fold_q<L, mp_quote<F>>;
 
+// mp_sliding_fold<L, N, F>
+namespace detail
+{
+
+template<class C, class L, class Q, class S> struct mp_sliding_fold_impl;
+
+template<class L, class Q, std::size_t... Ints> struct mp_sliding_fold_impl<mp_true, L, Q, index_sequence<Ints...>>
+{
+    using type = mp_transform_q<Q, mp_drop_c<mp_take_c<L, mp_size<L>::value - (sizeof...(Ints) - Ints - 1)>, Ints>...>;
+};
+
+template<class L, class Q, class S> struct mp_sliding_fold_impl<mp_false, L, Q, S>
+{
+    using type = mp_clear<L>;
+};
+
+} // namespace detail
+
+template<class L, class N, class Q> using mp_sliding_fold_q = typename detail::mp_sliding_fold_impl<mp_bool<mp_size<L>::value >= N::value>, L, Q, make_index_sequence<size_t{ N::value }>>::type;
+template<class L, class N, template<class...> class F> using mp_sliding_fold = mp_sliding_fold_q<L, N, mp_quote<F>>;
+
 // mp_intersperse<L, S>
 namespace detail
 {
