@@ -5,7 +5,9 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/mp11.hpp>
+#include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/integral.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
 #include <utility>
@@ -16,16 +18,31 @@ struct X3 {};
 struct X4 {};
 struct X5 {};
 
+using boost::mp11::mp_plus;
+using boost::mp11::mp_int;
+
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
+
 struct average
 {
-    template<class... C> using fn = boost::mp11::mp_int<boost::mp11::mp_plus<C...>::value / sizeof...(C)>;
+    template<class... C> using fn = mp_int<mp_plus<C...>::value / sizeof...(C)>;
 };
+
+#else
+
+template<class... C> struct average_impl: mp_int<mp_plus<C...>::value / sizeof...(C)> {};
+
+struct average
+{
+    template<class... C> using fn = typename average_impl<C...>::type;
+};
+
+#endif
 
 int main()
 {
     using boost::mp11::mp_list;
     using boost::mp11::mp_list_c;
-    using boost::mp11::mp_plus;
     using boost::mp11::mp_quote;
     using boost::mp11::mp_size_t;
     using boost::mp11::mp_sliding_fold_q;

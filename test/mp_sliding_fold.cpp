@@ -5,7 +5,9 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/mp11.hpp>
+#include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/integral.hpp>
+#include <boost/mp11/function.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
 #include <utility>
@@ -16,13 +18,24 @@ struct X3 {};
 struct X4 {};
 struct X5 {};
 
-template<class... C> using average = boost::mp11::mp_int<boost::mp11::mp_plus<C...>::value / sizeof...(C)>;
+using boost::mp11::mp_plus;
+using boost::mp11::mp_int;
+
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, <= 1800 )
+
+template<class... C> using average = mp_int<mp_plus<C...>::value / sizeof...(C)>;
+
+#else
+
+template<class... C> struct average_impl: mp_int<mp_plus<C...>::value / sizeof...(C)> {};
+template<class... C> using average = typename average_impl<C...>::type;
+
+#endif
 
 int main()
 {
     using boost::mp11::mp_list;
     using boost::mp11::mp_list_c;
-    using boost::mp11::mp_plus;
     using boost::mp11::mp_size_t;
     using boost::mp11::mp_sliding_fold;
 
@@ -67,7 +80,7 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<X1, X2, X3>, mp_size_t<6>, mp_list>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<X1, X2, X3, X4>, mp_size_t<6>, mp_list>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<X1, X2, X3, X4, X5>, mp_size_t<6>, mp_list>, mp_list<>>));
-    
+
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<>, mp_size_t<2>, std::pair>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<X1>, mp_size_t<2>, std::pair>, mp_list<>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_sliding_fold<mp_list<X1, X2>, mp_size_t<2>, std::pair>, mp_list<std::pair<X1, X2>>>));
