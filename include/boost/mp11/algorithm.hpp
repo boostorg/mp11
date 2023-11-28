@@ -473,6 +473,10 @@ struct mp_take_c_impl<N, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, typen
 template<class L, std::size_t N> using mp_take_c = mp_assign<L, typename detail::mp_take_c_impl<N, mp_rename<L, mp_list>>::type>;
 template<class L, class N> using mp_take = mp_take_c<L, std::size_t{ N::value }>;
 
+// mp_slice(_c)<L, I, J>
+template<class L, std::size_t I, std::size_t J> using mp_slice_c = mp_drop_c< mp_take_c<L, J>, I >;
+template<class L, class I, class J> using mp_slice = mp_drop< mp_take<L, J>, I >;
+
 // mp_back<L>
 template<class L> using mp_back = mp_at_c<L, mp_size<L>::value - 1>;
 
@@ -1264,9 +1268,6 @@ template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwi
 // mp_sliding_fold<L, N, F>
 namespace detail
 {
-
-template<class L, std::size_t I, std::size_t J> using mp_slice_c = mp_drop_c< mp_take_c<L, J>, I >;
-template<class L, class I, class J> using mp_slice = mp_drop< mp_take<L, J>, I >;
 
 template<class C, class L, class Q, class S> struct mp_sliding_fold_impl;
 
