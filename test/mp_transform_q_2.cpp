@@ -39,10 +39,29 @@ struct Test
 
 int main()
 {
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
+
+    using boost::mp11::mp_size_t;
+
+    Test()( mp_size_t<1>() );
+    Test()( mp_size_t<2>() );
+    Test()( mp_size_t<3>() );
+    Test()( mp_size_t<4>() );
+    Test()( mp_size_t<5>() );
+    Test()( mp_size_t<6>() );
+    Test()( mp_size_t<7>() );
+    Test()( mp_size_t<9>() );
+    Test()( mp_size_t<10>() );
+    Test()( mp_size_t<11>() );
+
+#else
+
     using boost::mp11::mp_for_each;
     using boost::mp11::mp_iota_c;
 
     mp_for_each< mp_iota_c<32> >( Test() );
+
+#endif
 
     return boost::report_errors();
 }
