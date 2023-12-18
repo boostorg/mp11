@@ -15,6 +15,7 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `mp_sliding_fold`, a generalization of `mp_pairwise_fold` (contributed by Braden Ganetsky)
 * Added `mp_slice` (thanks to Braden Ganetsky)
 * Added value list support to `mp_min_element`, `mp_max_element`.
+* Added limited value list support to `mp_transform`.
 
 ## Changes in 1.83.0
 
