@@ -84,6 +84,25 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 #endif
 };
 
+#if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
+
+template<template<class...> class F, template<auto...> class L, auto... A> struct mp_transform_impl<F, L<A...>>
+{
+    using type = L< F< mp_value<A> >::value... >;
+};
+
+template<template<class...> class F, template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2> struct mp_transform_impl<F, L1<A1...>, L2<A2...>>
+{
+    using type = L1< F< mp_value<A1>, mp_value<A2> >::value... >;
+};
+
+template<template<class...> class F, template<auto...> class L1, auto... A1, template<auto...> class L2, auto... A2, template<auto...> class L3, auto... A3> struct mp_transform_impl<F, L1<A1...>, L2<A2...>, L3<A3...>>
+{
+    using type = L1< F< mp_value<A1>, mp_value<A2>, mp_value<A3> >::value... >;
+};
+
+#endif
+
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, == 1900 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 40800 )
 
 template<class... L> using mp_same_size_1 = mp_same<mp_size<L>...>;

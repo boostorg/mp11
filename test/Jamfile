@@ -73,6 +73,7 @@ run mp_is_value_list.cpp ;
 
 # algorithm
 run mp_transform.cpp ;
+run mp_transform_2.cpp ;
 run mp_transform_q.cpp ;
 run mp_transform_q_2.cpp ;
 run mp_transform_sf.cpp ;
