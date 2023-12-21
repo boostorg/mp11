@@ -23,6 +23,7 @@ project
 
 # include-only
 compile mp11.cpp ;
+compile complex_h.cpp ;
 
 # list
 run mp_size.cpp ;
