@@ -26,6 +26,11 @@
 #include <type_traits>
 #include <utility>
 
+#if defined(_MSC_VER) || defined(__GNUC__)
+# pragma push_macro( "I" )
+# undef I
+#endif
+
 namespace boost
 {
 namespace mp11
@@ -1373,5 +1378,9 @@ template<class L, class S> using mp_join = mp_apply<mp_append, mp_intersperse<L,
 
 } // namespace mp11
 } // namespace boost
+
+#if defined(_MSC_VER) || defined(__GNUC__)
+# pragma pop_macro( "I" )
+#endif
 
 #endif // #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED
