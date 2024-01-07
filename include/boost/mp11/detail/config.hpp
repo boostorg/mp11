@@ -127,6 +127,9 @@
 
 #if defined(__cpp_nontype_template_parameter_auto) && __cpp_nontype_template_parameter_auto >= 201606L
 # define BOOST_MP11_HAS_TEMPLATE_AUTO
+#elif defined(__cpp_template_auto) && __cpp_template_auto >= 201606L
+// old macro name from P0127R2, in Clang 4+ and GCC 7+
+# define BOOST_MP11_HAS_TEMPLATE_AUTO
 #endif
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
