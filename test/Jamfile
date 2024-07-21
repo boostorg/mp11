@@ -13,9 +13,9 @@ import config : requires ;
 
 project
   : requirements
-    <source>/boost/config//boost_config
-    <source>/boost/core//boost_core
-    <source>/boost/mpl//boost_mpl
+    <library>/boost/config//boost_config
+    <library>/boost/core//boost_core
+    <library>/boost/mpl//boost_mpl
 
     [ requires cxx11_variadic_templates cxx11_template_aliases cxx11_decltype cxx11_hdr_tuple ]
 
