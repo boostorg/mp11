@@ -13,6 +13,7 @@ import config : requires ;
 
 project
   : requirements
+    <library>/boost/mp11//boost_mp11
     <library>/boost/config//boost_config
     <library>/boost/core//boost_core
     <library>/boost/mpl//boost_mpl
