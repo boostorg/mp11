@@ -172,7 +172,7 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 namespace detail
 {
 
-template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
+template<template<class...> class P, template<class...> class F> struct mp_transform_if_impl_f
 {
     // the stupid quote-unquote dance avoids "pack expansion used as argument for non-pack parameter of alias template"
 
@@ -189,8 +189,11 @@ template<template<class...> class P, template<class...> class F, class... L> str
     template<class... U> using _f = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
 
 #endif
+};
 
-    using type = mp_transform<_f, L...>;
+template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
+{
+    using type = mp_transform<mp_transform_if_impl_f<P, F>::template _f, L...>;
 };
 
 } // namespace detail
@@ -202,13 +205,16 @@ template<class Qp, class Qf, class... L> using mp_transform_if_q = typename deta
 namespace detail
 {
 
-template<template<class...> class P, class L1, class... L> struct mp_filter_impl
+template<template<class...> class P> struct mp_filter_impl_f
 {
     using Qp = mp_quote<P>;
 
     template<class T1, class... T> using _f = mp_if< mp_invoke_q<Qp, T1, T...>, mp_list<T1>, mp_list<> >;
+};
 
-    using _t1 = mp_transform<_f, L1, L...>;
+template<template<class...> class P, class L1, class... L> struct mp_filter_impl
+{
+    using _t1 = mp_transform<mp_filter_impl_f<P>::template _f, L1, L...>;
     using _t2 = mp_apply<mp_append, _t1>;
 
     using type = mp_assign<L1, _t2>;
@@ -329,11 +335,14 @@ namespace detail
 
 template<class L, class L2, class En> struct mp_drop_impl;
 
-template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>, mp_true>
+template<template<class...> class L, class... U> struct mp_drop_impl_f
 {
     template<class... W> static mp_identity<L<W...>> f( U*..., mp_identity<W>*... );
+};
 
-    using R = decltype( f( static_cast<mp_identity<T>*>(0) ... ) );
+template<template<class...> class L, class... T, template<class...> class L2, class... U> struct mp_drop_impl<L<T...>, L2<U...>, mp_true>
+{
+    using R = decltype( mp_drop_impl_f<L, U...>::f( static_cast<mp_identity<T>*>(0) ... ) );
 
     using type = typename R::type;
 };
@@ -634,11 +643,14 @@ template<template<class...> class L, class T1, template<class...> class P> struc
     using type = L<T1>;
 };
 
+template<class T1, template<class...> class P> struct mp_sort_impl_f
+{
+    template<class U> using f = P<U, T1>;
+};
+
 template<template<class...> class L, class T1, class... T, template<class...> class P> struct mp_sort_impl<L<T1, T...>, P>
 {
-    template<class U> using F = P<U, T1>;
-
-    using part = mp_partition<L<T...>, F>;
+    using part = mp_partition<L<T...>, mp_sort_impl_f<T1, P>::template f>;
 
     using S1 = typename mp_sort_impl<mp_first<part>, P>::type;
     using S2 = typename mp_sort_impl<mp_second<part>, P>::type;
@@ -1063,14 +1075,36 @@ template<class L, class Q> using mp_any_of_q = mp_any_of<L, Q::template fn>;
 namespace detail
 {
 
+#if ! BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
+template<class I> struct mp_replace_at_impl_p
+{
+    template<class T1, class T2> using _p = std::is_same<T2, I>;
+};
+
+template<class W> struct mp_replace_at_impl_f
+{
+    template<class T1, class T2> using _f = W;
+};
+
+#endif
+
 template<class L, class I, class W> struct mp_replace_at_impl
 {
     static_assert( I::value >= 0, "mp_replace_at<L, I, W>: I must not be negative" );
+
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
     template<class T1, class T2> using _p = std::is_same<T2, mp_size_t<I::value>>;
     template<class T1, class T2> using _f = W;
 
     using type = mp_transform_if<_p, _f, L, mp_iota<mp_size<L> > >;
+
+#else
+
+    using type = mp_transform_if<mp_replace_at_impl_p<mp_size_t<I::value>>::template _p, mp_replace_at_impl_f<W>::template _f, L, mp_iota<mp_size<L> > >;
+
+#endif
 };
 
 } // namespace detail
@@ -1215,13 +1249,16 @@ template<template<class...> class L> struct mp_power_set_impl< L<> >
 
 #endif
 
+template<class T1> struct mp_power_set_impl_f
+{
+    template<class L2> using _f = mp_push_front<L2, T1>;
+};
+
 template<template<class...> class L, class T1, class... T> struct mp_power_set_impl< L<T1, T...> >
 {
     using S1 = mp_power_set< L<T...> >;
 
-    template<class L2> using _f = mp_push_front<L2, T1>;
-
-    using S2 = mp_transform<_f, S1>;
+    using S2 = mp_transform<mp_power_set_impl_f<T1>::template _f, S1>;
 
     using type = mp_append< S1, S2 >;
 };
