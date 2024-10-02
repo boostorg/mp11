@@ -26,8 +26,13 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<X>::fn<>, X>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<X>::fn<void>, X>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<X*>::fn<void>, X*>));
+
+#if defined(__GNUC__) && (__GNUC__ * 10000 + __GNUC_MINOR__ * 100) < 40900
+    // GCC < 4.9 ICEs when dealing with enum types
+#else
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<E>::fn<void>, E>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<E*>::fn<void>, E*>));
+#endif
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1>::fn<int>, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_2>::fn<void, int>, int>));
