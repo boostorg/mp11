@@ -143,26 +143,26 @@ template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qu
 
 template<class R, class... T> struct lambda_impl<R(T...) >                     
 {                                                                                       
-    template<class Q, class... U> using make = Q(U...) ;                       
+    template<class Q, class... U> using make = Q(typename mp_identity<U>::type...) ;                       
     using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
 };                                                                                      
                                                                                         
 template<class R, class... T> struct lambda_impl<R(T..., ...) >                
 {                                                                                       
-    template<class Q, class... U> using make = Q(U..., ...) ;                  
+    template<class Q, class... U> using make = Q(typename mp_identity<U>::type..., ...) ;                  
     using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
 };                                                                                      
                                                                                         
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) >     
 {                                                                                       
-    template<class Q, class D, class... U> using make = Q (D::*)(U...) ;       
+    template<class Q, class D, class... U> using make = Q (D::*)(typename mp_identity<U>::type...) ;       
     using type = mp_bind_q<                                                             
         lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;         
 };                                                                                      
 
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) >
 {
-    template<class Q, class D, class... U> using make = Q (D::*)(U..., ...) ;
+    template<class Q, class D, class... U> using make = Q (D::*)(typename mp_identity<U>::type..., ...) ;
     using type = mp_bind_q<
         lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;
 };
