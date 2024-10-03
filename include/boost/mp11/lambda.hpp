@@ -138,7 +138,35 @@ template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qu
 
 #define BOOST_MP11_EMPTY()
 
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(BOOST_MP11_EMPTY())
+// temporary macro expansion
+// BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(BOOST_MP11_EMPTY())
+
+template<class R, class... T> struct lambda_impl<R(T...) >                     
+{                                                                                       
+    template<class Q, class... U> using make = Q(U...) ;                       
+    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
+};                                                                                      
+                                                                                        
+template<class R, class... T> struct lambda_impl<R(T..., ...) >                
+{                                                                                       
+    template<class Q, class... U> using make = Q(U..., ...) ;                  
+    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
+};                                                                                      
+                                                                                        
+template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) >     
+{                                                                                       
+    template<class Q, class D, class... U> using make = Q (D::*)(U...) ;       
+    using type = mp_bind_q<                                                             
+        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;         
+};                                                                                      
+
+template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) >
+{
+    template<class Q, class D, class... U> using make = Q (D::*)(U..., ...) ;
+    using type = mp_bind_q<
+        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;
+};
+
 BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const)
 BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile)
 BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile)
