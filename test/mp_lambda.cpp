@@ -8,6 +8,7 @@
 
 
 #include <boost/mp11/lambda.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
 #include <type_traits>
@@ -27,9 +28,8 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<X>::fn<void>, X>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<X*>::fn<void>, X*>));
 
-#if defined(__GNUC__) && (__GNUC__ * 10000 + __GNUC_MINOR__ * 100) < 40900
+#if !BOOST_MP11_WORKAROUND(BOOST_MP11_GCC, < 40900)
     // GCC < 4.9 ICEs when dealing with enum types
-#else
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<E>::fn<void>, E>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<E*>::fn<void>, E*>));
 #endif
@@ -44,6 +44,7 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1*>::fn<int>, int*>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<int>, const int*>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1* const>::fn<int>, const int* const>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<void>, const void*>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1&>::fn<int>, int&>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&>::fn<int>, volatile int*&>));
