@@ -26,3 +26,7 @@ For example, `mp_lambda<std::pair<_1, _2*>>::fn<int, char>` is `std::pair<int, c
 
 Replacement does not happen inside those constituent parts of `T` resulting
 from the instantiation of a class template with non-type template parameters.
+
+NOTE: In GCC 4.8, a compiler bug results in `const` and `volatile` qualifiers
+being stripped from the returned type `V` (except when they are applied to
+function and member function types).

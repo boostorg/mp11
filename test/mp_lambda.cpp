@@ -17,6 +17,15 @@
 struct X;
 enum E {};
 
+#if BOOST_MP11_WORKAROUND(BOOST_MP11_GCC, < 40900)
+// A bug in GCC < 4.9 results in const/volatile qualifiers being stripped
+#define CONST
+#define VOLATILE
+#else
+#define CONST const
+#define VOLATILE volatile
+#endif
+
 int main()
 {
     using namespace boost::mp11;
@@ -37,19 +46,19 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1>::fn<int>, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_2>::fn<void, int>, int>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1>::fn<int>, const int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1>::fn<int>, volatile int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const volatile _2>::fn<void, int>, const volatile int>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1>::fn<int>, CONST int>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1>::fn<int>, VOLATILE int>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const volatile _2>::fn<void, int>, CONST VOLATILE int>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1*>::fn<int>, int*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<int>, const int*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1* const>::fn<int>, const int* const>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<void>, const void*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<int>, CONST int*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1* const>::fn<int>, CONST int* const>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<void>, CONST void*>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1&>::fn<int>, int&>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&>::fn<int>, volatile int*&>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&>::fn<int>, VOLATILE int*&>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1&&>::fn<int>, int&&>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&&>::fn<int>, volatile int*&&>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&&>::fn<int>, VOLATILE int*&&>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1[]>::fn<int>, int[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1[5]>::fn<int>, int[5]>));
@@ -119,11 +128,11 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<_1, _2>>::fn<char, int>, std::pair<char, int>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<_2, _1>>::fn<char, int>, std::pair<int, char>>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<const _1*, _2&>>::fn<char, int>, std::pair<const char*, int&>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<const _1*, _2&>>::fn<char, int>, std::pair<CONST char*, int&>>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_1, _2>>::fn<char, int>, std::tuple<char, int>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_2, _1>*>::fn<X, int>, std::tuple<int, X>*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<const _1*, _2&>*>::fn<char, int>, std::tuple<const char*, int&>*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<const _1*, _2&>*>::fn<char, int>, std::tuple<CONST char*, int&>*>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_3, std::pair<_2, _1>>>::fn<char, int, double>, std::tuple<double, std::pair<int, char>>>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_1, _2>>::fn<_2, _1>, std::tuple<_2, _1>>));
