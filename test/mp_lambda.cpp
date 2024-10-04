@@ -7,6 +7,26 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
+#if 1
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_MSVC
+#define CONCAT_(A, B) A ## B
+#define CONCAT(A, B) CONCAT_(A, B)
+#define MSVC_VERSION CONCAT(msvc_version_, BOOST_MP11_MSVC)
+
+#pragma deprecated(MSVC_VERSION)
+#pragma warning(default: 4995)
+
+static int MSVC_VERSION = 0;
+#endif
+
+int main()
+{
+  using type = int() const;
+}
+
+#else
 #include <boost/mp11/lambda.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
@@ -142,3 +162,4 @@ int main()
 
     return boost::report_errors();
 }
+#endif
