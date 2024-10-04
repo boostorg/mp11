@@ -141,30 +141,34 @@ template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qu
 // temporary macro expansion
 // BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(BOOST_MP11_EMPTY())
 
+template<class Q, class... U> using make_fct = Q(U...);
+
 template<class R, class... T> struct lambda_impl<R(T...) >                     
 {                                                                                       
-    template<class Q, class... U> using make = Q(typename mp_identity<U>::type...) ;                       
-    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
+    using type = mp_bind_q<lambda_devoid_args<make_fct>, mp_lambda<R>, mp_lambda<T>...>;    
 };                                                                                      
                                                                                         
+template<class Q, class... U> using make_fct_ellipsis = Q(U..., ...) ;                  
+
 template<class R, class... T> struct lambda_impl<R(T..., ...) >                
 {                                                                                       
-    template<class Q, class... U> using make = Q(typename mp_identity<U>::type..., ...) ;                  
-    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;    
+    using type = mp_bind_q<lambda_devoid_args<make_fct_ellipsis>, mp_lambda<R>, mp_lambda<T>...>;    
 };                                                                                      
                                                                                         
+template<class Q, class D, class... U> using make_mfptr = Q (D::*)(U...) ;
+
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) >     
 {                                                                                       
-    template<class Q, class D, class... U> using make = Q (D::*)(typename mp_identity<U>::type...) ;       
     using type = mp_bind_q<                                                             
-        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;         
+        lambda_devoid_args<make_mfptr>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;         
 };                                                                                      
+
+template<class Q, class D, class... U> using make_mfptr_ellipsis = Q (D::*)(U..., ...) ;
 
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) >
 {
-    template<class Q, class D, class... U> using make = Q (D::*)(typename mp_identity<U>::type..., ...) ;
     using type = mp_bind_q<
-        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;
+        lambda_devoid_args<make_mfptr_ellipsis>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;
 };
 
 BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const)
