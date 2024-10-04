@@ -109,94 +109,75 @@ template<template <class...> class F> struct lambda_devoid_args
   template<class... T> using fn = typename lambda_devoid_args_impl<F, T...>::type;
 };
 
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(qualifier)                            \
+#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(name, qualifier)                      \
+template<class R, class... T> using lambda_make_fct_##name = R(T...) qualifier;          \
+                                                                                         \
 template<class R, class... T> struct lambda_impl<R(T...) qualifier>                      \
 {                                                                                        \
-    template<class Q, class... U> using make = Q(U...) qualifier;                        \
-    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;     \
+    using type =  mp_bind_q<                                                             \
+        lambda_devoid_args<lambda_make_fct_##name>,                                      \
+        mp_lambda<R>, mp_lambda<T>...>;                                                  \
 };                                                                                       \
+                                                                                         \
+template<class R, class... T> using lambda_make_fct_##name##_ellipsis =                  \
+    R(T..., ...) qualifier;                                                              \
                                                                                          \
 template<class R, class... T> struct lambda_impl<R(T..., ...) qualifier>                 \
 {                                                                                        \
-    template<class Q, class... U> using make = Q(U..., ...) qualifier;                   \
-    using type = mp_bind_q<lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<T>...>;     \
+    using type = mp_bind_q<                                                              \
+        lambda_devoid_args<lambda_make_fct_##name##_ellipsis>,                           \
+        mp_lambda<R>, mp_lambda<T>...>;                                                  \
 };                                                                                       \
+                                                                                         \
+template<class R, class C, class... T> using lambda_make_mfptr_##name =                  \
+    R (C::*)(T...) qualifier;                                                            \
                                                                                          \
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) qualifier>      \
 {                                                                                        \
-    template<class Q, class D, class... U> using make = Q (D::*)(U...) qualifier;        \
     using type = mp_bind_q<                                                              \
-        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;          \
+        lambda_devoid_args<lambda_make_mfptr_##name>,                                    \
+        mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };                                                                                       \
+                                                                                         \
+template<class R, class C, class... T> using lambda_make_mfptr_##name##_ellipsis =       \
+    R (C::*)(T..., ...) qualifier;                                                       \
                                                                                          \
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qualifier> \
 {                                                                                        \
-    template<class Q, class D, class... U> using make = Q (D::*)(U..., ...) qualifier;   \
     using type = mp_bind_q<                                                              \
-        lambda_devoid_args<make>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;          \
+        lambda_devoid_args<lambda_make_mfptr_##name##_ellipsis>,                         \
+        mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };
 
 #define BOOST_MP11_EMPTY()
 
-// temporary macro expansion
-// BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(BOOST_MP11_EMPTY())
-
-template<class Q, class... U> using make_fct = Q(U...);
-
-template<class R, class... T> struct lambda_impl<R(T...) >                     
-{                                                                                       
-    using type = mp_bind_q<lambda_devoid_args<make_fct>, mp_lambda<R>, mp_lambda<T>...>;    
-};                                                                                      
-                                                                                        
-template<class Q, class... U> using make_fct_ellipsis = Q(U..., ...) ;                  
-
-template<class R, class... T> struct lambda_impl<R(T..., ...) >                
-{                                                                                       
-    using type = mp_bind_q<lambda_devoid_args<make_fct_ellipsis>, mp_lambda<R>, mp_lambda<T>...>;    
-};                                                                                      
-                                                                                        
-template<class Q, class D, class... U> using make_mfptr = Q (D::*)(U...) ;
-
-template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) >     
-{                                                                                       
-    using type = mp_bind_q<                                                             
-        lambda_devoid_args<make_mfptr>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;         
-};                                                                                      
-
-template<class Q, class D, class... U> using make_mfptr_ellipsis = Q (D::*)(U..., ...) ;
-
-template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) >
-{
-    using type = mp_bind_q<
-        lambda_devoid_args<make_mfptr_ellipsis>, mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;
-};
-
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(&&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const&&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile&&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(no_qualifier, BOOST_MP11_EMPTY())
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const, const)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile, volatile)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile, const volatile)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(ref, &)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_ref, const&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile_ref, volatile&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile_ref, const volatile&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(rvalue_ref, &&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_rvalue_ref, const&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile_rvalue_ref, volatile&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile_rvalue_ref, const volatile&&)
 
 #if (defined(_MSVC_LANG) &&  _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
 // P0012R1: exception specification as part of the type system
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(&& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const&& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile&& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const volatile&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(noexcept, noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_noexcept, const noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile_noexcept, volatile noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile_noexcept, const volatile noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(ref_noexcept, & noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_ref_noexcept, const& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile_ref_noexcept, volatile& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile_ref_noexcept, const volatile& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(rvalue_ref_noexcept, && noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_rvalue_ref_noexcept, const&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(volatile_rvalue_ref_noexcept, volatile&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION(const_volatile_rvalue_ref_noexcept, const volatile&& noexcept)
 #endif // P0012R1
 
 #undef BOOST_MP11_EMPTY
