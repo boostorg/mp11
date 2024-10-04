@@ -8,9 +8,30 @@
 
 
 #if 1
+template<class... T> struct foo;
+
+template<class R, class... T> struct foo<R(T...)> {};
+template<class R, class... T> struct foo<R(T...)const> {};
+template<class R, class... T> struct foo<R(T...)const volatile> {};
+template<class R, class... T> struct foo<R(T...)&> {};
+template<class R, class... T> struct foo<R(T...)const&> {};
+template<class R, class... T> struct foo<R(T...)const volatile&> {};
+template<class R, class... T> struct foo<R(T...)&&> {};
+template<class R, class... T> struct foo<R(T...)const&&> {};
+template<class R, class... T> struct foo<R(T...)const volatile&&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const volatile> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const volatile&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)&&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const&&> {};
+template<class R, class C, class... T> struct foo<R (C::*)(T...)const volatile&&> {};
+
+
 int main()
 {
-  using type = int() const;
 }
 #else
 #include <boost/mp11/lambda.hpp>
