@@ -124,8 +124,8 @@ template<class R, class... T> using lambda_make_fct_##name##_ellipsis =         
                                                                                          \
 template<class R, class... T> struct lambda_impl<R(T..., ...) qualifier>                 \
 {                                                                                        \
-    using type = mp_bind_q<                                                              \
-        lambda_devoid_args<lambda_make_fct_##name##_ellipsis>,                           \
+    using type = mp_bind<                                                                \
+        lambda_make_fct_##name##_ellipsis,                                               \
         mp_lambda<R>, mp_lambda<T>...>;                                                  \
 };                                                                                       \
                                                                                          \
@@ -144,8 +144,8 @@ template<class R, class C, class... T> using lambda_make_mfptr_##name##_ellipsis
                                                                                          \
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qualifier> \
 {                                                                                        \
-    using type = mp_bind_q<                                                              \
-        lambda_devoid_args<lambda_make_mfptr_##name##_ellipsis>,                         \
+    using type = mp_bind<                                                                \
+        lambda_make_mfptr_##name##_ellipsis,                                             \
         mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };
 
