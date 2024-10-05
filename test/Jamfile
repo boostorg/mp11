@@ -266,24 +266,6 @@ run mp_bind_back.cpp ;
 
 # lambda
 run mp_lambda.cpp ;
-run check_ps1.cpp ;
-run check_ps2.cpp ;
-run check_ps3.cpp ;
-run check_ps4.cpp ;
-run check_ps5.cpp ;
-run check_ps6.cpp ;
-run check_ps7.cpp ;
-run check_ps8.cpp ;
-run check_ps9.cpp ;
-run check_ps10.cpp ;
-run check_ps11.cpp ;
-run check_ps12.cpp ;
-run check_ps13.cpp ;
-run check_ps14.cpp ;
-run check_ps15.cpp ;
-run check_ps16.cpp ;
-run check_ps17.cpp ;
-run check_ps18.cpp ;
 
 # mpl
 run mpl.cpp : ;
