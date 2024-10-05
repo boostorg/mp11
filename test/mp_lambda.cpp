@@ -91,9 +91,8 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile&&>::fn<int, void>, int(void) const volatile&&>));
 #endif
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) noexcept>::fn<int, void>, int(void) noexcept >));
-
 #if !BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) noexcept>::fn<int, void>, int(void) noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const noexcept>::fn<int, void>, int(void) const noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile noexcept>::fn<int, void>, int(void) volatile noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile noexcept>::fn<int, void>, int(void) const volatile noexcept >));
@@ -123,12 +122,11 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile&&>::fn<int, void, X>, int (X::*)(void) const volatile&&>));
 #endif
 
+#if !BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) noexcept>::fn<int, void, X>, int (X::*)(void) noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const noexcept>::fn<int, void, X>, int (X::*)(void) const noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile noexcept>::fn<int, void, X>, int (X::*)(void) volatile noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile noexcept>::fn<int, void, X>, int (X::*)(void) const volatile noexcept >));
-
-#if !BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)& noexcept>::fn<int, void, X>, int (X::*)(void)& noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const& noexcept>::fn<int, void, X>, int (X::*)(void) const& noexcept >));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile& noexcept>::fn<int, void, X>, int (X::*)(void) volatile& noexcept >));
