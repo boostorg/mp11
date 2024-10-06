@@ -8,6 +8,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
+// mp_lambda not supported due to compiler limitations
+#else
+
 #include <boost/mp11/bind.hpp>
 #include <cstddef>
 #include <type_traits>
@@ -109,7 +115,7 @@ template<template <class...> class F> struct lambda_devoid_args
   template<class... T> using fn = typename lambda_devoid_args_impl<F, T...>::type;
 };
 
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT(name, qualifier)                           \
+#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(name, qualifier)                 \
 template<class R, class... T> using lambda_make_fct_##name = R(T...) qualifier;          \
                                                                                          \
 template<class R, class... T> struct lambda_impl<R(T...) qualifier>                      \
@@ -117,20 +123,18 @@ template<class R, class... T> struct lambda_impl<R(T...) qualifier>             
     using type =  mp_bind_q<                                                             \
         lambda_devoid_args<lambda_make_fct_##name>,                                      \
         mp_lambda<R>, mp_lambda<T>...>;                                                  \
-};
-
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_VARIADIC(name, qualifier)                  \
-template<class R, class... T> using lambda_make_fct_##name##_variadic =                  \
+};                                                                                       \
+                                                                                         \
+template<class R, class... T> using lambda_make_fct_##name##_ellipsis =                  \
     R(T..., ...) qualifier;                                                              \
                                                                                          \
 template<class R, class... T> struct lambda_impl<R(T..., ...) qualifier>                 \
 {                                                                                        \
     using type = mp_bind<                                                                \
-        lambda_make_fct_##name##_variadic,                                               \
+        lambda_make_fct_##name##_ellipsis,                                               \
         mp_lambda<R>, mp_lambda<T>...>;                                                  \
-};
-
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(name, qualifier)                         \
+};                                                                                       \
+                                                                                         \
 template<class R, class C, class... T> using lambda_make_mfptr_##name =                  \
     R (C::*)(T...) qualifier;                                                            \
                                                                                          \
@@ -140,74 +144,50 @@ template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) qualifi
         lambda_devoid_args<lambda_make_mfptr_##name>,                                    \
         mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };                                                                                       \
-
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR_VARIADIC(name, qualifier)                \
-template<class R, class C, class... T> using lambda_make_mfptr_##name##_variadic =       \
+                                                                                         \
+template<class R, class C, class... T> using lambda_make_mfptr_##name##_ellipsis =       \
     R (C::*)(T..., ...) qualifier;                                                       \
                                                                                          \
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T..., ...) qualifier> \
 {                                                                                        \
     using type = mp_bind<                                                                \
-        lambda_make_mfptr_##name##_variadic,                                             \
+        lambda_make_mfptr_##name##_ellipsis,                                             \
         mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };
 
-#define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(name, qualifier)                \
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT(name, qualifier)                                   \
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_VARIADIC(name, qualifier)                          \
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(name, qualifier)                                 \
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR_VARIADIC(name, qualifier)
-
 #define BOOST_MP11_EMPTY()
 
-#if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
-
-// VS2013 doesn't accept most fun/memfun pointer qualifiers
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT(no_qualifier, BOOST_MP11_EMPTY())
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(no_qualifier, BOOST_MP11_EMPTY())
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(const, const)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(volatile, volatile)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR(const_volatile, const volatile)
-
-#else
-
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(no_qualifier, BOOST_MP11_EMPTY())
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const, const)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile, volatile)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile, const volatile)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(ref, &)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_ref, const&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile_ref, volatile&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile_ref, const volatile&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(rvalue_ref, &&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_rvalue_ref, const&&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile_rvalue_ref, volatile&&)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile_rvalue_ref, const volatile&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(no_qualifier, BOOST_MP11_EMPTY())
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const, const)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile, volatile)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile, const volatile)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(ref, &)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_ref, const&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile_ref, volatile&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile_ref, const volatile&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(rvalue_ref, &&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_rvalue_ref, const&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile_rvalue_ref, volatile&&)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile_rvalue_ref, const volatile&&)
 
 #if (defined(_MSVC_LANG) &&  _MSVC_LANG >= 201703L) || __cplusplus >= 201703L
 // P0012R1: exception specification as part of the type system
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(noexcept, noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_noexcept, const noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile_noexcept, volatile noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile_noexcept, const volatile noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(ref_noexcept, & noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_ref_noexcept, const& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile_ref_noexcept, volatile& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile_ref_noexcept, const volatile& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(rvalue_ref_noexcept, && noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_rvalue_ref_noexcept, const&& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(volatile_rvalue_ref_noexcept, volatile&& noexcept)
-BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES(const_volatile_rvalue_ref_noexcept, const volatile&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(noexcept, noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_noexcept, const noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile_noexcept, volatile noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile_noexcept, const volatile noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(ref_noexcept, & noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_ref_noexcept, const& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile_ref_noexcept, volatile& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile_ref_noexcept, const volatile& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(rvalue_ref_noexcept, && noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_rvalue_ref_noexcept, const&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(volatile_rvalue_ref_noexcept, volatile&& noexcept)
+BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(const_volatile_rvalue_ref_noexcept, const volatile&& noexcept)
 #endif // P0012R1
 
-#endif // !BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
-
 #undef BOOST_MP11_EMPTY
-#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR_VARIADIC
-#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_MFPTR
-#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_VARIADIC
-#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT
-#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FUNCTION_TYPES
+#undef BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR
 
 // [dcl.mptr] (data members)
 template<class T, class C> struct lambda_impl<T (C::*)>
@@ -229,5 +209,7 @@ template<template <class...> class C, class... Ts> struct lambda_impl<C<Ts...>>
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
 #endif
+
+#endif // mp_lambda supported
 
 #endif // #ifndef BOOST_MP11_LAMBDA_HPP_INCLUDED

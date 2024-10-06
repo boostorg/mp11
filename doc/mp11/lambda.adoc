@@ -29,4 +29,6 @@ from the instantiation of a class template with non-type template parameters.
 
 NOTE: In GCC 4.8, a compiler bug results in `const` and `volatile` qualifiers
 being stripped from the returned type `V` (except when they are applied to
-function and member function types).
+function or member function types).
+
+NOTE: `mp_lambda` is not supported in VS2013 and prior due to compiler limitations.
