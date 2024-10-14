@@ -11,7 +11,7 @@
 
 #if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
 
-#pragma message("Test skipped because mp_lambda is not supported")
+#pragma message("Test skipped because BOOST_MP11_MSVC <= 1800")
 int main() {}
 
 #else
@@ -54,19 +54,19 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1>::fn<int>, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_2>::fn<void, int>, int>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1>::fn<int>, CONST int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1>::fn<int>, VOLATILE int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const volatile _2>::fn<void, int>, CONST VOLATILE int>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 const>::fn<int>, int CONST>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 volatile>::fn<int>, int VOLATILE>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_2 const volatile>::fn<void, int>, int CONST VOLATILE>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1*>::fn<int>, int*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<int>, CONST int*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1* const>::fn<int>, CONST int* CONST>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<const _1*>::fn<void>, CONST void*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 const*>::fn<int>, int CONST*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 const* const>::fn<int>, int CONST* CONST>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 const*>::fn<void>, void CONST*>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1&>::fn<int>, int&>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&>::fn<int>, VOLATILE int*&>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 volatile *&>::fn<int>, int VOLATILE *&>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1&&>::fn<int>, int&&>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<volatile _1*&&>::fn<int>, VOLATILE int*&&>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 volatile *&&>::fn<int>, int VOLATILE *&&>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1[]>::fn<int>, int[]>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1[5]>::fn<int>, int[5]>));
@@ -74,7 +74,7 @@ int main()
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2, _3)>::fn<int, char, double>, int(char, double)>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<int(_2)>::fn<void, char>, int(char)>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(void)>::fn<void>, void()>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1()>::fn<void>, void()>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2, _2*)>::fn<int, char>, int(char, char*)>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(*[])(_2)>::fn<int, char>, int(*[])(char)>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2, ...)>::fn<int, char>, int(char, ...)>));
@@ -93,18 +93,18 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile&&>::fn<int, char>, int(char) volatile&&>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile&&>::fn<int, char>, int(char) const volatile&&>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) noexcept>::fn<int, char>, int(char) noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const noexcept>::fn<int, char>, int(char) const noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile noexcept>::fn<int, char>, int(char) volatile noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile noexcept>::fn<int, char>, int(char) const volatile noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2)& noexcept>::fn<int, char>, int(char)& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const& noexcept>::fn<int, char>, int(char) const& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile& noexcept>::fn<int, char>, int(char) volatile& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile& noexcept>::fn<int, char>, int(char) const volatile& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2)&& noexcept>::fn<int, char>, int(char)&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const&& noexcept>::fn<int, char>, int(char) const&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile&& noexcept>::fn<int, char>, int(char) volatile&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile&& noexcept>::fn<int, char>, int(char) const volatile&& noexcept >));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) noexcept>::fn<int, char>, int(char) noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const noexcept>::fn<int, char>, int(char) const noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile noexcept>::fn<int, char>, int(char) volatile noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile noexcept>::fn<int, char>, int(char) const volatile noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2)& noexcept>::fn<int, char>, int(char)& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const& noexcept>::fn<int, char>, int(char) const& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile& noexcept>::fn<int, char>, int(char) volatile& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile& noexcept>::fn<int, char>, int(char) const volatile& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2)&& noexcept>::fn<int, char>, int(char)&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const&& noexcept>::fn<int, char>, int(char) const&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) volatile&& noexcept>::fn<int, char>, int(char) volatile&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1(_2) const volatile&& noexcept>::fn<int, char>, int(char) const volatile&& noexcept>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)>::fn<int, char, X>, int (X::*)(char)>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const>::fn<int, char, X>, int (X::*)(char) const>));
@@ -119,28 +119,28 @@ int main()
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile&&>::fn<int, char, X>, int (X::*)(char) volatile&&>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile&&>::fn<int, char, X>, int (X::*)(char) const volatile&&>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) noexcept>::fn<int, char, X>, int (X::*)(char) noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const noexcept>::fn<int, char, X>, int (X::*)(char) const noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile noexcept>::fn<int, char, X>, int (X::*)(char) volatile noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile noexcept>::fn<int, char, X>, int (X::*)(char) const volatile noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)& noexcept>::fn<int, char, X>, int (X::*)(char)& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const& noexcept>::fn<int, char, X>, int (X::*)(char) const& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile& noexcept>::fn<int, char, X>, int (X::*)(char) volatile& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile& noexcept>::fn<int, char, X>, int (X::*)(char) const volatile& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)&& noexcept>::fn<int, char, X>, int (X::*)(char)&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const&& noexcept>::fn<int, char, X>, int (X::*)(char) const&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile&& noexcept>::fn<int, char, X>, int (X::*)(char) volatile&& noexcept >));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile&& noexcept>::fn<int, char, X>, int (X::*)(char) const volatile&& noexcept >));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) noexcept>::fn<int, char, X>, int (X::*)(char) noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const noexcept>::fn<int, char, X>, int (X::*)(char) const noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile noexcept>::fn<int, char, X>, int (X::*)(char) volatile noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile noexcept>::fn<int, char, X>, int (X::*)(char) const volatile noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)& noexcept>::fn<int, char, X>, int (X::*)(char)& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const& noexcept>::fn<int, char, X>, int (X::*)(char) const& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile& noexcept>::fn<int, char, X>, int (X::*)(char) volatile& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile& noexcept>::fn<int, char, X>, int (X::*)(char) const volatile& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2)&& noexcept>::fn<int, char, X>, int (X::*)(char)&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const&& noexcept>::fn<int, char, X>, int (X::*)(char) const&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) volatile&& noexcept>::fn<int, char, X>, int (X::*)(char) volatile&& noexcept>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_3::*)(_2) const volatile&& noexcept>::fn<int, char, X>, int (X::*)(char) const volatile&& noexcept>));
 
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 (_2::*)>::fn<int, X>, int (X::*)>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<_1 _2::*>::fn<int, X>, int X::*>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<_1, _2>>::fn<char, int>, std::pair<char, int>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<_2, _1>>::fn<char, int>, std::pair<int, char>>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<const _1*, _2&>>::fn<char, int>, std::pair<CONST char*, int&>>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::pair<_1 const*, _2&>>::fn<char, int>, std::pair<char CONST*, int&>>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_1, _2>>::fn<char, int>, std::tuple<char, int>>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_2, _1>*>::fn<X, int>, std::tuple<int, X>*>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<const _1*, _2&>*>::fn<char, int>, std::tuple<CONST char*, int&>*>));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_1 const*, _2&>*>::fn<char, int>, std::tuple<char CONST*, int&>*>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_3, std::pair<_2, _1>>>::fn<char, int, double>, std::tuple<double, std::pair<int, char>>>));
 
     BOOST_TEST_TRAIT_TRUE((std::is_same<mp_lambda<std::tuple<_1, _2>>::fn<_2, _1>, std::tuple<_2, _1>>));
