@@ -95,33 +95,13 @@ template<class T, std::size_t N> struct lambda_impl<T[N]>
 };
 
 // [dcl.fct], [dcl.mptr] (member functions)
-template<template <class...> class F, class... T> struct lambda_devoid_args_impl
-{
-    using type = F<T...>;
-};
-
-template<template <class...> class F, class R> struct lambda_devoid_args_impl<F, R, void>
-{
-    using type = F<R>;
-};
-
-template<template <class...> class F, class R, class C> struct lambda_devoid_args_impl<F, R, C, void>
-{
-    using type = F<R,C>;
-};
-
-template<template <class...> class F> struct lambda_devoid_args
-{
-  template<class... T> using fn = typename lambda_devoid_args_impl<F, T...>::type;
-};
-
 #define BOOST_MP11_SPECIALIZE_LAMBDA_IMPL_FCT_AND_MFPTR(name, qualifier)                 \
 template<class R, class... T> using lambda_make_fct_##name = R(T...) qualifier;          \
                                                                                          \
 template<class R, class... T> struct lambda_impl<R(T...) qualifier>                      \
 {                                                                                        \
-    using type =  mp_bind_q<                                                             \
-        lambda_devoid_args<lambda_make_fct_##name>,                                      \
+    using type =  mp_bind<                                                               \
+        lambda_make_fct_##name,                                                          \
         mp_lambda<R>, mp_lambda<T>...>;                                                  \
 };                                                                                       \
                                                                                          \
@@ -140,8 +120,8 @@ template<class R, class C, class... T> using lambda_make_mfptr_##name =         
                                                                                          \
 template<class R, class C, class... T> struct lambda_impl<R (C::*)(T...) qualifier>      \
 {                                                                                        \
-    using type = mp_bind_q<                                                              \
-        lambda_devoid_args<lambda_make_mfptr_##name>,                                    \
+    using type = mp_bind<                                                                \
+        lambda_make_mfptr_##name,                                                        \
         mp_lambda<R>, mp_lambda<C>, mp_lambda<T>...>;                                    \
 };                                                                                       \
                                                                                          \
