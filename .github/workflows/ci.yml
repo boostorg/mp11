@@ -122,48 +122,48 @@ jobs:
           - toolset: clang
             compiler: clang++-13
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:22.04
+            os: ubuntu-latest
             install: clang-13
           - toolset: clang
             compiler: clang++-14
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:22.04
+            os: ubuntu-latest
             install: clang-14
           - toolset: clang
             compiler: clang++-15
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:22.04
+            os: ubuntu-latest
             install: clang-15
           - toolset: clang
             compiler: clang++-16
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:23.04
+            os: ubuntu-latest
             install: clang-16
           - toolset: clang
             compiler: clang++-17
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:23.10
+            os: ubuntu-latest
             install: clang-17
           - toolset: clang
             compiler: clang++-18
             cxxstd: "03,11,14,17,20,2b"
-            os: ubuntu-latest
             container: ubuntu:24.04
+            os: ubuntu-latest
             install: clang-18
-          - toolset: clang
-            cxxstd: "03,11,14,17,20,2b"
-            os: macos-12
           - toolset: clang
             cxxstd: "03,11,14,17,20,2b"
             os: macos-13
           - toolset: clang
             cxxstd: "03,11,14,17,20,2b"
             os: macos-14
+          - toolset: clang
+            cxxstd: "03,11,14,17,20,2b"
+            os: macos-15
 
     runs-on: ${{matrix.os}}
     container: ${{matrix.container}}
@@ -286,9 +286,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
@@ -334,9 +335,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
@@ -392,9 +394,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
@@ -448,9 +451,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
@@ -476,9 +480,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
@@ -513,9 +518,10 @@ jobs:
         include:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
-          - os: macos-12
+          - os: ubuntu-24.04
           - os: macos-13
           - os: macos-14
+          - os: macos-15
 
     runs-on: ${{matrix.os}}
 
