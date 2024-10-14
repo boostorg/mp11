@@ -12,7 +12,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 ## Changes in 1.87.0
 
-* Added `mp_lambda`
+* Added `mp_lambda` (contributed by Joaquin M Lopez Munoz)
 
 ## Changes in 1.85.0
 
