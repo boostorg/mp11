@@ -146,4 +146,17 @@
 #  define BOOST_MP11_DEPRECATED(msg)
 #endif
 
+// BOOST_MP11_HAS_VARIABLE_TEMPLATE
+
+#if defined(__cpp_variable_templates)
+#define BOOST_MP11_HAS_VARIABLE_TEMPLATE
+#endif
+
+// BOOST_MP11_HAS_IN_CLASS_EXPLICIT_SPECIALIZATIONS
+
+#if __cplusplus >= 201703L && BOOST_MP11_GCC == 0
+// GCC does not support cwg727 due to bug 85282
+#define BOOST_MP11_HAS_IN_CLASS_EXPLICIT_SPECIALIZATIONS
+#endif
+
 #endif // #ifndef BOOST_MP11_DETAIL_CONFIG_HPP_INCLUDED

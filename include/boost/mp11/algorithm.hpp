@@ -719,6 +719,151 @@ namespace detail
 
 template<class L, class V> struct mp_find_impl;
 
+#if defined(BOOST_MP11_HAS_VARIABLE_TEMPLATE) && defined(BOOST_MP11_HAS_IN_CLASS_EXPLICIT_SPECIALIZATIONS)
+template<template<class...> class L,
+    class T0, class T1, class T2, class T3, class T4,
+    class T5, class T6, class T7, class T8, class T9,
+    class T10, class T11, class T12, class T13, class T14,
+    class T15, class T16, class T17, class T18, class T19,
+    class T20, class T21, class T22, class T23, class T24,
+    class T25, class T26, class T27, class T28, class T29,
+    class T30, class T31, class T32, class T33, class T34,
+    class T35, class T36, class T37, class T38, class T39,
+    class T40, class T41, class T42, class T43, class T44,
+    class T45, class T46, class T47, class T48, class T49,
+    class T50, class T51, class T52, class T53, class T54,
+    class T55, class T56, class T57, class T58, class T59,
+    class T60, class T61, class T62, class T63, class T64,
+    class T65, class T66, class T67, class T68, class T69,
+    class T70, class T71, class T72, class T73, class T74,
+    class T75, class T76, class T77, class T78, class T79,
+    class T80, class T81, class T82, class T83, class T84,
+    class T85, class T86, class T87, class T88, class T89,
+    class T90, class T91, class T92, class T93, class T94,
+    class T95, class T96, class T97, class T98, class T99,
+    class ...T, class V>
+struct mp_find_impl<L<
+    T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
+    T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
+    T20, T21, T22, T23, T24, T25, T26, T27, T28, T29,
+    T30, T31, T32, T33, T34, T35, T36, T37, T38, T39,
+    T40, T41, T42, T43, T44, T45, T46, T47, T48, T49,
+    T50, T51, T52, T53, T54, T55, T56, T57, T58, T59,
+    T60, T61, T62, T63, T64, T65, T66, T67, T68, T69,
+    T70, T71, T72, T73, T74, T75, T76, T77, T78, T79,
+    T80, T81, T82, T83, T84, T85, T86, T87, T88, T89,
+    T90, T91, T92, T93, T94, T95, T96, T97, T98, T99,
+    T...>, V> {
+  private:
+    template<class>
+    static const int value = mp_find_impl<mp_list<T...>, V>::type::value + 100;
+
+    template<> static const int value<T0> = 0;
+    template<> static const int value<T1> = 1;
+    template<> static const int value<T2> = 2;
+    template<> static const int value<T3> = 3;
+    template<> static const int value<T4> = 4;
+    template<> static const int value<T5> = 5;
+    template<> static const int value<T6> = 6;
+    template<> static const int value<T7> = 7;
+    template<> static const int value<T8> = 8;
+    template<> static const int value<T9> = 9;
+    template<> static const int value<T10> = 10;
+    template<> static const int value<T11> = 11;
+    template<> static const int value<T12> = 12;
+    template<> static const int value<T13> = 13;
+    template<> static const int value<T14> = 14;
+    template<> static const int value<T15> = 15;
+    template<> static const int value<T16> = 16;
+    template<> static const int value<T17> = 17;
+    template<> static const int value<T18> = 18;
+    template<> static const int value<T19> = 19;
+    template<> static const int value<T20> = 20;
+    template<> static const int value<T21> = 21;
+    template<> static const int value<T22> = 22;
+    template<> static const int value<T23> = 23;
+    template<> static const int value<T24> = 24;
+    template<> static const int value<T25> = 25;
+    template<> static const int value<T26> = 26;
+    template<> static const int value<T27> = 27;
+    template<> static const int value<T28> = 28;
+    template<> static const int value<T29> = 29;
+    template<> static const int value<T30> = 30;
+    template<> static const int value<T31> = 31;
+    template<> static const int value<T32> = 32;
+    template<> static const int value<T33> = 33;
+    template<> static const int value<T34> = 34;
+    template<> static const int value<T35> = 35;
+    template<> static const int value<T36> = 36;
+    template<> static const int value<T37> = 37;
+    template<> static const int value<T38> = 38;
+    template<> static const int value<T39> = 39;
+    template<> static const int value<T40> = 40;
+    template<> static const int value<T41> = 41;
+    template<> static const int value<T42> = 42;
+    template<> static const int value<T43> = 43;
+    template<> static const int value<T44> = 44;
+    template<> static const int value<T45> = 45;
+    template<> static const int value<T46> = 46;
+    template<> static const int value<T47> = 47;
+    template<> static const int value<T48> = 48;
+    template<> static const int value<T49> = 49;
+    template<> static const int value<T50> = 50;
+    template<> static const int value<T51> = 51;
+    template<> static const int value<T52> = 52;
+    template<> static const int value<T53> = 53;
+    template<> static const int value<T54> = 54;
+    template<> static const int value<T55> = 55;
+    template<> static const int value<T56> = 56;
+    template<> static const int value<T57> = 57;
+    template<> static const int value<T58> = 58;
+    template<> static const int value<T59> = 59;
+    template<> static const int value<T60> = 60;
+    template<> static const int value<T61> = 61;
+    template<> static const int value<T62> = 62;
+    template<> static const int value<T63> = 63;
+    template<> static const int value<T64> = 64;
+    template<> static const int value<T65> = 65;
+    template<> static const int value<T66> = 66;
+    template<> static const int value<T67> = 67;
+    template<> static const int value<T68> = 68;
+    template<> static const int value<T69> = 69;
+    template<> static const int value<T70> = 70;
+    template<> static const int value<T71> = 71;
+    template<> static const int value<T72> = 72;
+    template<> static const int value<T73> = 73;
+    template<> static const int value<T74> = 74;
+    template<> static const int value<T75> = 75;
+    template<> static const int value<T76> = 76;
+    template<> static const int value<T77> = 77;
+    template<> static const int value<T78> = 78;
+    template<> static const int value<T79> = 79;
+    template<> static const int value<T80> = 80;
+    template<> static const int value<T81> = 81;
+    template<> static const int value<T82> = 82;
+    template<> static const int value<T83> = 83;
+    template<> static const int value<T84> = 84;
+    template<> static const int value<T85> = 85;
+    template<> static const int value<T86> = 86;
+    template<> static const int value<T87> = 87;
+    template<> static const int value<T88> = 88;
+    template<> static const int value<T89> = 89;
+    template<> static const int value<T90> = 90;
+    template<> static const int value<T91> = 91;
+    template<> static const int value<T92> = 92;
+    template<> static const int value<T93> = 93;
+    template<> static const int value<T94> = 94;
+    template<> static const int value<T95> = 95;
+    template<> static const int value<T96> = 96;
+    template<> static const int value<T97> = 97;
+    template<> static const int value<T98> = 98;
+    template<> static const int value<T99> = 99;
+
+  public:
+    using type = mp_size_t<value<V>>;
+};
+#endif
+
 #if BOOST_MP11_CLANG && defined( BOOST_MP11_HAS_FOLD_EXPRESSIONS )
 
 struct mp_index_holder
