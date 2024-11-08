@@ -109,9 +109,19 @@ struct mp_is_set_helper: Base
     static mp_true contains( mp_identity<T> );
 };
 
+template<class S> struct mp_is_set_impl
+{
+    using type = mp_false;
+};
+
+template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
+{
+    using type = mp_bool<mp_fold<mp_list<T...>, detail::mp_is_set_helper_start, detail::mp_is_set_helper>::value>;
+};
+
 } // namespace detail
 
-template<class S> using mp_is_set = mp_bool<mp_fold<S, detail::mp_is_set_helper_start, detail::mp_is_set_helper>::value>;
+template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
 
 // mp_set_union<L...>
 namespace detail
