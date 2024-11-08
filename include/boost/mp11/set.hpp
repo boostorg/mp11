@@ -10,6 +10,7 @@
 
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/function.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/mp_copy_if.hpp>
@@ -95,6 +96,8 @@ template<class S, class... T> using mp_set_push_front = typename detail::mp_set_
 namespace detail
 {
 
+#if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
+
 struct mp_is_set_helper_start
 {
     static constexpr bool value = true;
@@ -118,6 +121,20 @@ template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
 {
     using type = mp_bool<mp_fold<mp_list<T...>, detail::mp_is_set_helper_start, detail::mp_is_set_helper>::value>;
 };
+
+#else
+
+template<class S> struct mp_is_set_impl
+{
+    using type = mp_false;
+};
+
+template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
+{
+    using type = mp_to_bool<std::is_same<mp_list<T...>, mp_set_push_back<mp_list<>, T...> > >;
+};
+
+#endif // !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
 } // namespace detail
 
