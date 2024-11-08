@@ -13,6 +13,7 @@
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/mp_copy_if.hpp>
+#include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
 #include <type_traits>
