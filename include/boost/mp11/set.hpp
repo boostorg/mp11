@@ -1,7 +1,7 @@
 #ifndef BOOST_MP11_SET_HPP_INCLUDED
 #define BOOST_MP11_SET_HPP_INCLUDED
 
-// Copyright 2015, 2019 Peter Dimov.
+// Copyright 2015, 2019, 2024 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -94,19 +94,23 @@ template<class S, class... T> using mp_set_push_front = typename detail::mp_set_
 namespace detail
 {
 
-template<class S> struct mp_is_set_impl
+struct mp_is_set_helper_start
 {
-    using type = mp_false;
+    static constexpr bool value = true;
+    template<class T> static mp_false contains( T );
 };
 
-template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
+template<class Base, class T>
+struct mp_is_set_helper: Base
 {
-    using type = mp_to_bool<std::is_same<mp_list<T...>, mp_set_push_back<mp_list<>, T...> > >;
+    static constexpr bool value = Base::value && !decltype( Base::contains( mp_identity<T>{} ) )::value;
+    using Base::contains;
+    static mp_true contains( mp_identity<T> );
 };
 
 } // namespace detail
 
-template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
+template<class S> using mp_is_set = mp_bool<mp_fold<S, detail::mp_is_set_helper_start, detail::mp_is_set_helper>::value>;
 
 // mp_set_union<L...>
 namespace detail
