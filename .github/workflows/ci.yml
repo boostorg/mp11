@@ -178,7 +178,7 @@ jobs:
         if: matrix.container
         run: |
           apt-get update
-          apt-get -y install sudo python3 git g++ curl
+          apt-get -y install sudo python3 git g++ curl xz-utils
           if [[ "${{matrix.container}}" == "ubuntu:1"* ]]; then
             # Node 20 doesn't work with Ubuntu 16/18  glibc: https://github.com/actions/checkout/issues/1590
             curl -sL https://archives.boost.io/misc/node/node-v20.9.0-linux-x64-glibc-217.tar.xz | tar -xJ --strip-components 1 -C /node20217
