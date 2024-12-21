@@ -57,7 +57,7 @@ int main()
     {
         using boost::mp11::mp_iota_c;
 
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
+#if !defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 
         int const N = 257;
 
