@@ -1,11 +1,6 @@
-
-//  Copyright 2015 Peter Dimov.
-//
+// Copyright 2015, 2024 Peter Dimov
 // Distributed under the Boost Software License, Version 1.0.
-//
-// See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
-
+// https://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
@@ -62,7 +57,15 @@ int main()
     {
         using boost::mp11::mp_iota_c;
 
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
+
+        int const N = 257;
+
+#else
+
         int const N = 1089;
+
+#endif
 
         using L = mp_iota_c<N>;
         using R = mp_find<L, mp_size_t<N/2>>;
