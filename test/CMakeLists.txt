@@ -6,9 +6,6 @@ include(BoostTestJamfile OPTIONAL RESULT_VARIABLE HAVE_BOOST_TEST)
 
 if(HAVE_BOOST_TEST)
 
-# TODO: I don't know why this is required, it should be handled by target_compile_definitions
-add_compile_definitions(BOOST_CXX20_MODULE)
-
 boost_test_jamfile(FILE Jamfile LINK_LIBRARIES Boost::mp11 Boost::core)
 boost_test(SOURCES check_cmake_version.cpp ARGUMENTS ${PROJECT_VERSION} LINK_LIBRARIES Boost::core Boost::config)
 
