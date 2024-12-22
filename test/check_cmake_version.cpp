@@ -7,9 +7,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/core/lightweight_test.hpp>
 #include <boost/version.hpp>
+#ifdef BOOST_CXX20_MODULE
+import std;
+import boost.core;
+#include <boost/core/lightweight_test_macros.hpp>
+#else
+#include <boost/core/lightweight_test.hpp>
 #include <cstdio>
+#endif
 
 int main( int ac, char const* av[] )
 {
