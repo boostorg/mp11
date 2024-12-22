@@ -11,6 +11,7 @@
 #include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {

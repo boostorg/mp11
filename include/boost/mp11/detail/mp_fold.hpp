@@ -12,6 +12,7 @@
 #include <boost/mp11/detail/mp_defer.hpp>
 #include <boost/mp11/detail/mp_rename.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
+#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {

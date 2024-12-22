@@ -16,6 +16,7 @@
 #include <boost/mp11/detail/mp_min_element.hpp>
 #include <boost/mp11/detail/mp_void.hpp>
 #include <boost/mp11/detail/config.hpp>
+#include <boost/mp11/detail/modules.hpp>
 #ifndef BOOST_CXX20_MODULE
 #include <type_traits>
 #endif

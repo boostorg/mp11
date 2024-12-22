@@ -9,6 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/version.hpp>
+#include <boost/mp11/detail/modules.hpp>
 #ifndef BOOST_CXX20_MODULE
 #include <cstddef>
 #endif

@@ -6,6 +6,7 @@
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
+#include <boost/mp11/detail/modules.hpp>
 #ifndef BOOST_CXX20_MODULE
 #include <type_traits>
 #endif
@@ -17,7 +18,7 @@ namespace boost
 namespace mp11
 {
 
-template<auto A> using mp_value = std::integral_constant<decltype(A), A>;
+BOOST_MODULE_EXPORT template<auto A> using mp_value = std::integral_constant<decltype(A), A>;
 
 } // namespace mp11
 } // namespace boost

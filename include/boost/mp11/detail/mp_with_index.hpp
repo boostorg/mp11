@@ -10,6 +10,7 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
+#include <boost/mp11/detail/modules.hpp>
 #ifndef BOOST_CXX20_MODULE
 #include <type_traits>
 #include <utility>

@@ -9,6 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
+#include <boost/mp11/detail/modules.hpp>
 
 #if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
 
