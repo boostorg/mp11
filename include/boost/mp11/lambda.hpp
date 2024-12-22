@@ -17,8 +17,10 @@
 #else
 
 #include <boost/mp11/bind.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <cstddef>
 #include <type_traits>
+#endif
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )

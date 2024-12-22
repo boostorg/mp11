@@ -23,8 +23,10 @@
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/integer_sequence.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <type_traits>
 #include <utility>
+#endif
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -142,13 +144,13 @@ template<template<class...> class F, class... L> using mp_transform = typename d
 
 #else
 
-template<template<class...> class F, class... L> using mp_transform = typename mp_if<mp_same<mp_size<L>...>, detail::mp_transform_impl<F, L...>, detail::list_size_mismatch>::type;
+BOOST_MODULE_EXPORT template<template<class...> class F, class... L> using mp_transform = typename mp_if<mp_same<mp_size<L>...>, detail::mp_transform_impl<F, L...>, detail::list_size_mismatch>::type;
 
 #endif
 
 #endif
 
-template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn, L...>;
+BOOST_MODULE_EXPORT template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn, L...>;
 
 namespace detail
 {
@@ -195,8 +197,8 @@ template<template<class...> class P, template<class...> class F, class... L> str
 
 } // namespace detail
 
-template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L...>::type;
-template<class Qp, class Qf, class... L> using mp_transform_if_q = typename detail::mp_transform_if_impl<Qp::template fn, Qf::template fn, L...>::type;
+BOOST_MODULE_EXPORT template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L...>::type;
+BOOST_MODULE_EXPORT template<class Qp, class Qf, class... L> using mp_transform_if_q = typename detail::mp_transform_if_impl<Qp::template fn, Qf::template fn, L...>::type;
 
 // mp_filter<P, L...>
 namespace detail
@@ -216,8 +218,8 @@ template<template<class...> class P, class L1, class... L> struct mp_filter_impl
 
 } // namespace detail
 
-template<template<class...> class P, class... L> using mp_filter = typename detail::mp_filter_impl<P, L...>::type;
-template<class Q, class... L> using mp_filter_q = typename detail::mp_filter_impl<Q::template fn, L...>::type;
+BOOST_MODULE_EXPORT template<template<class...> class P, class... L> using mp_filter = typename detail::mp_filter_impl<P, L...>::type;
+BOOST_MODULE_EXPORT template<class Q, class... L> using mp_filter_q = typename detail::mp_filter_impl<Q::template fn, L...>::type;
 
 // mp_fill<L, V>
 namespace detail
@@ -254,10 +256,10 @@ template<template<auto...> class L, auto... A, class V> struct mp_fill_impl<L<A.
 
 } // namespace detail
 
-template<class L, class V> using mp_fill = typename detail::mp_fill_impl<L, V>::type;
+BOOST_MODULE_EXPORT template<class L, class V> using mp_fill = typename detail::mp_fill_impl<L, V>::type;
 
 // mp_contains<L, V>
-template<class L, class V> using mp_contains = mp_to_bool<mp_count<L, V>>;
+BOOST_MODULE_EXPORT template<class L, class V> using mp_contains = mp_to_bool<mp_count<L, V>>;
 
 // mp_repeat(_c)<L, N>
 namespace detail
@@ -283,8 +285,8 @@ template<class L> struct mp_repeat_c_impl<L, 1>
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_c_impl<L, N>::type;
-template<class L, class N> using mp_repeat = typename detail::mp_repeat_c_impl<L, std::size_t{ N::value }>::type;
+BOOST_MODULE_EXPORT template<class L, std::size_t N> using mp_repeat_c = typename detail::mp_repeat_c_impl<L, N>::type;
+BOOST_MODULE_EXPORT template<class L, class N> using mp_repeat = typename detail::mp_repeat_c_impl<L, std::size_t{ N::value }>::type;
 
 // mp_product<F, L...>
 namespace detail
@@ -320,8 +322,8 @@ template<template<class...> class F, class L1, class... L> struct mp_product_imp
 
 } // namespace detail
 
-template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
-template<class Q, class... L> using mp_product_q = typename detail::mp_product_impl<Q::template fn, L...>::type;
+BOOST_MODULE_EXPORT template<template<class...> class F, class... L> using mp_product = typename detail::mp_product_impl<F, L...>::type;
+BOOST_MODULE_EXPORT template<class Q, class... L> using mp_product_q = typename detail::mp_product_impl<Q::template fn, L...>::type;
 
 // mp_drop(_c)<L, N>
 namespace detail
@@ -340,9 +342,9 @@ template<template<class...> class L, class... T, template<class...> class L2, cl
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_drop_c = mp_assign<L, typename detail::mp_drop_impl<mp_rename<L, mp_list>, mp_repeat_c<mp_list<void>, N>, mp_bool<N <= mp_size<L>::value>>::type>;
+BOOST_MODULE_EXPORT template<class L, std::size_t N> using mp_drop_c = mp_assign<L, typename detail::mp_drop_impl<mp_rename<L, mp_list>, mp_repeat_c<mp_list<void>, N>, mp_bool<N <= mp_size<L>::value>>::type>;
 
-template<class L, class N> using mp_drop = mp_drop_c<L, std::size_t{ N::value }>;
+BOOST_MODULE_EXPORT template<class L, class N> using mp_drop = mp_drop_c<L, std::size_t{ N::value }>;
 
 // mp_from_sequence<S, F>
 namespace detail
@@ -357,11 +359,11 @@ template<template<class T, T... I> class S, class U, U... J, class F> struct mp_
 
 } // namespace detail
 
-template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F>::type;
+BOOST_MODULE_EXPORT template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F>::type;
 
 // mp_iota(_c)<N, F>
-template<std::size_t N, std::size_t F = 0> using mp_iota_c = mp_from_sequence<make_index_sequence<N>, mp_size_t<F>>;
-template<class N, class F = mp_int<0>> using mp_iota = mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>, F>;
+BOOST_MODULE_EXPORT template<std::size_t N, std::size_t F = 0> using mp_iota_c = mp_from_sequence<make_index_sequence<N>, mp_size_t<F>>;
+BOOST_MODULE_EXPORT template<class N, class F = mp_int<0>> using mp_iota = mp_from_sequence<make_integer_sequence<typename std::remove_const<decltype(N::value)>::type, N::value>, F>;
 
 // mp_at(_c)<L, I>
 namespace detail
@@ -412,11 +414,11 @@ template<class L, std::size_t I> using mp_at_c = typename detail::mp_at_c_cuda_w
 
 #else
 
-template<class L, std::size_t I> using mp_at_c = typename mp_if_c<(I < mp_size<L>::value), detail::mp_at_c_impl<L, I>, void>::type;
+BOOST_MODULE_EXPORT template<class L, std::size_t I> using mp_at_c = typename mp_if_c<(I < mp_size<L>::value), detail::mp_at_c_impl<L, I>, void>::type;
 
 #endif
 
-template<class L, class I> using mp_at = mp_at_c<L, std::size_t{ I::value }>;
+BOOST_MODULE_EXPORT template<class L, class I> using mp_at = mp_at_c<L, std::size_t{ I::value }>;
 
 // mp_take(_c)<L, N>
 namespace detail
@@ -494,18 +496,18 @@ struct mp_take_c_impl<N, L<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T...>, typen
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_take_c = mp_assign<L, typename detail::mp_take_c_impl<N, mp_rename<L, mp_list>>::type>;
-template<class L, class N> using mp_take = mp_take_c<L, std::size_t{ N::value }>;
+BOOST_MODULE_EXPORT template<class L, std::size_t N> using mp_take_c = mp_assign<L, typename detail::mp_take_c_impl<N, mp_rename<L, mp_list>>::type>;
+BOOST_MODULE_EXPORT template<class L, class N> using mp_take = mp_take_c<L, std::size_t{ N::value }>;
 
 // mp_slice(_c)<L, I, J>
-template<class L, std::size_t I, std::size_t J> using mp_slice_c = mp_drop_c< mp_take_c<L, J>, I >;
-template<class L, class I, class J> using mp_slice = mp_drop< mp_take<L, J>, I >;
+BOOST_MODULE_EXPORT template<class L, std::size_t I, std::size_t J> using mp_slice_c = mp_drop_c< mp_take_c<L, J>, I >;
+BOOST_MODULE_EXPORT template<class L, class I, class J> using mp_slice = mp_drop< mp_take<L, J>, I >;
 
 // mp_back<L>
-template<class L> using mp_back = mp_at_c<L, mp_size<L>::value - 1>;
+BOOST_MODULE_EXPORT template<class L> using mp_back = mp_at_c<L, mp_size<L>::value - 1>;
 
 // mp_pop_back<L>
-template<class L> using mp_pop_back = mp_take_c<L, mp_size<L>::value - 1>;
+BOOST_MODULE_EXPORT template<class L> using mp_pop_back = mp_take_c<L, mp_size<L>::value - 1>;
 
 // mp_replace<L, V, W>
 namespace detail
@@ -526,7 +528,7 @@ template<template<class...> class L, class... T, class V, class W> struct mp_rep
 
 } // namespace detail
 
-template<class L, class V, class W> using mp_replace = typename detail::mp_replace_impl<L, V, W>::type;
+BOOST_MODULE_EXPORT template<class L, class V, class W> using mp_replace = typename detail::mp_replace_impl<L, V, W>::type;
 
 // mp_replace_if<L, P, W>
 namespace detail
@@ -547,8 +549,8 @@ template<template<class...> class L, class... T, template<class...> class P, cla
 
 } // namespace detail
 
-template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
-template<class L, class Q, class W> using mp_replace_if_q = mp_replace_if<L, Q::template fn, W>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P, class W> using mp_replace_if = typename detail::mp_replace_if_impl<L, P, W>::type;
+BOOST_MODULE_EXPORT template<class L, class Q, class W> using mp_replace_if_q = mp_replace_if<L, Q::template fn, W>;
 
 // mp_copy_if<L, P>
 //   in detail/mp_copy_if.hpp
@@ -572,7 +574,7 @@ template<template<class...> class L, class... T, class V> struct mp_remove_impl<
 
 } // namespace detail
 
-template<class L, class V> using mp_remove = typename detail::mp_remove_impl<L, V>::type;
+BOOST_MODULE_EXPORT template<class L, class V> using mp_remove = typename detail::mp_remove_impl<L, V>::type;
 
 // mp_remove_if<L, P>
 //   in detail/mp_remove_if.hpp
@@ -588,7 +590,7 @@ template<class L2> struct mp_flatten_impl
 
 } // namespace detail
 
-template<class L, class L2 = mp_clear<L>> using mp_flatten = mp_apply<mp_append, mp_push_front<mp_transform_q<detail::mp_flatten_impl<L2>, L>, mp_clear<L>>>;
+BOOST_MODULE_EXPORT template<class L, class L2 = mp_clear<L>> using mp_flatten = mp_apply<mp_append, mp_push_front<mp_transform_q<detail::mp_flatten_impl<L2>, L>, mp_clear<L>>>;
 
 // mp_partition<L, P>
 namespace detail
@@ -603,8 +605,8 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 } // namespace detail
 
-template<class L, template<class...> class P> using mp_partition = typename detail::mp_partition_impl<L, P>::type;
-template<class L, class Q> using mp_partition_q = mp_partition<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_partition = typename detail::mp_partition_impl<L, P>::type;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_partition_q = mp_partition<L, Q::template fn>;
 
 // mp_sort<L, P>
 namespace detail
@@ -648,8 +650,8 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 
 } // namespace detail
 
-template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
-template<class L, class Q> using mp_sort_q = mp_sort<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_sort = typename detail::mp_sort_impl<L, P>::type;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_sort_q = mp_sort<L, Q::template fn>;
 
 // mp_nth_element(_c)<L, I, P>
 namespace detail
@@ -709,9 +711,9 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
 
 } // namespace detail
 
-template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = typename detail::mp_nth_element_impl<L, I, P>::type;
-template<class L, class I, template<class...> class P> using mp_nth_element = typename detail::mp_nth_element_impl<L, std::size_t{ I::value }, P>::type;
-template<class L, class I, class Q> using mp_nth_element_q = mp_nth_element<L, I, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, std::size_t I, template<class...> class P> using mp_nth_element_c = typename detail::mp_nth_element_impl<L, I, P>::type;
+BOOST_MODULE_EXPORT template<class L, class I, template<class...> class P> using mp_nth_element = typename detail::mp_nth_element_impl<L, std::size_t{ I::value }, P>::type;
+BOOST_MODULE_EXPORT template<class L, class I, class Q> using mp_nth_element_q = mp_nth_element<L, I, Q::template fn>;
 
 // mp_find<L, V>
 namespace detail
@@ -790,7 +792,7 @@ template<template<class...> class L, class T1, class... T, class V> struct mp_fi
 
 } // namespace detail
 
-template<class L, class V> using mp_find = typename detail::mp_find_impl<L, V>::type;
+BOOST_MODULE_EXPORT template<class L, class V> using mp_find = typename detail::mp_find_impl<L, V>::type;
 
 // mp_find_if<L, P>
 namespace detail
@@ -845,8 +847,8 @@ template<template<class...> class L, class T1, class... T, template<class...> cl
 
 } // namespace detail
 
-template<class L, template<class...> class P> using mp_find_if = typename detail::mp_find_if_impl<L, P>::type;
-template<class L, class Q> using mp_find_if_q = mp_find_if<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_find_if = typename detail::mp_find_if_impl<L, P>::type;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_find_if_q = mp_find_if<L, Q::template fn>;
 
 // mp_reverse<L>
 namespace detail
@@ -923,7 +925,7 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
 
 } // namespace detail
 
-template<class L> using mp_reverse = typename detail::mp_reverse_impl<L>::type;
+BOOST_MODULE_EXPORT template<class L> using mp_reverse = typename detail::mp_reverse_impl<L>::type;
 
 // mp_fold<L, V, F>
 //   in detail/mp_fold.hpp
@@ -965,8 +967,8 @@ template<template<class...> class L, class T1, class T2, class T3, class T4, cla
 
 } // namespace detail
 
-template<class L, class V, template<class...> class F> using mp_reverse_fold = typename detail::mp_reverse_fold_impl<L, V, F>::type;
-template<class L, class V, class Q> using mp_reverse_fold_q = mp_reverse_fold<L, V, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, class V, template<class...> class F> using mp_reverse_fold = typename detail::mp_reverse_fold_impl<L, V, F>::type;
+BOOST_MODULE_EXPORT template<class L, class V, class Q> using mp_reverse_fold_q = mp_reverse_fold<L, V, Q::template fn>;
 
 // mp_unique<L>
 namespace detail
@@ -981,7 +983,7 @@ template<template<class...> class L, class... T> struct mp_unique_impl<L<T...>>
 
 } // namespace detail
 
-template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
+BOOST_MODULE_EXPORT template<class L> using mp_unique = typename detail::mp_unique_impl<L>::type;
 
 // mp_unique_if<L, P>
 namespace detail
@@ -1004,22 +1006,23 @@ template<template<class...> class P> struct mp_unique_if_push_back
 
 } // namespace detail
 
+BOOST_MODULE_EXPORT
 template<class L, template<class...> class P>
 using mp_unique_if = mp_fold_q<L, mp_clear<L>, detail::mp_unique_if_push_back<P>>;
 
-template<class L, class Q> using mp_unique_if_q = mp_unique_if<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_unique_if_q = mp_unique_if<L, Q::template fn>;
 
 // mp_all_of<L, P>
-template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
-template<class L, class Q> using mp_all_of_q = mp_all_of<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_all_of = mp_bool< mp_count_if<L, P>::value == mp_size<L>::value >;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_all_of_q = mp_all_of<L, Q::template fn>;
 
 // mp_none_of<L, P>
-template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
-template<class L, class Q> using mp_none_of_q = mp_none_of<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_none_of = mp_bool< mp_count_if<L, P>::value == 0 >;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_none_of_q = mp_none_of<L, Q::template fn>;
 
 // mp_any_of<L, P>
-template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
-template<class L, class Q> using mp_any_of_q = mp_any_of<L, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_any_of = mp_bool< mp_count_if<L, P>::value != 0 >;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_any_of_q = mp_any_of<L, Q::template fn>;
 
 // mp_replace_at_c<L, I, W>
 namespace detail
@@ -1037,8 +1040,8 @@ template<class L, class I, class W> struct mp_replace_at_impl
 
 } // namespace detail
 
-template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
-template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
+BOOST_MODULE_EXPORT template<class L, class I, class W> using mp_replace_at = typename detail::mp_replace_at_impl<L, I, W>::type;
+BOOST_MODULE_EXPORT template<class L, std::size_t I, class W> using mp_replace_at_c = typename detail::mp_replace_at_impl<L, mp_size_t<I>, W>::type;
 
 //mp_for_each<L>(f)
 namespace detail
@@ -1078,7 +1081,7 @@ template<class L, class F> BOOST_MP11_CONSTEXPR mp_if_c<mp_size<L>::value >= 102
 
 #else
 
-template<class L, class F> BOOST_MP11_CONSTEXPR F mp_for_each( F && f )
+BOOST_MODULE_EXPORT template<class L, class F> BOOST_MP11_CONSTEXPR F mp_for_each( F && f )
 {
     return detail::mp_for_each_impl( mp_rename<L, mp_list>(), std::forward<F>(f) );
 }
@@ -1086,16 +1089,16 @@ template<class L, class F> BOOST_MP11_CONSTEXPR F mp_for_each( F && f )
 #endif
 
 // mp_insert<L, I, T...>
-template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
+BOOST_MODULE_EXPORT template<class L, class I, class... T> using mp_insert = mp_append<mp_take<L, I>, mp_push_front<mp_drop<L, I>, T...>>;
 
 // mp_insert_c<L, I, T...>
-template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
+BOOST_MODULE_EXPORT template<class L, std::size_t I, class... T> using mp_insert_c = mp_append<mp_take_c<L, I>, mp_push_front<mp_drop_c<L, I>, T...>>;
 
 // mp_erase<L, I, J>
-template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
+BOOST_MODULE_EXPORT template<class L, class I, class J> using mp_erase = mp_append<mp_take<L, I>, mp_drop<L, J>>;
 
 // mp_erase_c<L, I, J>
-template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
+BOOST_MODULE_EXPORT template<class L, std::size_t I, std::size_t J> using mp_erase_c = mp_append<mp_take_c<L, I>, mp_drop_c<L, J>>;
 
 // mp_starts_with<L1, L2>
 // contributed by Glen Joseph Fernandes (glenjofe@gmail.com)
@@ -1118,6 +1121,7 @@ struct mp_starts_with_impl<L1<T1...>, L2<T2...> > {
 
 } // namespace detail
 
+BOOST_MODULE_EXPORT
 template<class L1, class L2>
 using mp_starts_with = typename detail::mp_starts_with_impl<L1, L2>::type;
 
@@ -1136,12 +1140,12 @@ template<class L, class N, class L2 = mp_rename<L, mp_list>> using mp_rotate_imp
 
 } // namespace detail
 
-template<class L, std::size_t N> using mp_rotate_left_c = detail::mp_rotate_impl<L, detail::canonical_left_rotation<mp_size<L>::value, N>>;
-template<class L, class N> using mp_rotate_left = mp_rotate_left_c<L, std::size_t{ N::value }>;
+BOOST_MODULE_EXPORT template<class L, std::size_t N> using mp_rotate_left_c = detail::mp_rotate_impl<L, detail::canonical_left_rotation<mp_size<L>::value, N>>;
+BOOST_MODULE_EXPORT template<class L, class N> using mp_rotate_left = mp_rotate_left_c<L, std::size_t{ N::value }>;
 
 // mp_rotate_right(_c)<L, N>
-template<class L, std::size_t N> using mp_rotate_right_c = mp_rotate_left<L, detail::canonical_right_rotation<mp_size<L>::value, N>>;
-template<class L, class N> using mp_rotate_right = mp_rotate_right_c<L, std::size_t{ N::value }>;
+BOOST_MODULE_EXPORT template<class L, std::size_t N> using mp_rotate_right_c = mp_rotate_left<L, detail::canonical_right_rotation<mp_size<L>::value, N>>;
+BOOST_MODULE_EXPORT template<class L, class N> using mp_rotate_right = mp_rotate_right_c<L, std::size_t{ N::value }>;
 
 // mp_min_element<L, P>
 // mp_max_element<L, P>
@@ -1155,7 +1159,7 @@ template<class L> struct mp_power_set_impl;
 
 } // namespace detail
 
-template<class L> using mp_power_set = typename detail::mp_power_set_impl<L>::type;
+BOOST_MODULE_EXPORT template<class L> using mp_power_set = typename detail::mp_power_set_impl<L>::type;
 
 namespace detail
 {
@@ -1209,8 +1213,8 @@ template<template<class...> class F> struct mp_partial_sum_impl_f
 
 } // namespace detail
 
-template<class L, class V, template<class...> class F> using mp_partial_sum = mp_second<mp_fold_q<L, mp_list<V, mp_clear<L>>, detail::mp_partial_sum_impl_f<F>> >;
-template<class L, class V, class Q> using mp_partial_sum_q = mp_partial_sum<L, V, Q::template fn>;
+BOOST_MODULE_EXPORT template<class L, class V, template<class...> class F> using mp_partial_sum = mp_second<mp_fold_q<L, mp_list<V, mp_clear<L>>, detail::mp_partial_sum_impl_f<F>> >;
+BOOST_MODULE_EXPORT template<class L, class V, class Q> using mp_partial_sum_q = mp_partial_sum<L, V, Q::template fn>;
 
 // mp_iterate<V, F, R>
 namespace detail
@@ -1220,7 +1224,7 @@ template<class V, template<class...> class F, template<class...> class R, class 
 
 } // namespace detail
 
-template<class V, template<class...> class F, template<class...> class R> using mp_iterate = typename detail::mp_iterate_impl<V, F, R, mp_valid<R, V>>::type;
+BOOST_MODULE_EXPORT template<class V, template<class...> class F, template<class...> class R> using mp_iterate = typename detail::mp_iterate_impl<V, F, R, mp_valid<R, V>>::type;
 
 namespace detail
 {
@@ -1238,7 +1242,7 @@ template<class V, template<class...> class F, template<class...> class R> struct
 
 } // namespace detail
 
-template<class V, class Qf, class Qr> using mp_iterate_q = mp_iterate<V, Qf::template fn, Qr::template fn>;
+BOOST_MODULE_EXPORT template<class V, class Qf, class Qr> using mp_iterate_q = mp_iterate<V, Qf::template fn, Qr::template fn>;
 
 // mp_pairwise_fold<L, F>
 namespace detail
@@ -1248,8 +1252,8 @@ template<class L, class Q> using mp_pairwise_fold_impl = mp_transform_q<Q, mp_po
 
 } // namespace detail
 
-template<class L, class Q> using mp_pairwise_fold_q = mp_eval_if<mp_empty<L>, mp_clear<L>, detail::mp_pairwise_fold_impl, L, Q>;
-template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwise_fold_q<L, mp_quote<F>>;
+BOOST_MODULE_EXPORT template<class L, class Q> using mp_pairwise_fold_q = mp_eval_if<mp_empty<L>, mp_clear<L>, detail::mp_pairwise_fold_impl, L, Q>;
+BOOST_MODULE_EXPORT template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwise_fold_q<L, mp_quote<F>>;
 
 // mp_sliding_fold<L, N, F>
 namespace detail
@@ -1275,8 +1279,8 @@ template<class L, class N, class Q> struct mp_sliding_fold_impl<mp_false, L, N, 
 
 } // namespace detail
 
-template<class L, class N, class Q> using mp_sliding_fold_q = typename detail::mp_sliding_fold_impl<mp_bool<(mp_size<L>::value >= N::value)>, L, N, Q>::type;
-template<class L, class N, template<class...> class F> using mp_sliding_fold = mp_sliding_fold_q<L, N, mp_quote<F>>;
+BOOST_MODULE_EXPORT template<class L, class N, class Q> using mp_sliding_fold_q = typename detail::mp_sliding_fold_impl<mp_bool<(mp_size<L>::value >= N::value)>, L, N, Q>::type;
+BOOST_MODULE_EXPORT template<class L, class N, template<class...> class F> using mp_sliding_fold = mp_sliding_fold_q<L, N, mp_quote<F>>;
 
 // mp_intersperse<L, S>
 namespace detail
@@ -1310,7 +1314,7 @@ template<template<class...> class L, class T1, class... T, class S> struct mp_in
 
 } // namespace detail
 
-template<class L, class S> using mp_intersperse = typename detail::mp_intersperse_impl<L, S>::type;
+BOOST_MODULE_EXPORT template<class L, class S> using mp_intersperse = typename detail::mp_intersperse_impl<L, S>::type;
 
 // mp_split<L, S>
 namespace detail
@@ -1320,7 +1324,7 @@ template<class L, class S, class J> struct mp_split_impl;
 
 } // namespace detail
 
-template<class L, class S> using mp_split = typename detail::mp_split_impl<L, S, mp_find<L, S>>::type;
+BOOST_MODULE_EXPORT template<class L, class S> using mp_split = typename detail::mp_split_impl<L, S, mp_find<L, S>>::type;
 
 namespace detail
 {
@@ -1336,7 +1340,7 @@ template<class L, class S, class J> struct mp_split_impl
 
 // mp_join<L, S>
 
-template<class L, class S> using mp_join = mp_apply<mp_append, mp_intersperse<L, mp_list<S>>>;
+BOOST_MODULE_EXPORT template<class L, class S> using mp_join = mp_apply<mp_append, mp_intersperse<L, mp_list<S>>>;
 
 } // namespace mp11
 } // namespace boost

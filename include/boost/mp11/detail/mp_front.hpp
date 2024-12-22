@@ -42,7 +42,7 @@ template<template<auto...> class L, auto A1, auto... A> struct mp_front_impl<L<A
 
 } // namespace detail
 
-template<class L> using mp_front = typename detail::mp_front_impl<L>::type;
+BOOST_MODULE_EXPORT template<class L> using mp_front = typename detail::mp_front_impl<L>::type;
 
 } // namespace mp11
 } // namespace boost

@@ -9,7 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/mpl_common.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <tuple>
+#endif
 
 namespace boost
 {

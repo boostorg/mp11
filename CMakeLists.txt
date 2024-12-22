@@ -2,15 +2,26 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt
 
-cmake_minimum_required(VERSION 3.5...3.16)
+cmake_minimum_required(VERSION 3.5...3.31)
 
 project(boost_mp11 VERSION 1.88.0 LANGUAGES CXX)
 
-add_library(boost_mp11 INTERFACE)
+if (BOOST_CXX20_MODULE)
+  add_library(boost_mp11)
+  target_sources(boost_mp11 PUBLIC FILE_SET CXX_MODULES FILES modules/mp11.cxx)
+  target_include_directories(boost_mp11 PUBLIC include)
+  target_compile_features(boost_mp11 PUBLIC cxx_std_23)
+  set_target_properties(boost_mp11 PROPERTIES CXX_MODULE_STD 1)
+  target_compile_definitions(boost_mp11 PUBLIC BOOST_CXX20_MODULE)
+  target_compile_options(boost_mp11 PUBLIC -Wno-include-angled-in-module-purview) # TODO: scope this to clang
+else()
+  add_library(boost_mp11 INTERFACE)
+  target_include_directories(boost_mp11 INTERFACE include)
+  target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_templates cxx_decltype)
+endif()
+
 add_library(Boost::mp11 ALIAS boost_mp11)
 
-target_include_directories(boost_mp11 INTERFACE include)
-target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_templates cxx_decltype)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 

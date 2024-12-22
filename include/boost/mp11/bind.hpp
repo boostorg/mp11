@@ -10,7 +10,9 @@
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/utility.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <cstddef>
+#endif
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )

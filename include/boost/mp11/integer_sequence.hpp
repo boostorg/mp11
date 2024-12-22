@@ -9,7 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/version.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <cstddef>
+#endif
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )

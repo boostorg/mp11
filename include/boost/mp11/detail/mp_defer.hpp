@@ -33,8 +33,8 @@ template<class T, class E> struct mp_if_c_impl<false, T, E>
 
 } // namespace detail
 
-template<bool C, class T, class... E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E...>::type;
-template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E...>::type;
+BOOST_MODULE_EXPORT template<bool C, class T, class... E> using mp_if_c = typename detail::mp_if_c_impl<C, T, E...>::type;
+BOOST_MODULE_EXPORT template<class C, class T, class... E> using mp_if = typename detail::mp_if_c_impl<static_cast<bool>(C::value), T, E...>::type;
 
 // mp_valid
 
@@ -73,11 +73,11 @@ template<template<class...> class F, class... T> struct mp_valid_impl
 
 } // namespace detail
 
-template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<F, T...>::type;
+BOOST_MODULE_EXPORT  template<template<class...> class F, class... T> using mp_valid = typename detail::mp_valid_impl<F, T...>::type;
 
 #endif
 
-template<class Q, class... T> using mp_valid_q = mp_valid<Q::template fn, T...>;
+BOOST_MODULE_EXPORT  template<class Q, class... T> using mp_valid_q = mp_valid<Q::template fn, T...>;
 
 // mp_defer
 namespace detail
@@ -109,7 +109,7 @@ template<template<class...> class F, class... T> using mp_defer = typename detai
 
 #else
 
-template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
+BOOST_MODULE_EXPORT  template<template<class...> class F, class... T> using mp_defer = mp_if<mp_valid<F, T...>, detail::mp_defer_impl<F, T...>, detail::mp_no_type>;
 
 #endif
 

@@ -10,9 +10,11 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <type_traits>
 #include <utility>
 #include <cassert>
+#endif
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define BOOST_MP11_CONSTEXPR14 constexpr
@@ -365,13 +367,13 @@ template<> struct mp_with_index_impl_<16>
 
 } // namespace detail
 
-template<std::size_t N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
+BOOST_MODULE_EXPORT template<std::size_t N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
 {
     assert( i < N );
     return detail::mp_with_index_impl_<N>::template call<0>( i, std::forward<F>(f) );
 }
 
-template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
+BOOST_MODULE_EXPORT template<class N, class F> inline BOOST_MP11_CONSTEXPR14 decltype(std::declval<F>()(std::declval<mp_size_t<0>>())) mp_with_index( std::size_t i, F && f )
 {
     return mp_with_index<std::size_t{N::value}>( i, std::forward<F>(f) );
 }

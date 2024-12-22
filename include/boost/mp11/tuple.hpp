@@ -12,10 +12,12 @@
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
+#ifndef BOOST_CXX20_MODULE
 #include <tuple>
 #include <utility>
 #include <type_traits>
 #include <cstddef>
+#endif
 
 #if BOOST_MP11_MSVC
 # pragma warning( push )
