@@ -6,7 +6,7 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_CXX20_MODULE
+#ifdef BOOST_USE_MODULES
 import std;
 import boost.core;
 import boost.mp11;

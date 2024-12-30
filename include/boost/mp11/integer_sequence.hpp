@@ -10,7 +10,7 @@
 
 #include <boost/mp11/version.hpp>
 #include <boost/mp11/detail/modules.hpp>
-#ifndef BOOST_CXX20_MODULE
+#ifndef BOOST_USE_MODULES
 #include <cstddef>
 #endif
 

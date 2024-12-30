@@ -12,7 +12,7 @@
 #include <boost/mp11/detail/mp_value.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/detail/modules.hpp>
-#ifndef BOOST_CXX20_MODULE
+#ifndef BOOST_USE_MODULES
 #include <type_traits>
 #include <cstddef>
 #endif

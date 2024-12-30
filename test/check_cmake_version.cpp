@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/version.hpp>
-#ifdef BOOST_CXX20_MODULE
+#ifdef BOOST_USE_MODULES
 import std;
 import boost.core;
 #include <boost/core/lightweight_test_macros.hpp>

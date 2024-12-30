@@ -11,7 +11,7 @@ int main() {}
 
 #else
 
-#ifdef BOOST_CXX20_MODULE
+#ifdef BOOST_USE_MODULES
 import std;
 import boost.core;
 import boost.mp11;

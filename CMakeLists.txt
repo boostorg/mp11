@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5...3.31)
 
 project(boost_mp11 VERSION 1.88.0 LANGUAGES CXX)
 
-if (BOOST_CXX20_MODULE)
+if (BOOST_USE_MODULES)
   add_library(boost_mp11 STATIC)
   boost_set_cxx20_module_settings(boost_mp11)
   target_sources(boost_mp11 PUBLIC FILE_SET CXX_MODULES BASE_DIRS modules FILES modules/boost_mp11.cppm)

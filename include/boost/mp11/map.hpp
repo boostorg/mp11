@@ -16,7 +16,7 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/set.hpp>
-#ifndef BOOST_CXX20_MODULE
+#ifndef BOOST_USE_MODULES
 #include <type_traits>
 #endif
 

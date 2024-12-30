@@ -18,7 +18,7 @@
 #else
 
 #include <boost/mp11/bind.hpp>
-#ifndef BOOST_CXX20_MODULE
+#ifndef BOOST_USE_MODULES
 #include <cstddef>
 #include <type_traits>
 #endif

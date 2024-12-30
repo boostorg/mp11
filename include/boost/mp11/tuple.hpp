@@ -13,7 +13,7 @@
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
-#ifndef BOOST_CXX20_MODULE
+#ifndef BOOST_USE_MODULES
 #include <tuple>
 #include <utility>
 #include <type_traits>
