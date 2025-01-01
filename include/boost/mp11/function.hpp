@@ -78,7 +78,7 @@ template<class... T> struct mp_and_impl< mp_list<T...>, mp_void<mp_if<T, void>..
 
 } // namespace detail
 
-template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
+BOOST_MODULE_EXPORT template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
 
 #endif
 
