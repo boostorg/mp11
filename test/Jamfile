@@ -205,10 +205,10 @@ run mp_compose.cpp ;
 run mp_valid_and_true.cpp ;
 compile mp_compose_sf.cpp ;
 
-# # integer_sequence
-# run integer_sequence.cpp ;
+# integer_sequence
+run integer_sequence.cpp ;
 
-# # tuple
+# tuple
 # run tuple_for_each.cpp ;
 # compile tuple_for_each_cx.cpp ;
 # run tuple_apply.cpp ;
