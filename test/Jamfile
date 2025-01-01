@@ -183,27 +183,27 @@ run mp_join.cpp ;
 run integral.cpp ;
 run mp_value.cpp ;
 
-# # utility
-# run mp_identity.cpp ;
-# run mp_inherit.cpp ;
-# run mp_if.cpp ;
-# run mp_if_sf.cpp ;
-# run mp_eval_if.cpp ;
-# run mp_eval_if_sf.cpp ;
-# run mp_valid.cpp ;
-# run mp_defer.cpp ;
-# run mp_quote.cpp ;
-# run mp_invoke_q.cpp ;
-# run mp_invoke_q_sf.cpp ;
-# run mp_quote_trait.cpp ;
-# run mp_cond.cpp ;
-# run mp_cond_sf.cpp ;
-# run mp_not_fn.cpp ;
-# run mp_eval_if_not.cpp ;
-# run mp_eval_or.cpp ;
-# run mp_compose.cpp ;
-# run mp_valid_and_true.cpp ;
-# compile mp_compose_sf.cpp ;
+# utility
+run mp_identity.cpp ;
+run mp_inherit.cpp ;
+run mp_if.cpp ;
+run mp_if_sf.cpp ;
+run mp_eval_if.cpp ;
+run mp_eval_if_sf.cpp ;
+run mp_valid.cpp ;
+run mp_defer.cpp ;
+run mp_quote.cpp ;
+run mp_invoke_q.cpp ;
+run mp_invoke_q_sf.cpp ;
+run mp_quote_trait.cpp ;
+run mp_cond.cpp ;
+run mp_cond_sf.cpp ;
+run mp_not_fn.cpp ;
+run mp_eval_if_not.cpp ;
+run mp_eval_or.cpp ;
+run mp_compose.cpp ;
+run mp_valid_and_true.cpp ;
+compile mp_compose_sf.cpp ;
 
 # # integer_sequence
 # run integer_sequence.cpp ;

@@ -6,9 +6,17 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
 #include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <cstddef>
+#endif
+
 
 template<class T>
 using has_size_t_difference_type
