@@ -8,11 +8,19 @@
 # pragma warning( disable: 4503 ) // decorated name length exceeded
 #endif
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_macros.hpp>
+#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/core/lightweight_test.hpp>
+#endif
+
 
 int main()
 {

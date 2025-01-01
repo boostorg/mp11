@@ -2,9 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/mp11/algorithm.hpp>
-#include <boost/mp11/function.hpp>
-#include <boost/core/lightweight_test_trait.hpp>
+#include <boost/mp11/detail/config.hpp>
+
 
 #if !defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
@@ -12,6 +11,18 @@
 int main() {}
 
 #else
+
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
+#include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/function.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
+#endif
+
 
 template<auto... A> struct V1 {};
 template<int... I> struct V2 {};
