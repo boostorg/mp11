@@ -79,7 +79,7 @@ template<class T1, class T2, class T3, class T4, class T5, class T6, class T7, c
 
 } // namespace detail
 
-template<class... T> using mp_plus = typename detail::mp_plus_impl<T...>::type;
+BOOST_MODULE_EXPORT template<class... T> using mp_plus = typename detail::mp_plus_impl<T...>::type;
 
 } // namespace mp11
 } // namespace boost
