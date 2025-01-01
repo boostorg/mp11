@@ -179,9 +179,9 @@ run mp_intersperse.cpp ;
 run mp_split.cpp ;
 run mp_join.cpp ;
 
-# # integral
-# run integral.cpp ;
-# run mp_value.cpp ;
+# integral
+run integral.cpp ;
+run mp_value.cpp ;
 
 # # utility
 # run mp_identity.cpp ;
