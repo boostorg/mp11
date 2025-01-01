@@ -11,7 +11,7 @@
 #pragma warning( disable: 4244 ) // 'initializing': conversion from 'int' to 'char', possible loss of data
 #endif
 
-#include <boost/mp11/tuple.hpp>
+#include <cstddef> // For __GLIBCXX__
 #include <boost/mp11/detail/config.hpp>
 
 // Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
@@ -22,9 +22,18 @@ int main() {}
 
 #else
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
+#include <boost/mp11/tuple.hpp>
 #include <tuple>
 #include <array>
 #include <utility>
+#endif
+
 
 struct T1
 {

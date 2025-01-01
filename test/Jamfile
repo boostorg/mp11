@@ -209,15 +209,15 @@ compile mp_compose_sf.cpp ;
 run integer_sequence.cpp ;
 
 # tuple
-# run tuple_for_each.cpp ;
-# compile tuple_for_each_cx.cpp ;
-# run tuple_apply.cpp ;
-# compile tuple_apply_cx.cpp ;
-# run construct_from_tuple.cpp ;
-# compile construct_from_tuple_cx.cpp ;
-# run tuple_transform.cpp ;
-# run tuple_transform_2.cpp ;
-# compile tuple_transform_cx.cpp ;
+run tuple_for_each.cpp ;
+compile tuple_for_each_cx.cpp ;
+run tuple_apply.cpp ;
+compile tuple_apply_cx.cpp ;
+run construct_from_tuple.cpp ;
+compile construct_from_tuple_cx.cpp ;
+run tuple_transform.cpp ;
+run tuple_transform_2.cpp ;
+compile tuple_transform_cx.cpp ;
 
 # # set
 # run mp_set_contains.cpp ;

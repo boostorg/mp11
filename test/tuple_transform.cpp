@@ -6,12 +6,21 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_macros.hpp>
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
 #include <boost/mp11/tuple.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
 #include <utility>
 #include <iosfwd>
+#endif
+
 
 // family of test types with state
 template <int N>

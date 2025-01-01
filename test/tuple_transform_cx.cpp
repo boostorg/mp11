@@ -4,7 +4,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/mp11/tuple.hpp>
+#include <cstddef> // For __GLIBCXX__
 #include <boost/mp11/detail/config.hpp>
 
 // Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
@@ -15,8 +15,17 @@ int main() {}
 
 #else
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
+#include <boost/mp11/tuple.hpp>
 #include <tuple>
 #include <utility>
+#endif
+
 
 constexpr int f( int x )
 {

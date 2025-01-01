@@ -11,13 +11,21 @@
 #pragma warning( disable: 4244 ) // 'initializing': conversion from 'int' to 'char', possible loss of data
 #endif
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_macros.hpp>
+#else
 #include <boost/mp11/tuple.hpp>
-#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <tuple>
 #include <memory>
 #include <utility>
 #include <array>
+#endif
+
+#include <boost/mp11/detail/config.hpp>
 
 struct T1
 {
