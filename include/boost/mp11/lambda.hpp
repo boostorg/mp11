@@ -40,7 +40,7 @@ template<class T> struct lambda_impl;
 } // namespace detail
 
 // mp_lambda
-template<class T> using mp_lambda = typename detail::lambda_impl<T>::type;
+BOOST_MODULE_EXPORT template<class T> using mp_lambda = typename detail::lambda_impl<T>::type;
 
 namespace detail
 {

@@ -16,11 +16,19 @@ int main() {}
 
 #else
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
 #include <boost/mp11/lambda.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#endif
+
 
 struct X;
 enum E {};
