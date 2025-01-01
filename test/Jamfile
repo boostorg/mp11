@@ -245,18 +245,18 @@ run mp_min.cpp ;
 run mp_max.cpp ;
 run mp_similar.cpp ;
 
-# # map
-# run mp_map_find.cpp ;
-# run mp_map_find_2.cpp ;
-# run mp_map_find_3.cpp ;
-# run mp_map_contains.cpp ;
-# run mp_map_insert.cpp ;
-# run mp_map_replace.cpp ;
-# run mp_map_erase.cpp ;
-# run mp_map_update.cpp ;
-# run mp_map_update_q.cpp ;
-# run mp_map_keys.cpp ;
-# run mp_is_map.cpp ;
+# map
+run mp_map_find.cpp ;
+run mp_map_find_2.cpp ;
+run mp_map_find_3.cpp ;
+run mp_map_contains.cpp ;
+run mp_map_insert.cpp ;
+run mp_map_replace.cpp ;
+run mp_map_erase.cpp ;
+run mp_map_update.cpp ;
+run mp_map_update_q.cpp ;
+run mp_map_keys.cpp ;
+run mp_is_map.cpp ;
 
 # # bind
 # run mp_bind.cpp ;
