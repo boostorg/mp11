@@ -27,9 +27,9 @@ project
     <toolset>clang:<warnings-as-errors>on
   ;
 
-# # include-only
-# compile mp11.cpp ;
-# compile complex_h.cpp ;
+# include-only
+compile mp11.cpp ;
+compile complex_h.cpp ;
 
 # list
 run mp_size.cpp ;
