@@ -7,11 +7,19 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/list.hpp>
-#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
+#endif
+
+#include <boost/mp11/detail/config.hpp>
 
 using boost::mp11::mp_transform;
 using boost::mp11::mp_list;

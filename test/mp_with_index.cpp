@@ -13,10 +13,18 @@
 # pragma warning( disable: 4503 ) // decorated name length exceeded
 #endif
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_macros.hpp>
+#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <tuple>
+#endif
+
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_for_each;

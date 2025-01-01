@@ -31,13 +31,13 @@ namespace mp11
 {
 
 // integer_sequence
-template<class T, T... I> struct integer_sequence
+BOOST_MODULE_EXPORT template<class T, T... I> struct integer_sequence
 {
 };
 
 #if defined(BOOST_MP11_HAS_MAKE_INTEGER_SEQ)
 
-template<class T, T N> using make_integer_sequence = __make_integer_seq<integer_sequence, T, N>;
+BOOST_MODULE_EXPORT template<class T, T N> using make_integer_sequence = __make_integer_seq<integer_sequence, T, N>;
 
 #else
 
@@ -101,18 +101,18 @@ template<class T, T N> struct make_integer_sequence_impl: iseq_if_c<N == 0, iseq
 } // namespace detail
 
 // make_integer_sequence
-template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
+BOOST_MODULE_EXPORT template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
 
 #endif // defined(BOOST_MP11_HAS_MAKE_INTEGER_SEQ)
 
 // index_sequence
-template<std::size_t... I> using index_sequence = integer_sequence<std::size_t, I...>;
+BOOST_MODULE_EXPORT template<std::size_t... I> using index_sequence = integer_sequence<std::size_t, I...>;
 
 // make_index_sequence
-template<std::size_t N> using make_index_sequence = make_integer_sequence<std::size_t, N>;
+BOOST_MODULE_EXPORT template<std::size_t N> using make_index_sequence = make_integer_sequence<std::size_t, N>;
 
 // index_sequence_for
-template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
+BOOST_MODULE_EXPORT template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
 
 } // namespace mp11
 } // namespace boost

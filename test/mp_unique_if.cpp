@@ -12,6 +12,12 @@
 # pragma GCC diagnostic ignored "-Wsign-compare"
 #endif
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_trait_macros.hpp>
+#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
@@ -19,6 +25,7 @@
 #include <type_traits>
 #include <tuple>
 #include <cstddef>
+#endif
 
 using boost::mp11::mp_bool;
 

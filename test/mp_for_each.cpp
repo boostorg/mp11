@@ -15,11 +15,19 @@
 # pragma warning( disable: 4267 ) // conversion from size_t to uint32_t
 #endif
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.core;
+import boost.mp11;
+#include <boost/core/lightweight_test_macros.hpp>
+#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <tuple>
 #include <cstdint>
+#endif
+
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define CONSTEXPR14 constexpr

@@ -14,8 +14,12 @@ int main() {}
 
 #else
 
+#ifdef BOOST_USE_MODULES
+import std;
+import boost.mp11;
+#else
 #include <boost/mp11/algorithm.hpp>
-#include <boost/core/lightweight_test.hpp>
+#endif
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_with_index;
