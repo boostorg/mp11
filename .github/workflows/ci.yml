@@ -299,6 +299,9 @@ jobs:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
           - os: ubuntu-24.04
+          - os: ubuntu-24.04
+            cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
+            install: ninja-build
           - os: macos-13
           - os: macos-14
           - os: macos-15
@@ -335,7 +338,7 @@ jobs:
         run: |
           cd ../boost-root/libs/$LIBRARY/test/cmake_subdir_test
           mkdir __build__ && cd __build__
-          cmake ..
+          cmake ${{ matrix.cmake-args }} ..
           cmake --build .
           ctest --output-on-failure --no-tests=error
 
@@ -347,6 +350,9 @@ jobs:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
           - os: ubuntu-24.04
+          - os: ubuntu-24.04
+            cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
+            install: ninja-build
           - os: macos-13
           - os: macos-14
           - os: macos-15
@@ -383,7 +389,7 @@ jobs:
         run: |
           cd ../boost-root
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DCMAKE_INSTALL_PREFIX=~/.local ..
+          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DCMAKE_INSTALL_PREFIX=~/.local ${{ matrix.cmake-args }} ..
 
       - name: Install
         run: |
@@ -393,7 +399,7 @@ jobs:
       - name: Use the installed library
         run: |
           cd ../boost-root/libs/$LIBRARY/test/cmake_install_test && mkdir __build__ && cd __build__
-          cmake -DCMAKE_INSTALL_PREFIX=~/.local ..
+          cmake -DCMAKE_INSTALL_PREFIX=~/.local ${{ matrix.cmake-args }} ..
           cmake --build .
           ctest --output-on-failure --no-tests=error
 
@@ -405,6 +411,9 @@ jobs:
           - os: ubuntu-20.04
           - os: ubuntu-22.04
           - os: ubuntu-24.04
+          - os: ubuntu-24.04
+            cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
+            install: ninja-build
           - os: macos-13
           - os: macos-14
           - os: macos-15
@@ -441,7 +450,7 @@ jobs:
         run: |
           cd ../boost-root
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DBUILD_TESTING=ON ..
+          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DBUILD_TESTING=ON ${{ matrix.cmake-args }} ..
 
       - name: Build tests
         run: |
@@ -622,11 +631,18 @@ jobs:
         include:
           - os: windows-2019
           - os: windows-2022
+          - os: windows-2022
+            install: ninja
+            cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
 
     runs-on: ${{matrix.os}}
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install packages
+        if: matrix.install
+        run: choco install ${{matrix.install}}
 
       - name: Setup Boost
         shell: cmd
@@ -652,7 +668,7 @@ jobs:
         run: |
           cd ../boost-root/libs/%LIBRARY%/test/cmake_subdir_test
           mkdir __build__ && cd __build__
-          cmake ..
+          cmake ${{ matrix.cmake-args }} ..
           cmake --build . --config Debug
           ctest --output-on-failure --no-tests=error -C Debug
 
