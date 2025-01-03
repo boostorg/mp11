@@ -6,7 +6,6 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {
@@ -16,7 +15,7 @@ namespace mp11
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
 // mp_list_v<A...>
-BOOST_MODULE_EXPORT
+BOOST_MP11_MODULE_EXPORT
 template<auto... A> struct mp_list_v
 {
 };

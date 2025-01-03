@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
-#include <boost/mp11/detail/modules.hpp>
+#include <boost/mp11/detail/config.hpp>
 
 namespace boost
 {
@@ -32,7 +32,7 @@ template<template<class...> class L, class... T> struct mp_is_list_impl<L<T...>>
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class L> using mp_is_list = typename detail::mp_is_list_impl<L>::type;
+BOOST_MP11_MODULE_EXPORT template<class L> using mp_is_list = typename detail::mp_is_list_impl<L>::type;
 
 } // namespace mp11
 } // namespace boost

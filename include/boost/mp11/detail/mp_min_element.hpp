@@ -11,7 +11,7 @@
 #include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/utility.hpp>
-#include <boost/mp11/detail/modules.hpp>
+#include <boost/mp11/detail/config.hpp>
 
 namespace boost
 {
@@ -29,8 +29,8 @@ template<template<class...> class P> struct select_min
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_min_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_min<P>>;
-BOOST_MODULE_EXPORT template<class L, class Q> using mp_min_element_q = mp_min_element<L, Q::template fn>;
+BOOST_MP11_MODULE_EXPORT template<class L, template<class...> class P> using mp_min_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_min<P>>;
+BOOST_MP11_MODULE_EXPORT template<class L, class Q> using mp_min_element_q = mp_min_element<L, Q::template fn>;
 
 // mp_max_element<L, P>
 namespace detail
@@ -43,8 +43,8 @@ template<template<class...> class P> struct select_max
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class L, template<class...> class P> using mp_max_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_max<P>>;
-BOOST_MODULE_EXPORT template<class L, class Q> using mp_max_element_q = mp_max_element<L, Q::template fn>;
+BOOST_MP11_MODULE_EXPORT template<class L, template<class...> class P> using mp_max_element = mp_fold_q<mp_rest<L>, mp_first<L>, detail::select_max<P>>;
+BOOST_MP11_MODULE_EXPORT template<class L, class Q> using mp_max_element_q = mp_max_element<L, Q::template fn>;
 
 } // namespace mp11
 } // namespace boost

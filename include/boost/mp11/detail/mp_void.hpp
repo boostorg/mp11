@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {
@@ -27,7 +26,7 @@ template<class... T> struct mp_void_impl
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
+BOOST_MP11_MODULE_EXPORT template<class... T> using mp_void = typename detail::mp_void_impl<T...>::type;
 
 } // namespace mp11
 } // namespace boost

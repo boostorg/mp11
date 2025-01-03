@@ -14,7 +14,6 @@
 #include <boost/mp11/detail/mp_list_v.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {
@@ -308,7 +307,7 @@ struct append_value_lists
 
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
-BOOST_MODULE_EXPORT template<class... L> using mp_append = typename mp_if_c<(sizeof...(L) > 0 && sizeof...(L) == mp_count_if<mp_list<L...>, mp_is_value_list>::value), detail::append_value_lists, detail::append_type_lists>::template fn<L...>;
+BOOST_MP11_MODULE_EXPORT template<class... L> using mp_append = typename mp_if_c<(sizeof...(L) > 0 && sizeof...(L) == mp_count_if<mp_list<L...>, mp_is_value_list>::value), detail::append_value_lists, detail::append_type_lists>::template fn<L...>;
 
 #else
 

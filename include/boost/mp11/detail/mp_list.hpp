@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {
@@ -17,7 +16,7 @@ namespace mp11
 {
 
 // mp_list<T...>
-BOOST_MODULE_EXPORT
+BOOST_MP11_MODULE_EXPORT
 template<class... T> struct mp_list
 {
 };

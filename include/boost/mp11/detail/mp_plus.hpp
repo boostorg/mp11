@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 #ifndef BOOST_USE_MODULES
 #include <type_traits>
 #endif
@@ -79,7 +78,7 @@ template<class T1, class T2, class T3, class T4, class T5, class T6, class T7, c
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class... T> using mp_plus = typename detail::mp_plus_impl<T...>::type;
+BOOST_MP11_MODULE_EXPORT template<class... T> using mp_plus = typename detail::mp_plus_impl<T...>::type;
 
 } // namespace mp11
 } // namespace boost

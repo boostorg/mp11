@@ -11,7 +11,6 @@
 #include <boost/mp11/detail/mp_defer.hpp>
 #include <boost/mp11/detail/mp_value.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 namespace boost
 {
@@ -41,13 +40,13 @@ template<template<auto...> class L, auto... A, template<class...> class B> struc
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class L, template<class...> class B> using mp_rename = typename detail::mp_rename_impl<L, B>::type;
+BOOST_MP11_MODULE_EXPORT template<class L, template<class...> class B> using mp_rename = typename detail::mp_rename_impl<L, B>::type;
 
 // mp_apply<F, L>
-BOOST_MODULE_EXPORT template<template<class...> class F, class L> using mp_apply = typename detail::mp_rename_impl<L, F>::type;
+BOOST_MP11_MODULE_EXPORT template<template<class...> class F, class L> using mp_apply = typename detail::mp_rename_impl<L, F>::type;
 
 // mp_apply_q<Q, L>
-BOOST_MODULE_EXPORT template<class Q, class L> using mp_apply_q = typename detail::mp_rename_impl<L, Q::template fn>::type;
+BOOST_MP11_MODULE_EXPORT template<class Q, class L> using mp_apply_q = typename detail::mp_rename_impl<L, Q::template fn>::type;
 
 } // namespace mp11
 } // namespace boost

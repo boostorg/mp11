@@ -10,7 +10,6 @@
 
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1930 )
 
@@ -80,7 +79,7 @@ template<template<class...> class M, class... T, class K> struct mp_map_find_imp
 
 } // namespace detail
 
-BOOST_MODULE_EXPORT template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
+BOOST_MP11_MODULE_EXPORT template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
 
 } // namespace mp11
 } // namespace boost

@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <boost/mp11/detail/modules.hpp>
 
 #if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
 
@@ -40,7 +39,7 @@ template<class T> struct lambda_impl;
 } // namespace detail
 
 // mp_lambda
-BOOST_MODULE_EXPORT template<class T> using mp_lambda = typename detail::lambda_impl<T>::type;
+BOOST_MP11_MODULE_EXPORT template<class T> using mp_lambda = typename detail::lambda_impl<T>::type;
 
 namespace detail
 {
