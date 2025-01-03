@@ -281,7 +281,7 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
           cmd /c bootstrap
           b2 -d0 headers
 
@@ -329,7 +329,7 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory
         run: |
@@ -377,7 +377,7 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
         run: |
@@ -645,7 +645,7 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory (Debug)
         shell: cmd
@@ -693,7 +693,7 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
         shell: cmd
@@ -759,7 +759,7 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
-          python tools/setup_boost_with_modules.py # Temporary
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
         shell: cmd
