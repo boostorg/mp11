@@ -222,7 +222,7 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
-          python3 tools/setup_boost_with_modules.py # Temporary
+          python3 libs/mp11/tools/setup_boost_with_modules.py # Temporary
           ./bootstrap.sh
           ./b2 -d0 headers
 
@@ -435,7 +435,7 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
-          python3 tools/setup_boost_with_modules.py # Temporary
+          python3 libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
         run: |
