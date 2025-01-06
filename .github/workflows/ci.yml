@@ -850,8 +850,9 @@ jobs:
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory
-        shell: cmd /k "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
+        shell: cmd
         run: |
+          call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root/libs/%LIBRARY%/test/cmake_subdir_test
           mkdir __build__ && cd __build__
           cmake -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja ..
