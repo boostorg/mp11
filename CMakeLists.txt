@@ -25,6 +25,7 @@ if (BOOST_USE_MODULES)
 else()
   add_library(boost_mp11 INTERFACE)
   target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_templates cxx_decltype)
+  set(__scope INTERFACE)
 endif()
 
 add_library(Boost::mp11 ALIAS boost_mp11)
