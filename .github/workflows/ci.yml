@@ -959,7 +959,7 @@ jobs:
           call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=%LIBRARY% -DBUILD_TESTING=ON ..
+          cmake -DBOOST_INCLUDE_LIBRARIES=%LIBRARY% -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja  ..
 
       - name: Build tests
         shell: cmd
