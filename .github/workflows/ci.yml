@@ -302,20 +302,20 @@ jobs:
           - os: ubuntu-24.04
             container: ubuntu:24.10
             cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
-            install: ninja-build
+            install: ninja-build cmake clang-19
           # - os: macos-13
           # - os: macos-14
           # - os: macos-15
 
     runs-on: ${{matrix.os}}
-    container: ${{ matrix.container }}
+    container: ${{matrix.container}}
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install packages
         if: matrix.install
-        run: sudo apt install ${{matrix.install}}
+        run: apt update && apt install -y ${{matrix.install}}
 
       - name: Setup Boost
         run: |
