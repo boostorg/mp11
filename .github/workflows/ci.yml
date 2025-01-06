@@ -828,7 +828,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install packages
-        if: matrix.install
         run: choco install ninja
 
       - name: Setup Boost
