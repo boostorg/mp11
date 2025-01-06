@@ -315,7 +315,7 @@ jobs:
 
       - name: Install packages
         if: matrix.install
-        run: DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends ${{matrix.install}}
+        run: export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y --no-install-recommends ${{matrix.install}}
 
       - name: Setup Boost
         run: |
