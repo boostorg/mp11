@@ -962,7 +962,7 @@ jobs:
         run: |
           cd ../boost-root
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} $CMAKE_ARGS ..
+          cmake -DBOOST_INCLUDE_LIBRARIES=$LIBRARY -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -DBOOST_USE_MODULES=1 $CMAKE_ARGS ..
 
       - name: Build tests
         run: |
