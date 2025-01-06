@@ -814,6 +814,59 @@ jobs:
   #         cd ../boost-root/__build__
   #         ctest --output-on-failure --no-tests=error -C Release
 
+  # posix-cmake-subdir-modules:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include:
+  #         - os: ubuntu-20.04
+  #         - os: ubuntu-22.04
+  #         - os: ubuntu-24.04
+  #         - os: ubuntu-24.04
+  #           container: ubuntu:24.10
+  #           cmake-args: -DBOOST_USE_MODULES=1 -DCMAKE_CXX_COMPILER=clang++-19 -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja
+  #           install: ninja-build cmake clang-19 llvm-19 libclang-rt-19-dev libc++-19-dev libc++abi-19-dev clang-tools-19 git ca-certificates python3 python-is-python3
+  #         - os: macos-13
+  #         - os: macos-14
+  #         - os: macos-15
+
+  #   runs-on: ${{matrix.os}}
+  #   container: ${{matrix.container}}
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Install packages
+  #       if: matrix.install
+  #       run: export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y --no-install-recommends ${{matrix.install}}
+
+  #     - name: Setup Boost
+  #       run: |
+  #         echo GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+  #         LIBRARY=${GITHUB_REPOSITORY#*/}
+  #         echo LIBRARY: $LIBRARY
+  #         echo "LIBRARY=$LIBRARY" >> $GITHUB_ENV
+  #         echo GITHUB_BASE_REF: $GITHUB_BASE_REF
+  #         echo GITHUB_REF: $GITHUB_REF
+  #         REF=${GITHUB_BASE_REF:-$GITHUB_REF}
+  #         REF=${REF#refs/heads/}
+  #         echo REF: $REF
+  #         BOOST_BRANCH=develop && [ "$REF" == "master" ] && BOOST_BRANCH=master || true
+  #         echo BOOST_BRANCH: $BOOST_BRANCH
+  #         cd ..
+  #         git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
+  #         cd boost-root
+  #         cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+  #         python libs/mp11/tools/setup_boost_with_modules.py # Temporary
+
+  #     - name: Use library with add_subdirectory
+  #       run: |
+  #         cd ../boost-root/libs/$LIBRARY/test/cmake_subdir_test
+  #         mkdir __build__ && cd __build__
+  #         cmake ${{ matrix.cmake-args }} ..
+  #         cmake --build .
+  #         ctest --output-on-failure --no-tests=error
+
   # windows-cmake-subdir-modules:
   #   strategy:
   #     fail-fast: false
@@ -959,7 +1012,7 @@ jobs:
           call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root
           mkdir __build__ && cd __build__
-          cmake -DBOOST_INCLUDE_LIBRARIES=%LIBRARY% -DBUILD_TESTING=ON -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja  ..
+          cmake -DBOOST_INCLUDE_LIBRARIES=%LIBRARY% -DBUILD_TESTING=ON -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja  ..
 
       - name: Build tests
         shell: cmd
