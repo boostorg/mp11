@@ -897,6 +897,7 @@ jobs:
       - name: Configure
         shell: cmd
         run: |
+          call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root
           mkdir __build__ && cd __build__
           cmake -DBOOST_INCLUDE_LIBRARIES=%LIBRARY% -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja ..
@@ -904,12 +905,14 @@ jobs:
       - name: Install
         shell: cmd
         run: |
+          call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root/__build__
           cmake --build . --target install
 
       - name: Use the installed library
         shell: cmd
         run: |
+          call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root/libs/%LIBRARY%/test/cmake_install_test && mkdir __build__ && cd __build__
           cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -DCMAKE_BUILD_TYPE=${{matrix.cmake-build-type}} -G Ninja ..
           cmake --build .
