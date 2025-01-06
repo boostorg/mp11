@@ -10,6 +10,7 @@ def main():
 
     submodules = [
         ('tools/cmake',         'https://github.com/anarthal/boost-cmake',    'feature/cxx20-modules'),
+        ('tools/build',         'https://github.com/boostorg/build',          'develop'),
         ('libs/headers',        'https://github.com/boostorg/headers',        'develop'),
         ('libs/config',         'https://github.com/boostorg/config',         'develop'),
         ('libs/assert',         'https://github.com/anarthal/assert',         'feature/cxx20-modules'),
