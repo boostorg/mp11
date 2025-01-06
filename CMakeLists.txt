@@ -8,16 +8,27 @@ project(boost_mp11 VERSION 1.88.0 LANGUAGES CXX)
 
 if (BOOST_USE_MODULES)
   add_library(boost_mp11 STATIC)
-  boost_set_cxx20_module_settings(boost_mp11)
   target_sources(boost_mp11 PUBLIC FILE_SET CXX_MODULES BASE_DIRS modules FILES modules/boost_mp11.cppm)
-  target_include_directories(boost_mp11 PUBLIC include)
+  set(__scope PUBLIC)
+  
+  # Enable and propagate C++23, import std, and the modules macro
+  target_compile_features(boost_mp11 PUBLIC cxx_std_23)
+  set_target_properties(boost_mp11 PROPERTIES CXX_MODULE_STD 1)
+  target_compile_definitions(boost_mp11 PUBLIC BOOST_USE_MODULES)
+
+  # Silence warnings about includes in the purview
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(boost_mp11 PRIVATE -Wno-include-angled-in-module-purview)
+  elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(boost_mp11 PRIVATE /wd5244)
+  endif()
 else()
   add_library(boost_mp11 INTERFACE)
-  target_include_directories(boost_mp11 INTERFACE include)
   target_compile_features(boost_mp11 INTERFACE cxx_alias_templates cxx_variadic_templates cxx_decltype)
 endif()
 
 add_library(Boost::mp11 ALIAS boost_mp11)
+target_include_directories(boost_mp11 ${__scope} include)
 
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
