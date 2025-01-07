@@ -222,6 +222,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python3 tools/boostdep/depinst/depinst.py $LIBRARY
           python3 libs/mp11/tools/setup_boost_with_modules.py # Temporary
           ./bootstrap.sh
           ./b2 -d0 headers
@@ -281,6 +283,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
           cmd /c bootstrap
           b2 -d0 headers
@@ -329,6 +333,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" $LIBRARY
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory
@@ -377,6 +383,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" $LIBRARY
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -435,7 +443,9 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
-          python3 libs/mp11/tools/setup_boost_with_modules.py # Temporary
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" $LIBRARY
+          python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
         run: |
@@ -645,6 +655,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory (Debug)
@@ -693,6 +705,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -759,6 +773,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -823,6 +839,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py $LIBRARY
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory
@@ -867,6 +885,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py $LIBRARY
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -925,6 +945,8 @@ jobs:
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
+          git submodule update --init tools/boostdep
+          python3 tools/boostdep/depinst/depinst.py $LIBRARY
           python3 libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -969,6 +991,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Use library with add_subdirectory
@@ -1007,6 +1031,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
@@ -1066,6 +1092,8 @@ jobs:
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           python libs/mp11/tools/setup_boost_with_modules.py # Temporary
 
       - name: Configure
