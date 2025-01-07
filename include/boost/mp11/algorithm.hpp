@@ -355,6 +355,11 @@ template<template<class T, T... I> class S, class U, U... J, class F> struct mp_
     using type = mp_list_c<U, (F::value + J)...>;
 };
 
+template<template<class T, T... I> class S, class U, U... J> struct mp_from_sequence_impl<S<U, J...>, mp_int<0>>
+{
+    using type = mp_list_c<U, J...>;
+};
+
 } // namespace detail
 
 template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F>::type;
