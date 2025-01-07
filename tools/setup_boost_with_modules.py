@@ -5,23 +5,24 @@
 # Call it instead of depinst
 
 from subprocess import run
+import os
 
 def main():
 
     submodules = [
-        ('tools/cmake',         'https://github.com/anarthal/boost-cmake',    'feature/cxx20-modules'),
-        ('tools/build',         'https://github.com/boostorg/build',          'develop'),
-        ('tools/build_install', 'https://github.com/boostorg/build_install',  'develop'),
-        ('libs/headers',        'https://github.com/boostorg/headers',        'develop'),
-        ('libs/config',         'https://github.com/boostorg/config',         'develop'),
-        ('libs/assert',         'https://github.com/anarthal/assert',         'feature/cxx20-modules'),
-        ('libs/core',           'https://github.com/anarthal/core',           'feature/cxx20-modules'),
-        ('libs/throw_exception','https://github.com/anarthal/throw_exception','feature/cxx20-modules'),
-        ('libs/static_assert',  'https://github.com/boostorg/static_assert',  'develop'),
+        ('tools/cmake',         'https://github.com/anarthal/boost-cmake'),
+        ('libs/assert',         'https://github.com/anarthal/assert'),
+        ('libs/core',           'https://github.com/anarthal/core'),
+        ('libs/throw_exception','https://github.com/anarthal/throw_exception'),
     ]
 
-    for submodule, url, branch in submodules:
-        run(["git", "clone", url, "--depth", "1", "-b", branch, submodule])
+    for submodule, url in submodules:
+        os.chdir(submodule)
+        run(['git', 'remote', 'add', 'modules', url])
+        run(['git', 'fetch', '--depth', '1', 'modules', 'feature/cxx20-modules'])
+        run(['git', 'checkout', 'modules/feature/cxx20-modules'])
+        os.chdir('../..')
+
 
 if __name__ == '__main__':
     main()
