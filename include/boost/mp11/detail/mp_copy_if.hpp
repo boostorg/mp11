@@ -39,8 +39,8 @@ template<template<class...> class L, class... T, template<class...> class P> str
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class L, template<class...> class P> using mp_copy_if = typename detail::mp_copy_if_impl<L, P>::type;
-BOOST_MP11_MODULE_EXPORT template<class L, class Q> using mp_copy_if_q = mp_copy_if<L, Q::template fn>;
+template<class L, template<class...> class P> using mp_copy_if = typename detail::mp_copy_if_impl<L, P>::type;
+template<class L, class Q> using mp_copy_if_q = mp_copy_if<L, Q::template fn>;
 
 } // namespace mp11
 } // namespace boost

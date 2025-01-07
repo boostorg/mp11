@@ -33,7 +33,7 @@ template<template<auto...> class L, auto... A> struct mp_is_value_list_impl<L<A.
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class L> using mp_is_value_list = typename detail::mp_is_value_list_impl<L>::type;
+template<class L> using mp_is_value_list = typename detail::mp_is_value_list_impl<L>::type;
 
 } // namespace mp11
 } // namespace boost

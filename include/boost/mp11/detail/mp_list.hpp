@@ -16,7 +16,6 @@ namespace mp11
 {
 
 // mp_list<T...>
-BOOST_MP11_MODULE_EXPORT
 template<class... T> struct mp_list
 {
 };

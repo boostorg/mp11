@@ -41,7 +41,7 @@ template<template<class...> class L, class... T, class V> struct mp_set_contains
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class S, class V> using mp_set_contains = typename detail::mp_set_contains_impl<S, V>::type;
+template<class S, class V> using mp_set_contains = typename detail::mp_set_contains_impl<S, V>::type;
 
 // mp_set_push_back<S, T...>
 namespace detail
@@ -64,7 +64,7 @@ template<template<class...> class L, class... U, class T1, class... T> struct mp
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class S, class... T> using mp_set_push_back = typename detail::mp_set_push_back_impl<S, T...>::type;
+template<class S, class... T> using mp_set_push_back = typename detail::mp_set_push_back_impl<S, T...>::type;
 
 // mp_set_push_front<S, T...>
 namespace detail
@@ -92,7 +92,7 @@ template<template<class...> class L, class... U, class T1, class... T> struct mp
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class S, class... T> using mp_set_push_front = typename detail::mp_set_push_front_impl<S, T...>::type;
+template<class S, class... T> using mp_set_push_front = typename detail::mp_set_push_front_impl<S, T...>::type;
 
 // mp_is_set<S>
 namespace detail
@@ -140,7 +140,7 @@ template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
+template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
 
 // mp_set_union<L...>
 namespace detail
@@ -173,7 +173,7 @@ template<class L1, class L2, class L3, class... L> struct mp_set_union_impl<L1, 
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
+template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
 
 // mp_set_intersection<S...>
 namespace detail
@@ -201,7 +201,7 @@ template<class L, class... S> struct mp_set_intersection_impl<L, S...>: mp_defer
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... S> using mp_set_intersection = typename detail::mp_set_intersection_impl<S...>::type;
+template<class... S> using mp_set_intersection = typename detail::mp_set_intersection_impl<S...>::type;
 
 // mp_set_difference<L, S...>
 namespace detail
@@ -214,7 +214,7 @@ template<class... S> struct in_any_set
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list<S>...>, mp_remove_if_q<L, detail::in_any_set<S...>> >;
+template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list<S>...>, mp_remove_if_q<L, detail::in_any_set<S...>> >;
 
 } // namespace mp11
 } // namespace boost

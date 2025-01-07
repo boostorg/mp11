@@ -77,7 +77,7 @@ template<class... T> struct mp_and_impl< mp_list<T...>, mp_void<mp_if<T, void>..
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
+template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
 
 #endif
 
@@ -89,7 +89,7 @@ template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_not 
 
 #else
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_all = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_false >::value == 0 >;
+template<class... T> using mp_all = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_false >::value == 0 >;
 
 #endif
 
@@ -101,7 +101,7 @@ template<class... T> struct mp_or_impl;
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_or = mp_to_bool< typename detail::mp_or_impl<T...>::type >;
+template<class... T> using mp_or = mp_to_bool< typename detail::mp_or_impl<T...>::type >;
 
 namespace detail
 {
@@ -131,7 +131,7 @@ template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_b
 
 #else
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_any = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_true >::value != 0 >;
+template<class... T> using mp_any = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_true >::value != 0 >;
 
 #endif
 
@@ -153,7 +153,7 @@ template<class T1, class... T> struct mp_same_impl<T1, T...>
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
+template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
 
 // mp_similar<T...>
 namespace detail
@@ -198,7 +198,7 @@ template<class T1, class T2, class T3, class... T> struct mp_similar_impl<T1, T2
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
+template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
 
 #if BOOST_MP11_GCC
 # pragma GCC diagnostic push
@@ -206,17 +206,17 @@ BOOST_MP11_MODULE_EXPORT template<class... T> using mp_similar = typename detail
 #endif
 
 // mp_less<T1, T2>
-BOOST_MP11_MODULE_EXPORT template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
+template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
 
 #if BOOST_MP11_GCC
 # pragma GCC diagnostic pop
 #endif
 
 // mp_min<T...>
-BOOST_MP11_MODULE_EXPORT template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
+template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
 
 // mp_max<T...>
-BOOST_MP11_MODULE_EXPORT template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
+template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
 
 } // namespace mp11
 } // namespace boost

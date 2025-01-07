@@ -43,7 +43,6 @@ template<class F, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR auto tuple_ap
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT
 template<class F, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
 BOOST_MP11_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
@@ -63,7 +62,6 @@ template<class T, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR T construct_f
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT
 template<class T, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
 BOOST_MP11_CONSTEXPR T construct_from_tuple( Tp && tp )
@@ -88,7 +86,6 @@ template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each_impl( Tp && /*
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT
 template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 {
     using seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>;
@@ -156,7 +153,6 @@ BOOST_MP11_CONSTEXPR auto tuple_transform_impl( integer_sequence<std::size_t, J.
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1910 )
 
-BOOST_MP11_MODULE_EXPORT
 template<class F, class Tp1, class... Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp1>::type>::value>>
 BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
@@ -167,7 +163,6 @@ BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
 
 #else
 
-BOOST_MP11_MODULE_EXPORT
 template<class F, class... Tp,
     class Z = mp_list<mp_size_t<std::tuple_size<typename std::remove_reference<Tp>::type>::value>...>,
     class E = mp_if<mp_apply<mp_same, Z>, mp_front<Z>>,

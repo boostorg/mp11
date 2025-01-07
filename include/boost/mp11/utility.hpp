@@ -22,18 +22,15 @@ namespace mp11
 {
 
 // mp_identity
-BOOST_MP11_MODULE_EXPORT
 template<class T> struct mp_identity
 {
     using type = T;
 };
 
 // mp_identity_t
-BOOST_MP11_MODULE_EXPORT
 template<class T> using mp_identity_t = typename mp_identity<T>::type;
 
 // mp_inherit
-BOOST_MP11_MODULE_EXPORT
 template<class... T> struct mp_inherit: T... {};
 
 // mp_if, mp_if_c
@@ -58,21 +55,21 @@ template<class T, template<class...> class F, class... U> struct mp_eval_if_c_im
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
-BOOST_MP11_MODULE_EXPORT template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
-BOOST_MP11_MODULE_EXPORT template<class C, class T, class Q, class... U> using mp_eval_if_q = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, Q::template fn, U...>::type;
+template<bool C, class T, template<class...> class F, class... U> using mp_eval_if_c = typename detail::mp_eval_if_c_impl<C, T, F, U...>::type;
+template<class C, class T, template<class...> class F, class... U> using mp_eval_if = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, F, U...>::type;
+template<class C, class T, class Q, class... U> using mp_eval_if_q = typename detail::mp_eval_if_c_impl<static_cast<bool>(C::value), T, Q::template fn, U...>::type;
 
 // mp_eval_if_not
-BOOST_MP11_MODULE_EXPORT template<class C, class T, template<class...> class F, class... U> using mp_eval_if_not = mp_eval_if<mp_not<C>, T, F, U...>;
-BOOST_MP11_MODULE_EXPORT template<class C, class T, class Q, class... U> using mp_eval_if_not_q = mp_eval_if<mp_not<C>, T, Q::template fn, U...>;
+template<class C, class T, template<class...> class F, class... U> using mp_eval_if_not = mp_eval_if<mp_not<C>, T, F, U...>;
+template<class C, class T, class Q, class... U> using mp_eval_if_not_q = mp_eval_if<mp_not<C>, T, Q::template fn, U...>;
 
 // mp_eval_or
-BOOST_MP11_MODULE_EXPORT template<class T, template<class...> class F, class... U> using mp_eval_or = mp_eval_if_not<mp_valid<F, U...>, T, F, U...>;
-BOOST_MP11_MODULE_EXPORT template<class T, class Q, class... U> using mp_eval_or_q = mp_eval_or<T, Q::template fn, U...>;
+template<class T, template<class...> class F, class... U> using mp_eval_or = mp_eval_if_not<mp_valid<F, U...>, T, F, U...>;
+template<class T, class Q, class... U> using mp_eval_or_q = mp_eval_or<T, Q::template fn, U...>;
 
 // mp_valid_and_true
-BOOST_MP11_MODULE_EXPORT template<template<class...> class F, class... T> using mp_valid_and_true = mp_eval_or<mp_false, F, T...>;
-BOOST_MP11_MODULE_EXPORT template<class Q, class... T> using mp_valid_and_true_q = mp_valid_and_true<Q::template fn, T...>;
+template<template<class...> class F, class... T> using mp_valid_and_true = mp_eval_or<mp_false, F, T...>;
+template<class Q, class... T> using mp_valid_and_true_q = mp_valid_and_true<Q::template fn, T...>;
 
 // mp_cond
 
@@ -86,7 +83,7 @@ template<class C, class T, class... E> struct mp_cond_impl;
 
 } // namespace detail
 
-BOOST_MP11_MODULE_EXPORT template<class C, class T, class... E> using mp_cond = typename detail::mp_cond_impl<C, T, E...>::type;
+template<class C, class T, class... E> using mp_cond = typename detail::mp_cond_impl<C, T, E...>::type;
 
 namespace detail
 {
@@ -100,7 +97,6 @@ template<class C, class T, class... E> struct mp_cond_impl: mp_defer<mp_cond_, C
 } // namespace detail
 
 // mp_quote
-BOOST_MP11_MODULE_EXPORT
 template<template<class...> class F> struct mp_quote
 {
     // the indirection through mp_defer works around the language inability
@@ -110,7 +106,6 @@ template<template<class...> class F> struct mp_quote
 };
 
 // mp_quote_trait
-BOOST_MP11_MODULE_EXPORT
 template<template<class...> class F> struct mp_quote_trait
 {
     template<class... T> using fn = typename F<T...>::type;
@@ -134,18 +129,16 @@ template<class Q, class... T> using mp_invoke_q = typename mp_defer<Q::template 
 
 #else
 
-BOOST_MP11_MODULE_EXPORT template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
+template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
 
 #endif
 
 // mp_not_fn<P>
-BOOST_MP11_MODULE_EXPORT
 template<template<class...> class P> struct mp_not_fn
 {
     template<class... T> using fn = mp_not< mp_invoke_q<mp_quote<P>, T...> >;
 };
 
-BOOST_MP11_MODULE_EXPORT
 template<class Q> using mp_not_fn_q = mp_not_fn<Q::template fn>;
 
 // mp_compose
@@ -158,7 +151,6 @@ template<class L, class Q> using mp_compose_helper = mp_list< mp_apply_q<Q, L> >
 
 #if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
-BOOST_MP11_MODULE_EXPORT
 template<template<class...> class... F> struct mp_compose
 {
     template<class... T> using fn = mp_front< mp_fold<mp_list<mp_quote<F>...>, mp_list<T...>, detail::mp_compose_helper> >;
@@ -166,7 +158,6 @@ template<template<class...> class... F> struct mp_compose
 
 #endif
 
-BOOST_MP11_MODULE_EXPORT
 template<class... Q> struct mp_compose_q
 {
     template<class... T> using fn = mp_front< mp_fold<mp_list<Q...>, mp_list<T...>, detail::mp_compose_helper> >;
