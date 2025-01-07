@@ -348,21 +348,21 @@ template<class L, class N> using mp_drop = mp_drop_c<L, std::size_t{ N::value }>
 namespace detail
 {
 
-template<class S, class F> struct mp_from_sequence_impl;
+template<class S, class F, bool Z> struct mp_from_sequence_impl;
 
-template<template<class T, T... I> class S, class U, U... J, class F> struct mp_from_sequence_impl<S<U, J...>, F>
+template<template<class T, T... I> class S, class U, U... J, class F> struct mp_from_sequence_impl<S<U, J...>, F, false>
 {
     using type = mp_list_c<U, (F::value + J)...>;
 };
 
-template<template<class T, T... I> class S, class U, U... J> struct mp_from_sequence_impl<S<U, J...>, mp_int<0>>
+template<template<class T, T... I> class S, class U, U... J, class F> struct mp_from_sequence_impl<S<U, J...>, F, true>
 {
     using type = mp_list_c<U, J...>;
 };
 
 } // namespace detail
 
-template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F>::type;
+template<class S, class F = mp_int<0>> using mp_from_sequence = typename detail::mp_from_sequence_impl<S, F, (F::value == 0)>::type;
 
 // mp_iota(_c)<N, F>
 template<std::size_t N, std::size_t F = 0> using mp_iota_c = mp_from_sequence<make_index_sequence<N>, mp_size_t<F>>;
