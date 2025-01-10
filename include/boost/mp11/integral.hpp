@@ -10,7 +10,6 @@
 
 #include <boost/mp11/version.hpp>
 #include <boost/mp11/detail/mp_value.hpp>
-#include <boost/mp11/detail/config.hpp>
 #ifndef BOOST_USE_MODULES
 #include <type_traits>
 #include <cstddef>

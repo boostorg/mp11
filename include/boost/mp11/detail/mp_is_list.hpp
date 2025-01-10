@@ -9,7 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/integral.hpp>
-#include <boost/mp11/detail/config.hpp>
 
 namespace boost
 {
