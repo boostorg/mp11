@@ -1,6 +1,6 @@
 module;
 
-import std;
+#include <boost/mp11/detail/global_module_fragment_imports.hpp>
 #include <cassert>
 #include <boost/mp11.hpp>
 
