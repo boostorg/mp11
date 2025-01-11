@@ -34,6 +34,9 @@ target_include_directories(boost_mp11 ${__scope} include)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
+  # Required to call deprecated FetchContent_Populate
+  cmake_policy(SET CMP0169 OLD)
+
   # Fetch support files
 
   message(STATUS "Fetching BoostFetch.cmake")
