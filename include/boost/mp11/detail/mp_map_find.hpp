@@ -67,14 +67,17 @@ template<class T> using mpmf_unwrap = typename mpmf_unwrap_impl<T>::type;
 
 template<class M, class K> struct mp_map_find_impl;
 
+template<class K> struct mp_map_find_impl_f
+{
+    template<template<class...> class L, class... U> static mp_identity<L<K, U...>> f( mp_identity<L<K, U...>>* );
+    static mp_identity<void> f( ... );
+};
+
 template<template<class...> class M, class... T, class K> struct mp_map_find_impl<M<T...>, K>
 {
     using U = mp_inherit<mpmf_wrap<T>...>;
 
-    template<template<class...> class L, class... U> static mp_identity<L<K, U...>> f( mp_identity<L<K, U...>>* );
-    static mp_identity<void> f( ... );
-
-    using type = mpmf_unwrap< decltype( f( static_cast<U*>(0) ) ) >;
+    using type = mpmf_unwrap< decltype( mp_map_find_impl_f<K>::f( static_cast<U*>(0) ) ) >;
 };
 
 } // namespace detail
