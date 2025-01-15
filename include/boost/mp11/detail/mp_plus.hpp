@@ -9,9 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {

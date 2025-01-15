@@ -8,11 +8,16 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/utility.hpp>
-#ifndef BOOST_USE_MODULES
-#include <cstddef>
-#endif
+#include <boost/mp11/detail/std/cstddef.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -117,6 +122,8 @@ template<class Q, class... T> using mp_bind_q = mp_bind<Q::template fn, T...>;
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_BIND_HPP_INCLUDED

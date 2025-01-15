@@ -8,6 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/set.hpp>
 #include <boost/mp11/integral.hpp>
@@ -23,10 +30,8 @@
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/integer_sequence.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#include <utility>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
+#include <boost/mp11/detail/std/utility.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -1350,6 +1355,8 @@ template<class L, class S> using mp_join = mp_apply<mp_append, mp_intersperse<L,
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_ALGORITHM_HPP_INCLUDED

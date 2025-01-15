@@ -8,10 +8,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
 #include <boost/mp11/version.hpp>
-#ifndef BOOST_USE_MODULES
-#include <cstddef>
-#endif
+import boost.mp11;
+
+#else
+
+#include <boost/mp11/version.hpp>
+#include <boost/mp11/detail/std/cstddef.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -118,6 +123,8 @@ template<class... T> using index_sequence_for = make_integer_sequence<std::size_
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_INTEGER_SEQUENCE_HPP_INCLUDED

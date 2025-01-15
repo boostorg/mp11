@@ -6,9 +6,7 @@
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 

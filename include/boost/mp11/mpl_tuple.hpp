@@ -8,10 +8,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/detail/mpl_common.hpp>
-#ifndef BOOST_USE_MODULES
-#include <tuple>
-#endif
+#include <boost/mp11/detail/std/tuple.hpp>
 
 namespace boost
 {
@@ -27,5 +32,7 @@ template<class... T> struct sequence_tag<std::tuple<T...>>
 
 } // namespace mpl
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_MPL_TUPLE_HPP_INCLUDED

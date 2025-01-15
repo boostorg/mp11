@@ -8,6 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/detail/mp_map_find.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
@@ -15,9 +22,7 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/set.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {
@@ -117,5 +122,7 @@ template<class M> using mp_is_map = typename detail::mp_is_map_impl<M>::type;
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_MAP_HPP_INCLUDED

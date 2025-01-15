@@ -8,6 +8,13 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -17,9 +24,7 @@
 #include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {
@@ -218,5 +223,7 @@ template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_SET_HPP_INCLUDED

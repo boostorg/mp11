@@ -8,6 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/detail/config.hpp>
 
 #if BOOST_MP11_WORKAROUND(BOOST_MP11_MSVC, <= 1800)
@@ -17,10 +24,8 @@
 #else
 
 #include <boost/mp11/bind.hpp>
-#ifndef BOOST_USE_MODULES
-#include <cstddef>
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/cstddef.hpp>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -197,5 +202,7 @@ template<template <class...> class C, class... Ts> struct lambda_impl<C<Ts...>>
 #endif
 
 #endif // mp_lambda supported
+
+#endif
 
 #endif // #ifndef BOOST_MP11_LAMBDA_HPP_INCLUDED

@@ -8,6 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_list_v.hpp>
@@ -17,9 +24,7 @@
 #include <boost/mp11/detail/mp_rename.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/config.hpp>
-#ifndef BOOST_USE_MODULES
-#include <type_traits>
-#endif
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -478,6 +483,8 @@ template<class L, class Q> using mp_transform_third_q = mp_transform_third<L, Q:
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_LIST_HPP_INCLUDED

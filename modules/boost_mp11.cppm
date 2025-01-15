@@ -1,14 +1,9 @@
 module;
 
-#include <cassert>
+#define BOOST_MP11_INTERFACE_UNIT
+#include <boost/mp11.hpp>
 
 export module boost.mp11;
-
-import std;
-
-extern "C++" {
-#include <boost/mp11.hpp>
-}
 
 export namespace boost::mp11 {
 

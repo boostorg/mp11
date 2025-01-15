@@ -8,16 +8,21 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/integer_sequence.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
-#ifndef BOOST_USE_MODULES
-#include <tuple>
-#include <utility>
-#include <type_traits>
-#include <cstddef>
-#endif
+#include <boost/mp11/detail/std/tuple.hpp>
+#include <boost/mp11/detail/std/utility.hpp>
+#include <boost/mp11/detail/std/type_traits.hpp>
+#include <boost/mp11/detail/std/cstddef.hpp>
 
 #if BOOST_MP11_MSVC
 # pragma warning( push )
@@ -180,6 +185,8 @@ BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp&&... tp )
 
 #if BOOST_MP11_MSVC
 # pragma warning( pop )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_TUPLE_HPP_INCLUDED
