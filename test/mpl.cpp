@@ -35,8 +35,8 @@
 #include <boost/mpl/back_inserter.hpp>
 
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
 
 template<class T> using add_pointer_t = typename std::add_pointer<T>::type;
 

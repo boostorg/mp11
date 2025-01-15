@@ -2,22 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_trait_macros.hpp>
-#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
-#include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
-#endif
-
 #include <boost/mp11/detail/config.hpp>
-
+#include <boost/core/lightweight_test_trait.hpp>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
 
 using boost::mp11::mp_size_t;
 
@@ -44,6 +35,7 @@ int main()
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_fold_q, mp_list<int, int, int, void>, mp_size_t<0>, Q>));
 
 #if !BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1910 )
+
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_fold_q, mp_list<void, int>, mp_size_t<0>, Q>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_fold_q, mp_list<void, int, int>, mp_size_t<0>, Q>));
     BOOST_TEST_TRAIT_FALSE((mp_valid<mp_fold_q, mp_list<void, int, int, int>, mp_size_t<0>, Q>));

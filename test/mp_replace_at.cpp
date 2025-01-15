@@ -11,21 +11,13 @@
 #pragma warning( disable: 4804 ) // '>=': unsafe use of type 'bool' in operation
 #endif
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_trait_macros.hpp>
-#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
-#include <utility>
-#endif
-
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
 
 struct X1 {};
 struct X2 {};

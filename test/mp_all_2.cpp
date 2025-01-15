@@ -8,19 +8,11 @@
 # pragma warning( disable: 4503 ) // decorated name length exceeded
 #endif
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_trait_macros.hpp>
-#else
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/algorithm.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#endif
-
+#include <boost/config/std/type_traits.hpp>
 
 int main()
 {

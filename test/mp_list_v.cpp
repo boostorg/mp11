@@ -11,16 +11,8 @@ int main() {}
 
 #else
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_macros.hpp>
-#else
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test.hpp>
-#endif
-
 
 template<class L> bool is_value_list( L const& ) { return false; }
 template<template<auto...> class L, auto... A> bool is_value_list( L<A...> const& ) { return true; }

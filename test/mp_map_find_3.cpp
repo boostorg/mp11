@@ -8,17 +8,9 @@
 
 // Same as mp_map_find_2.cpp, but with includes reversed
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_trait_macros.hpp>
-#else
-#include <tuple>
+#include <boost/config/std/tuple.hpp>
 #include <boost/mp11/map.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#endif
-
 
 struct X {};
 struct Y {};

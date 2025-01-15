@@ -4,10 +4,8 @@
 
 #define _SILENCE_CXX17_C_HEADER_DEPRECATION_WARNING
 
-#ifndef BOOST_USE_MODULES
 #include <complex.h>
 #include <boost/mp11.hpp>
-#endif
 
 int main()
 {

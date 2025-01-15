@@ -6,16 +6,9 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-import boost.core;
-#include <boost/core/lightweight_test_macros.hpp>
-#else
-#include <boost/core/lightweight_test.hpp>
-#endif
-
-#include <boost/version.hpp>
 #include <boost/mp11/version.hpp>
-
+#include <boost/version.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 int main()
 {

@@ -7,11 +7,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
-#ifdef BOOST_USE_MODULES
-import boost.mp11;
-#else
 #include <boost/mp11.hpp>
-#endif
 
 int main()
 {

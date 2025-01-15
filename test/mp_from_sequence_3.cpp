@@ -2,17 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-#include <boost/core/lightweight_test_trait_macros.hpp>
-import std;
-import boost.core;
-import boost.mp11;
-#else
 #include <boost/mp11/algorithm.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#endif
-
+#include <boost/config/std/type_traits.hpp>
 
 template<class T, T... I> struct S;
 

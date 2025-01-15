@@ -2,14 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-import boost.mp11;
-#else
 #include <boost/mp11.hpp>
-#endif
-
 #include <boost/mp11/detail/config.hpp>
-
 using namespace boost::mp11;
 
 // A simple metafunction that takes the first three items from a list

@@ -6,13 +6,6 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-
-// This test doesn't make sense in modular builds
-int main() {}
-
-#else
-
 #include <boost/mp11/mpl.hpp>
 #include <boost/version.hpp>
 #include <boost/core/lightweight_test.hpp>
@@ -22,5 +15,3 @@ int main()
     BOOST_TEST_EQ( BOOST_MP11_VERSION, BOOST_VERSION );
     return boost::report_errors();
 }
-
-#endif // BOOST_USE_MODULES

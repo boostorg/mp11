@@ -11,15 +11,8 @@ int main() {}
 
 #else
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_trait_macros.hpp>
-#else
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#endif
 
 template<auto... A> struct L1 {};
 template<int... I> struct L2 {};

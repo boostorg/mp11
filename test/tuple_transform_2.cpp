@@ -2,22 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifdef BOOST_USE_MODULES
-import std;
-import boost.core;
-import boost.mp11;
-#include <boost/core/lightweight_test_macros.hpp>
-#else
 #include <boost/mp11/tuple.hpp>
 #include <boost/mp11/algorithm.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <tuple>
-#include <utility>
-#include <array>
-#include <cstddef>
-#endif
-
-#include <boost/mp11/detail/config.hpp>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/array.hpp>
+#include <boost/config/std/cstddef.hpp>
 
 int f( int x )
 {
