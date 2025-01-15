@@ -9,9 +9,9 @@
 
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
-#include <utility>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
 
 template<int... I> struct V2 {};
 

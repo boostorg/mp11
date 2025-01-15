@@ -10,7 +10,7 @@
 #include <boost/mp11/bind.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 
 struct X1 {};
 struct X2 {};

@@ -2,7 +2,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/mp11/list.hpp>
+#include <boost/mp11/detail/config.hpp>
 
 #if !defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
@@ -11,6 +11,7 @@ int main() {}
 
 #else
 
+#include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test.hpp>
 
 template<class L> bool is_value_list( L const& ) { return false; }

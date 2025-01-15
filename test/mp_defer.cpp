@@ -11,7 +11,7 @@
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 
 using boost::mp11::mp_identity;
 using boost::mp11::mp_true;

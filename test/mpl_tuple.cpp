@@ -8,7 +8,7 @@
 
 
 #include <boost/mp11/mpl_tuple.hpp>
-#include <tuple>
+#include <boost/config/std/tuple.hpp>
 
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/size.hpp>
