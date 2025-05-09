@@ -8,6 +8,13 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+import boost.mp11;
+
+#else
+
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_fold.hpp>
@@ -165,5 +172,7 @@ template<class... Q> struct mp_compose_q
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_UTILITY_HPP_INCLUDED

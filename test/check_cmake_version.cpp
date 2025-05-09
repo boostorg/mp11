@@ -9,7 +9,7 @@
 
 #include <boost/core/lightweight_test.hpp>
 #include <boost/version.hpp>
-#include <cstdio>
+#include <boost/config/std/cstdio.hpp>
 
 int main( int ac, char const* av[] )
 {

@@ -10,8 +10,8 @@
 
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <type_traits>
-#include <utility>
+#include <boost/mp11/detail/std/type_traits.hpp>
+#include <boost/mp11/detail/std/utility.hpp>
 #include <cassert>
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )

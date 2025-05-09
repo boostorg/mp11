@@ -6,8 +6,9 @@
 #include <boost/mp11/bind.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <utility>
+#include <boost/config/std/utility.hpp>
 
 struct X1 {};
 struct X2 {};

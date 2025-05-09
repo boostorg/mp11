@@ -4,11 +4,12 @@
 
 #include <boost/mp11/tuple.hpp>
 #include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <tuple>
-#include <utility>
-#include <array>
-#include <cstddef>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/array.hpp>
+#include <boost/config/std/cstddef.hpp>
 
 int f( int x )
 {

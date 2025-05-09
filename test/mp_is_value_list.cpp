@@ -4,8 +4,9 @@
 
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <utility>
+#include <boost/config/std/utility.hpp>
 
 template<int... I> struct V2 {};
 
