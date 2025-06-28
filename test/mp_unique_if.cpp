@@ -16,9 +16,9 @@
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
-#include <cstddef>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/cstddef.hpp>
 
 using boost::mp11::mp_bool;
 

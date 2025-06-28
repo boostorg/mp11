@@ -8,7 +8,7 @@
 
 #include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <cstddef>
+#include <boost/config/std/cstddef.hpp>
 
 template<class T>
 using has_size_t_difference_type

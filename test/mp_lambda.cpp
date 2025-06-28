@@ -18,9 +18,9 @@ int main() {}
 
 #include <boost/mp11/lambda.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <tuple>
-#include <type_traits>
-#include <utility>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/utility.hpp>
 
 struct X;
 enum E {};

@@ -13,10 +13,10 @@
 
 #include <boost/mp11/tuple.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <tuple>
-#include <memory>
-#include <utility>
-#include <array>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/memory.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/array.hpp>
 
 int main()
 {

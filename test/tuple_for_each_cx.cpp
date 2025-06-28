@@ -11,7 +11,7 @@
 #pragma warning( disable: 4244 ) // 'initializing': conversion from 'int' to 'char', possible loss of data
 #endif
 
-#include <boost/mp11/tuple.hpp>
+#include <stddef.h> // For __GLIBCXX__
 #include <boost/mp11/detail/config.hpp>
 
 // Technically std::tuple isn't constexpr enabled in C++11, but it works with libstdc++
@@ -22,8 +22,9 @@ int main() {}
 
 #else
 
-#include <tuple>
-#include <type_traits>
+#include <boost/mp11/tuple.hpp>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/type_traits.hpp>
 
 struct assert_is_integral
 {

@@ -8,9 +8,10 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/function.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <tuple>
-#include <utility>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
 
 struct X1 {};
 struct X2 {};

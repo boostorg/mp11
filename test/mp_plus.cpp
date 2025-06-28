@@ -9,7 +9,7 @@
 
 #include <boost/mp11/function.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 
 template<class T, T N> using integral = std::integral_constant<T, N>;
 
