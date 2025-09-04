@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5...3.31)
 
-project(boost_mp11 VERSION 1.88.0 LANGUAGES CXX)
+project(boost_mp11 VERSION 1.89.0 LANGUAGES CXX)
 
 if (BOOST_USE_MODULES)
   add_library(boost_mp11 STATIC)
