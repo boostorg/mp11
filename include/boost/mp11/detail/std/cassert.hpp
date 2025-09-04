@@ -3,5 +3,5 @@
 import std;
 #endif
 #else
-#include <type_traits>
+#include <cassert>
 #endif

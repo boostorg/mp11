@@ -1,6 +1,7 @@
 module;
 
 #define BOOST_MP11_INTERFACE_UNIT
+#include <cassert>
 #include <boost/mp11.hpp>
 
 export module boost.mp11;

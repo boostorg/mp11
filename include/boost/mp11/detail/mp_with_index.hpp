@@ -12,7 +12,7 @@
 #include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/detail/std/type_traits.hpp>
 #include <boost/mp11/detail/std/utility.hpp>
-#include <cassert>
+#include <boost/mp11/detail/std/cassert.hpp>
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define BOOST_MP11_CONSTEXPR14 constexpr
