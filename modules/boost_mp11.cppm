@@ -1,10 +1,21 @@
 module;
 
-#define BOOST_MP11_INTERFACE_UNIT
 #include <cassert>
-#include <boost/mp11.hpp>
 
 export module boost.mp11;
+import std;
+
+#define BOOST_MP11_INTERFACE_UNIT
+#define BOOST_COMPATIBILITY_HEADERS_SKIP_IMPORT
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winclude-angled-in-module-purview"
+#endif
+
+extern "C++" {
+#include <boost/mp11.hpp>
+}
 
 export namespace boost::mp11 {
 
