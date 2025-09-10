@@ -6,7 +6,6 @@ export module boost.mp11;
 import std;
 
 #define BOOST_MP11_INTERFACE_UNIT
-#define BOOST_COMPATIBILITY_HEADERS_SKIP_IMPORT
 
 #ifdef __clang__
 #pragma clang diagnostic push

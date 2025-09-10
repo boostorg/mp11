@@ -1,5 +1,5 @@
 #ifdef BOOST_USE_MODULES
-#ifndef BOOST_COMPATIBILITY_HEADERS_SKIP_IMPORT
+#ifndef BOOST_MP11_INTERFACE_UNIT
 import std;
 #endif
 #else
