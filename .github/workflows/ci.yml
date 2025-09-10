@@ -595,6 +595,7 @@ jobs:
           git clone --depth 1 https://github.com/anarthal/assert -b feature/cxx20-modules
           git clone --depth 1 https://github.com/boostorg/config
           git clone --depth 1 https://github.com/anarthal/core -b feature/cxx20-modules
+          git clone --depth 1 https://github.com/anarthal/config -b feature/cxx20-modules
 
       - name: Run Tests
         run: |
