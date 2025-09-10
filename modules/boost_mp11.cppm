@@ -12,6 +12,11 @@ import std;
 #pragma clang diagnostic ignored "-Winclude-angled-in-module-purview"
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 5244)
+#endif
+
 extern "C++" {
 #include <boost/mp11.hpp>
 }
