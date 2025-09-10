@@ -14,6 +14,7 @@ def main():
         ('libs/assert',         'https://github.com/anarthal/assert'),
         ('libs/core',           'https://github.com/anarthal/core'),
         ('libs/throw_exception','https://github.com/anarthal/throw_exception'),
+        ('libs/config',         'https://github.com/anarthal/config'),
     ]
 
     for submodule, url in submodules:
