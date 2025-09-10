@@ -59,11 +59,12 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     set(BUILD_TESTING OFF) # hide cache variable
 
-    boost_fetch(boostorg/assert TAG develop EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/config TAG develop EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/core TAG develop EXCLUDE_FROM_ALL)
+    # TODO: restore these tags once we start merging PRs
+    boost_fetch(anarthal/assert TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
+    boost_fetch(anarthal/config TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
+    boost_fetch(anarthal/core TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
     boost_fetch(boostorg/static_assert TAG develop EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/throw_exception TAG develop EXCLUDE_FROM_ALL)
+    boost_fetch(anarthal/throw_exception TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
 
     unset(BUILD_TESTING)
 
