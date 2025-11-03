@@ -583,6 +583,10 @@ jobs:
         with:
           cuda: '11.7.1'
           linux-local-args: '["--toolkit"]'
+          use-local-cache: false
+          use-github-cache: false
+          method: network
+          sub-packages: '["nvcc"]'
 
       - name: Setup Boost
         run: |
