@@ -65,13 +65,13 @@ namespace detail
 
 template<class T> struct mp_map_update_impl_f
 {
-    template<class U> using _f = std::is_same<mp_first<T>, mp_first<U>>;
+    template<class U> using fn = std::is_same<mp_first<T>, mp_first<U>>;
 };
 
 template<template<class...> class F> struct mp_map_update_impl_f3
 {
     // _f3<L<X, Y...>> -> L<X, F<X, Y...>>
-    template<class L> using _f3 = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F> > >;
+    template<class L> using fn = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F> > >;
 };
 
 #endif
@@ -89,7 +89,7 @@ template<class M, class T, template<class...> class F> struct mp_map_update_impl
 
 #else
 
-    using type = mp_if< mp_map_contains<M, mp_first<T>>, mp_transform_if<mp_map_update_impl_f<T>::template _f, mp_map_update_impl_f3<F>::template _f3, M>, mp_push_back<M, T> >;
+    using type = mp_if< mp_map_contains<M, mp_first<T>>, mp_transform_if_q<mp_map_update_impl_f<T>, mp_map_update_impl_f3<F>, M>, mp_push_back<M, T> >;
 
 #endif
 };
@@ -105,12 +105,12 @@ namespace detail
 
 template<class K> struct mp_map_erase_impl_f
 {
-    template<class T> using _f = std::is_same<mp_first<T>, K>;
+    template<class T> using fn = std::is_same<mp_first<T>, K>;
 };
 
 template<class M, class K> struct mp_map_erase_impl
 {
-    using type = mp_remove_if<M, mp_map_erase_impl_f<K>::template _f>;
+    using type = mp_remove_if_q<M, mp_map_erase_impl_f<K>>;
 };
 
 } // namespace detail
