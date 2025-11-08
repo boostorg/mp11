@@ -153,13 +153,13 @@ template<class Q, class... L> using mp_transform_q = mp_transform<Q::template fn
 namespace detail
 {
 
+template<class V, class T> using mp_transform_push_back = mp_transform<mp_push_back, V, T>;
+
 template<template<class...> class F, template<class...> class L1, class... T1, template<class...> class L2, class... T2, template<class...> class L3, class... T3, template<class...> class L4, class... T4, class... L> struct mp_transform_impl<F, L1<T1...>, L2<T2...>, L3<T3...>, L4<T4...>, L...>
 {
     using A1 = L1<mp_list<T1, T2, T3, T4>...>;
 
-    template<class V, class T> using _f = mp_transform<mp_push_back, V, T>;
-
-    using A2 = mp_fold<mp_list<L...>, A1, _f>;
+    using A2 = mp_fold<mp_list<L...>, A1, mp_transform_push_back>;
 
     template<class T> using _g = mp_apply<F, T>;
 
