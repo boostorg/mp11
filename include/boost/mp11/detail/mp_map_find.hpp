@@ -41,13 +41,16 @@ namespace mp11
 namespace detail
 {
 
+template<class K, class T> struct mp_map_find_impl_k
+{
+    using type = mp_if<std::is_same<mp_front<T>, K>, mp_list<T>, mp_list<>>;
+};
+
 template<class M, class K> struct mp_map_find_impl;
 
 template<template<class...> class M, class... T, class K> struct mp_map_find_impl<M<T...>, K>
 {
-    template<class U> using _f = mp_if<std::is_same<mp_front<U>, K>, mp_list<U>, mp_list<>>;
-
-    using _l = mp_append<_f<T>..., mp_list<void>>;
+    using _l = mp_append<typename mp_map_find_impl_k<K, T>::type..., mp_list<void>>;
 
     using type = mp_front<_l>;
 };
