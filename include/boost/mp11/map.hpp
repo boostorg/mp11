@@ -70,7 +70,7 @@ template<class T> struct mp_map_update_impl_f
 
 template<template<class...> class F> struct mp_map_update_impl_f3
 {
-    // _f3<L<X, Y...>> -> L<X, F<X, Y...>>
+    // fn<L<X, Y...>> -> L<X, F<X, Y...>>
     template<class L> using fn = mp_assign<L, mp_list<mp_first<L>, mp_rename<L, F> > >;
 };
 
@@ -103,19 +103,14 @@ template<class M, class T, class Q> using mp_map_update_q = mp_map_update<M, T, 
 namespace detail
 {
 
-template<class K> struct mp_map_erase_impl_f
+template<class K> struct mp_map_erase_impl
 {
     template<class T> using fn = std::is_same<mp_first<T>, K>;
 };
 
-template<class M, class K> struct mp_map_erase_impl
-{
-    using type = mp_remove_if_q<M, mp_map_erase_impl_f<K>>;
-};
-
 } // namespace detail
 
-template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
+template<class M, class K> using mp_map_erase = mp_remove_if_q<M, detail::mp_map_erase_impl<K>>;
 
 // mp_map_keys<M>
 template<class M> using mp_map_keys = mp_transform<mp_first, M>;

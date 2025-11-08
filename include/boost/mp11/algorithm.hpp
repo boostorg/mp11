@@ -172,7 +172,7 @@ template<template<class...> class F, template<class...> class L1, class... T1, t
 namespace detail
 {
 
-template<template<class...> class P, template<class...> class F> struct mp_transform_if_impl_f
+template<template<class...> class P, template<class...> class F> struct mp_transform_if_impl
 {
     // the stupid quote-unquote dance avoids "pack expansion used as argument for non-pack parameter of alias template"
 
@@ -191,15 +191,10 @@ template<template<class...> class P, template<class...> class F> struct mp_trans
 #endif
 };
 
-template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
-{
-    using type = mp_transform_q<mp_transform_if_impl_f<P, F>, L...>;
-};
-
 } // namespace detail
 
-template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = typename detail::mp_transform_if_impl<P, F, L...>::type;
-template<class Qp, class Qf, class... L> using mp_transform_if_q = typename detail::mp_transform_if_impl<Qp::template fn, Qf::template fn, L...>::type;
+template<template<class...> class P, template<class...> class F, class... L> using mp_transform_if = mp_transform_q<detail::mp_transform_if_impl<P, F>, L...>;
+template<class Qp, class Qf, class... L> using mp_transform_if_q = mp_transform_q<detail::mp_transform_if_impl<Qp::template fn, Qf::template fn>, L...>;
 
 // mp_filter<P, L...>
 namespace detail
