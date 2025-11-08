@@ -679,9 +679,7 @@ template<template<class...> class L, class T1, class... T, std::size_t I, templa
 {
     static_assert( I < 1 + sizeof...(T), "mp_nth_element index out of range" );
 
-    template<class U> using F = P<U, T1>;
-
-    using part = mp_partition<L<T...>, F>;
+    using part = mp_partition_q<L<T...>, mp_sort_impl_f<T1, P>>;
 
     using L1 = mp_first<part>;
     static std::size_t const N1 = mp_size<L1>::value;
