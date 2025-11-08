@@ -11,7 +11,8 @@
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/config.hpp>
 
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 140000 )
+#if (BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 140000 ) && BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 140400 )) \
+ || (BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 150000 ) && BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 150200 ))
 
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
@@ -34,7 +35,8 @@ namespace boost
 namespace mp11
 {
 
-#if BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 140000 )
+#if (BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 140000 ) && BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 140400 )) \
+ || (BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, >= 150000 ) && BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, < 150200 ))
 
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120161
 
