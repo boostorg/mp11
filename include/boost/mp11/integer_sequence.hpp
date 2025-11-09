@@ -47,64 +47,42 @@ template<class T, T N> using make_integer_sequence = integer_sequence<T, __integ
 // detail::make_integer_sequence_impl
 namespace detail
 {
+template<bool, class T, T N, class L>
+struct iseq_expand;
 
-// iseq_if_c
-template<bool C, class T, class E> struct iseq_if_c_impl;
-
-template<class T, class E> struct iseq_if_c_impl<true, T, E>
+template<class T, T N, T... I>
+struct iseq_expand<false, T, N, integer_sequence<T, I...>>
 {
-    using type = T;
+    using type = integer_sequence<T, I..., (N+I)...>;
 };
 
-template<class T, class E> struct iseq_if_c_impl<false, T, E>
+template<class T, T N, T... I>
+struct iseq_expand<true, T, N, integer_sequence<T, I...>>
 {
-    using type = E;
+    using type = integer_sequence<T, I..., (N+I)..., N * 2>;
 };
 
-template<bool C, class T, class E> using iseq_if_c = typename iseq_if_c_impl<C, T, E>::type;
-
-// iseq_identity
-template<class T> struct iseq_identity
+template<class T, T N, T Zero, T One> struct make_integer_sequence_impl
 {
-    using type = T;
-};
-
-template<class S1, class S2> struct append_integer_sequence;
-
-template<class T, T... I, T... J> struct append_integer_sequence<integer_sequence<T, I...>, integer_sequence<T, J...>>
-{
-    using type = integer_sequence< T, I..., ( J + sizeof...(I) )... >;
-};
-
-template<class T, T N> struct make_integer_sequence_impl;
-
-template<class T, T N> struct make_integer_sequence_impl_
-{
-private:
-
     static_assert( N >= 0, "make_integer_sequence<T, N>: N must not be negative" );
 
-    static T const M = N / 2;
-    static T const R = N % 2;
-
-    using S1 = typename make_integer_sequence_impl<T, M>::type;
-    using S2 = typename append_integer_sequence<S1, S1>::type;
-    using S3 = typename make_integer_sequence_impl<T, R>::type;
-    using S4 = typename append_integer_sequence<S2, S3>::type;
-
-public:
-
-    using type = S4;
+    using type = typename iseq_expand<N & 1, T, N / 2, typename make_integer_sequence_impl<T, N / 2, Zero, One>::type>::type;
 };
 
-template<class T, T N> struct make_integer_sequence_impl: iseq_if_c<N == 0, iseq_identity<integer_sequence<T>>, iseq_if_c<N == 1, iseq_identity<integer_sequence<T, 0>>, make_integer_sequence_impl_<T, N> > >
+template<class T, T Zero, T One> struct make_integer_sequence_impl<T, Zero, Zero, One>
 {
+    using type = integer_sequence<T>;
+};
+
+template<class T, T Zero, T One> struct make_integer_sequence_impl<T, One, Zero, One>
+{
+    using type = integer_sequence<T, Zero>;
 };
 
 } // namespace detail
 
 // make_integer_sequence
-template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
+template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N, 0, 1>::type;
 
 #endif // defined(BOOST_MP11_HAS_MAKE_INTEGER_SEQ)
 
