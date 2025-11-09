@@ -550,8 +550,7 @@ template<template<class...> class L, class... T, template<class...> class P, cla
     template<class U> struct _f { using type = mp_if<P<U>, W, U>; };
     using type = L<typename _f<T>::type...>;
 #else
-    template<class U> using _f = mp_if<P<U>, W, U>;
-    using type = L<_f<T>...>;
+    using type = L<mp_if<P<T>, W, T>...>;
 #endif
 };
 
