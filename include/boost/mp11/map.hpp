@@ -46,9 +46,7 @@ template<template<class...> class M, class... U, class T> struct mp_map_replace_
 
 #else
 
-    template<class V> using _f = mp_if< std::is_same<mp_first<V>, K>, T, V >;
-
-    using type = mp_if< mp_map_contains<M<U...>, K>, M<_f<U>...>, M<U..., T> >;
+    using type = mp_if< mp_map_contains<M<U...>, K>, M<mp_if< std::is_same<mp_first<U>, K>, T, U >...>, M<U..., T> >;
 
 #endif
 };
