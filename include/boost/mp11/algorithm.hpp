@@ -529,8 +529,7 @@ template<template<class...> class L, class... T, class V, class W> struct mp_rep
     template<class A> struct _f { using type = mp_if<std::is_same<A, V>, W, A>; };
     using type = L<typename _f<T>::type...>;
 #else
-    template<class A> using _f = mp_if<std::is_same<A, V>, W, A>;
-    using type = L<_f<T>...>;
+    using type = L<mp_if<std::is_same<T, V>, W, T>...>;
 #endif
 };
 
