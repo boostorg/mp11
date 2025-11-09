@@ -1288,15 +1288,18 @@ template<class L, template<class...> class F> using mp_pairwise_fold = mp_pairwi
 namespace detail
 {
 
+template<class L, std::size_t M> struct mp_sliding_fold_impl_f
+{
+    template<class I> using fn = mp_slice_c<L, I::value, I::value + M>;
+};
+
 template<class C, class L, class Q, class S> struct mp_sliding_fold_impl;
 
 template<class L, class N, class Q> struct mp_sliding_fold_impl<mp_true, L, N, Q>
 {
     static const std::size_t M = mp_size<L>::value - N::value + 1;
 
-    template<class I> using F = mp_slice_c<L, I::value, I::value + M>;
-
-    using J = mp_transform<F, mp_iota<N>>;
+    using J = mp_transform_q<mp_sliding_fold_impl_f<L, M>, mp_iota<N>>;
 
     using type = mp_apply<mp_transform_q, mp_push_front<J, Q>>;
 };
