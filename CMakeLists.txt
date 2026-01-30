@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5...3.31)
 
-project(boost_mp11 VERSION 1.89.0 LANGUAGES CXX)
+project(boost_mp11 VERSION 1.91.0 LANGUAGES CXX)
 
 if (BOOST_USE_MODULES)
   add_library(boost_mp11 STATIC)
@@ -63,7 +63,6 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     boost_fetch(anarthal/assert TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
     boost_fetch(anarthal/config TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
     boost_fetch(anarthal/core TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
-    boost_fetch(boostorg/static_assert TAG develop EXCLUDE_FROM_ALL)
     boost_fetch(anarthal/throw_exception TAG feature/cxx20-modules EXCLUDE_FROM_ALL)
 
     unset(BUILD_TESTING)

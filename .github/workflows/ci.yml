@@ -186,14 +186,20 @@ jobs:
             os: ubuntu-latest
             install: clang-20
           - toolset: clang
-            cxxstd: "03,11,14,17,20,2b"
-            os: macos-13
+            compiler: clang++-21
+            cxxstd: "03,11,14,17,20,23,2c"
+            container: ubuntu:25.10
+            os: ubuntu-latest
+            install: clang-21
           - toolset: clang
-            cxxstd: "03,11,14,17,20,2b"
             os: macos-14
-          - toolset: clang
             cxxstd: "03,11,14,17,20,2b"
+          - toolset: clang
             os: macos-15
+            cxxstd: "03,11,14,17,20,23,2c"
+          - toolset: clang
+            os: macos-26
+            cxxstd: "03,11,14,17,20,23,2c"
 
     runs-on: ${{matrix.os}}
 
@@ -321,9 +327,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -370,9 +376,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -429,9 +435,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -486,9 +492,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -514,9 +520,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -551,9 +557,9 @@ jobs:
         include:
           - os: ubuntu-22.04
           - os: ubuntu-24.04
-          - os: macos-13
           - os: macos-14
           - os: macos-15
+          - os: macos-26
 
     runs-on: ${{matrix.os}}
 
@@ -588,6 +594,10 @@ jobs:
         with:
           cuda: '11.7.1'
           linux-local-args: '["--toolkit"]'
+          use-local-cache: false
+          use-github-cache: false
+          method: network
+          sub-packages: '["nvcc"]'
 
       - name: Setup Boost
         run: |
@@ -620,6 +630,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: Jimver/cuda-toolkit@v0.2.16
+        with:
+          use-local-cache: false
+          use-github-cache: false
+
       - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Setup Boost
