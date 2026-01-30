@@ -19,6 +19,7 @@ import boost.mp11;
 
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/utility.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/mp11/detail/std/cstddef.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
@@ -32,7 +33,7 @@ namespace mp11
 {
 
 // mp_bind_front
-template<template<class...> class F, class... T> struct mp_bind_front
+BOOST_MP11_EXPORT template<template<class...> class F, class... T> struct mp_bind_front
 {
     // the indirection through mp_defer works around the language inability
     // to expand U... into a fixed parameter list of an alias template
@@ -40,34 +41,34 @@ template<template<class...> class F, class... T> struct mp_bind_front
     template<class... U> using fn = typename mp_defer<F, T..., U...>::type;
 };
 
-template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template fn, T...>;
+BOOST_MP11_EXPORT template<class Q, class... T> using mp_bind_front_q = mp_bind_front<Q::template fn, T...>;
 
 // mp_bind_back
-template<template<class...> class F, class... T> struct mp_bind_back
+BOOST_MP11_EXPORT template<template<class...> class F, class... T> struct mp_bind_back
 {
     template<class... U> using fn = typename mp_defer<F, U..., T...>::type;
 };
 
-template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn, T...>;
+BOOST_MP11_EXPORT template<class Q, class... T> using mp_bind_back_q = mp_bind_back<Q::template fn, T...>;
 
 // mp_arg
-template<std::size_t I> struct mp_arg
+BOOST_MP11_EXPORT template<std::size_t I> struct mp_arg
 {
     template<class... T> using fn = mp_at_c<mp_list<T...>, I>;
 };
 
-using _1 = mp_arg<0>;
-using _2 = mp_arg<1>;
-using _3 = mp_arg<2>;
-using _4 = mp_arg<3>;
-using _5 = mp_arg<4>;
-using _6 = mp_arg<5>;
-using _7 = mp_arg<6>;
-using _8 = mp_arg<7>;
-using _9 = mp_arg<8>;
+BOOST_MP11_EXPORT using _1 = mp_arg<0>;
+BOOST_MP11_EXPORT using _2 = mp_arg<1>;
+BOOST_MP11_EXPORT using _3 = mp_arg<2>;
+BOOST_MP11_EXPORT using _4 = mp_arg<3>;
+BOOST_MP11_EXPORT using _5 = mp_arg<4>;
+BOOST_MP11_EXPORT using _6 = mp_arg<5>;
+BOOST_MP11_EXPORT using _7 = mp_arg<6>;
+BOOST_MP11_EXPORT using _8 = mp_arg<7>;
+BOOST_MP11_EXPORT using _9 = mp_arg<8>;
 
 // mp_bind
-template<template<class...> class F, class... T> struct mp_bind;
+BOOST_MP11_EXPORT template<template<class...> class F, class... T> struct mp_bind;
 
 namespace detail
 {
@@ -99,7 +100,7 @@ template<template<class...> class F, class... U, class... T> struct eval_bound_a
 
 } // namespace detail
 
-template<template<class...> class F, class... T> struct mp_bind
+BOOST_MP11_EXPORT template<template<class...> class F, class... T> struct mp_bind
 {
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, == 1915 )
 private:
@@ -117,7 +118,7 @@ public:
 #endif
 };
 
-template<class Q, class... T> using mp_bind_q = mp_bind<Q::template fn, T...>;
+BOOST_MP11_EXPORT template<class Q, class... T> using mp_bind_q = mp_bind<Q::template fn, T...>;
 
 } // namespace mp11
 } // namespace boost

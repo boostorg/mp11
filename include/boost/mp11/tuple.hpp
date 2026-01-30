@@ -50,7 +50,7 @@ template<class F, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR auto tuple_ap
 
 } // namespace detail
 
-template<class F, class Tp,
+BOOST_MP11_EXPORT template<class F, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
 BOOST_MP11_CONSTEXPR auto tuple_apply( F && f, Tp && tp )
     -> decltype( detail::tuple_apply_impl( std::forward<F>(f), std::forward<Tp>(tp), Seq() ) )
@@ -69,7 +69,7 @@ template<class T, class Tp, std::size_t... J> BOOST_MP11_CONSTEXPR T construct_f
 
 } // namespace detail
 
-template<class T, class Tp,
+BOOST_MP11_EXPORT template<class T, class Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>>
 BOOST_MP11_CONSTEXPR T construct_from_tuple( Tp && tp )
 {
@@ -93,7 +93,7 @@ template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each_impl( Tp && /*
 
 } // namespace detail
 
-template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
+BOOST_MP11_EXPORT template<class Tp, class F> BOOST_MP11_CONSTEXPR F tuple_for_each( Tp && tp, F && f )
 {
     using seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp>::type>::value>;
     return detail::tuple_for_each_impl( std::forward<Tp>(tp), seq(), std::forward<F>(f) );
@@ -160,7 +160,7 @@ BOOST_MP11_CONSTEXPR auto tuple_transform_impl( integer_sequence<std::size_t, J.
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1910 )
 
-template<class F, class Tp1, class... Tp,
+BOOST_MP11_EXPORT template<class F, class Tp1, class... Tp,
     class Seq = make_index_sequence<std::tuple_size<typename std::remove_reference<Tp1>::type>::value>>
 BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
     -> decltype( detail::tuple_transform_impl( Seq(), f, std::forward<Tp1>(tp1), std::forward<Tp>(tp)... ) )
@@ -170,7 +170,7 @@ BOOST_MP11_CONSTEXPR auto tuple_transform( F const& f, Tp1&& tp1, Tp&&... tp )
 
 #else
 
-template<class F, class... Tp,
+BOOST_MP11_EXPORT template<class F, class... Tp,
     class Z = mp_list<mp_size_t<std::tuple_size<typename std::remove_reference<Tp>::type>::value>...>,
     class E = mp_if<mp_apply<mp_same, Z>, mp_front<Z>>,
     class Seq = make_index_sequence<E::value>>

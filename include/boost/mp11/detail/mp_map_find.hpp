@@ -54,7 +54,7 @@ template<template<class...> class M, class... T, class K> struct mp_map_find_imp
 
 } // namespace detail
 
-template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
+BOOST_MP11_EXPORT template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
 
 #else
 
@@ -111,7 +111,7 @@ template<template<class...> class M, class... T, class K> struct mp_map_find_imp
 
 } // namespace detail
 
-template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
+BOOST_MP11_EXPORT template<class M, class K> using mp_map_find = typename detail::mp_map_find_impl<M, K>::type;
 
 #endif
 
