@@ -10,7 +10,7 @@
 
 #if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
 
-#ifndef BOOST_MP11_SKIP_IMPORT
+#ifndef BOOST_IN_MODULE_PURVIEW
 #include <boost/mp11/version.hpp>
 import boost.mp11;
 #endif
