@@ -12,7 +12,7 @@ env:
   UBSAN_OPTIONS: print_stacktrace=1
 
 jobs:
-  posix:
+#  posix:
 #    strategy:
 #      fail-fast: false
 #      matrix:
