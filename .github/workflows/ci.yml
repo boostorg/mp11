@@ -839,13 +839,13 @@ jobs:
         include:
           - name: "clang-21 Debug"
             packages: "clang-21 libc++-21-dev"
-            cmake-args: "-DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_CXX_STDLIB_MODULES_JSON=/usr/lib/llvm-21/lib/libc++.modules.json -DCMAKE_BUILD_TYPE=Debug"
+            cmake-args: "-DCMAKE_CXX_COMPILER=clang++-21 -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_CXX_STDLIB_MODULES_JSON=/usr/lib/llvm-21/lib/libc++.modules.json -DCMAKE_BUILD_TYPE=Debug"
           - name: "clang-21 Release"
             packages: "clang-21 libc++-21-dev"
-            cmake-args: "-DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_CXX_STDLIB_MODULES_JSON=/usr/lib/llvm-21/lib/libc++.modules.json -DCMAKE_BUILD_TYPE=Release"
+            cmake-args: "-DCMAKE_CXX_COMPILER=clang++-21 -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_CXX_STDLIB_MODULES_JSON=/usr/lib/llvm-21/lib/libc++.modules.json -DCMAKE_BUILD_TYPE=Release"
           - name: "gcc-15 Debug"
             packages: "g++-15"
-            cmake-args: "-DCMAKE_BUILD_TYPE=Debug"
+            cmake-args: "-DCMAKE_CXX_COMPILER=g++-15 -DCMAKE_BUILD_TYPE=Debug"
 
     name: CMake subdir modules ${{ matrix.name }}
 
