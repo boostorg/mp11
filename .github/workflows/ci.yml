@@ -332,7 +332,6 @@ jobs:
           - os: macos-26
 
     runs-on: ${{matrix.os}}
-    container:
 
     steps:
       - uses: actions/checkout@v4
