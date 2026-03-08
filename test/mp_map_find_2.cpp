@@ -9,7 +9,7 @@
 
 #include <boost/mp11/map.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <tuple>
+#include <boost/config/std/tuple.hpp>
 
 struct X {};
 struct Y {};

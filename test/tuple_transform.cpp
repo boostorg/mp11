@@ -9,9 +9,9 @@
 #include <boost/mp11/tuple.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <tuple>
-#include <utility>
-#include <iosfwd>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/iosfwd.hpp>
 
 // family of test types with state
 template <int N>

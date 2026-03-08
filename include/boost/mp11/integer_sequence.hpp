@@ -8,8 +8,18 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
 #include <boost/mp11/version.hpp>
-#include <cstddef>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
+#include <boost/mp11/version.hpp>
+#include <boost/mp11/detail/config.hpp>
+#include <boost/mp11/detail/std/cstddef.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -28,13 +38,13 @@ namespace mp11
 {
 
 // integer_sequence
-template<class T, T... I> struct integer_sequence
+BOOST_MP11_EXPORT template<class T, T... I> struct integer_sequence
 {
 };
 
 #if defined(BOOST_MP11_HAS_MAKE_INTEGER_SEQ)
 
-template<class T, T N> using make_integer_sequence = __make_integer_seq<integer_sequence, T, N>;
+BOOST_MP11_EXPORT template<class T, T N> using make_integer_sequence = __make_integer_seq<integer_sequence, T, N>;
 
 #else
 
@@ -98,24 +108,26 @@ template<class T, T N> struct make_integer_sequence_impl: iseq_if_c<N == 0, iseq
 } // namespace detail
 
 // make_integer_sequence
-template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
+BOOST_MP11_EXPORT template<class T, T N> using make_integer_sequence = typename detail::make_integer_sequence_impl<T, N>::type;
 
 #endif // defined(BOOST_MP11_HAS_MAKE_INTEGER_SEQ)
 
 // index_sequence
-template<std::size_t... I> using index_sequence = integer_sequence<std::size_t, I...>;
+BOOST_MP11_EXPORT template<std::size_t... I> using index_sequence = integer_sequence<std::size_t, I...>;
 
 // make_index_sequence
-template<std::size_t N> using make_index_sequence = make_integer_sequence<std::size_t, N>;
+BOOST_MP11_EXPORT template<std::size_t N> using make_index_sequence = make_integer_sequence<std::size_t, N>;
 
 // index_sequence_for
-template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
+BOOST_MP11_EXPORT template<class... T> using index_sequence_for = make_integer_sequence<std::size_t, sizeof...(T)>;
 
 } // namespace mp11
 } // namespace boost
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_INTEGER_SEQUENCE_HPP_INCLUDED

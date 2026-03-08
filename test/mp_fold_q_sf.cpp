@@ -5,9 +5,10 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
-#include <tuple>
+#include <boost/config/std/type_traits.hpp>
+#include <boost/config/std/tuple.hpp>
 
 using boost::mp11::mp_size_t;
 

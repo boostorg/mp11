@@ -18,8 +18,8 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <tuple>
-#include <cstdint>
+#include <boost/config/std/tuple.hpp>
+#include <boost/config/std/cstdint.hpp>
 
 #if defined( BOOST_MP11_HAS_CXX14_CONSTEXPR )
 # define CONSTEXPR14 constexpr

@@ -8,6 +8,15 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
 #include <boost/mp11/detail/mp_list_v.hpp>
@@ -17,7 +26,7 @@
 #include <boost/mp11/detail/mp_rename.hpp>
 #include <boost/mp11/detail/mp_append.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <type_traits>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma push_macro( "I" )
@@ -33,7 +42,7 @@ namespace mp11
 //   in detail/mp_list.hpp
 
 // mp_list_c<T, I...>
-template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
+BOOST_MP11_EXPORT template<class T, T... I> using mp_list_c = mp_list<std::integral_constant<T, I>...>;
 
 // mp_list_v<A...>
 //   in detail/mp_list_v.hpp
@@ -69,10 +78,10 @@ template<template<auto...> class L, auto... A> struct mp_size_impl<L<A...>>
 
 } // namespace detail
 
-template<class L> using mp_size = typename detail::mp_size_impl<L>::type;
+BOOST_MP11_EXPORT template<class L> using mp_size = typename detail::mp_size_impl<L>::type;
 
 // mp_empty<L>
-template<class L> using mp_empty = mp_bool< mp_size<L>::value == 0 >;
+BOOST_MP11_EXPORT template<class L> using mp_empty = mp_bool< mp_size<L>::value == 0 >;
 
 // mp_assign<L1, L2>
 namespace detail
@@ -109,10 +118,10 @@ template<template<auto...> class L1, auto... A, template<auto...> class L2, auto
 
 } // namespace detail
 
-template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L1, L2>::type;
+BOOST_MP11_EXPORT template<class L1, class L2> using mp_assign = typename detail::mp_assign_impl<L1, L2>::type;
 
 // mp_clear<L>
-template<class L> using mp_clear = mp_assign<L, mp_list<>>;
+BOOST_MP11_EXPORT template<class L> using mp_clear = mp_assign<L, mp_list<>>;
 
 // mp_front<L>
 //   in detail/mp_front.hpp
@@ -143,13 +152,13 @@ template<template<auto...> class L, auto A1, auto... A> struct mp_pop_front_impl
 
 } // namespace detail
 
-template<class L> using mp_pop_front = typename detail::mp_pop_front_impl<L>::type;
+BOOST_MP11_EXPORT template<class L> using mp_pop_front = typename detail::mp_pop_front_impl<L>::type;
 
 // mp_first<L>
-template<class L> using mp_first = mp_front<L>;
+BOOST_MP11_EXPORT template<class L> using mp_first = mp_front<L>;
 
 // mp_rest<L>
-template<class L> using mp_rest = mp_pop_front<L>;
+BOOST_MP11_EXPORT template<class L> using mp_rest = mp_pop_front<L>;
 
 // mp_second<L>
 namespace detail
@@ -177,7 +186,7 @@ template<template<auto...> class L, auto A1, auto A2, auto... A> struct mp_secon
 
 } // namespace detail
 
-template<class L> using mp_second = typename detail::mp_second_impl<L>::type;
+BOOST_MP11_EXPORT template<class L> using mp_second = typename detail::mp_second_impl<L>::type;
 
 // mp_third<L>
 namespace detail
@@ -205,7 +214,7 @@ template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A> struct
 
 } // namespace detail
 
-template<class L> using mp_third = typename detail::mp_third_impl<L>::type;
+BOOST_MP11_EXPORT template<class L> using mp_third = typename detail::mp_third_impl<L>::type;
 
 // mp_push_front<L, T...>
 namespace detail
@@ -232,7 +241,7 @@ template<template<auto...> class L, auto... A, class... T> struct mp_push_front_
 
 } // namespace detail
 
-template<class L, class... T> using mp_push_front = typename detail::mp_push_front_impl<L, T...>::type;
+BOOST_MP11_EXPORT template<class L, class... T> using mp_push_front = typename detail::mp_push_front_impl<L, T...>::type;
 
 // mp_push_back<L, T...>
 namespace detail
@@ -259,7 +268,7 @@ template<template<auto...> class L, auto... A, class... T> struct mp_push_back_i
 
 } // namespace detail
 
-template<class L, class... T> using mp_push_back = typename detail::mp_push_back_impl<L, T...>::type;
+BOOST_MP11_EXPORT template<class L, class... T> using mp_push_back = typename detail::mp_push_back_impl<L, T...>::type;
 
 // mp_rename<L, B>
 // mp_apply<F, L>
@@ -289,7 +298,7 @@ template<template<auto...> class L, auto... A, template<auto...> class B> struct
 
 } // namespace detail
 
-template<class L, template<auto...> class B> using mp_rename_v = typename detail::mp_rename_v_impl<L, B>::type;
+BOOST_MP11_EXPORT template<class L, template<auto...> class B> using mp_rename_v = typename detail::mp_rename_v_impl<L, B>::type;
 
 #endif
 
@@ -319,10 +328,10 @@ template<template<auto...> class L, auto A1, auto... A, class T> struct mp_repla
 
 } // namespace detail
 
-template<class L, class T> using mp_replace_front = typename detail::mp_replace_front_impl<L, T>::type;
+BOOST_MP11_EXPORT template<class L, class T> using mp_replace_front = typename detail::mp_replace_front_impl<L, T>::type;
 
 // mp_replace_first<L, T>
-template<class L, class T> using mp_replace_first = typename detail::mp_replace_front_impl<L, T>::type;
+BOOST_MP11_EXPORT template<class L, class T> using mp_replace_first = typename detail::mp_replace_front_impl<L, T>::type;
 
 // mp_replace_second<L, T>
 namespace detail
@@ -350,7 +359,7 @@ template<template<auto...> class L, auto A1, auto A2, auto... A, class T> struct
 
 } // namespace detail
 
-template<class L, class T> using mp_replace_second = typename detail::mp_replace_second_impl<L, T>::type;
+BOOST_MP11_EXPORT template<class L, class T> using mp_replace_second = typename detail::mp_replace_second_impl<L, T>::type;
 
 // mp_replace_third<L, T>
 namespace detail
@@ -378,7 +387,7 @@ template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A, class 
 
 } // namespace detail
 
-template<class L, class T> using mp_replace_third = typename detail::mp_replace_third_impl<L, T>::type;
+BOOST_MP11_EXPORT template<class L, class T> using mp_replace_third = typename detail::mp_replace_third_impl<L, T>::type;
 
 // mp_transform_front<L, F>
 namespace detail
@@ -406,12 +415,12 @@ template<template<auto...> class L, auto A1, auto... A, template<class...> class
 
 } // namespace detail
 
-template<class L, template<class...> class F> using mp_transform_front = typename detail::mp_transform_front_impl<L, F>::type;
-template<class L, class Q> using mp_transform_front_q = mp_transform_front<L, Q::template fn>;
+BOOST_MP11_EXPORT template<class L, template<class...> class F> using mp_transform_front = typename detail::mp_transform_front_impl<L, F>::type;
+BOOST_MP11_EXPORT template<class L, class Q> using mp_transform_front_q = mp_transform_front<L, Q::template fn>;
 
 // mp_transform_first<L, F>
-template<class L, template<class...> class F> using mp_transform_first = typename detail::mp_transform_front_impl<L, F>::type;
-template<class L, class Q> using mp_transform_first_q = mp_transform_first<L, Q::template fn>;
+BOOST_MP11_EXPORT template<class L, template<class...> class F> using mp_transform_first = typename detail::mp_transform_front_impl<L, F>::type;
+BOOST_MP11_EXPORT template<class L, class Q> using mp_transform_first_q = mp_transform_first<L, Q::template fn>;
 
 // mp_transform_second<L, F>
 namespace detail
@@ -439,8 +448,8 @@ template<template<auto...> class L, auto A1, auto A2, auto... A, template<class.
 
 } // namespace detail
 
-template<class L, template<class...> class F> using mp_transform_second = typename detail::mp_transform_second_impl<L, F>::type;
-template<class L, class Q> using mp_transform_second_q = mp_transform_second<L, Q::template fn>;
+BOOST_MP11_EXPORT template<class L, template<class...> class F> using mp_transform_second = typename detail::mp_transform_second_impl<L, F>::type;
+BOOST_MP11_EXPORT template<class L, class Q> using mp_transform_second_q = mp_transform_second<L, Q::template fn>;
 
 // mp_transform_third<L, F>
 namespace detail
@@ -468,14 +477,16 @@ template<template<auto...> class L, auto A1, auto A2, auto A3, auto... A, templa
 
 } // namespace detail
 
-template<class L, template<class...> class F> using mp_transform_third = typename detail::mp_transform_third_impl<L, F>::type;
-template<class L, class Q> using mp_transform_third_q = mp_transform_third<L, Q::template fn>;
+BOOST_MP11_EXPORT template<class L, template<class...> class F> using mp_transform_third = typename detail::mp_transform_third_impl<L, F>::type;
+BOOST_MP11_EXPORT template<class L, class Q> using mp_transform_third_q = mp_transform_third<L, Q::template fn>;
 
 } // namespace mp11
 } // namespace boost
 
 #if defined(_MSC_VER) || defined(__GNUC__)
 # pragma pop_macro( "I" )
+#endif
+
 #endif
 
 #endif // #ifndef BOOST_MP11_LIST_HPP_INCLUDED

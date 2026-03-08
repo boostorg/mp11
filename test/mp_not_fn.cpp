@@ -9,7 +9,7 @@
 
 #include <boost/mp11/utility.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 
 template<class T> using is_const_ = std::is_const<T>;
 

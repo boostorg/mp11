@@ -8,6 +8,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
 #include <boost/mp11/integral.hpp>
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/detail/mp_list.hpp>
@@ -16,7 +25,7 @@
 #include <boost/mp11/detail/mp_min_element.hpp>
 #include <boost/mp11/detail/mp_void.hpp>
 #include <boost/mp11/detail/config.hpp>
-#include <type_traits>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {
@@ -36,7 +45,7 @@ template<class... T> struct mp_and_impl;
 
 } // namespace detail
 
-template<class... T> using mp_and = mp_to_bool< typename detail::mp_and_impl<T...>::type >;
+BOOST_MP11_EXPORT template<class... T> using mp_and = mp_to_bool< typename detail::mp_and_impl<T...>::type >;
 
 namespace detail
 {
@@ -75,7 +84,7 @@ template<class... T> struct mp_and_impl< mp_list<T...>, mp_void<mp_if<T, void>..
 
 } // namespace detail
 
-template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
+BOOST_MP11_EXPORT template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>::type;
 
 #endif
 
@@ -83,11 +92,11 @@ template<class... T> using mp_and = typename detail::mp_and_impl<mp_list<T...>>:
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86355
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, != 0 )
 
-template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_not >::value == 0 >;
+BOOST_MP11_EXPORT template<class... T> using mp_all = mp_bool< mp_count_if< mp_list<T...>, mp_not >::value == 0 >;
 
 #else
 
-template<class... T> using mp_all = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_false >::value == 0 >;
+BOOST_MP11_EXPORT template<class... T> using mp_all = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_false >::value == 0 >;
 
 #endif
 
@@ -99,7 +108,7 @@ template<class... T> struct mp_or_impl;
 
 } // namespace detail
 
-template<class... T> using mp_or = mp_to_bool< typename detail::mp_or_impl<T...>::type >;
+BOOST_MP11_EXPORT template<class... T> using mp_or = mp_to_bool< typename detail::mp_or_impl<T...>::type >;
 
 namespace detail
 {
@@ -125,11 +134,11 @@ template<class T1, class... T> struct mp_or_impl<T1, T...>
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86356
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 ) || BOOST_MP11_WORKAROUND( BOOST_MP11_GCC, != 0 )
 
-template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value != 0 >;
+BOOST_MP11_EXPORT template<class... T> using mp_any = mp_bool< mp_count_if< mp_list<T...>, mp_to_bool >::value != 0 >;
 
 #else
 
-template<class... T> using mp_any = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_true >::value != 0 >;
+BOOST_MP11_EXPORT template<class... T> using mp_any = mp_bool< mp_count< mp_list<mp_to_bool<T>...>, mp_true >::value != 0 >;
 
 #endif
 
@@ -151,7 +160,7 @@ template<class T1, class... T> struct mp_same_impl<T1, T...>
 
 } // namespace detail
 
-template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
+BOOST_MP11_EXPORT template<class... T> using mp_same = typename detail::mp_same_impl<T...>::type;
 
 // mp_similar<T...>
 namespace detail
@@ -196,7 +205,7 @@ template<class T1, class T2, class T3, class... T> struct mp_similar_impl<T1, T2
 
 } // namespace detail
 
-template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
+BOOST_MP11_EXPORT template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::type;
 
 #if BOOST_MP11_GCC
 # pragma GCC diagnostic push
@@ -204,19 +213,21 @@ template<class... T> using mp_similar = typename detail::mp_similar_impl<T...>::
 #endif
 
 // mp_less<T1, T2>
-template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
+BOOST_MP11_EXPORT template<class T1, class T2> using mp_less = mp_bool<(T1::value < 0 && T2::value >= 0) || ((T1::value < T2::value) && !(T1::value >= 0 && T2::value < 0))>;
 
 #if BOOST_MP11_GCC
 # pragma GCC diagnostic pop
 #endif
 
 // mp_min<T...>
-template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
+BOOST_MP11_EXPORT template<class T1, class... T> using mp_min = mp_min_element<mp_list<T1, T...>, mp_less>;
 
 // mp_max<T...>
-template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
+BOOST_MP11_EXPORT template<class T1, class... T> using mp_max = mp_max_element<mp_list<T1, T...>, mp_less>;
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_FUNCTION_HPP_INCLUDED

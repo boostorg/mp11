@@ -8,6 +8,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
 #include <boost/mp11/utility.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/detail/config.hpp>
@@ -17,7 +26,7 @@
 #include <boost/mp11/detail/mp_fold.hpp>
 #include <boost/mp11/detail/mp_remove_if.hpp>
 #include <boost/mp11/detail/mp_is_list.hpp>
-#include <type_traits>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {
@@ -39,7 +48,7 @@ template<template<class...> class L, class... T, class V> struct mp_set_contains
 
 } // namespace detail
 
-template<class S, class V> using mp_set_contains = typename detail::mp_set_contains_impl<S, V>::type;
+BOOST_MP11_EXPORT template<class S, class V> using mp_set_contains = typename detail::mp_set_contains_impl<S, V>::type;
 
 // mp_set_push_back<S, T...>
 namespace detail
@@ -62,7 +71,7 @@ template<template<class...> class L, class... U, class T1, class... T> struct mp
 
 } // namespace detail
 
-template<class S, class... T> using mp_set_push_back = typename detail::mp_set_push_back_impl<S, T...>::type;
+BOOST_MP11_EXPORT template<class S, class... T> using mp_set_push_back = typename detail::mp_set_push_back_impl<S, T...>::type;
 
 // mp_set_push_front<S, T...>
 namespace detail
@@ -90,7 +99,7 @@ template<template<class...> class L, class... U, class T1, class... T> struct mp
 
 } // namespace detail
 
-template<class S, class... T> using mp_set_push_front = typename detail::mp_set_push_front_impl<S, T...>::type;
+BOOST_MP11_EXPORT template<class S, class... T> using mp_set_push_front = typename detail::mp_set_push_front_impl<S, T...>::type;
 
 // mp_is_set<S>
 namespace detail
@@ -138,7 +147,7 @@ template<template<class...> class L, class... T> struct mp_is_set_impl<L<T...>>
 
 } // namespace detail
 
-template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
+BOOST_MP11_EXPORT template<class S> using mp_is_set = typename detail::mp_is_set_impl<S>::type;
 
 // mp_set_union<L...>
 namespace detail
@@ -171,7 +180,7 @@ template<class L1, class L2, class L3, class... L> struct mp_set_union_impl<L1, 
 
 } // namespace detail
 
-template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
+BOOST_MP11_EXPORT template<class... L> using mp_set_union = typename detail::mp_set_union_impl<L...>::type;
 
 // mp_set_intersection<S...>
 namespace detail
@@ -199,7 +208,7 @@ template<class L, class... S> struct mp_set_intersection_impl<L, S...>: mp_defer
 
 } // namespace detail
 
-template<class... S> using mp_set_intersection = typename detail::mp_set_intersection_impl<S...>::type;
+BOOST_MP11_EXPORT template<class... S> using mp_set_intersection = typename detail::mp_set_intersection_impl<S...>::type;
 
 // mp_set_difference<L, S...>
 namespace detail
@@ -212,9 +221,11 @@ template<class... S> struct in_any_set
 
 } // namespace detail
 
-template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list<S>...>, mp_remove_if_q<L, detail::in_any_set<S...>> >;
+BOOST_MP11_EXPORT template<class L, class... S> using mp_set_difference = mp_if< mp_all<mp_is_list<S>...>, mp_remove_if_q<L, detail::in_any_set<S...>> >;
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_SET_HPP_INCLUDED

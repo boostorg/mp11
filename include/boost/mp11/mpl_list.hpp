@@ -8,6 +8,15 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
 #include <boost/mp11/detail/mpl_common.hpp>
 
 namespace boost
@@ -24,5 +33,7 @@ template<class... T> struct sequence_tag<mp11::mp_list<T...>>
 
 } // namespace mpl
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_MPL_LIST_HPP_INCLUDED

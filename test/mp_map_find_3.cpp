@@ -8,7 +8,7 @@
 
 // Same as mp_map_find_2.cpp, but with includes reversed
 
-#include <tuple>
+#include <boost/config/std/tuple.hpp>
 #include <boost/mp11/map.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 

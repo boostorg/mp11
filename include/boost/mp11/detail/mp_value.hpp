@@ -6,7 +6,7 @@
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/mp11/detail/config.hpp>
-#include <type_traits>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
@@ -15,7 +15,7 @@ namespace boost
 namespace mp11
 {
 
-template<auto A> using mp_value = std::integral_constant<decltype(A), A>;
+BOOST_MP11_EXPORT template<auto A> using mp_value = std::integral_constant<decltype(A), A>;
 
 } // namespace mp11
 } // namespace boost

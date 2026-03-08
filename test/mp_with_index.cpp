@@ -16,7 +16,7 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <tuple>
+#include <boost/config/std/tuple.hpp>
 
 using boost::mp11::mp_size_t;
 using boost::mp11::mp_for_each;

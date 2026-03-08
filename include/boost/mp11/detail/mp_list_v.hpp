@@ -15,7 +15,7 @@ namespace mp11
 #if defined(BOOST_MP11_HAS_TEMPLATE_AUTO)
 
 // mp_list_v<A...>
-template<auto... A> struct mp_list_v
+BOOST_MP11_EXPORT template<auto... A> struct mp_list_v
 {
 };
 

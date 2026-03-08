@@ -8,6 +8,15 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_MP11_INTERFACE_UNIT)
+
+#include <boost/mp11/version.hpp>
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.mp11;
+#endif
+
+#else
+
 #include <boost/mp11/detail/mp_map_find.hpp>
 #include <boost/mp11/list.hpp>
 #include <boost/mp11/integral.hpp>
@@ -15,7 +24,7 @@
 #include <boost/mp11/algorithm.hpp>
 #include <boost/mp11/function.hpp>
 #include <boost/mp11/set.hpp>
-#include <type_traits>
+#include <boost/mp11/detail/std/type_traits.hpp>
 
 namespace boost
 {
@@ -23,10 +32,10 @@ namespace mp11
 {
 
 // mp_map_contains<M, K>
-template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
+BOOST_MP11_EXPORT template<class M, class K> using mp_map_contains = mp_not<std::is_same<mp_map_find<M, K>, void>>;
 
 // mp_map_insert<M, T>
-template<class M, class T> using mp_map_insert = mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
+BOOST_MP11_EXPORT template<class M, class T> using mp_map_insert = mp_if< mp_map_contains<M, mp_first<T>>, M, mp_push_back<M, T> >;
 
 // mp_map_replace<M, T>
 namespace detail
@@ -47,7 +56,7 @@ template<template<class...> class M, class... U, class T> struct mp_map_replace_
 
 } // namespace detail
 
-template<class M, class T> using mp_map_replace = typename detail::mp_map_replace_impl<M, T>::type;
+BOOST_MP11_EXPORT template<class M, class T> using mp_map_replace = typename detail::mp_map_replace_impl<M, T>::type;
 
 // mp_map_update<M, T, F>
 namespace detail
@@ -65,8 +74,8 @@ template<class M, class T, template<class...> class F> struct mp_map_update_impl
 
 } // namespace detail
 
-template<class M, class T, template<class...> class F> using mp_map_update = typename detail::mp_map_update_impl<M, T, F>::type;
-template<class M, class T, class Q> using mp_map_update_q = mp_map_update<M, T, Q::template fn>;
+BOOST_MP11_EXPORT template<class M, class T, template<class...> class F> using mp_map_update = typename detail::mp_map_update_impl<M, T, F>::type;
+BOOST_MP11_EXPORT template<class M, class T, class Q> using mp_map_update_q = mp_map_update<M, T, Q::template fn>;
 
 // mp_map_erase<M, K>
 namespace detail
@@ -80,10 +89,10 @@ template<class M, class K> struct mp_map_erase_impl
 
 } // namespace detail
 
-template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
+BOOST_MP11_EXPORT template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
 
 // mp_map_keys<M>
-template<class M> using mp_map_keys = mp_transform<mp_first, M>;
+BOOST_MP11_EXPORT template<class M> using mp_map_keys = mp_transform<mp_first, M>;
 
 // mp_is_map<M>
 namespace detail
@@ -111,9 +120,11 @@ template<template<class...> class M, class... T> struct mp_is_map_impl<M<T...>>
 
 } // namespace detail
 
-template<class M> using mp_is_map = typename detail::mp_is_map_impl<M>::type;
+BOOST_MP11_EXPORT template<class M> using mp_is_map = typename detail::mp_is_map_impl<M>::type;
 
 } // namespace mp11
 } // namespace boost
+
+#endif
 
 #endif // #ifndef BOOST_MP11_MAP_HPP_INCLUDED
