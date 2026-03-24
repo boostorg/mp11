@@ -228,7 +228,7 @@ template<class L, class V> struct mp_fill_impl
 // An error "no type named 'type'" here means that the L argument of mp_fill is not a list
 };
 
-template<class T, class> using mp_fill_first_item = T;
+template<class T, class U> using mp_fill_impl_f = T;
 
 template<template<class...> class L, class... T, class V> struct mp_fill_impl<L<T...>, V>
 {
@@ -239,7 +239,7 @@ template<template<class...> class L, class... T, class V> struct mp_fill_impl<L<
 
 #else
 
-    using type = L<mp_fill_first_item<V, T>...>;
+    using type = L< mp_fill_impl_f<V, T>... >;
 
 #endif
 };
