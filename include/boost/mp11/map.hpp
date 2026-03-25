@@ -80,12 +80,12 @@ namespace detail
 
 template<class K> struct mp_map_erase_impl_f
 {
-    template<class T> using _f = std::is_same<mp_first<T>, K>;
+    template<class T> using fn = std::is_same<mp_first<T>, K>;
 };
 
 template<class M, class K> struct mp_map_erase_impl
 {
-    using type = mp_remove_if<M, mp_map_erase_impl_f<K>::template _f>;
+    using type = mp_remove_if_q<M, mp_map_erase_impl_f<K>>;
 };
 
 } // namespace detail
