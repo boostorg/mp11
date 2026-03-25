@@ -83,14 +83,9 @@ template<class K> struct mp_map_erase_impl_f
     template<class T> using fn = std::is_same<mp_first<T>, K>;
 };
 
-template<class M, class K> struct mp_map_erase_impl
-{
-    using type = mp_remove_if_q<M, mp_map_erase_impl_f<K>>;
-};
-
 } // namespace detail
 
-template<class M, class K> using mp_map_erase = typename detail::mp_map_erase_impl<M, K>::type;
+template<class M, class K> using mp_map_erase = mp_remove_if_q< M, detail::mp_map_erase_impl_f<K> >;
 
 // mp_map_keys<M>
 template<class M> using mp_map_keys = mp_transform<mp_first, M>;
