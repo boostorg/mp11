@@ -181,19 +181,19 @@ template<template<class...> class P, template<class...> class F> struct mp_trans
 
 #if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1920 )
 
-    template<class... U> struct _f_ { using type = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
-    template<class... U> using _f = typename _f_<U...>::type;
+    template<class... U> struct _f { using type = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>; };
+    template<class... U> using fn = typename _f<U...>::type;
 
 #else
 
-    template<class... U> using _f = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
+    template<class... U> using fn = mp_eval_if_q<mp_not<mp_invoke_q<Qp, U...>>, mp_first<mp_list<U...>>, Qf, U...>;
 
 #endif
 };
 
 template<template<class...> class P, template<class...> class F, class... L> struct mp_transform_if_impl
 {
-    using type = mp_transform<mp_transform_if_impl_f<P, F>::template _f, L...>;
+    using type = mp_transform_q<mp_transform_if_impl_f<P, F>, L...>;
 };
 
 } // namespace detail
