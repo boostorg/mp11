@@ -1040,20 +1040,19 @@ namespace detail
 
 template<class I> struct mp_replace_at_impl_p
 {
-    template<class T1, class T2> using _p = std::is_same<T2, I>;
+    template<class T1, class T2> using fn = std::is_same<T2, I>;
 };
 
 template<class W> struct mp_replace_at_impl_f
 {
-    template<class T1, class T2> using _f = W;
+    template<class T1, class T2> using fn = W;
 };
 
 template<class L, class I, class W> struct mp_replace_at_impl
 {
     static_assert( I::value >= 0, "mp_replace_at<L, I, W>: I must not be negative" );
 
-
-    using type = mp_transform_if<mp_replace_at_impl_p<mp_size_t<I::value>>::template _p, mp_replace_at_impl_f<W>::template _f, L, mp_iota<mp_size<L> > >;
+    using type = mp_transform_if_q<mp_replace_at_impl_p<mp_size_t<I::value>>, mp_replace_at_impl_f<W>, L, mp_iota<mp_size<L> > >;
 };
 
 } // namespace detail
