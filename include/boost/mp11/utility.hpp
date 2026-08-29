@@ -163,6 +163,14 @@ template<class... Q> struct mp_compose_q
     template<class... T> using fn = mp_front< mp_fold<mp_list<Q...>, mp_list<T...>, detail::mp_compose_helper> >;
 };
 
+#if defined(BOOST_MP11_HAS_NONTYPE_TEMPLATE_ARGS) && defined(BOOST_MP11_HAS_NONTYPE_TEMPLATE_PARAMETER_AUTO)
+template<auto Expr>
+struct mp_quote_expr {
+    template<class... Ts>
+    using fn = decltype(Expr(std::declval<Ts&>()...));
+};
+#endif
+
 } // namespace mp11
 } // namespace boost
 

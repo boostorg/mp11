@@ -260,6 +260,40 @@ using R1 = mp_transform_q<mp_quote_trait<std::add_pointer>, L1>;
   // mp_list<int*, void*, float*>
 ```
 
+## mp_quote_expr<Expr>
+
+    template<auto Expr>
+    struct mp_quote_expr {
+        template<class... Ts>
+        using fn = decltype(Expr(std::declval<Ts&>()...));
+    };
+
+`mp_quote_expr<Expr>` transforms the template `Expr` into a _quoted metafunction_, a type with a nested template `fn` such that `fn<T...>` returns `Expr(std::declval<Ts&>()...)`.
+
+.Using mp_quote_expr to wrap types depending on whether they have a `value` or not
+```
+template<class> struct with_value {};
+template<class> struct without_value {};
+
+struct foo { int value{}; };
+struct bar { };
+
+using L1 = mp_list<foo, bar>;
+using R1 = mp_transform_q<
+    mp_quote_expr<[]<class T>(T t) {
+      if constexpr (requires { t.value; }) {
+        return with_value<T>{};
+      } else {
+        return without_value<T>{};
+      }
+    }>,
+    L1
+  >;
+  // mp_list<with_value<foo>, without_value<bar>>
+```
+
+> `mp_quote_trait<F>` requires C++20 support
+
 ## mp_invoke_q<Q, T...>
 
     template<class Q, class... T> using mp_invoke_q = typename Q::template fn<T...>;
